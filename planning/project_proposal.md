@@ -17,11 +17,9 @@ What is the main purpose of your project? What are the key features your site ha
 Add a list of your groups's brainstormed features list
 1. Users can log in and see info pertaining to them
 2. Users can log out and see basic home page
-3. Users can add items to list 
-4. Users can remove items from a list
-5. Users can add details to the items they add on a list
-6. Users can go to a tab named achiements to see a summary of previous completed tasks
-7. Users 
+3. Users can add items to list/Users can remove items from a list
+4. Users can add details to the items they add on a list
+5. Users can go to a tab named achiements to see a summary of previous completed tasks
 
 ## Related Work
 
