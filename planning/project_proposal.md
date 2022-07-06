@@ -26,7 +26,10 @@ Add a list of your groups's brainstormed features list
 ## Related Work
 
 What similar apps and websites? How will your project stand out from these other websites?
+Our project will stand out from other apps and websites because users will be able to see statistics that is displayed through visualizations related to their progress over time. 
 
 ## Open Questions
 
 What questions do you still have? What topics do you need to research more for your project?
+1. Our group needs to research how to incorporate in third party libraries related to showing visualizations 
+
