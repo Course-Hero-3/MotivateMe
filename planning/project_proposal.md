@@ -1,6 +1,6 @@
 # Project Proposal
 
-Pod Members: **Kian, Stephane, Kai**
+Pod Members: **Kian, Stephane, Gikai**
 
 ## Problem Statement
 
