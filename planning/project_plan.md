@@ -1,6 +1,6 @@
 # Project Plan
 
-Pod Members: **Stephane, Kian, Gikai**
+Pod Members: **Stephane Mbenga, Kian Ranjbar, Gikai Andrews**
 
 ## Problem Statement and Description
 
