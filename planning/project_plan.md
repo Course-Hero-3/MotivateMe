@@ -52,12 +52,17 @@ List the current user stories you will implement.
 
 ## Pages/Screens
 
-List all the pages and screens in the app. Include wireframes for at least 3 of them.
+![](https://imgur.com/utWufSu)
+![]()
+![]()
+![]()
+![]()
+![]()
 
 ## Data Model
 
 Describe your app's data model using diagrams or tables
-![Model](https://i.imgur.com/vWhq4bT.png)
+![](https://i.imgur.com/vWhq4bT.png)
 
 ## Endpoints
 
