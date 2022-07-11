@@ -56,9 +56,9 @@ List the current user stories you will implement.
 ![](https://i.imgur.com/A6Ggans.png)
 ![](https://i.imgur.com/qcPwNQu.png)
 ![](https://i.imgur.com/ticuZkR.png)
-![](https://i.imgur.com/52ytL2g.png)
-![](https://i.imgur.com/U4LBeaO.png)
-![](https://i.imgur.com/3hbyIlo.png)
+![](https://i.imgur.com/KdgvUkx.png)
+![](https://i.imgur.com/LvSt6oz.png)
+![](https://i.imgur.com/C8oEEEu.png)
 
 ## Data Model
 
