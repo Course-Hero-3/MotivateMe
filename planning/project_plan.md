@@ -57,10 +57,9 @@ List all the pages and screens in the app. Include wireframes for at least 3 of 
 ## Data Model
 
 Describe your app's data model using diagrams or tables
-![](https://i.imgur.com/rDZuDg9.png)
+![](https://i.imgur.com/vWhq4bT.png)
 
 ## Endpoints
 
-List the API endpoints you will need to implement.
-
+![](https://i.imgur.com/XpwZe7S.png)
 ***Don't forget to set up your Issues, Milestones, and Project Board!***
