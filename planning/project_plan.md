@@ -57,6 +57,7 @@ List all the pages and screens in the app. Include wireframes for at least 3 of 
 ## Data Model
 
 Describe your app's data model using diagrams or tables
+![](https://i.imgur.com/rDZuDg9.png)
 
 ## Endpoints
 
