@@ -52,12 +52,13 @@ List the current user stories you will implement.
 
 ## Pages/Screens
 
-![](https://imgur.com/utWufSu)
-![]()
-![]()
-![]()
-![]()
-![]()
+![](https://i.imgur.com/utWufSu.png)
+![](https://i.imgur.com/A6Ggans.png)
+![](https://i.imgur.com/qcPwNQu.png)
+![](https://i.imgur.com/ticuZkR.png)
+![](https://i.imgur.com/52ytL2g.png)
+![](https://i.imgur.com/U4LBeaO.png)
+![](https://i.imgur.com/3hbyIlo.png)
 
 ## Data Model
 
