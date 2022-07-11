@@ -38,7 +38,3 @@ Include at least 10 user stories.
 * As a nursing major, I need to keep track of care plans, flash cards, drug cards, and process recordings organized so I can see what case studies are gonna be due for our scenarios
 
 * As a foreign student living abroad, I need to make sure I have all classes and tests at the correct time, so I don't miss anything due to my different time zone.
-
-## Wireframe (Bonus)
-
-<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FxGcxcfTLBdkcb2WEyut2nn%2FCourse-Hero-3-Capstone-Project%3Fnode-id%3D0%253A1" allowfullscreen></iframe>
