@@ -18,11 +18,14 @@ Due July 24th 2022 (end of Week 7)
 	
 Front-End 
 1. Dashboard comp. (user welcome div with pfp, integrate recap and to do list viewer)
-2. Recap comp. (summary statistics UI)
-3. Get a visualizations library, and implement:
-    a. Light mode / dark mode
-    b. Calendar view
-    c. Charts for recap
+2. To-Do (To-Do list viewer)
+3. Recap comp. (summary statistics UI)
+   a. Get a visualizations library, and implement:
+   b. Light mode / dark mode
+   c. Calendar view
+4. Charts for recap
+5. Other comps (NotFound.jsx, AccessForbidden.jsx, etc.)
+
 
 Back-End
 1. Models (task, completed)
