@@ -28,27 +28,27 @@ User Personas:
 
 List the current user stories you will implement.
 
-* As a professor, I want to organize myself by listing what assignments, exams, and projects are due for my students, so that’s why I would like to use this application to make myself organized.
+1. As a professor, I want to organize myself by listing what assignments, exams, and projects are due for my students, so that’s why I would like to use this application to make myself organized.
 
-* As an honors student, I want to be able to see little summaries of previous accomplishments, so that I stay motivated and stay on top of my class while studying to become a surgeon.
+2. As an honors student, I want to be able to see little summaries of previous accomplishments, so that I stay motivated and stay on top of my class while studying to become a surgeon.
 
-*  As a struggling student, I want to be able to keep track of all my tests, so that I give myself enough time to study instead of cramming it all into the day before the test.
+3. As a struggling student, I want to be able to keep track of all my tests, so that I give myself enough time to study instead of cramming it all into the day before the test.
 
-* As a computer science student, I want to be able to see what projects I have to submit for my internships at Google, Apple, and Amazon.
+4. As a computer science student, I want to be able to see what projects I have to submit for my internships at Google, Apple, and Amazon.
 
-* As a club president I want to schedule club meetings and also log our clubs activities so we are more organized as a club
+5. As a club president I want to schedule club meetings and also log our clubs activities so we are more organized as a club
 
-* As a student/teaching assistant, I need to keep track of the assignments I personally have, as well as the projects my students are working on, so that I don't spend too much time on either one and balance my time
+6. As a student/teaching assistant, I need to keep track of the assignments I personally have, as well as the projects my students are working on, so that I don't spend too much time on either one and balance my time
 
-* As a team captain for my intramural sports soccer team, I want to be able to keep track of our soccer games on a calendar, and also log our soccer games so we can track our progress over time
+7.  As a team captain for my intramural sports soccer team, I want to be able to keep track of our soccer games on a calendar, and also log our soccer games so we can track our progress over time
 
-* As a working student, I need to keep track of my In N Out shifts as well to know when my live classes are, so that I can make enough money to pay for my tuition as well as pass my classes
+8.  As a working student, I need to keep track of my In N Out shifts as well to know when my live classes are, so that I can make enough money to pay for my tuition as well as pass my classes
 
-* As a professor, I need to log my students exam/homework grades and get a statistical summary of my students successes/failures to present to them how they did at the end of the year
+9.  As a professor, I need to log my students exam/homework grades and get a statistical summary of my students successes/failures to present to them how they did at the end of the year
 
-* As a nursing major, I need to keep track of care plans, flash cards, drug cards, and process recordings organized so I can see what case studies are gonna be due for our scenarios
+10. As a nursing major, I need to keep track of care plans, flash cards, drug cards, and process recordings organized so I can see what case studies are gonna be due for our scenarios
 
-* As a foreign student living abroad, I need to make sure I have all classes and tests at the correct time, so I don't miss anything due to my different time zone.
+11. As a foreign student living abroad, I need to make sure I have all classes and tests at the correct time, so I don't miss anything due to my different time zone.
 
 ## Pages/Screens
 
