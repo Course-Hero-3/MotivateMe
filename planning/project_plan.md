@@ -52,7 +52,7 @@ List the current user stories you will implement.
 
 ## Pages/Screens
 
-<img src='5n4YjfM - Imgur.png' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![](https://i.imgur.com/4dfBIIA.png)
 ![](https://i.imgur.com/A6Ggans.png)
 ![](https://i.imgur.com/qcPwNQu.png)
 ![](https://i.imgur.com/ticuZkR.png)
@@ -63,7 +63,7 @@ List the current user stories you will implement.
 ## Data Model
 
 Describe your app's data model using diagrams or tables
-![](https://i.imgur.com/vWhq4bT.png)
+![](https://i.imgur.com/rm1mcso.png)
 
 ## Endpoints
 
