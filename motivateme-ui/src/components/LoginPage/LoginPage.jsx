@@ -6,13 +6,13 @@ export default function LoginPage() {
     
     <div className='login-page'>
      <div className='side-nav'>
-     
-
-     </div>
+     <p> for the sidebar picture</p>
+     </div> 
+     <div className='login-form'>
       <h2 className='login-title'>Login</h2>
       <br></br>
       <h3 className='login-text'>Track your progress with friends!</h3>
-     <div className='login-form'>
+    
      <form>
           <label for="email" className='label'>Email</label>
           <br></br>
@@ -22,14 +22,13 @@ export default function LoginPage() {
           <br></br>
           <input type="text" id="password" name="password" className='form-input' placeholder='Type your password'></input>
           <br></br>
-          <div className='checkbox-text'>
+          <div className='checkbox'>
           <input type="checkbox" id="remember" name="remember" value="remember"></input>
-          <p>Remember me</p>
+          <p className='checkbox-text'>Remember me</p>
           </div>
           <button type="button" className='login-button'>Login</button>
 
     </form>
-
     </div>
     </div>
   )

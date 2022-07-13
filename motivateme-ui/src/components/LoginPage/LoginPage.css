@@ -1,12 +1,15 @@
 .login-page{
 display: flex;
 flex-direction: row;
+width:100vw;
+justify-content: center;
 
 }
 
 .side-nav{
 display: flex;
 flex-direction: row;
+width: 700px;
 }
 
 .login-form{
@@ -29,5 +32,47 @@ flex-direction: column;
 
 display: flex;
 flex-direction: column  ;
+
+}
+
+.form-input{
+    background-color: white;
+    color: black;
+    width:250px;
+    border-radius: 4px;
+    font-size: 20px;
+
+}
+
+.login-button{
+background-color:#34B3F1;
+width: 250px;
+border-radius: 4px;
+font-size: 20px;
+opacity: 0.6;
+transition: 0.3s;
+}
+
+.login-button:hover{
+    opacity: 1;
+}
+
+
+
+
+.label{
+
+ font-size: 20px;  
+    
+}
+
+.checkbox{
+
+display: flex;
+flex-direction: row;
+}
+
+.checkbox-text{
+font-size: 20px;
 
 }

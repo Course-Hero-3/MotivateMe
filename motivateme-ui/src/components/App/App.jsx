@@ -7,6 +7,7 @@ import Navbar from "../Navbar/Navbar"
 import TodoPage from "../TodoPage/TodoPage"
 import LandingPage from "../LandingPage/LandingPage"
 import './App.css'
+import About from "../About/About"
 
 function App() {
   const [count, setCount] = useState(0)
