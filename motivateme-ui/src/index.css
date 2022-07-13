@@ -1,12 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,400;1,300&family=Assistant&family=Montserrat&family=Nunito&display=swap");
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   --side-padding: 40px;
   --content-width: 1100px;
@@ -20,6 +15,7 @@
   --font-dark: #212121;
   --primary-blue: #34B3F1;
   --input-background:#F2F2F2;
+  --body-background: #FFFFFF;
   --font-light: #5b5b5b;
   --border-color: #e4e4e4;
   --star-color-filled: #e5a800;
@@ -35,13 +31,18 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: #8d8b8b;
+ 
+  /*-webkit-font-smoothing: antialiased;*/
+ /* -moz-osx-font-smoothing: grayscale;*/
+  background: var(--pure-white);
   height: 100vh;
   width:100vw;
+  font-family: 'Montserrat', sans-serif;
+  /*
+  font-family: 'Aleo', serif;
+  font-family: 'Assistant', sans-serif;
+  font-family: 'Nunito', sans-serif;
+  */
 }
 
 
