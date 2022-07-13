@@ -18,11 +18,14 @@
   --bright-red: #fe3210;
   --muted: #969696;
   --font-dark: #212121;
+  --primary-blue: #34B3F1;
+  --input-background:#F2F2F2;
   --font-light: #5b5b5b;
   --border-color: #e4e4e4;
   --star-color-filled: #e5a800;
   --star-color-empty: #cbd4e6;
-
+  --heading-color: #172B4D;
+  --landing-text-color: #869197;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
