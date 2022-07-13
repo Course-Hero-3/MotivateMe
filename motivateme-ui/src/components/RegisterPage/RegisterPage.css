@@ -8,12 +8,23 @@
     font-weight: bold;
     font-size: 35px;
 }
-.side-nav {
+.side-nav-bar {
     width: 800px;
     margin-left: 0;
     height: 100vh;
     background: var(--primary-blue);
+    display: flex;
+    justify-content: center;
 }
+
+.register-img {
+    width: 600px;
+    height: 600px;
+}
+.side-nav-image-wrapper {
+    margin-top: 180px;
+}
+
 .register-form-wrapper {
     display: flex;
     flex-direction: column;

@@ -1,9 +1,12 @@
 import React from 'react'
 import "./RegisterPage.css"
+import sideNavPic from "../../assets/login-pic-adobe-stock.jpeg"
 export default function RegisterPage() {
   return (
     <div className='register-page'>
-      <div className = "side-nav"></div>
+      <div className = "side-nav-bar">
+        <div className='side-nav-image-wrapper'><img className = "register-img" src={sideNavPic}></img></div>
+      </div>
       <div className='register-form-wrapper'>
         <form className='register-form'>
             <div className='main-titles'>       
