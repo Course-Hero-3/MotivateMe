@@ -18,9 +18,9 @@ function App() {
             <Navbar/> 
             <LandingPage/>
             <Routes>
-                <Route path = "/login" element = {LoginPage}/>
-                <Route path = "/register" element = {RegisterPage}/>
-                <Route path = "/ToDo" element = {TodoPage}/>
+                <Route path = "/login" element = {<LoginPage/>}/>
+                <Route path = "/register" element = {<RegisterPage/>}/>
+                <Route path = "/ToDo" element = {<TodoPage/>}/>
             </Routes>
           </div>
       </BrowserRouter>
