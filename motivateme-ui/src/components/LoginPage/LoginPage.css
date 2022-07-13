@@ -19,3 +19,15 @@ flex-direction: column;
     display: flex;
     flex-direction: column;
 }
+
+.checkbox-text{
+    display: flex;
+    flex-direction: column;
+}
+
+.login-title{
+
+display: flex;
+flex-direction: column  ;
+
+}

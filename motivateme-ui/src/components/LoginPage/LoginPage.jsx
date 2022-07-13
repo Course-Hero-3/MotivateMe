@@ -22,9 +22,12 @@ export default function LoginPage() {
           <br></br>
           <input type="text" id="password" name="password" className='form-input' placeholder='Type your password'></input>
           <br></br>
+          <div className='checkbox-text'>
           <input type="checkbox" id="remember" name="remember" value="remember"></input>
-
+          <p>Remember me</p>
+          </div>
           <button type="button" className='login-button'>Login</button>
+
     </form>
 
     </div>
