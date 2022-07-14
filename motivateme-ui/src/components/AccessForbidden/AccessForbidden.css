@@ -1,0 +1,17 @@
+.accessforbidden{
+
+display: flex;
+flex-direction: column;
+}
+
+.gif{
+
+    width: 200px;
+    height: 150px;
+}
+
+
+.statement{
+
+    font-size: 12px;
+}
