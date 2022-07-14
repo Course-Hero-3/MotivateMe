@@ -1,0 +1,48 @@
+.todo-list {
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 50%;
+    margin-left: 10px;
+
+}
+
+.todo-card {
+    width: 688px;
+    height: 134px;
+    background:#D9EAFF;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 20px;
+    box-shadow: 0 0 10px #dbdbdb;
+    transition: .3s;
+}
+
+.due-icon {
+    height: 55px;
+    width: 55px;
+    margin-bottom: 15px;
+    margin-left: 5px;
+}
+
+.todo-card:hover {
+    background: var(--primary-blue);
+}
+
+.due-date-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 300px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.name-wrapper {
+    margin-left: 5px;
+
+}
