@@ -103,4 +103,3 @@ Recap Screen:
 
 ## Endpooint Tree
 ![](https://i.imgur.com/wMhd3GI.png)
-***Don't forget to set up your Issues, Milestones, and Project Board!***
