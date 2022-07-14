@@ -2,11 +2,13 @@ Things to do if you want to work on this by yourself..
 
 1) npm install --save express@next morgan cors nodemon
 2) npm install --save bcrypt colors dotenv pg
+3) npm install --save jsonwebtoken
+(you could do all the top 3 steps in 1 step but up to you)
 
-3) psql -f motivateme.sql
+4) psql -f motivateme.sql
     a) then click enter (to clear the database and start over if you want)
 
-4) npm run dev
+5) npm run dev
 
 also:
 .env should look SOMETHING LIKE...
