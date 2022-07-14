@@ -4,7 +4,9 @@ Pod Members: **Stephane Mbenga, Kian Ranjbar, Gikai Andrews**
 
 ## Problem Statement and Description
 
-Insert the latest summary of your problem statement and app description.
+Problem Statement: Student planners can be boring and stressful to look at, especially if the schedule is constantly packed and seems to be never-ending. Why not add a bit of motivation to keep students up and running? Besides organizing their school life, MotivateMe (App Name) allows users to see fun stats on previous tasks they have completed in order to keep them motivated. From wanting to increase their test scores to simply maintaining their already adequate project scores, students have something to look forward to besides an ugly transcript.
+
+Description: MotivateMe allows users to create accounts in order to be able to access their information anywhere as long as they are connected to the internet! After logging in, users can see their Dashboard which briefly displays a small amount of upcoming tasks they have planned, as well as some statistics to see their previous performances in certain categories. In the To-Do Page, users can add, remove, update, and complete tasks. It also shows a full view of all upcoming tasks. The last feature that makes our app stand out is our Recap Page which shows graphs, charts, and other visualizations of the user's statistics in hopes to motivate them to continue doing well, or perhaps motivate them to do better.
 
 ## User Roles and Personas
 
