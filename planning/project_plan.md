@@ -53,6 +53,8 @@ List the current user stories you will implement.
 ## Pages/Screens
 
 ![](https://i.imgur.com/4dfBIIA.png)
+![](https://i.imgur.com/udCRd6P.png)
+![](https://i.imgur.com/8tJJMD2.png)
 ![](https://i.imgur.com/A6Ggans.png)
 ![](https://i.imgur.com/qcPwNQu.png)
 ![](https://i.imgur.com/ticuZkR.png)
