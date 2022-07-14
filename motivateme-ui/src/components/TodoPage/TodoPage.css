@@ -1,0 +1,20 @@
+.todo-page {
+    display: flex;
+    flex-direction: column;
+    height: 800px;
+    align-items: center;
+    width: 100vw;
+    font-family: 'Nunito', sans-serif;
+}
+
+.todo-title {
+    font-size: 30px;
+}
+
+.todo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 100%;
+}
