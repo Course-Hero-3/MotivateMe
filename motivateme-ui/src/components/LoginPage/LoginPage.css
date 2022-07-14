@@ -3,25 +3,44 @@
     height: 100vh;
     display: flex;
     align-items: center;
+    overflow: hidden;
 
 }
 
 .side-nav{
-    width: 800px;
+    width: 780px;
     margin-left: 0;
     height: 100vh;
     align-items: right;
+    background-color: #34B3F1;
+    padding-right:22px;
+    justify-content: center;
+    display: flex;
+}
+
+.login-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 770px;
+
 }
 
 .login-form{
 display: flex;
 flex-direction: column;
+padding-left: 40px;
+height: 500px;
+width: 500px;
+justify-content: center;
+align-items: center;
 
 }
 
 .login-text{
     display: flex;
     flex-direction: column;
+    font-size: 22px;
 }
 
 .checkbox-text{
@@ -33,15 +52,18 @@ flex-direction: column;
 
 display: flex;
 flex-direction: column  ;
+font-weight: bold;
+font-size: 35px;
 
 }
 
 .form-input{
-    background-color: white;
+    background-color:#ffff();
     color: black;
     width:250px;
     border-radius: 4px;
     font-size: 20px;
+    
 
 }
 
@@ -50,15 +72,12 @@ background-color:#34B3F1;
 width: 250px;
 border-radius: 5px;
 font-size: 20px;
-opacity: 0.6;
-transition: 0.3s;
+border: none;
+align-self: flex-start;
+padding: 15px 20px;
+color: white;
+cursor: pointer;
 }
-
-.login-button:hover{
-    opacity: 1;
-}
-
-
 
 
 .label{
@@ -76,4 +95,19 @@ flex-direction: row;
 .checkbox-text{
 font-size: 20px;
 
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.footer-text a:link{
+    text-decoration: none;
+    
+}
+
+.footer-text a:active{
+    text-decoration: underline;
 }
