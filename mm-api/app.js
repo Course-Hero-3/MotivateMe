@@ -2,6 +2,7 @@ const express = require("express")
 const morgan = require("morgan")
 const cors = require("cors")
 const { NotFoundError } = require("./utils/errors")
+const security = require("./middleware/security")
 
 const app = express() // app is now an express object
 
@@ -15,6 +16,11 @@ app.use(function(req, res, next) {
 app.use(morgan("tiny"))
 app.use(express.json())
 app.use(cors())
+
+// for each request, check if a token exists in the authorization header
+// if it does, attach the decoded user to res.locals
+// so res.locals will be available in the route body!
+app.use(security.extractUserFromJwt)
 
 // put all extra routes here such as 
 const authRoute = require("./routes/auth")
