@@ -63,11 +63,11 @@ List the current user stories you will implement.
 ## Data Model
 
 Describe your app's data model using diagrams or tables
-![](https://i.imgur.com/hPNvNwf.png)
-![](https://i.imgur.com/adbdjZT.png)
-![](https://i.imgur.com/63UjG7k.png)
-![](https://i.imgur.com/5F1oHLh.png)
-![](https://i.imgur.com/rm1mcso.png)
+![](https://i.imgur.com/lydhAYG.png)
+![](https://i.imgur.com/fsu4xPm.png)
+![](https://i.imgur.com/joEi2qJ.png)
+![](https://i.imgur.com/xk73yO4.png)
+![](https://i.imgur.com/wjyOAtT.png)
 
 ## Endpoints
 ![](https://i.imgur.com/EcbJgkr.png)
