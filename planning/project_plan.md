@@ -32,7 +32,7 @@ List the current user stories you will implement.
 
 2. As an honors student, I want to be able to see little summaries of previous accomplishments, so that I stay motivated and stay on top of my class while studying to become a surgeon.
 
-3. As a struggling student, I want to be able to keep track of all my tests, so that I give myself enough time to study instead of cramming it all into the day before the test.
+3. As a student I want to have my own account associated with my school email including a profile picture, and username.
 
 4. As a computer science student, I want to be able to see what projects I have to submit for my internships at Google, Apple, and Amazon.
 
