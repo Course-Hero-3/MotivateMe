@@ -30,7 +30,7 @@ User Personas:
 
 List the current user stories you will implement.
 
-1. As a professor, I want to organize myself by listing what assignments, exams, and projects are due for my students, so that’s why I would like to use this application to make myself organized.
+1. As a film student, I want to organize myself by listing what projects and short films are due for the film festival, so that’s why I would like to use this application to make myself organized.
 
 2. As an honors student, I want to be able to see little summaries of previous accomplishments, so that I stay motivated and stay on top of my class while studying to become a surgeon.
 
@@ -38,7 +38,7 @@ List the current user stories you will implement.
 
 4. As a computer science student, I want to be able to see what projects I have to submit for my internships at Google, Apple, and Amazon.
 
-5. As a club president I want to schedule club meetings and also log our clubs activities so we are more organized as a club
+5. As a club president I want to schedule club meetings and also log our clubs activities so we are more organized as a club.
 
 6. As a student/teaching assistant, I need to keep track of the assignments I personally have, as well as the projects my students are working on, so that I don't spend too much time on either one and balance my time
 
@@ -46,7 +46,7 @@ List the current user stories you will implement.
 
 8.  As a working student, I need to keep track of my In N Out shifts as well to know when my live classes are, so that I can make enough money to pay for my tuition as well as pass my classes
 
-9.  As a professor, I need to log my students exam/homework grades and get a statistical summary of my students successes/failures to present to them how they did at the end of the year
+9.  As a law student, I need to organize myself with these statutes, casebooks, and individual court cases. In case we have a review, I can be ready. 
 
 10. As a nursing major, I need to keep track of care plans, flash cards, drug cards, and process recordings organized so I can see what case studies are gonna be due for our scenarios
 
