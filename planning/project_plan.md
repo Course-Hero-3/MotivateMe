@@ -28,11 +28,11 @@ User Personas:
 
 List the current user stories you will implement.
 
-1. As a film student, I want to organize myself by listing what projects and short films are due for the film festival, so that’s why I would like to use this application to make myself organized.
+1. As a film student, I want to organize myself by listing what projects and short films are due for the film festival, so that’s why I would like to use this application to make myself organized. (Kai)
 
 2. As an honors student, I want to be able to see little summaries of previous accomplishments, so that I stay motivated and stay on top of my class while studying to become a surgeon.
 
-3. As a student I want to have my own account associated with my school email including a profile picture, and username.
+3. As a student I want to have my own account associated with my school email including a profile picture, and username.(Kai)
 
 4. As a computer science student, I want to be able to see what projects I have to submit for my internships at Google, Apple, and Amazon.
 
@@ -42,7 +42,7 @@ List the current user stories you will implement.
 
 7.  As a team captain for my intramural sports soccer team, I want to be able to keep track of our soccer games on a calendar, and also log our soccer games so we can track our progress over time
 
-8.  As a working student, I need to keep track of my In N Out shifts as well to know when my live classes are, so that I can make enough money to pay for my tuition as well as pass my classes
+8.  As a working student, I need to keep track of my In N Out shifts as well to know when my live classes are, so that I can make enough money to pay for my tuition as well as pass my classes.(Kai)
 
 9.  As a law student, I need to organize myself with these statutes, casebooks, and individual court cases. In case we have a review, I can be ready. 
 
