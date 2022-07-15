@@ -52,15 +52,8 @@ List the current user stories you will implement.
 
 ## Pages/Screens
 
-![](https://i.imgur.com/4dfBIIA.png)
-![](https://i.imgur.com/udCRd6P.png)
-![](https://i.imgur.com/8tJJMD2.png)
-![](https://i.imgur.com/A6Ggans.png)
-![](https://i.imgur.com/qcPwNQu.png)
-![](https://i.imgur.com/ticuZkR.png)
-![](https://i.imgur.com/KdgvUkx.png)
-![](https://i.imgur.com/LvSt6oz.png)
-![](https://i.imgur.com/C8oEEEu.png)
+Figma Wireframe Link: https://www.figma.com/community/file/1128735735093838803
+![](https://media3.giphy.com/media/oYhDoGyv1Uelfvl1Ll/giphy.gif?cid=790b7611f7f5ba2a8f35e3fdc9fffa60ec8f2d5ba4a72e26&rid=giphy.gif&ct=g)
 
 ## Data Model
 
