@@ -20,3 +20,8 @@ DATABASE_PASS=postgresORdefaultORyoursystempassword
 DATABASE_HOST=localhost
 DATABASE_PORT=5432
 DATABASE_NAME=motivateme
+
+
+git issues....
+command shift p for git graph
+look at recording for July 14
