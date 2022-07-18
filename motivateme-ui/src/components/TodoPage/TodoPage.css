@@ -13,8 +13,17 @@
 
 .todo-wrapper {
     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     height: 100%;
     width: 100%;
+}
+
+.todo-btn.create {
+    padding: 10px 25px;
+    border-radius: 10px;
+    border: none;
+    background: var(--primary-blue);
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
 }

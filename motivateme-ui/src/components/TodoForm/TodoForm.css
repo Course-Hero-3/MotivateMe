@@ -12,6 +12,15 @@
     align-items: flex-start;
 }
 
+.input-field.checkbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    align-items: flex-start;
+}
+
 .category-inputs {
     display: flex;
 }
@@ -20,11 +29,11 @@
     display: flex;
     flex-direction: row;
     margin-top: 10px;
-    width: 400px;
+    width: 100%;
 }
 
 .form-input.form {
-    width: 400px;
+    width: 100%;
     padding: 10px 5px;
     border-radius: 5px;
     background: var(--input-background);
@@ -32,11 +41,11 @@
 }
 
 .form-split {
-    width: 400px;
+    width: 100%;
 }
 
 .form-input.split {
-    width: 200px;
+    width: 100%;
 }
 
 .form-input.description {
@@ -51,7 +60,11 @@
     resize: none;
 }
 
-.movie_info_modal {
+.hidden {
+    display: none;
+}
+
+.form_modal {
     position: fixed;
     z-index: 1;
     padding-top: 100px;
@@ -68,7 +81,7 @@
     color: #333;
 }
 
-.movie_modal_content{
+.form_modal_content{
     text-align: center;
     margin: auto;
     font-family: 'Kanit', sans-serif;
@@ -76,7 +89,8 @@
     position: relative ;
     background-color: #fff;
     margin: auto;
-    padding: 180px 80px;
+    padding: 30px 25px;
+    border-radius: 10px;
     border: 1px solid #888;
     width: 40%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
@@ -85,7 +99,20 @@
     animation-name: animatetop;
     animation-duration: 0.4s;
     color: #333;
+}
+::placeholder {
+    font-size: 15px;
+}
 
+.form-submit-btn {
+    width: 80px;
+    cursor: pointer;
+    font-size: 15px;
+    height: 44px;
+    border-radius: 10px;
+    border: none;
+    background: var(--primary-blue);
+    color: var(--pure-white);
 }
 
 @-webkit-keyframes animatetop {
