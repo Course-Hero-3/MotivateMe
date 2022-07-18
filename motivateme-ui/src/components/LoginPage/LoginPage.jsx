@@ -8,11 +8,11 @@ export default function LoginPage() {
      <div className='side-nav'>
      <p> for the sidebar picture</p>
      </div> 
+     <div className='login-wrapper'>
      <div className='login-form'>
       <h2 className='login-title'>Login</h2>
       <br></br>
       <h3 className='login-text'>Track your progress with friends!</h3>
-    
      <form>
           <label for="email" className='label'>Email</label>
           <br></br>
@@ -27,8 +27,12 @@ export default function LoginPage() {
           <p className='checkbox-text'>Remember me</p>
           </div>
           <button type="button" className='login-button'>Login</button>
-
+          <br></br>
+          <div className='footer'>
+          <p className='footer-text'>Don't have an account? Sign up<a href='/register'> here</a></p>
+          </div>
     </form>
+    </div>
     </div>
     </div>
   )

@@ -1,12 +1,41 @@
-// this MIGHT handle..
-// 1) PUT request to update a task
+const { BadRequestError, ForbiddenError } = require("../utils/errors")
+const db = require("../db")
 
-// This may be a simple function to make sure that the task that the user
-// is trying to update BELONGS to that user already
 
-// depends on Front-End Implementation
-// may be as simple as..
-// (might need to fetch the task by ID or something)
-// if user.user_id !== task.user_id
-// then throw Forbidden Error
-// else next() to continue the PUT request in the route
+const authedUserOwnsTask = async (req, res, next) => {
+    try {
+        const publicUserFromDecodedToken = res.locals.user 
+        
+        if (!publicUserFromDecodedToken?.userId) {    // if the user passed in doesn't have a userId
+            throw new BadRequestError(`userId is missing from the user information in order to create a task for the user`)
+        }
+        if (!req.body?.taskId) {
+            throw new BadRequestError(`No taskId was passed through to update a task`)
+        }
+        const givenTaskId = req.body.taskId
+
+        const taskExistsText = `SELECT * FROM tasks WHERE task_id=$1;`;
+        const taskExistsValues = [givenTaskId]            
+        const taskExistsResult = await db.query(taskExistsText, taskExistsValues);
+        console.log(taskExistsResult.rows[0])
+        if (taskExistsResult.rows[0] === undefined || taskExistsResult.rows[0] === null) {
+            throw new BadRequestError('That taskId does not exist.')
+        }
+
+        const checkText = `SELECT user_id FROM tasks WHERE task_id=$1;`;
+        const checkValues = [givenTaskId]            
+        const checkResult = await db.query(checkText, checkValues);
+
+        if (checkResult.rows[0].user_id !== publicUserFromDecodedToken.userId) {
+            throw new ForbiddenError("Not allowed to update/complete/delete a task that belongs to another user.")
+        }
+        return next()
+    }
+    catch (error) {
+        return next(error)
+    }
+}
+
+module.exports = {
+    authedUserOwnsTask
+}
