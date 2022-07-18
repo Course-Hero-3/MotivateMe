@@ -12,6 +12,24 @@
     align-items: flex-start;
 }
 
+.form-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.back-btn {
+    width: 80px;
+    cursor: pointer;
+    font-size: 15px;
+    height: 44px;
+    border-radius: 10px;
+    border: none;
+    background: rgb(255, 56, 56);
+    color: var(--pure-white);
+    
+}
+
 .input-field.checkbox {
     display: flex;
     flex-direction: row;

@@ -7,12 +7,41 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import TodoForm from '../TodoForm/TodoForm'
 import { useState } from 'react'
 import lateIcon from "../../assets/late-icon.png"
-export default function TodoList({tasks, handleOnCreateClick, createBtnClicked}) {
+export default function TodoList({tasks, showModal, modalSelected}) {
+ /**useEffect 
+  * handle
+  */
+  const [completeForm, setCompleteForm] = useState({score:null, timeSpent: null, peopleWith:null, comment:"", onTime:false, taskId:0, public:false})
+  const handleOnCompleteFormChange = (event) => {
+    if (event.target.name === "onTime") {
+      let newObject = completeForm
+      newObject.onTime = !(completeForm.onTime)
+      setCompleteForm(newObject)
+      console.log("onTime ", completeForm.onTime )
+      return 
+    }
+    setCompleteForm({ ...completeForm, [event.target.name]: event.target.value })
+  }
+
+  
+  const handleOnCompleteSubmit = () => {
+
+    setCompleteForm({score:-1, timeSpent: -1, peopleWith:-1, comment:"", onTime:false, taskId:-4, public:false})
+  }
+
   return (
     <div className='todo-list'>
       <h3 className='todo-list-title'>Task Overview</h3>
       <div className='todo-list-wrapper'>
-      <TodoCard name = "Complete 3 Problems for DM HW#4" category = "Homework" dueDate="2022-07-21" handleOnCreateClick = {handleOnCreateClick} createBtnClicked = {createBtnClicked} />
+      <TodoCard taskId = {1} name = "Complete 3 Problems for DM HW#4" 
+      category = "Homework" dueDate="2022-07-21" showModal = 
+      {showModal} modalSelected = {modalSelected}
+      completeForm = {completeForm}
+      setCompleteForm = {setCompleteForm}
+        handleOnCompleteFormChange = {handleOnCompleteFormChange}
+        handleOnCompleteSubmit = {handleOnCompleteSubmit}
+      />
+   
 
       </div>
     
@@ -21,21 +50,18 @@ export default function TodoList({tasks, handleOnCreateClick, createBtnClicked})
 }
 
 
-export function TodoCard ({name, description, category, dueDate, dueTime, handleOnCreateClick, createBtnClicked}) {
+export function TodoCard ({name, description, category, dueDate, dueTime, showModal, modalSelected, completeForm, setCompleteForm, handleOnCompleteFormChange, handleOnCompleteSubmit, taskId}) {
   const [updateForm, setUpdateForm] = useState({name:name, description: description, category:category, dueDate:dueDate, dueTime:dueTime, taskId:-4})
-  const [completeForm, setCompleteForm] = useState({score:-1, timeSpent: -1, peopleWith:-1, comment:"", onTime:false, taskId:-4, public:false})
+  const originalForm = {name:name, description: description, category:category, dueDate:dueDate, dueTime:dueTime, taskId:-4}
   console.log("name and category in card", updateForm.name, updateForm.category )
 
   const handleOnUpdateFormChange = (event) => {
-    event.preventDefault()
     setUpdateForm({ ...updateForm, [event.target.name]: event.target.value })
   }
 
-  const handleOnCompleteFormChange = (event) => {
-    console.log("event value", event.target.value)
-    setCompleteForm({ ...completeForm, [event.target.name]: event.target.value })
+  const handleOnUpdateSubmit = () => {
+    setUpdateForm({name:name, description: description, category:category, dueDate:dueDate, dueTime:dueTime, taskId:-4})
   }
-
 
     return (
         <div className='todo-card'>
@@ -46,13 +72,14 @@ export function TodoCard ({name, description, category, dueDate, dueTime, handle
                   <span className='due-date'>{dueDate}</span>
               </div>
               <div className='form-icons'>
-                <img  className = "form-icon" src = {updateIcon} alt = "update-icon" onClick = {() => {handleOnCreateClick("update")}}/>
-                <img className = "form-icon"  src = {completeIcon} alt = "complete-icon" onClick = {() => {handleOnCreateClick("complete")}}/>
-                {createBtnClicked === "update"?<TodoForm formType={"update"} handleOnCreateClick = {handleOnCreateClick} updateForm = {updateForm} setUpdateForm = {setUpdateForm}
-                  handleOnUpdateFormChange = {handleOnUpdateFormChange}
+                <img  className = "form-icon" src = {updateIcon} alt = "update-icon" onClick = {() => {showModal("update")}}/>
+                <img className = "form-icon"  src = {completeIcon} alt = "complete-icon" onClick = {() => {showModal("complete")}}/>
+                {modalSelected === "update"?<TodoForm formType={"update"} showModal = {showModal} updateForm = {updateForm} setUpdateForm = {setUpdateForm}
+                  handleOnUpdateFormChange = {handleOnUpdateFormChange} handleOnUpdateSubmit = {handleOnUpdateSubmit}
+                  originalForm = {originalForm}
                 />:null}
-                {createBtnClicked === "complete"?<TodoForm formType={"complete"} handleOnCreateClick = {handleOnCreateClick} completeForm = {completeForm} setCompleteForm = {setCompleteForm}
-                  handleOnCompleteFormChange = {handleOnCompleteFormChange}
+                {modalSelected === "complete"?<TodoForm formType={"complete"} showModal = {showModal} completeForm = {completeForm} setCompleteForm = {setCompleteForm}
+                  handleOnCompleteFormChange = {handleOnCompleteFormChange} handleOnCompleteSubmit = {handleOnCompleteSubmit} taskId = {taskId}
                 />:null}  
               </div>
             </div>

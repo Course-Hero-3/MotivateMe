@@ -1,7 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
 import "./TodoForm.css"
-export default function TodoForm({formType, createBtnClicked, handleOnCreateClick, updateForm, completeForm, setUpdateForm, setCompleteForm, handleOnCompleteFormChange, handleOnUpdateFormChange}) {
+export default function TodoForm({formType, modalSelected, showModal, updateForm, completeForm, setUpdateForm, taskId, setCompleteForm, handleOnCompleteFormChange, handleOnUpdateFormChange, handleOnCompleteSubmit, handleOnUpdateSubmit, originalForm
+}) {
   const [createForm, setCreateForm] = useState({name:"", description: "", category:"", dueDate:"", dueTime:""})
 
 
@@ -9,22 +10,40 @@ export default function TodoForm({formType, createBtnClicked, handleOnCreateClic
     event.preventDefault()
     setCreateForm({ ...createForm, [event.target.name]: event.target.value })
   }
+
+  const handleOnCreateSubmit = () => {
+    /**api client call */
+    
+
+    setCreateForm({name:"", description: "", category:"", dueDate:"", dueTime:""})
+  }
   return (
     <div className='todo-form'>
 
-        {formType === "create"?<TodoCreate handleOnCreateFormChange = {handleOnCreateFormChange} handleOnCreateClick = {handleOnCreateClick} createForm = {createForm} setCreateForm = {setCreateForm}/>:null}
-        {formType === "update"?<TodoUpdate handleOnCreateClick = {handleOnCreateClick} updateForm = {updateForm} setUpdateForm = {setUpdateForm} handleOnUpdateFormChange = {handleOnUpdateFormChange}/>:null}
-        {formType === "complete"?<TodoComplete handleOnCreateClick = {handleOnCreateClick} completeForm = {completeForm} setCompleteForm = {setCompleteForm} handleOnCompleteFormChange = {handleOnCompleteFormChange}/>:null}
+        {formType === "create"?<TodoCreate handleOnCreateSubmit = {handleOnCreateSubmit} handleOnCreateFormChange = {handleOnCreateFormChange} showModal = {showModal} createForm = {createForm} setCreateForm = {setCreateForm}/>:null}
+        {formType === "update"?<TodoUpdate showModal = {showModal} updateForm = {updateForm} setUpdateForm = {
+          setUpdateForm} handleOnUpdateFormChange = {handleOnUpdateFormChange} handleOnUpdateSubmit
+          originalForm = {originalForm}
+          />:null}
+        {formType === "complete"?<TodoComplete showModal = {showModal} completeForm = {completeForm} setCompleteForm = {setCompleteForm} handleOnCompleteFormChange = {handleOnCompleteFormChange}
+          handleOnCompleteSubmit = {handleOnCompleteSubmit} taskId = {taskId}
+        />:null}
 
     </div>
   )
 }
 
-export function TodoCreate ({handleOnCreateClick, createBtnClicked, createForm, setCreateForm, handleOnCreateFormChange}) {
+export function TodoCreate ({showModal, modalSelected, createForm, setCreateForm, handleOnCreateFormChange, handleOnCreateSubmit}) {
   return (<div className={`form_modal`}>
 
         <form className='form_modal_content'>
+        <div className='form-header'>
         <h2 className='form-title'>Create </h2>
+        <button className='back-btn' onClick={() => {
+              showModal("")
+              setCreateForm({name:"", description: "", category:"", dueDate:"", dueTime:""})
+        }} type = "button">Back</button>
+        </div>
         <div className='input-fields form'>
              <div className='input-field form'>
                 <span className='task-name'>Task Name</span>
@@ -50,7 +69,7 @@ export function TodoCreate ({handleOnCreateClick, createBtnClicked, createForm, 
              <textarea className='form-input description' type = "text" name='description' placeholder='description...' value  = {createForm.description} onChange = {handleOnCreateFormChange}></textarea>
              </div>
              {console.log("task name", createForm)}
-             <button className = "form-submit-btn" type='button' onClick = {() => {handleOnCreateClick("")}}>Submit</button>
+             <button className = "form-submit-btn" type='button' onClick = {handleOnCreateSubmit}>Submit</button>
         </div>
         </form>
 
@@ -59,10 +78,15 @@ export function TodoCreate ({handleOnCreateClick, createBtnClicked, createForm, 
 }
 
 
-export function TodoUpdate ({handleOnCreateClick, updateForm, handleOnUpdateFormChange}) {
+export function TodoUpdate ({showModal, updateForm, setUpdateForm, handleOnUpdateFormChange, handleOnUpdateSubmi,originalForm
+}) {
     return (<div className={`form_modal`}>
     <form className='form_modal_content'>
-    <h2 className='form-title'>Update </h2>
+    <h2 className='form-title'>update</h2>
+        <button className='back-btn' onClick={() => {
+              showModal("")
+              setUpdateForm(originalForm)
+        }} type = "button">Back</button>
     <div className='input-fields form'>
          <div className='input-field form'>
             <span className='task-name'>Edit Name</span>
@@ -90,7 +114,7 @@ export function TodoUpdate ({handleOnCreateClick, updateForm, handleOnUpdateForm
          <textarea className='form-input description' name='description' placeholder='Type category' value = {updateForm.description} onChange = {handleOnUpdateFormChange}></textarea>
           
          </div>
-         <button className = "form-submit-btn" type='button' onClick = {() => {handleOnCreateClick("")}}>Submit</button>
+         <button className = "form-submit-btn" type='button' onClick = {() => {handleOnUpdateSubmit}}>Submit</button>
 
     </div>
     </form>
@@ -99,10 +123,16 @@ export function TodoUpdate ({handleOnCreateClick, updateForm, handleOnUpdateForm
     )
 }
 
-export function TodoComplete ({handleOnCreateClick, setCompleteForm, completeForm, handleOnCompleteFormChange, name}) {
+export function TodoComplete ({showModal, setCompleteForm, completeForm, handleOnCompleteFormChange,handleOnCompleteSubmit, name, taskId}) {
     return (<div className={`form_modal`}>
     <div className='form_modal_content'>
-    <h2 className='form-title'>Complete </h2>
+    <div className='form-header'>
+        <h2 className='form-title'>Complete</h2>
+        <button className='back-btn' onClick={() => {
+              showModal("")
+              setCompleteForm({score:null, timeSpent: null, peopleWith:null, comment:"", onTime:false, taskId:0, public:false})
+        }} type = "button">Back</button>
+        </div>
     <div className='input-fields form'>
          <div className='input-field'>
             <span className='task-name'>{name}</span>
@@ -129,9 +159,10 @@ export function TodoComplete ({handleOnCreateClick, setCompleteForm, completeFor
          </div>
          <div className='input-field checkbox'>
          <span className='task-name'>Completed on time</span>
-         <input className='form-input form' type = "checkbox" name='onTime' onClick = {handleOnCompleteFormChange}/>
+         <input className='form-input form' type = "checkbox" name='onTime' onChange = {handleOnCompleteFormChange}/>
          </div>
-         <button className = "form-submit-btn" type='button' onClick = {()=> {handleOnCreateClick("")}}>Submit</button>
+         {console.log("task id is: ",taskId)}
+         <button className = "form-submit-btn" type='button' onClick = {() => {handleOnCompleteSubmit(taskId)}}>Submit</button>
 
     </div>
     </div>
