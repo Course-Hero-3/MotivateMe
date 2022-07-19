@@ -9,6 +9,7 @@ class ApiClient {
     setToken(token) {
         this.token = token
         window.localStorage.setItem("user_token", token)
+        console.log("token is", token)
     }
 
     async request({ endpoint, method="GET", data={} }) {
