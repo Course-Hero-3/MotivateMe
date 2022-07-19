@@ -86,7 +86,7 @@ export function TodoUpdate ({showModal, updateForm, setUpdateForm, handleOnUpdat
         <h2 className='form-title'>Update</h2>
         <button className='back-btn' onClick={() => {
               showModal("")
-              setCreateForm({name:"", description: "", category:"", dueDate:"", dueTime:""})
+              setUpdateForm(originalForm)
         }} type = "button">Back</button>
         </div>
     <div className='input-fields form'>
@@ -105,6 +105,7 @@ export function TodoUpdate ({showModal, updateForm, setUpdateForm, handleOnUpdat
             <div className='input-field form-split'>
             <span className='task-name'>Edit Date</span>
             <input className='form-input split' type = "date" name='dueDate' placeholder='Type task Name' value = {updateForm.dueDate} onChange = {handleOnUpdateFormChange}/>
+            {console.log("current dueDate", updateForm.dueDate)}
             </div>
             <div className='input-field form-split'>
             <span className='task-name'>Edit Time</span>

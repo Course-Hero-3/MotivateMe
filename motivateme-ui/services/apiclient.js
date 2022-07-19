@@ -14,7 +14,8 @@ class ApiClient {
     async request({ endpoint, method="GET", data={} }) {
        const url = `${this.remoteHostUrl}/${endpoint}`
        const headers =  {
-           "Content-Type": "application/json"
+           "Content-Type": "application/json",
+           "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoic3RlcGhAZ21haWxsIiwidXNlcm5hbWUiOiJzdGVwaCIsImZpcnN0TmFtZSI6InN0ZXBoYW5lIiwibGFzdE5hbWUiOiJzdGVwaCIsImltYWdlIjoic2RzYWQiLCJpYXQiOjE2NTgxOTkzOTEsImV4cCI6MTY1ODI4NTc5MX0.bX2Efc36sF323ZOiQTtSklBBX_ENSHewsWPZwymjU_g"
        }
 
        if (this.token) {

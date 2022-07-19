@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./TodoList.css"
 import dueDateIcon from "../../assets/due-icon3.png"
 import updateIcon from "../../assets/update-icon.png"
@@ -7,11 +7,26 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import TodoForm from '../TodoForm/TodoForm'
 import { useState } from 'react'
 import lateIcon from "../../assets/late-icon.png"
-export default function TodoList({tasks, showModal, modalSelected}) {
+import moment from "moment"
+
+import ApiClient from '../../../services/apiclient'
+export default function TodoList({ showModal, modalSelected}) {
  /**useEffect 
   * handle
   */
   const [completeForm, setCompleteForm] = useState({score:null, timeSpent: null, peopleWith:null, comment:"", onTime:false, taskId:0, public:false})
+  const [tasks, setTasks] = useState(null)
+  const apiClient = new ApiClient("http://localhost:3001")
+
+  useEffect(() => {
+    const getTasks = async () => {
+     let currentTasks = await apiClient.getAllTasks()
+      setTasks(currentTasks.data.allTasks)
+    }
+    getTasks()
+    console.log("tasks", tasks)
+  }, [])
+
   const handleOnCompleteFormChange = (event) => {
     if (event.target.name === "onTime") {
       let newObject = completeForm
@@ -33,14 +48,19 @@ export default function TodoList({tasks, showModal, modalSelected}) {
     <div className='todo-list'>
       <h3 className='todo-list-title'>Task Overview</h3>
       <div className='todo-list-wrapper'>
-      <TodoCard taskId = {1} name = "Complete 3 Problems for DM HW#4" 
-      category = "Homework" dueDate="2022-07-21" showModal = 
+      {tasks?.map((task) => {
+        return (<TodoCard taskId = {task.taskId} name = {task.name} 
+      category = {task.category} dueDate= {task.dueDate} dueTime = {task.dueTime} 
+      description = {task.description} showModal = 
       {showModal} modalSelected = {modalSelected}
+      key = {task.taskId}
       completeForm = {completeForm}
       setCompleteForm = {setCompleteForm}
         handleOnCompleteFormChange = {handleOnCompleteFormChange}
         handleOnCompleteSubmit = {handleOnCompleteSubmit}
-      />
+      />)
+      })}
+   
      
 
       </div>
@@ -51,8 +71,8 @@ export default function TodoList({tasks, showModal, modalSelected}) {
 
 
 export function TodoCard ({name, description, category, dueDate, dueTime, showModal, modalSelected, completeForm, setCompleteForm, handleOnCompleteFormChange, handleOnCompleteSubmit, taskId}) {
-  const [updateForm, setUpdateForm] = useState({name:name, description: description, category:category, dueDate:dueDate, dueTime:dueTime, taskId:-4})
-  const originalForm = {name:name, description: description, category:category, dueDate:dueDate, dueTime:dueTime, taskId:-4}
+  const [updateForm, setUpdateForm] = useState({name:name, description: description, category:category, dueDate:moment(dueDate).format('YYYY-MM-DD'), dueTime:dueTime, taskId:-4})
+  const originalForm = {name:name, description: description, category:category, dueDate:moment(dueDate).format('YYYY/MM/DD'), dueTime:dueTime, taskId:-4}
   console.log("name and category in card", updateForm.name, updateForm.category )
 
   const handleOnUpdateFormChange = (event) => {
@@ -60,7 +80,7 @@ export function TodoCard ({name, description, category, dueDate, dueTime, showMo
   }
 
   const handleOnUpdateSubmit = () => {
-    setUpdateForm({name:name, description: description, category:category, dueDate:dueDate, dueTime:dueTime, taskId:-4})
+    setUpdateForm({name:name, description: description, category:category, dueDate:moment(dueDate).format('YYYY-MM-DD'), dueTime:dueTime, taskId:-4})
   }
 
     return (
