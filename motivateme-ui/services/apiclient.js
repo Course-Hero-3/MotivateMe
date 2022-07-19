@@ -9,16 +9,13 @@ class ApiClient {
     setToken(token) {
         this.token = token
         window.localStorage.setItem("user_token", token)
-        console.log("token is", token)
     }
 
     async request({ endpoint, method="GET", data={} }) {
        const url = `${this.remoteHostUrl}/${endpoint}`
        const headers =  {
            "Content-Type": "application/json",
-           "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoic3RlcGhAZ21haWxsIiwidXNlcm5hbWUiOiJzdGVwaCIsImZpcnN0TmFtZSI6InN0ZXBoYW5lIiwibGFzdE5hbWUiOiJzdGVwaCIsImltYWdlIjoic2RzYWQiLCJpYXQiOjE2NTgxOTkzOTEsImV4cCI6MTY1ODI4NTc5MX0.bX2Efc36sF323ZOiQTtSklBBX_ENSHewsWPZwymjU_g"
        }
-
        if (this.token) {
         headers["Authorization"] = `Bearer ${this.token}`
        }
@@ -67,4 +64,4 @@ class ApiClient {
     }
 }
 
-export default ApiClient
+export default new ApiClient("http://localhost:3001")

@@ -1,30 +1,40 @@
-import React, { useState } from 'react'
+import{ useEffect, useState } from 'react'
 import "./RegisterPage.css"
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import sideNavPic from "../../assets/transparent-RegisterPage-image.png"
-import ApiClient from '../../../services/apiclient';
-export default function RegisterPage() {
+import apiClient from '../../../services/apiclient';
+export default function RegisterPage({setUser, user}) {
   /**
    *    <div className='register-footer'>
                 <hr className='register-break'></hr>
 
             </div>
    */
-  const [registerForm, setRegisterForm] = useState({firstName:"", email:"", password:"", firstName:"", lastName:"", image:"", username:"", confirm:""})
+  const [registerForm, setRegisterForm] = useState({firstName:"", email:"", password:"",lastName:"", image:"", username:"", confirm:""})
   const [registerError, setRegisterError] = useState(null)
+  const navigate = useNavigate()
+
+  useEffect(()=> {  
+    if (user?.email){
+      navigate("/todo")
+    }
+  }, [user, navigate])
+
   const handleOnRegisterFormChange = (event) => {
     setRegisterForm({...registerForm, [event.target.name]:event.target.value})
   }
-  const apiClient = new ApiClient("http://localhost:3001")
-  const handleOnRegisterFormSubmit = async () => {
+  const handleOnRegisterFormSubmit = async (event) => {
+    event.preventDefault()
     let {data, error} = await apiClient.register(registerForm)
     
-    if (data) {
-      console.log(data)
+    if (data?.token) {
       apiClient.setToken(data.token)
-      setRegisterForm({firstName:"", email:"", password:"", firstName:"", lastName:"", image:"", username:"", confirm:""})
+      setUser(data.user)
+      setRegisterForm({firstName:"", email:"", password:"", lastName:"", image:"", username:"", confirm:""})
     } else {setRegisterError(error)}
   }
+
+
   return (
     <div className='register-page'>
       <div className = "side-nav-bar">

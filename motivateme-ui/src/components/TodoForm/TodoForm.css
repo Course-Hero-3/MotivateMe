@@ -25,7 +25,7 @@
     height: 44px;
     border-radius: 10px;
     border: none;
-    background: rgb(255, 56, 56);
+    background: var(--primary-red);
     color: var(--pure-white);
     
 }
@@ -122,15 +122,30 @@
     font-size: 15px;
 }
 
-.form-submit-btn {
+.update-footer-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.form-submit-btn, .form-delete-btn {
     width: 80px;
     cursor: pointer;
     font-size: 15px;
     height: 44px;
     border-radius: 10px;
     border: none;
-    background: var(--primary-blue);
     color: var(--pure-white);
+}
+
+.form-submit-btn {
+    background: var(--primary-blue);
+    justify-self: flex-start;
+}
+.form-delete-btn {
+    background: var(--primary-red);
+    justify-self: flex-end;
+
 }
 
 @-webkit-keyframes animatetop {

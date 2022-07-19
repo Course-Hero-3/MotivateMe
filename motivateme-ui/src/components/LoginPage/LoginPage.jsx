@@ -1,23 +1,33 @@
 import React from 'react'
-import { useState } from 'react'
+import{ useEffect, useState } from 'react'
 import "./LoginPage.css"
-import ApiClient
- from '../../../services/apiclient'
-export default function LoginPage() {
+import apiClient  from '../../../services/apiclient'
+
+ import { useNavigate } from 'react-router-dom'
+
+export default function LoginPage({user, setUser}) {
   const [loginForm, setLoginForm] = useState({email:"", password:""})
   const [loginError, setLoginError] = useState(null)
+  const navigate = useNavigate()
+
+  useEffect(()=> {  
+    if (user?.email){
+      navigate("/todo")
+    }
+  }, [user, navigate])
+
 
   const handleOnLoginFormChange = (event) => {
     setLoginForm({...loginForm, [event.target.name]:event.target.value})
-    console.log(loginForm)
   }
-  const apiClient = new ApiClient("http://localhost:3001")
-  const handleOnLoginFormSubmit = async () => {
+  const handleOnLoginFormSubmit = async (event) => {
+    event.preventDefault()
+
     let {data, error} = await apiClient.login(loginForm)
     
-    if (data) {
-      console.log(data)
+    if (data?.token) {
       apiClient.setToken(data.token)
+      setUser(data.user)
       setLoginForm({ email:"", password:""})
     } else {setLoginError(error)}
   }
