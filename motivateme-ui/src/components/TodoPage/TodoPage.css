@@ -1,0 +1,29 @@
+.todo-page {
+    display: flex;
+    flex-direction: column;
+    height: 800px;
+    align-items: center;
+    width: 100vw;
+    font-family: 'Nunito', sans-serif;
+}
+
+.todo-title {
+    font-size: 30px;
+}
+
+.todo-wrapper {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.todo-btn.create {
+    padding: 10px 25px;
+    border-radius: 10px;
+    border: none;
+    background: var(--primary-blue);
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
