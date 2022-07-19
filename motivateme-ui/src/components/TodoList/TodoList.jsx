@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./TodoList.css"
 import dueDateIcon from "../../assets/due-icon3.png"
 import updateIcon from "../../assets/update-icon.png"
@@ -7,40 +7,106 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import TodoForm from '../TodoForm/TodoForm'
 import { useState } from 'react'
 import lateIcon from "../../assets/late-icon.png"
-export default function TodoList({tasks, showModal, modalSelected}) {
+import moment from "moment"
+
+import apiClient from '../../../services/apiclient'
+export default function TodoList({ showModal, modalSelected}) {
  /**useEffect 
   * handle
   */
-  const [completeForm, setCompleteForm] = useState({score:null, timeSpent: null, peopleWith:null, comment:"", onTime:false, taskId:0, public:false})
-  const handleOnCompleteFormChange = (event) => {
+  const [tasks, setTasks] = useState(null)
+  const [taskError, setTaskError] = useState("")
+  const [refreshTasks, setRefreshTasks] = useState(false)
+
+  useEffect(() => {
+
+    const getTasks = async () => {
+     let currentTasks = await apiClient.getAllTasks()
+     if (currentTasks?.data){
+      setTasks(currentTasks.data.allTasks)
+     }
+    }
+    getTasks()
+    if(tasks) {
+      console.log("NEW TASKS AQUIRED: ", tasks)
+    }
+  }, [refreshTasks, modalSelected])
+
+  const handleOnUpdateFormChange = (event, updateForm, setUpdateForm) => {
+    setUpdateForm({ ...updateForm, [event.target.name]: event.target.value })
+  }
+
+  const handleOnUpdateSubmit = async (event, updateForm) => {
+    event.preventDefault()
+    
+    let {data, error} = await apiClient.updateTask(updateForm)
+    
+    if (data?.task) {
+      setTaskError("")
+      setRefreshTasks(!refreshTasks)
+    } else {setTaskError(error)}
+  }
+
+  const handleOnCompleteFormChange = (event, completeForm, setCompleteForm) => {
     if (event.target.name === "onTime") {
       let newObject = completeForm
       newObject.onTime = !(completeForm.onTime)
       setCompleteForm(newObject)
-      console.log("onTime ", completeForm.onTime )
       return 
     }
+    else if (event.target.name === "public") {
+      let newObject = completeForm
+      newObject.public = (!completeForm.public)
+      setCompleteForm(newObject)
+      return
+    } 
     setCompleteForm({ ...completeForm, [event.target.name]: event.target.value })
   }
 
   
-  const handleOnCompleteSubmit = () => {
+  const handleOnCompleteSubmit = async(event, completeForm) => {
+    event.preventDefault()
+    console.log(completeForm)
+    let {data, error} = await apiClient.completeTask(completeForm)
+    
+    if (data?.completedTask) {
+      setTaskError("")
+      setRefreshTasks(!refreshTasks)
+    } else {setTaskError(error)}
+  }
 
-    setCompleteForm({score:-1, timeSpent: -1, peopleWith:-1, comment:"", onTime:false, taskId:-4, public:false})
+  const handleOnDeleteTask = async (event, taskId) => {
+    event.preventDefault()
+    let {data, error} = await apiClient.deleteTask({taskId:taskId})
+    
+    if (data?.deletedTask) {
+      setTaskError("")
+      setRefreshTasks(!refreshTasks)
+    } else {setTaskError(error)}
   }
 
   return (
     <div className='todo-list'>
       <h3 className='todo-list-title'>Task Overview</h3>
       <div className='todo-list-wrapper'>
-      <TodoCard taskId = {1} name = "Complete 3 Problems for DM HW#4" 
-      category = "Homework" dueDate="2022-07-21" showModal = 
-      {showModal} modalSelected = {modalSelected}
-      completeForm = {completeForm}
-      setCompleteForm = {setCompleteForm}
-        handleOnCompleteFormChange = {handleOnCompleteFormChange}
-        handleOnCompleteSubmit = {handleOnCompleteSubmit}
-      />
+      {tasks?.map((task) => {
+        return (<TodoCard taskId = {task.taskId} 
+                          name = {task.name} 
+                          category = {task.category} 
+                          dueDate= {task.dueDate} 
+                          dueTime = {task.dueTime} 
+                          description = {task.description} 
+                          showModal = {showModal} 
+                          modalSelected = {modalSelected}
+                          key = {task.taskId} 
+                          handleOnUpdateFormChange = {handleOnUpdateFormChange}
+                          handleOnUpdateSubmit = {handleOnUpdateSubmit}
+                          handleOnCompleteFormChange = {handleOnCompleteFormChange}
+                          handleOnCompleteSubmit = {handleOnCompleteSubmit}
+                          handleOnDeleteTask = {handleOnDeleteTask}
+      />)
+      })}
+   
      
 
       </div>
@@ -50,18 +116,11 @@ export default function TodoList({tasks, showModal, modalSelected}) {
 }
 
 
-export function TodoCard ({name, description, category, dueDate, dueTime, showModal, modalSelected, completeForm, setCompleteForm, handleOnCompleteFormChange, handleOnCompleteSubmit, taskId}) {
-  const [updateForm, setUpdateForm] = useState({name:name, description: description, category:category, dueDate:dueDate, dueTime:dueTime, taskId:-4})
-  const originalForm = {name:name, description: description, category:category, dueDate:dueDate, dueTime:dueTime, taskId:-4}
-  console.log("name and category in card", updateForm.name, updateForm.category )
-
-  const handleOnUpdateFormChange = (event) => {
-    setUpdateForm({ ...updateForm, [event.target.name]: event.target.value })
-  }
-
-  const handleOnUpdateSubmit = () => {
-    setUpdateForm({name:name, description: description, category:category, dueDate:dueDate, dueTime:dueTime, taskId:-4})
-  }
+export function TodoCard ({name, description, category, dueDate, dueTime,handleOnCompleteFormChange, handleOnCompleteSubmit, taskId, handleOnUpdateFormChange, handleOnUpdateSubmit, handleOnDeleteTask}) {
+  const [updateForm, setUpdateForm] = useState({name:name, description: description, category:category, dueDate:moment(dueDate).format('YYYY-MM-DD'), dueTime:dueTime, taskId:taskId})
+  const originalForm = {name:name, description: description, category:category, dueDate:moment(dueDate).format('YYYY-MM-DD'), dueTime:dueTime, taskId:taskId}
+  const [completeForm, setCompleteForm] = useState({score:null, timeSpent: null, peopleWith:0, comment:"", onTime:false, taskId:taskId, public:false})
+  const [updateOrComplete, setUpdateOrComplete] = useState(null)
 
     return (
         <div className='todo-card'>
@@ -69,17 +128,27 @@ export function TodoCard ({name, description, category, dueDate, dueTime, showMo
             <div className='todo-card-footer'>
               <div className='due-date-wrapper'>
                   <img src={dueDateIcon} className = "due-icon"/>
-                  <span className='due-date'>{dueDate}</span>
+                  <span className='due-date'>{moment(dueDate).format('YYYY-MM-DD')}</span>
               </div>
               <div className='form-icons'>
-                <img  className = "form-icon" src = {updateIcon} alt = "update-icon" onClick = {() => {showModal("update")}}/>
-                <img className = "form-icon"  src = {completeIcon} alt = "complete-icon" onClick = {() => {showModal("complete")}}/>
-                {modalSelected === "update"?<TodoForm formType={"update"} showModal = {showModal} updateForm = {updateForm} setUpdateForm = {setUpdateForm}
-                  handleOnUpdateFormChange = {handleOnUpdateFormChange} handleOnUpdateSubmit = {handleOnUpdateSubmit}
-                  originalForm = {originalForm}
+                <img  className = "form-icon" src = {updateIcon} alt = "update-icon" onClick = {() => {setUpdateOrComplete("update")}}/>
+                <img className = "form-icon"  src = {completeIcon} alt = "complete-icon" onClick = {() => {setUpdateOrComplete("complete")}}/>
+                {updateOrComplete === "update"?<TodoForm formType={"update"} 
+                                                          updateForm = {updateForm} 
+                                                          setUpdateForm = {setUpdateForm}
+                                                          handleOnUpdateFormChange = {handleOnUpdateFormChange} 
+                                                          handleOnUpdateSubmit = {handleOnUpdateSubmit}
+                                                          originalForm = {originalForm} 
+                                                          setUpdateOrComplete = {setUpdateOrComplete}
+                                                          handleOnDeleteTask = {handleOnDeleteTask}
                 />:null}
-                {modalSelected === "complete"?<TodoForm formType={"complete"} showModal = {showModal} completeForm = {completeForm} setCompleteForm = {setCompleteForm}
-                  handleOnCompleteFormChange = {handleOnCompleteFormChange} handleOnCompleteSubmit = {handleOnCompleteSubmit} taskId = {taskId}
+                {updateOrComplete === "complete"?<TodoForm formType={"complete"} 
+                                                          completeForm = {completeForm} 
+                                                          setCompleteForm = {setCompleteForm}
+                                                          handleOnCompleteFormChange = {handleOnCompleteFormChange} 
+                                                          handleOnCompleteSubmit = {handleOnCompleteSubmit} 
+                                                          taskId = {taskId}
+                                                          setUpdateOrComplete = {setUpdateOrComplete}
                 />:null}  
               </div>
             </div>

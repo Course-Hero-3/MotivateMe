@@ -5,7 +5,7 @@ import TodoList from '../TodoList/TodoList'
 import { useState } from 'react'
 
 export default function TodoPage({todoItems}) {
-  const [modalSelected, setModalSelected] = useState(false)
+  const [modalSelected, setModalSelected] = useState("")
 
   /*if the create btn was clicked pop up the create form*/
   const showModal = (formType) => {
@@ -19,9 +19,12 @@ export default function TodoPage({todoItems}) {
       <div className='todo-btns'>
           <button className='todo-btn create' type='button' onClick={() => {showModal("create")}}>Create</button>
       </div>
-      {modalSelected === "create"?<TodoForm formType={"create"} showModal = {showModal}/>:null}
+      {modalSelected === "create"?<TodoForm formType={"create"} 
+                                            showModal = {showModal}/>
+                                 :null}
       <div className='todo-wrapper'>
-        <TodoList showModal = {showModal} modalSelected= {modalSelected}/>
+        <TodoList showModal = {showModal} 
+                  modalSelected= {modalSelected}/>
       </div>
     </div>
   )

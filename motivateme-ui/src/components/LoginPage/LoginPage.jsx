@@ -1,7 +1,36 @@
 import React from 'react'
+import{ useEffect, useState } from 'react'
 import "./LoginPage.css"
+import apiClient  from '../../../services/apiclient'
 
-export default function LoginPage() {
+ import { useNavigate } from 'react-router-dom'
+
+export default function LoginPage({user, setUser}) {
+  const [loginForm, setLoginForm] = useState({email:"", password:""})
+  const [loginError, setLoginError] = useState(null)
+  const navigate = useNavigate()
+
+  useEffect(()=> {  
+    if (user?.email){
+      navigate("/todo")
+    }
+  }, [user, navigate])
+
+
+  const handleOnLoginFormChange = (event) => {
+    setLoginForm({...loginForm, [event.target.name]:event.target.value})
+  }
+  const handleOnLoginFormSubmit = async (event) => {
+    event.preventDefault()
+
+    let {data, error} = await apiClient.login(loginForm)
+    
+    if (data?.token) {
+      apiClient.setToken(data.token)
+      setUser(data.user)
+      setLoginForm({ email:"", password:""})
+    } else {setLoginError(error)}
+  }
   return (
     
     <div className='login-page'>
@@ -16,17 +45,17 @@ export default function LoginPage() {
      <form>
           <label for="email" className='label'>Email</label>
           <br></br>
-          <input type="text" id="email" name="user@gmail.com" className='form-input' placeholder='Type your email'></input>
+          <input type="text" id="email" name="email" className='form-input' placeholder='Type your email' value = {loginForm.email} onChange = {handleOnLoginFormChange}></input>
           <br></br>
           <label for="password" className='label'>Password</label>
           <br></br>
-          <input type="text" id="password" name="password" className='form-input' placeholder='Type your password'></input>
+          <input type="text" id="password" name="password" className='form-input' placeholder='Type your password' value = {loginForm.password} onChange = {handleOnLoginFormChange}></input>
           <br></br>
           <div className='checkbox'>
           <input type="checkbox" id="remember" name="remember" value="remember"></input>
           <p className='checkbox-text'>Remember me</p>
           </div>
-          <button type="button" className='login-button'>Login</button>
+          <button type="button" className='login-button' onClick={handleOnLoginFormSubmit}>Login</button>
           <br></br>
           <div className='footer'>
           <p className='footer-text'>Don't have an account? Sign up<a href='/register'> here</a></p>

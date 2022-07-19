@@ -14,9 +14,8 @@ class ApiClient {
     async request({ endpoint, method="GET", data={} }) {
        const url = `${this.remoteHostUrl}/${endpoint}`
        const headers =  {
-           "Content-Type": "application/json"
+           "Content-Type": "application/json",
        }
-
        if (this.token) {
         headers["Authorization"] = `Bearer ${this.token}`
        }
@@ -65,4 +64,4 @@ class ApiClient {
     }
 }
 
-export default ApiClient
+export default new ApiClient("http://localhost:3001")
