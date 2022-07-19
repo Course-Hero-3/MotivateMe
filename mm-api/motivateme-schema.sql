@@ -17,7 +17,7 @@ CREATE TABLE users (
 
 -- entity
 CREATE TABLE tasks (
-    task_id INTEGER NOT NULL,
+    task_id SERIAL,
     user_id INTEGER NOT NULL,
     name TEXT NOT NULL,
     description TEXT NOT NULL DEFAULT 'No description', -- If not supplied, empty string
@@ -25,8 +25,7 @@ CREATE TABLE tasks (
     due_date DATE NOT NULL DEFAULT (NOW() + INTERVAL '1 day'), -- Default to "today" if user doesn't specify when (this shouldn't be allowed in the frondend though
     due_time TIME NOT NULL DEFAULT (NOW()), -- From lines 17 and 18, default due date+time will be tomorrow at the time the activity was created 
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    PRIMARY KEY (user_id, task_id),
-    UNIQUE (task_id),
+    PRIMARY KEY (task_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
         ON DELETE CASCADE
 );
@@ -40,6 +39,7 @@ CREATE TABLE completed (
     people_with INTEGER NOT NULL DEFAULT 0,
     comment TEXT NOT NULL DEFAULT 'No comment',
     on_time BOOLEAN DEFAULT TRUE,
+    public BOOLEAN DEFAULT TRUE,
     completed_at TIMESTAMP NOT NULL DEFAULT NOW(),
     PRIMARY KEY (user_id, task_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
@@ -57,5 +57,4 @@ CREATE TABLE follow (
         ON DELETE CASCADE,
     FOREIGN KEY (followee_id) REFERENCES users(user_id)
         ON DELETE CASCADE
-
 );

@@ -19,7 +19,7 @@ console.log("App Config".blue)
 console.log("PORT:".blue, PORT)
 console.log("Database URI:".blue, getDatabaseUri())
 console.log("SECRET_KEY".blue, SECRET_KEY)
-console.log("BCRYPT_WORK_FACTOR".blue, )
+console.log("BCRYPT_WORK_FACTOR".blue, BCRYPT_WORK_FACTOR)
 
 module.exports = {
     PORT, 
