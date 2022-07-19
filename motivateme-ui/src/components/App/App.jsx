@@ -6,6 +6,7 @@ import RegisterPage from "../RegisterPage/RegisterPage"
 import Navbar from "../Navbar/Navbar"
 import TodoPage from "../TodoPage/TodoPage"
 import LandingPage from "../LandingPage/LandingPage"
+import RecapPage from "../RecapPage/RecapPage"
 import './App.css'
 import About from "../About/About"
 
@@ -15,13 +16,14 @@ function App() {
   return (
     <React.Fragment>
       <BrowserRouter>
-          <div className="App"> 
-           {<Navbar/>}
+          <div className="App">
+            <Navbar/>
             <Routes>
                 <Route path = "/" element = {<LandingPage/>} />
-                <Route path = "/login" element = {<LoginPage/>}/>
-                <Route path = "/register" element = {<RegisterPage/>}/>
-                <Route path = "/ToDo" element = {<TodoPage/>}/>
+                <Route path = "/login" element = {<LoginPage/>} />
+                <Route path = "/register" element = {<RegisterPage/>} />
+                <Route path = "/todo" element = {<TodoPage/>} />
+                <Route path = "/recap" element = {<RecapPage/>} /> 
             </Routes>
           </div>
       </BrowserRouter>

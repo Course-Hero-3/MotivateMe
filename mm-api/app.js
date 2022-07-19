@@ -1,10 +1,10 @@
-const express = require("express")
+const express = require("express") // express is a reference to a function
 const morgan = require("morgan")
 const cors = require("cors")
 const { NotFoundError } = require("./utils/errors")
 const security = require("./middleware/security")
 
-const app = express() // app is now an express object
+const app = express() // express() constructor returns an app object
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*")
@@ -24,14 +24,14 @@ app.use(security.extractUserFromJwt)
 
 // put all extra routes here such as 
 const authRoute = require("./routes/auth")
-// todoRoute
-// recapRoute
+const todoRoute = require("./routes/todo")
+const recapRoute = require("./routes/recap")
 // social - stretch
 
 // put all extra route paths here such ass
 app.use("/auth", authRoute)
-// app.use("/todo", todoRoute)
-// app.use("/recap", recapRoute)
+app.use("/todo", todoRoute)
+app.use("/recap", recapRoute)
 // app.use("/social", socialRoute) - stretch
 
 
