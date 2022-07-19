@@ -41,7 +41,7 @@ export default function TodoList({tasks, showModal, modalSelected}) {
         handleOnCompleteFormChange = {handleOnCompleteFormChange}
         handleOnCompleteSubmit = {handleOnCompleteSubmit}
       />
-   
+     
 
       </div>
     
@@ -88,7 +88,7 @@ export function TodoCard ({name, description, category, dueDate, dueTime, showMo
       )
 }
 
-export function TaskDetail ({name, description, category, dueDate, dueTime}){
+export function TaskDetail ({name, description, category, dueDate, dueTime, showModal}){
   return (
     <div className='task-detail-card task_modal'>
       <div className='task_modal_content'>

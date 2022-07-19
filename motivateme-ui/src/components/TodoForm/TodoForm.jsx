@@ -82,11 +82,13 @@ export function TodoUpdate ({showModal, updateForm, setUpdateForm, handleOnUpdat
 }) {
     return (<div className={`form_modal`}>
     <form className='form_modal_content'>
-    <h2 className='form-title'>update</h2>
+    <div className='form-header'>
+        <h2 className='form-title'>Update</h2>
         <button className='back-btn' onClick={() => {
               showModal("")
-              setUpdateForm(originalForm)
+              setCreateForm({name:"", description: "", category:"", dueDate:"", dueTime:""})
         }} type = "button">Back</button>
+        </div>
     <div className='input-fields form'>
          <div className='input-field form'>
             <span className='task-name'>Edit Name</span>
