@@ -25,25 +25,25 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 770px;
-
+    height: 800px;
+    width: 50%;
 }
 
 .login-form{
-display: flex;
-flex-direction: column;
-padding-left: 40px;
-height: 500px;
-width: 500px;
-justify-content: center;
-align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 500px;
+    justify-content: space-evenly;
+    align-items: center;
+    }
 
-}
+    
 
 .login-text{
     display: flex;
     flex-direction: column;
-    font-size: 22px;
+    font-size: 18px;
 }
 
 .checkbox-text{
@@ -70,13 +70,16 @@ font-size: 35px;
     width:250px;
     border-radius: 4px;
     font-size: 20px;
-    
+    margin-bottom: 10px;
+}
 
+.form-input, .error {
+    margin-bottom: 10px;
 }
 
 .login-button{
 background-color:#34B3F1;
-width: 250px;
+width: 300px;
 border-radius: 5px;
 font-size: 20px;
 border: none;
@@ -84,8 +87,11 @@ align-self: flex-start;
 padding: 15px 20px;
 color: white;
 cursor: pointer;
+margin-top: 15px;
 }
-
+.signup-link {
+    color: var(--primary-blue)
+}
 
 .label{
 
@@ -104,10 +110,10 @@ font-size: 20px;
 
 }
 
-.footer {
+.login-footer {
     display: flex;
-    flex-direction: row;
-
+    flex-direction: column;
+    align-items: center;
 }
 
 .footer-text a:link{
