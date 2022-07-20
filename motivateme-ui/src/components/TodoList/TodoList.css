@@ -29,9 +29,9 @@
 
 /*todo card styling*/
 .todo-card {
-    flex: 0 1 12%;
-    margin-bottom: 8px;
-    width: 100%;
+    flex: 0 1 10%;
+    margin-bottom: 15px;
+    width: 80%;
     height: 80px;
     background:#D9EAFF;
     display: flex;
@@ -65,13 +65,14 @@
     flex-direction: row;
     width: 150px;
     align-items: center;
+    margin-left: 15px;
 }
 
 .name-wrapper {
-    margin-left: 5px;
+    margin-left: 20px;
 }
 .form-icons {
-    margin-right: 5px;
+    margin-right: 10px;
 }
 .form-icon {
     width: 22px;
