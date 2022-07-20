@@ -1,10 +1,15 @@
 import React from "react";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import "./LandingPage.css";
+import { Link } from "react-router-dom";
 // import Navbar from "../Navbar/Navbar";
 // import Hero from "../Hero/Hero";
 
-export default function LandingPage() {
+export default function LandingPage( { setCurrPage } ) {
+    React.useEffect(() => {
+        setCurrPage("landing")
+    }, [])
+  
   return (
 <div className="landing-page">
 <h2 className="heading-text"> Get Organized and Stay Motivated</h2>
@@ -12,9 +17,9 @@ export default function LandingPage() {
       <h4>Join others in shaking of stress by staying organized and celebrating your accomplishments small or large</h4>
     </div>
     <div className="header-button">
-      <a href="/register">
-    <button type="button" className="getstarted-button">Get Started</button>
-    </a>
+      <Link to="/register">
+        <button type="button" className="getstarted-button">Get Started</button>
+      </Link>
     </div>
     <br></br>
     <center><h2 className="middle-text">Here are the awesome benefits</h2></center>
