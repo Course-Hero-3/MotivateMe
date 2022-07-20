@@ -83,8 +83,8 @@ export default function RegisterPage({setUser, user}) {
                   </div>
             </div>
             <div className='register-footer'>
-                <button className='register-btn' type='button' onClick={handleOnRegisterFormSubmit}>Register</button>
-
+              {registerError?<div className='error'>{registerError}</div>:null}
+              <button className='register-btn' type='button' onClick={handleOnRegisterFormSubmit}>Register</button>
               <h2 className='login-account'>Have an account? Login <Link to = "/login" className='login-link'><span className='login-link'>Here</span></Link></h2>
             </div>
 

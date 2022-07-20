@@ -61,13 +61,19 @@ class User {
             throw new BadRequestError("Fill in all the fields please");
         }
 
+        
+
         const requiredFields = ["email", "password", "username", "firstName", "lastName", "image"]
         requiredFields.forEach((field) => {
-            if (!information.hasOwnProperty(field)) {
-                throw new BadRequestError(`The field: "${field}" is missing from the user information passed in to register`)
+            if (!information.hasOwnProperty(field) || !information[field]) {
+                throw new BadRequestError(`The field: "${field}" is missing`)
             }
         })
 
+          // In terms of checks, I will do that in the front end so the error message correctly pops up I think.
+          if (information.email.indexOf("@") <= 0) {
+            throw new BadRequestError("Invalid email used, missing @");
+        }
 
         const maybeUserExistsEmail = await User.fetchUserByEmail(information.email)
         if (maybeUserExistsEmail) { // should not enter since email should not exist already
