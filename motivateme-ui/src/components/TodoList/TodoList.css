@@ -41,6 +41,33 @@
     box-shadow: 0 0 10px #dbdbdb;
     transition: .3s;
 }
+.todo-card.blue {
+    background:var(--homework-task);
+}
+.todo-card.blue:hover {
+    background:var(--homework-task-hover);
+}
+.todo-card.green{
+    background:var(--project-task);
+}
+.todo-card.green:hover {
+    background: var(--project-task-hover);
+}
+
+.todo-card.purple {
+    background: var(--quiz-task);
+}
+.todo-card.purple:hover {
+    background: var(--quiz-task-hover);
+}
+
+.todo-card.orange {
+    background: var(--test-task);
+}
+
+.todo-card.orange:hover {
+    background: var(--test-task-hover);
+}
 
 .due-icon {
     height: 33px;

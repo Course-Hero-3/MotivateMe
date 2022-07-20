@@ -121,9 +121,27 @@ export function TodoCard ({name, description, category, dueDate, dueTime,handleO
   const originalForm = {name:name, description: description, category:category, dueDate:moment(dueDate).format('YYYY-MM-DD'), dueTime:dueTime, taskId:taskId}
   const [completeForm, setCompleteForm] = useState({score:null, timeSpent: null, peopleWith:0, comment:"", onTime:false, taskId:taskId, public:false})
   const [updateOrComplete, setUpdateOrComplete] = useState(null)
+  const [colorState, setColorState] = useState("default")
+  useEffect(() => {
+    if (category.toLowerCase() === "homework") {
+      setColorState("blue")
+    }
+    else if (category.toLowerCase() === "test"){
+      setColorState("orange")
+    }
+    else if (category.toLowerCase() === "quiz"){
+      setColorState("purple")
+    }
+    else if (category.toLowerCase() === "project"){
+      setColorState("green")
+    }
+
+    console.log("color state is: ", colorState, category)
+   
+  }, [updateForm])
 
     return (
-        <div className='todo-card'>
+        <div className={"todo-card " + colorState}>
             <div className='name-wrapper'><span className = "name">{name}</span></div>
             <div className='todo-card-footer'>
               <div className='due-date-wrapper'>
