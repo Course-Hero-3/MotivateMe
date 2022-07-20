@@ -5,11 +5,13 @@ import apiClient  from '../../../services/apiclient'
 
  import { useNavigate } from 'react-router-dom'
 
-export default function LoginPage({user, setUser}) {
+export default function LoginPage({user, setUser,setCurrPage}) {
   const [loginForm, setLoginForm] = useState({email:"", password:""})
   const [loginError, setLoginError] = useState(null)
   const navigate = useNavigate()
-
+  useEffect(()=> {  
+    setCurrPage("login")
+  }, [])
   useEffect(()=> {  
     if (user?.email){
       navigate("/todo")
@@ -51,10 +53,7 @@ export default function LoginPage({user, setUser}) {
           <br></br>
           <input type="password" id="password" name="password" className='form-input' placeholder='Password' value = {loginForm.password} onChange = {handleOnLoginFormChange}></input>
           <br></br>
-          <div className='checkbox'>
-          <input type="checkbox" id="remember" name="remember" value="remember"></input>
-          <p className='checkbox-text'>Remember me</p>
-          </div>
+          <br></br>
           <button type="button" className='login-button' onClick={handleOnLoginFormSubmit}>Login</button>
           <br></br>
           <div className='footer'>

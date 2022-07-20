@@ -43,11 +43,6 @@ align-items: center;
     font-size: 22px;
 }
 
-.checkbox-text{
-    display: flex;
-    flex-direction: column;
-}
-
 .login-title{
 
 display: flex;
@@ -63,8 +58,6 @@ font-size: 35px;
     width:250px;
     border-radius: 4px;
     font-size: 20px;
-    
-
 }
 
 .login-button{
@@ -86,16 +79,6 @@ cursor: pointer;
     
 }
 
-.checkbox{
-
-display: flex;
-flex-direction: row;
-}
-
-.checkbox-text{
-font-size: 20px;
-
-}
 
 .footer {
     display: flex;
