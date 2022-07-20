@@ -5,12 +5,16 @@ import apiClient  from '../../../services/apiclient'
 import { Link } from 'react-router-dom'
 
  import { useNavigate } from 'react-router-dom'
-/**current page state */
-export default function LoginPage({user, setUser}) {
+
+
+export default function LoginPage({user, setUser,setCurrPage}) {
+
   const [loginForm, setLoginForm] = useState({email:"", password:""})
   const [loginError, setLoginError] = useState(null)
   const navigate = useNavigate()
-
+  useEffect(()=> {  
+    setCurrPage("login")
+  }, [])
   useEffect(()=> {  
     if (user?.email){
       navigate("/todo")
@@ -43,6 +47,7 @@ export default function LoginPage({user, setUser}) {
      <p> for the sidebar picture</p>
      </div> 
      <div className='login-wrapper'>
+
      
      <form className='login-form'>
      <div className='login-form-intro'>
@@ -51,14 +56,14 @@ export default function LoginPage({user, setUser}) {
      </div>
 
           <div className='input-field'>
-            <label for="email" className='label'>Email</label>
+            <label htmlFor="email" className='label'>Email</label>
             <input type="text" id="email" name="email" className='form-input' placeholder='Type your email' value = {loginForm.email} onChange = {handleOnLoginFormChange}></input>
 
           </div>
 
           <div className = "input-field">
-            <label for="password" className='label'>Password</label>
-            <input type="text" id="password" name="password" className='form-input' placeholder='Type your password' value = {loginForm.password} onChange = {handleOnLoginFormChange}></input>
+            <label htmlFor="password" className='label'>Password</label>
+            <input type="password" id="password" name="password" className='form-input' placeholder='Type your password' value = {loginForm.password} onChange = {handleOnLoginFormChange}></input>
           </div>
          
           <div className='login-footer'>
