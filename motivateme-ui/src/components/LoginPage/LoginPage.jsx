@@ -43,13 +43,13 @@ export default function LoginPage({user, setUser}) {
       <br></br>
       <h3 className='login-text'>Track your progress with friends!</h3>
      <form>
-          <label for="email" className='label'>Email</label>
+          <label htmlFor="email" className='label'>Email</label>
           <br></br>
-          <input type="text" id="email" name="email" className='form-input' placeholder='Type your email' value = {loginForm.email} onChange = {handleOnLoginFormChange}></input>
+          <input type="email" id="email" name="email" className='form-input' placeholder='jsmith@example.com' value = {loginForm.email} onChange = {handleOnLoginFormChange}></input>
           <br></br>
-          <label for="password" className='label'>Password</label>
+          <label htmlFor="password" className='label'>Password</label>
           <br></br>
-          <input type="text" id="password" name="password" className='form-input' placeholder='Type your password' value = {loginForm.password} onChange = {handleOnLoginFormChange}></input>
+          <input type="password" id="password" name="password" className='form-input' placeholder='Password' value = {loginForm.password} onChange = {handleOnLoginFormChange}></input>
           <br></br>
           <div className='checkbox'>
           <input type="checkbox" id="remember" name="remember" value="remember"></input>
