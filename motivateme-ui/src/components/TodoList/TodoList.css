@@ -22,14 +22,15 @@
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: auto;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
     width: 80%;
 }
 
 /*todo card styling*/
 .todo-card {
-    flex: 0 1 10%;
+    flex: 0 1 12%;
+    margin-bottom: 8px;
     width: 100%;
     height: 80px;
     background:#D9EAFF;
