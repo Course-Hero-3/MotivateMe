@@ -2,9 +2,10 @@ import React from 'react'
 import{ useEffect, useState } from 'react'
 import "./LoginPage.css"
 import apiClient  from '../../../services/apiclient'
+import { Link } from 'react-router-dom'
 
  import { useNavigate } from 'react-router-dom'
-
+/**current page state */
 export default function LoginPage({user, setUser}) {
   const [loginForm, setLoginForm] = useState({email:"", password:""})
   const [loginError, setLoginError] = useState(null)
@@ -29,7 +30,11 @@ export default function LoginPage({user, setUser}) {
       apiClient.setToken(data.token)
       setUser(data.user)
       setLoginForm({ email:"", password:""})
-    } else {setLoginError(error)}
+    } 
+    if (error) {
+      console.log("error", error)
+      setLoginError(error)
+    }
   }
   return (
     
@@ -38,30 +43,30 @@ export default function LoginPage({user, setUser}) {
      <p> for the sidebar picture</p>
      </div> 
      <div className='login-wrapper'>
-     <div className='login-form'>
-      <h2 className='login-title'>Login</h2>
-      <br></br>
-      <h3 className='login-text'>Track your progress with friends!</h3>
-     <form>
-          <label htmlFor="email" className='label'>Email</label>
-          <br></br>
-          <input type="email" id="email" name="email" className='form-input' placeholder='jsmith@example.com' value = {loginForm.email} onChange = {handleOnLoginFormChange}></input>
-          <br></br>
-          <label htmlFor="password" className='label'>Password</label>
-          <br></br>
-          <input type="password" id="password" name="password" className='form-input' placeholder='Password' value = {loginForm.password} onChange = {handleOnLoginFormChange}></input>
-          <br></br>
-          <div className='checkbox'>
-          <input type="checkbox" id="remember" name="remember" value="remember"></input>
-          <p className='checkbox-text'>Remember me</p>
+     
+     <form className='login-form'>
+     <div className='login-form-intro'>
+          <h2 className='login-title'>Login</h2>
+          <h3 className='login-text'>Track your progress with friends!</h3>
+     </div>
+
+          <div className='input-field'>
+            <label for="email" className='label'>Email</label>
+            <input type="text" id="email" name="email" className='form-input' placeholder='Type your email' value = {loginForm.email} onChange = {handleOnLoginFormChange}></input>
+
           </div>
-          <button type="button" className='login-button' onClick={handleOnLoginFormSubmit}>Login</button>
-          <br></br>
-          <div className='footer'>
-          <p className='footer-text'>Don't have an account? Sign up<a href='/register'> here</a></p>
+
+          <div className = "input-field">
+            <label for="password" className='label'>Password</label>
+            <input type="text" id="password" name="password" className='form-input' placeholder='Type your password' value = {loginForm.password} onChange = {handleOnLoginFormChange}></input>
+          </div>
+         
+          <div className='login-footer'>
+            {loginError?<div className='error'>{loginError}</div>:null}
+            <button type="button" className='login-button' onClick={handleOnLoginFormSubmit}>Login</button>
+            <p className='footer-text'>Don't have an account? Sign up<Link to = '/register' className='signup-link'> Here</Link></p>
           </div>
     </form>
-    </div>
     </div>
     </div>
   )
