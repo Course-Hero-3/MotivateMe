@@ -1,0 +1,32 @@
+.recap-page {
+    font-family: 'Nunito', sans-serif;
+}
+
+.recap-title {
+    text-align: center;
+    font-size: 30px;
+}
+
+.chart-area {
+    margin: 40px;
+}
+
+.chart-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.chart-card {
+    padding: 20px;
+    margin: 20px;
+    width: 600px;
+    height: 600px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px 5px lightblue;
+}
+
+.chart-title {
+    font-size: 25px;
+    text-align: center;
+}

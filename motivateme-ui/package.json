@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "chart.js": "^3.8.0",
+    "chartjs-plugin-datalabels": "^2.0.0",
     "latest": "^0.2.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
@@ -22,6 +23,6 @@
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.0",
-    "vite": "^3.0.0"
+    "vite": "^3.0.2"
   }
 }

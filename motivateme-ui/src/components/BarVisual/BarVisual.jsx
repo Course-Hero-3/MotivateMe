@@ -8,10 +8,10 @@ export default function BarVisual( { labels, label, actualData, colors } ) {
   return (
         <Bar 
         data={{
-            labels: ["homework", "exam", "quiz"],
+            labels: labels,
             datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 5],
+                label: label,
+                data: actualData,
                 backgroundColor: colors[0],
                 borderColor: colors[1],
                 borderWidth: 1

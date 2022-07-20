@@ -53,6 +53,7 @@ export default function LoginPage({user, setUser}) {
           <div className='input-field'>
             <label for="email" className='label'>Email</label>
             <input type="text" id="email" name="email" className='form-input' placeholder='Type your email' value = {loginForm.email} onChange = {handleOnLoginFormChange}></input>
+
           </div>
 
           <div className = "input-field">

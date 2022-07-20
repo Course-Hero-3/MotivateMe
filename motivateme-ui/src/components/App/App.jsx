@@ -7,33 +7,51 @@ import Navbar from "../Navbar/Navbar"
 import TodoPage from "../TodoPage/TodoPage"
 import LandingPage from "../LandingPage/LandingPage"
 import RecapPage from "../RecapPage/RecapPage"
-import apiclient from '../../../services/apiclient';
+import apiClient from '../../../services/apiclient';
 import './App.css'
-import About from "../About/About"
 
 function App() {
 const [user, setUser] = useState(null)
+const [error, setError] = useState(null)
+const [currPage, setCurrPage] = useState(null)
 
   useEffect(() => {
-      const token = window.localStorage.getItem("user_token")
-      if (token) {
-        apiclient.setToken(token)
+    const fetchUser = async () => {
+      const { data, error } = await apiClient.fetchUserFromToken()
+      if (data) setUser(data.user)
+      if (error) {
+        setError(error)
+      }
+      else {
+        setError(null)
       }
     }
-    
-  , [])
+
+      const token = window.localStorage.getItem("user_token")
+      if (token) {
+        apiClient.setToken(token)
+        fetchUser()
+      }
+    }, [])
 
   return (
     <React.Fragment>
       <BrowserRouter>
           <div className="App">
-            <Navbar/>
+            <Navbar user={user} 
+                    setUser={setUser}
+                    currPage={currPage} />
             <Routes>
-                <Route path = "/" element = {<LandingPage user = {user}/>} />
-                <Route path = "/login" element = {<LoginPage user = {user} setUser = {setUser}/>} />
-                <Route path = "/register" element = {<RegisterPage user = {user} setUser = {setUser}/> }/>
-                <Route path = "/todo" element = {<TodoPage user = {user}/>} />
-                <Route path = "/recap" element = {<RecapPage user = {user}/>} /> 
+                <Route path = "/" element = {<LandingPage user = {user}
+                                                          setCurrPage={setCurrPage}/>} />
+                <Route path = "/login" element = {<LoginPage user = {user} 
+                                                            setUser = {setUser}
+                                                            setCurrPage={setCurrPage}/>} />
+                <Route path = "/register" element = {<RegisterPage user = {user} 
+                                                                    setUser = {setUser}
+                                                                    setCurrPage={setCurrPage}/> }/>
+                <Route path = "/todo" element = {<TodoPage setCurrPage={setCurrPage}/>} />
+                <Route path = "/recap" element = {<RecapPage setCurrPage={setCurrPage} />} /> 
             </Routes>
           </div>
       </BrowserRouter>

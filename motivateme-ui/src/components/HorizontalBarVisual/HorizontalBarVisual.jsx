@@ -1,12 +1,12 @@
 import React from 'react'
-import "./LineVisual.css"
-import { Line } from "react-chartjs-2"
+import "./HorizontalBarVisual.css"
+import { Bar } from "react-chartjs-2"
 
     
-export default function LineVisual( { labels, label, actualData, colors } ) {
+export default function HorizontalBarVisual( { labels, label, actualData, colors } ) {
     // take in these 3 props when we render all visuals
   return (
-        <Line 
+        <Bar 
         data={{
             labels: labels,
             datasets: [{
@@ -17,7 +17,9 @@ export default function LineVisual( { labels, label, actualData, colors } ) {
                 borderWidth: 1
             }]
         }}
+        
         options={{
+            indexAxis: 'y',
             scales: {
                 y: {
                     beginAtZero: true
