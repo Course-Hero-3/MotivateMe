@@ -5,4 +5,5 @@ things to do to get running.
 4) npm install moment
 
 now for the charts...
-3) npm install --save react-chartjs-2 chart.js
+5) npm install --save react-chartjs-2 chart.js
+6) npm install chartjs-plugin-datalabels --save

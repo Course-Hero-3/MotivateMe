@@ -3,9 +3,23 @@ import "./RecapPage.css"
 import Chart from 'chart.js/auto'   // NEED THIS for all graphs to be "registered"
 
 import BarVisual from "../BarVisual/BarVisual"
+import HorizontalBarVisual from '../HorizontalBarVisual/HorizontalBarVisual'
 import PieVisual from "../PieVisual/PieVisual"
-import LineVisual from '../LineVisual/LineVisual'
 import DoughnutVisual from "../DoughnutVisual/DoughnutVisual"
+import LineVisual from '../LineVisual/LineVisual'
+
+import apiClient from '../../../services/apiclient'
+
+// perhaps use a different variable which keeps track 
+// of which index you left off on if we want to 
+// implement a "load more" feature
+// Think about: what happens to the variable if we refresh?
+
+// right now we are always showing 4 no matter what (hard coded in function call)
+const randomizeAndReturnItemsInArray = (arr, num) => {
+    const shuffled = [...arr].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, num);
+}
 
 const generateColorList = (amount) => {
     let fillColor = []
@@ -16,7 +30,6 @@ const generateColorList = (amount) => {
         fillColor.push(`rgba(${colorsGenerated}, 0.2)`)
         borderColor.push(`rgba(${colorsGenerated}, 1.0)`)
       }
-    console.log("1", fillColor, "2", borderColor)
     return [fillColor, borderColor]
 }
 
@@ -25,47 +38,74 @@ const generateSpecificChart = (chartData) => {
     //                               (graph) (title) (categories)  (stats)
     if (chartData.type === "bar") {
         return <BarVisual 
-        label={label}
-        labels={labels}
-        actualData={actualData}
-        colors={generateColorList(3)} />
+        label={chartData.label}
+        labels={chartData.labels}
+        actualData={chartData.actualData}
+        colors={generateColorList(chartData.labels.length)} />
     }
     else if (chartData.type === "pie") { 
         return <PieVisual 
-        label={label}
-        labels={labels}
-        actualData={actualData}
-        colors={generateColorList(3)} />
+        label={chartData.label}
+        labels={chartData.labels}
+        actualData={chartData.actualData}
+        colors={generateColorList(chartData.labels.length)} />
     }
     else if (chartData.type === "line") { 
         return <LineVisual 
-        label={label}
-        labels={labels}
-        actualData={actualData}
-        colors={generateColorList(3)} />
+        label={chartData.label}
+        labels={chartData.labels}
+        actualData={chartData.actualData}
+        colors={generateColorList(chartData.labels.length)} />
     }
     else if (chartData.type === "doughnut") { 
         return <DoughnutVisual 
-        label={label}
-        labels={labels}
-        actualData={actualData}
-        colors={generateColorList(3)} />
+        label={chartData.label}
+        labels={chartData.labels}
+        actualData={chartData.actualData}
+        colors={generateColorList(chartData.labels.length)} />
+    }
+    else if (chartData.type === "horizontalBar") {
+        return <HorizontalBarVisual 
+        label={chartData.label}
+        labels={chartData.labels}
+        actualData={chartData.actualData}
+        colors={generateColorList(chartData.labels.length)} />
     }
     // and so on.
 }
 
 export default function RecapPage() {
+    const [facts, setFacts] = React.useState(null)
+
+    React.useEffect(() => {
+        const getFacts = async () => {
+         let tempFacts = await apiClient.getSummary()
+         if (tempFacts?.data){
+            setFacts(tempFacts.data.summary)
+         }
+        }
+        getFacts()
+      }, [])
+
   return (
-    <div>
-        <h1>
-            Recap Page (Change this whole tag to whatever the other pages look like)
-        </h1>
-        {/* Here we can map through x amount of the returned results from the recap
-        endpoint and it will return what type of chart it should be displayed as... */}
-        <BarVisual colors={generateColorList(3)} />
-        <PieVisual colors={generateColorList(3)} />
-        <LineVisual colors={generateColorList(3)} />
-        <DoughnutVisual colors={generateColorList(3)} />
+    <div className='recap-page'>
+        <h2 className='recap-title'>Recap</h2>
+        <div className='chart-area'>
+            <div className='chart-grid'>
+                {facts ?
+                // change "facts.length" to another variable if we implement a load more function
+                // might need to change some other variables as well actually
+                randomizeAndReturnItemsInArray(facts, facts.length).map((fact, idx) => (
+                    <div className='chart-card' key={idx}>
+                        <h3 className='chart-title'>{fact.label}</h3>
+                        {generateSpecificChart(fact)}
+                    </div>
+                ))
+                : null
+                }
+            </div>
+        </div>
+        
     </div>
   )
 }
