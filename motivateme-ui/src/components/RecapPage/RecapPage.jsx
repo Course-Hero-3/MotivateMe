@@ -85,7 +85,7 @@ export default function RecapPage( { setCurrPage } ) {
          }
         }
         getFacts()
-        setCurrPage(null)
+        setCurrPage("recap")
       }, [])
 
   return (
