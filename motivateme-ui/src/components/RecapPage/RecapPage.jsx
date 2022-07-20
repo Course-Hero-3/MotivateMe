@@ -74,7 +74,7 @@ const generateSpecificChart = (chartData) => {
     // and so on.
 }
 
-export default function RecapPage() {
+export default function RecapPage( { setCurrPage } ) {
     const [facts, setFacts] = React.useState(null)
 
     React.useEffect(() => {
@@ -85,6 +85,7 @@ export default function RecapPage() {
          }
         }
         getFacts()
+        setCurrPage(null)
       }, [])
 
   return (

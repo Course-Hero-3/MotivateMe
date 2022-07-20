@@ -3,7 +3,7 @@ import "./RegisterPage.css"
 import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import sideNavPic from "../../assets/transparent-RegisterPage-image.png"
 import apiClient from '../../../services/apiclient';
-export default function RegisterPage({setUser, user}) {
+export default function RegisterPage({setUser, user, setCurrPage}) {
   /**
    *    <div className='register-footer'>
                 <hr className='register-break'></hr>
@@ -15,6 +15,7 @@ export default function RegisterPage({setUser, user}) {
   const navigate = useNavigate()
 
   useEffect(()=> {  
+    setCurrPage("register")
     if (user?.email){
       navigate("/todo")
     }
@@ -82,6 +83,11 @@ export default function RegisterPage({setUser, user}) {
                       <input type = "password" name = "confirm" className='form-input' value = {registerForm.confirm} onChange = {handleOnRegisterFormChange}></input>  
                   </div>
             </div>
+            <div className='input-field'>
+                      <span className='label'>Image URL (optional)</span>
+
+                      <input type = "text" name = "image" className='form-input' value = {registerForm.image} onChange = {handleOnRegisterFormChange}></input>
+                  </div>
             <div className='register-footer'>
                 <button className='register-btn' type='button' onClick={handleOnRegisterFormSubmit}>Register</button>
 
