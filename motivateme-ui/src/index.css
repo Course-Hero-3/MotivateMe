@@ -10,6 +10,14 @@
   --pure-white: #fff;
   --grey-bg: #f7f7f7;
   --accent-orange: #ff9017;
+  --test-task:#FFB562;
+  --homework-task:#6fbff5;
+  --homework-task-hover:#48b6ff;
+  --quiz-task:#B2A4FF;
+  --quiz-task-hover:#9f8efc;
+  --project-task:#A3DA8D;
+  --project-task-hover:#87c86d;
+  --test-task-hover:#fba542;
   --bright-red: #fe3210;
   --muted: #969696;
   --font-dark: #212121;
