@@ -61,7 +61,32 @@ class Recap {
                 "labels": labels,
                 "actualData": actualData }
     }
-    
+
+    static async maxMinPerCategory(userId) {
+        const text = `
+        SELECT t.category, ROUND(MAX(c.score)::numeric, 2) AS "max", ROUND(MIN(c.score)::numeric, 2) AS "min"
+        FROM completed as c
+            INNER JOIN tasks as t ON c.user_id=t.user_id AND c.task_id=t.task_id
+        WHERE c.user_id=$1 
+        GROUP BY t.category`;
+
+        const values = [userId];
+        const result = await db.query(text, values)
+
+        let labels = []
+        let actualData = []
+        result.rows.forEach((catPlusMaxMin) => {
+            labels.push(catPlusMaxMin.category)
+            actualData.push({one:catPlusMaxMin.max, two:catPlusMaxMin.min})
+        })
+
+        return { "type": "doubleBar",
+                "label": "Max and Min per Category",
+                "labels": labels,
+                "actualData": actualData }
+    }
+
+
     static async getFactsByUserId(userId) {
         let listOfFacts = []
 
@@ -84,6 +109,9 @@ class Recap {
         if (perCategory !== null) {
             listOfFacts.push(perCategory)
         }
+        //max and min 
+        listOfFacts.push(await Recap.maxMinPerCategory(userId))
+     
         
 
         return listOfFacts
