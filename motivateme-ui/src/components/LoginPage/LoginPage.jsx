@@ -29,7 +29,11 @@ export default function LoginPage({user, setUser}) {
       apiClient.setToken(data.token)
       setUser(data.user)
       setLoginForm({ email:"", password:""})
-    } else {setLoginError(error)}
+    } 
+    if (error) {
+      console.log("error", error)
+      setLoginError(error)
+    }
   }
   return (
     
@@ -55,6 +59,7 @@ export default function LoginPage({user, setUser}) {
           <input type="checkbox" id="remember" name="remember" value="remember"></input>
           <p className='checkbox-text'>Remember me</p>
           </div>
+          {loginError?<span className='error'>{loginError}</span>:null}
           <button type="button" className='login-button' onClick={handleOnLoginFormSubmit}>Login</button>
           <br></br>
           <div className='footer'>
