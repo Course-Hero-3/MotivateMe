@@ -4,8 +4,12 @@ import TodoForm from "../TodoForm/TodoForm"
 import TodoList from '../TodoList/TodoList'
 import { useState } from 'react'
 
-export default function TodoPage({todoItems}) {
+export default function TodoPage({ setCurrPage }) {
   const [modalSelected, setModalSelected] = useState("")
+
+  React.useEffect(() => {
+    setCurrPage(null)
+  }, [])
 
   /*if the create btn was clicked pop up the create form*/
   const showModal = (formType) => {

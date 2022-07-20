@@ -26,7 +26,7 @@ class ApiClient {
 
        } catch(error) {
             const message = error?.response?.data?.error?.message
-            return { data:null, error: message || String(err) }
+            return { data:null, error: message || String(error) }
        }
     }
 

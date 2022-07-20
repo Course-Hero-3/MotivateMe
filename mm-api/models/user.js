@@ -19,9 +19,12 @@ class User {
     }
 
     static async login(information) {
+        console.log("yo 1")
         if (!information) {
-            throw new BadRequestError("No user passed through to log in.");
+            throw new BadRequestError("No email and password provided");
         }
+
+    
 
         const requiredFields = ["email", "password"]
         requiredFields.forEach((field) => {
@@ -30,6 +33,16 @@ class User {
                 throw new BadRequestError(`The field: "${field}" is missing from the user passed in to log in`)
             }
         })
+
+        if (information.email.trim() == "" || information.password.trim() === "") {
+            throw new BadRequestError("No email and password provided");
+
+        }
+
+          // In terms of checks, I will do that in the front end so the error message correctly pops up I think.
+          if (information.email.indexOf("@") <= 0) {
+            throw new BadRequestError("Invalid email used, missing @");
+        }
 
         const maybeUserExists = await User.fetchUserByEmail(information.email)
         if (maybeUserExists)
@@ -40,34 +53,36 @@ class User {
                 return User.returnPublicUser(maybeUserExists);
             }
         }
-        throw new UnauthorizedError("Invalid email and password combination given.")
+        throw new UnauthorizedError("Invalid email and password combination")
     }
 
     static async register(information) {
         if (!information) {
-            throw new BadRequestError("No user information passed through to register.");
+            throw new BadRequestError("Fill in all the fields please");
         }
+
+        
 
         const requiredFields = ["email", "password", "username", "firstName", "lastName", "image"]
         requiredFields.forEach((field) => {
-            if (!information.hasOwnProperty(field)) {
-                throw new BadRequestError(`The field: "${field}" is missing from the user information passed in to register`)
+            if (!information.hasOwnProperty(field) || !information[field]) {
+                throw new BadRequestError(`The field: "${field}" is missing`)
             }
         })
 
-        // In terms of checks, I will do that in the front end so the error message correctly pops up I think.
-        if (information.email.indexOf("@") <= 0) {
-            throw newBadRequestError("Invalid email passed when trying to register.");
+          // In terms of checks, I will do that in the front end so the error message correctly pops up I think.
+          if (information.email.indexOf("@") <= 0) {
+            throw new BadRequestError("Invalid email used, missing @");
         }
 
         const maybeUserExistsEmail = await User.fetchUserByEmail(information.email)
         if (maybeUserExistsEmail) { // should not enter since email should not exist already
-            throw new BadRequestError("Email/Username already exists in our system. Try logging in.")
+            throw new BadRequestError("Email/Username already exists in our system. Try logging in")
         }
         
         const maybeUserExistsUsername = await User.fetchUserByUsername(information.username)
         if (maybeUserExistsUsername) { // should not enter since username should not exist already
-            throw new BadRequestError("Email/Username already exists in our system. Try logging in.")
+            throw new BadRequestError("Email/Username already exists in our system. Try logging in")
         }
         
         const hashedPassword = await bcrypt.hash(information.password, BCRYPT_WORK_FACTOR)
@@ -98,7 +113,7 @@ class User {
     static async fetchUserByEmail(email) {
         if (!email)
         {
-            throw new BadRequestError("No email passed through when fetching user by email.");
+            throw new BadRequestError("No email provided");
         }
         const text = `SELECT * FROM users WHERE email=$1`;
         const values = [email.toLowerCase()];
@@ -109,7 +124,7 @@ class User {
     static async fetchUserByUsername(username) {
         if (!username)
         {
-            throw new BadRequestError("No username passed through");
+            throw new BadRequestError("No username provided");
         }
         const text = `SELECT * FROM users WHERE username=$1`;
         const values = [username.toLowerCase()];
