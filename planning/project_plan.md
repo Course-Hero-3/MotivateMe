@@ -28,27 +28,27 @@ User Personas:
 
 List the current user stories you will implement.
 
-1. As a film student, I want to organize myself by listing what projects and short films are due for the film festival, so that’s why I would like to use this application to make myself organized. (Kai)
+1. As a film student, I want to organize myself by listing what projects and short films are due for the film festival, so that’s why I would like to see all my tasks sorted in earliest date first. (Kai)
 
-2. As an honors student, I want to be able to see little summaries of previous accomplishments, so that I stay motivated and stay on top of my class while studying to become a surgeon.
+2. As an honors student, I want to be able to see little graphs of previous accomplishments, so that I stay motivated and stay on top of my class while studying to become a surgeon.
 
-3. As a student I want to have my own account associated with my school email including a profile picture, and username.(Kai)
+3. As a student I want to have my own account associated with my school email including a profile picture and username, so that my account feels customized.(Kai)
 
-4. As a computer science student, I want to be able to see what projects I have to submit for my internships at Google, Apple, and Amazon.
+4. As a computer science student, I want to be able to see what projects are late for my internships at Google, Apple, and Amazon, so that I know which project to not waste my time on if I missed the deadline already.
 
-5. As a club president I want to schedule club meetings and also log our clubs activities so we are more organized as a club.
+5. As a club president I want to add club meetings and log my club's activities and have different colors, so that I can easily tell the difference between tasks.
 
-6. As a student/teaching assistant, I need to keep track of the assignments I personally have, as well as the projects my students are working on, so that I don't spend too much time on either one and balance my time
+6. As a student/teaching assistant, I need to keep track of the assignments I personally have, as well as the projects my students are working on, and any other type of task, so that I don't spend too much time on either one and balance my time.
 
-7.  As a team captain for my intramural sports soccer team, I want to be able to keep track of our soccer games on a calendar, and also log our soccer games so we can track our progress over time
+7.  As a team captain for my intramural sports soccer team, I want to be able to keep track of our soccer games on a calendar, and also log our soccer games so we can track our progress over time.
 
-8.  As a working student, I need to keep track of my In N Out shifts as well to know when my live classes are, so that I can make enough money to pay for my tuition as well as pass my classes.(Kai)
+8.  As a working student, I want to be able to filter different graphs, so that I can see the difference in stats in terms of homeworks, tests, etc.
 
-9.  As a law student, I need to organize myself with these statutes, casebooks, and individual court cases. In case we have a review, I can be ready. 
+9.  As a law student, I need to see data related to my completed tasks and be able to see different visualizations for the same stats, so that I can perceive the information differently if I need to.
 
-10. As a nursing major, I need to keep track of care plans, flash cards, drug cards, and process recordings organized so I can see what case studies are gonna be due for our scenarios
+10. As a nursing major, I need to be able to edit care plans, flash cards, drug cards, and process recordings organized, so that I can make small changes as time goes on.
 
-11. As a foreign student living abroad, I need to make sure I have all classes and tests at the correct time, so I don't miss anything due to my different time zone.
+11. As a foreign student living abroad, I need to make sure I can delete tasks in case I need to drop out of a course, so I don't get incorrect charts in my recap page.
 
 ## Pages/Screens
 
