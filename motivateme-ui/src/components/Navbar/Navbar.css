@@ -1,16 +1,11 @@
 .navbar {
-    margin-left: 10px;
-    margin-right: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    width: 100%;
     max-width: 100vw;
     height: 100px;
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 0;
-    border-bottom: 2px solid grey;
+    box-shadow:  0 6px 4px -4px rgba(0,0,0,0.7); 
 }
 
 .navbar .content {
@@ -47,18 +42,38 @@
     padding: 10px 20px;
     margin: 5px;
     border-radius: 5px;
-    color: #34B3F1;
+    color: black;
     background-color: white;
-    border-color: #34B3F1;
+    border-style: none;
+    font-size: 20px;
+}
+
+.active {
+    background-color: #34B3F1;
+    color: white;
 }
 
 #home-logo {
     height: 40px;
     width: 40px;
+}
+
+.logo-title {
     margin-left: 80px;
 }
 
+.logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    max-width: 700px;
+    grid-gap: 50px;
+    gap: 50px;
+}
+
 #pfp {
-    height: 40px;
-    width: 40px;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
 }

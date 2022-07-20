@@ -7,3 +7,4 @@ things to do to get running.
 now for the charts...
 5) npm install --save react-chartjs-2 chart.js
 6) npm install chartjs-plugin-datalabels --save
+7) npm install regex

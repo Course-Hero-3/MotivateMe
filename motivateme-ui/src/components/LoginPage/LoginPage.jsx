@@ -8,10 +8,12 @@ import { Link } from 'react-router-dom'
 
 
 export default function LoginPage({user, setUser,setCurrPage}) {
-
+  // track the form and error for login
   const [loginForm, setLoginForm] = useState({email:"", password:""})
   const [loginError, setLoginError] = useState(null)
   const navigate = useNavigate()
+
+  // set currPage to login for navbar functionality
   useEffect(()=> {  
     setCurrPage("login")
   }, [])
@@ -21,12 +23,56 @@ export default function LoginPage({user, setUser,setCurrPage}) {
     }
   }, [user, navigate])
 
-
+  // change the login form when we change anything
   const handleOnLoginFormChange = (event) => {
+    if (loginError === "Email field was left blank" &&
+      event.target.name === "email" &&
+      event.target.value.length > 0) {
+        setLoginError(null)
+    }
+    if (loginError === "Password field was left blank" &&
+      event.target.name === "password" &&
+      event.target.value.length > 0) {
+        setLoginError(null)
+    }
+
+
+    if (event.target.name === "email") {
+      const regex = /^[a-zA-Z0-9\.]+@[a-zA-Z0-9]+\.[A-Za-z]+$/  // implement this in login, and backend when logging in/registering
+      if (regex.test(event.target.value) === false) {
+        setLoginError("Please enter a valid email")
+      }
+      else {
+        setLoginError(null)
+      }
+    }
+
+    if (!loginError) { 
+      const regex = /^[a-zA-Z0-9\.]+@[a-zA-Z0-9]+\.[A-Za-z]+$/  // implement this in login, and backend when logging in/registering
+      if (regex.test(loginForm.email) === false) {
+        setLoginError("Please enter a valid email")
+      }
+    }
+    if (loginError === "Invalid email and password combination") {
+      setLoginError(null)
+    }
+
     setLoginForm({...loginForm, [event.target.name]:event.target.value})
   }
   const handleOnLoginFormSubmit = async (event) => {
     event.preventDefault()
+
+    if (loginForm.email.length === 0) {
+      setLoginError("Email field was left blank")
+      return
+    }
+    if (loginForm.password.length === 0) {
+      setLoginError("Password field was left blank")
+      return
+    }
+    if (loginError) {
+      return
+    }
 
     let {data, error} = await apiClient.login(loginForm)
     
@@ -43,9 +89,11 @@ export default function LoginPage({user, setUser,setCurrPage}) {
   return (
     
     <div className='login-page'>
-     <div className='side-nav'>
-     <p> for the sidebar picture</p>
-     </div> 
+     <div className = "side-nav-bar">
+        <h3 className='side-bar-title'>Designed for the Ambitious</h3>
+        <h4 className='side-bar-desc'>Jumpstart your journey towards becoming more organized and motivated!</h4>
+        <div className='side-nav-image-wrapper'><img className = "login-img" src='https://cdn.discordapp.com/attachments/990657295526539307/999346486011760750/Working_from_anywhere-rafiki.png'/></div>
+      </div>
      <div className='login-wrapper'>
 
      

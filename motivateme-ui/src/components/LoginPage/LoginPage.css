@@ -8,17 +8,37 @@
 
 }
 
-/*side nav bar styling*/
-.side-nav{
+.side-nav-bar {
     width: 800px;
     margin-left: 0;
     height: 100vh;
-    align-items: right;
-    background-color: #34B3F1;
-    padding-right:22px;
-    justify-content: center;
+    background: var(--primary-blue);
     display: flex;
+    justify-content: center;
 }
+
+.login-img {
+    width: 500px;
+    height: 500px;
+}
+
+.side-bar-title {
+    font-size: 25px;
+    margin-left: 60px;
+    margin-right: 60px;
+    color: white;
+}
+.side-bar-desc {
+    font-size: 15px;
+    margin-left: 50px;
+    margin-right: 50px;
+    color: white;
+}
+
+.side-nav-image-wrapper {
+    margin-top: 14px;
+}
+
 
 /*login form styling*/
 .login-wrapper{
@@ -66,12 +86,19 @@ font-size: 35px;
 
 }
 
-.form-input{
+.login-form-input{
     background-color:#ffff();
     color: black;
-    width:250px;
+    width:450px;
     border-radius: 4px;
     font-size: 20px;
+}
+
+#email {
+    width:450px;
+}
+#password {
+    width: 450px;
 }
 
 .form-input, .error {
@@ -81,7 +108,7 @@ font-size: 35px;
 
 .login-button{
 background-color:#34B3F1;
-width: 300px;
+width: 450px;
 border-radius: 5px;
 font-size: 20px;
 border: none;

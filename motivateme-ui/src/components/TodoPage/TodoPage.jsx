@@ -8,7 +8,7 @@ export default function TodoPage({ setCurrPage }) {
   const [modalSelected, setModalSelected] = useState("")
 
   React.useEffect(() => {
-    setCurrPage(null)
+    setCurrPage("todo")
   }, [])
 
   /*if the create btn was clicked pop up the create form*/
