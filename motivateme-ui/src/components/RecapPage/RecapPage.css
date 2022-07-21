@@ -21,16 +21,3 @@
 }
 
 
-.chart-card {
-    padding: 20px;
-    margin: 20px;
-    width: 600px;
-    height: 600px;
-    border-radius: 10px;
-    box-shadow: 5px 5px 5px 5px lightblue;
-}
-
-.chart-title {
-    font-size: 25px;
-    text-align: center;
-}

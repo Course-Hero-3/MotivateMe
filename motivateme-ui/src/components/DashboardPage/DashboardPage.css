@@ -1,0 +1,97 @@
+.dashboard-page {
+    width: 100vw;
+}
+
+
+/* editing the content section formatting into 3 columns */
+.three-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 80px;
+    margin-left: 80px; 
+    margin-right: 80px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    float: left;
+    width: 33.33%;
+}
+
+/* editing the welcome card */
+.welcome-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 400px;
+    height: 270px;
+    background-color: var(--primary-blue);
+    border-radius: 10px;
+    align-items: center;
+}
+
+#dashboard-pfp {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#dashboard-welcome-text {
+    margin-right: 20px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+/* editing total task card */
+
+.total-task-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 360px;
+    height: 200px;
+    background-color: white;
+    border-style: solid;
+    border-color: lightgray;
+    border-radius: 10px;
+    align-items: flex-start;
+}
+
+
+#total-task-card-img {
+    width: 100px;
+    height: 100px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.total-task-card-title {
+    margin-left: 20px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+/* Editing formatting and spacing for Todo Bulletin */
+
+.todo-bulletin {
+    background-color: white;
+    border-style: solid;
+    border-color: lightgray;
+    border-radius: 10px;
+    align-items: flex-start;
+    width: 400px;
+    height: 1000px;
+}
+
+.todo-date {
+
+}
+
+.todo-bulletin-area {
+
+}
