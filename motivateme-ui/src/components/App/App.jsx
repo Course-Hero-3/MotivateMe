@@ -9,6 +9,8 @@ import LandingPage from "../LandingPage/LandingPage"
 import RecapPage from "../RecapPage/RecapPage"
 import apiClient from '../../../services/apiclient';
 import './App.css'
+import NotFound from '../NotFound/NotFound';
+import AccessForbidden from '../AccessForbidden/AccessForbidden';
 
 function App() {
 const [user, setUser] = useState(null)
@@ -51,7 +53,9 @@ const [currPage, setCurrPage] = useState(null)
                                                                     setUser = {setUser}
                                                                     setCurrPage={setCurrPage}/> }/>
                 <Route path = "/todo" element = {<TodoPage setCurrPage={setCurrPage}/>} />
-                <Route path = "/recap" element = {<RecapPage setCurrPage={setCurrPage} />} /> 
+                <Route path = "/recap" element = {<RecapPage setCurrPage={setCurrPage}/>} /> 
+                <Route path ="/accessforbidden" element={<AccessForbidden/>}/>
+                <Route path ="*" element={<NotFound user={user} setCurrPage={setCurrPage}/>}/>
             </Routes>
           </div>
       </BrowserRouter>

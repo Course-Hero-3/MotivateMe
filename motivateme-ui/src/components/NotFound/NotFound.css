@@ -1,0 +1,17 @@
+.notfound-text{
+    display: flex;
+    flex-direction: column;
+    font-size: 22px;
+    align-items: center;
+}
+
+.return-text{
+    display: flex;
+    flex-direction: row;
+   
+}
+
+.return-link{
+ text-decoration: none;
+ color: #34b3f1;
+}
