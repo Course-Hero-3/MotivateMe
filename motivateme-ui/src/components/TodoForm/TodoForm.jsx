@@ -20,7 +20,7 @@ export default function TodoForm({formType,
                                   handleOnDeleteTask,
                                   name
 }) {
-  const [createForm, setCreateForm] = useState({name:"", description: "", category:"", dueDate:new Date().toDateString, dueTime:"11:59"})
+  const [createForm, setCreateForm] = useState({name:"", description: "", category:"", dueDate:"", dueTime:"23:59"})
   const [createError, setCreateError] = useState(null)
 
   const handleOnCreateFormChange = (event) => {
