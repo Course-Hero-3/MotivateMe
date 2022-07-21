@@ -18,6 +18,7 @@ export default function TodoList({ showModal, modalSelected}) {
   const [taskError, setTaskError] = useState(null)
   const [refreshTasks, setRefreshTasks] = useState(false)
 
+  /**get the most recent updated tasks */
   useEffect(() => {
 
     const getTasks = async () => {
@@ -29,6 +30,7 @@ export default function TodoList({ showModal, modalSelected}) {
     getTasks()
     if(tasks) {
     }
+
   }, [refreshTasks, modalSelected])
 
   const handleOnUpdateFormChange = (event, updateForm, setUpdateForm) => {
@@ -108,7 +110,7 @@ export default function TodoList({ showModal, modalSelected}) {
       setUpdateOrComplete(null)
     } else {setTaskError(error)}
   }
-
+  /**handles updating the task forms */
   const handleOnCompleteFormChange = (event, completeForm, setCompleteForm) => {
     if (event.target.name === "score" && event.target.value.length === 0) {
       setTaskError("Score field cannot be left empty")
@@ -142,7 +144,7 @@ export default function TodoList({ showModal, modalSelected}) {
     setCompleteForm({ ...completeForm, [event.target.name]: event.target.value })
   }
 
-  
+  /** handles submitting a task*/
   const handleOnCompleteSubmit = async(event, completeForm) => {
     event.preventDefault()
 
@@ -175,6 +177,7 @@ export default function TodoList({ showModal, modalSelected}) {
     } else {setTaskError(error)}
   }
 
+  /*handles deleting a task*/ 
   const handleOnDeleteTask = async (event, taskId) => {
     event.preventDefault()
     let {data, error} = await apiClient.deleteTask({taskId:taskId})
@@ -185,6 +188,7 @@ export default function TodoList({ showModal, modalSelected}) {
     } else {setTaskError(error)}
   }
 
+  /**render a card with info for each task the user has */
   return (
     <div className='todo-list'>
       <h3 className='todo-list-title'>Task Overview</h3>
@@ -205,7 +209,10 @@ export default function TodoList({ showModal, modalSelected}) {
                           handleOnCompleteFormChange = {handleOnCompleteFormChange}
                           handleOnCompleteSubmit = {handleOnCompleteSubmit}
                           handleOnDeleteTask = {handleOnDeleteTask}
-      />)
+                        
+      />
+      )
+
       })}
    
      
@@ -216,7 +223,7 @@ export default function TodoList({ showModal, modalSelected}) {
   )
 }
 
-
+/**display info about each task */
 export function TodoCard ({name, 
                           description,
                           category, 
@@ -228,7 +235,9 @@ export function TodoCard ({name,
                           handleOnUpdateFormChange, 
                           handleOnUpdateSubmit, 
                           handleOnDeleteTask, 
-                          taskError }) {
+                          taskError,
+                       }) {
+  /**states */
   const [updateForm, setUpdateForm] = useState({name:name, 
                                                 description: description, 
                                                 category:category, 
@@ -246,7 +255,10 @@ export function TodoCard ({name,
                                                     public:false})
   const [updateOrComplete, setUpdateOrComplete] = useState(null)
   const [colorState, setColorState] = useState("default")
+  const [showDetail, setShowDetail] = useState(null)
 
+
+  
   //changes the card colors based on the category of the task given
   useEffect(() => {
     if (category.toLowerCase() === "homework") {
@@ -277,6 +289,13 @@ export function TodoCard ({name,
               <div className='form-icons'>
                 <img  className = "form-icon" src = {updateIcon} alt = "update-icon" onClick = {() => {setUpdateOrComplete("update")}}/>
                 <img className = "form-icon"  src = {completeIcon} alt = "complete-icon" onClick = {() => {setUpdateOrComplete("complete")}}/>
+                <svg className = "form-icon info" alt = "form-icon" onClick= {() => {setShowDetail({name, description, category, dueDate, dueTime})}} xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-circle" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <circle cx="12" cy="12" r="9" />
+  <line x1="12" y1="8" x2="12.01" y2="8" />
+  <polyline points="11 12 12 12 12 16 13 16" />
+</svg>
+  </div>
                 {updateOrComplete === "update"?<TodoForm formType={"update"} 
                                                           updateForm = {updateForm} 
                                                           setUpdateForm = {setUpdateForm}
@@ -296,39 +315,47 @@ export function TodoCard ({name,
                                                           setUpdateOrComplete = {setUpdateOrComplete}
                                                           taskError = {taskError}
                                                           name = {name}
-                />:null}  
-              </div>
+                />:null}
+                {showDetail?<TaskDetail name = {showDetail.name}
+                                        description = {showDetail.description} 
+                                        category = {showDetail.category} 
+                                        dueDate = {showDetail.dueDate} 
+                                        dueTime = {showDetail.dueTime}
+                                        setShowDetail = {setShowDetail}
+                                        showDetail = {showDetail}
+                                         />:null}  
+            
             </div>
 
         </div>
       )
 }
 /*when a user clicks on a task, displays detailed info about the task*/ 
-export function TaskDetail ({name, description, category, dueDate, dueTime, showModal}){
+export function TaskDetail ({name, description, category, dueDate, dueTime,showDetail, setShowDetail}){
   return (
-    <div className='task-detail-card task_modal'>
-      <div className='task_modal_content'>
-      <div className='task-header'>
-            <h4 className = "task-detail-name">{name}</h4>
-           <button className='task-detail-btn'>Back</button>
-        </div>
-        <div className='task-detail-body'>
-            <span className='task-detail-category'>{category}</span>
-            <div className='task-detail-description'>
-              <span className='description-title'>
-                Description
-              </span>
-
-              <textarea className='detail-description'>
-              {description}
-              </textarea>
+    <React.Fragment>
+      {showDetail !== null?
+            <div className='task-detail-card task_modal'>
+            <div className='task_modal_content'>
+            <div className='task-header'>
+                  <h2 className = "task-detail-name">{name}</h2>
+                <button className='back-btn' type='button' onClick={() => {setShowDetail(null)}}>Back</button>
+              </div>
+              <div className='task-detail-body'>
+                  <span className='task-detail-category'>{category}</span>
+                    <textarea readOnly className='detail-description'>
+                    {description}
+                   </textarea>
+              </div>
+              <div className='task-detail-footer'>
+                <span className='task-detail-due'>Due: {moment(dueDate).format('MMM Do YY')} at {dueTime}</span>
+              </div>
             </div>
-        </div>
-        <div className='task-detail-footer'>
-          <span className='task-detail-due'>Due: {dueDate}:{dueTime}</span>
-        </div>
-      </div>
-     
-    </div>
+          
+          </div>:null
+          }
+    </React.Fragment>
+   
+
   )
 }

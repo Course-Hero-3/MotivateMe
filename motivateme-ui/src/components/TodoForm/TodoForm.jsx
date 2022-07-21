@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import "./TodoForm.css"
 import apiClient from '../../../services/apiclient'
+import moment from 'moment'
 export default function TodoForm({formType, 
                                   setUpdateOrComplete, 
                                   taskError, 
@@ -19,7 +20,7 @@ export default function TodoForm({formType,
                                   handleOnDeleteTask,
                                   name
 }) {
-  const [createForm, setCreateForm] = useState({name:"", description: "", category:"", dueDate:"", dueTime:""})
+  const [createForm, setCreateForm] = useState({name:"", description: "", category:"", dueDate:new Date().toDateString, dueTime:"11:59"})
   const [createError, setCreateError] = useState(null)
 
   const handleOnCreateFormChange = (event) => {

@@ -106,17 +106,25 @@
 }
 .form-icons {
     margin-right: 10px;
+    display: flex;
+    align-items: center;
 }
 .form-icon {
     width: 22px;
     height: 22px;
     cursor: pointer;
+    margin-right: 5px;
 }
-/*task detail card styling*/
+
+
+
+
+/*task detail modal card styling*/
 .task-header {
     display: flex;
     justify-content: space-between;
     color: var(--primary-blue);
+    font-family: 'Nunito', sans-serif;
 }
 
 .task-detail-btn {
@@ -127,6 +135,10 @@
     border: none;
     background: var(--primary-blue);
     color: var(--pure-white);
+}
+
+.task-detail-name {
+    color: #333;
 }
 
 .task_modal {
@@ -140,6 +152,8 @@
     overflow: auto;
     background-color: rgb(255, 255, 255); /* Fallback color */
     background-color: rgba(255, 255, 255, 0.4); /* Black w/ opacity */
+    font-size: 20px;
+
 }
 
 
@@ -148,27 +162,31 @@
    display: flex;
    flex-direction: column;
    align-items: flex-start;
+
    width: 100%;
 
 }
 
 .task-detail-description
  {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    width: 100%;
  }
 
  .detail-description {
-    width: 500px;
+    width: 100%;
     height: 80px;
-    border: 1px solid #333;
+    text-align: left;
+    border-radius: 10px;
  }
 
  .description-title {
     margin: 5px 0px;
  }
 
+ .task-detail-category, .detail-description {
+    margin-bottom: 15px;
+ }
+ 
 
 .task_modal_content{
     text-align: center;
@@ -178,10 +196,11 @@
     position: relative ;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     background-color: #fff;
     margin: auto;
-    padding: 5px;
+    padding: 30px 25px;
+    border-radius: 10px;
     border: 1px solid #888;
     width: 40%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
@@ -190,7 +209,6 @@
     animation-name: animatetop;
     animation-duration: 0.4s;
     color: #333;
-    border-radius: 10px;
 
 }
 .task-detail-footer {
