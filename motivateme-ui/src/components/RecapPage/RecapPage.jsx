@@ -4,6 +4,7 @@ import Chart from 'chart.js/auto'   // NEED THIS for all graphs to be "registere
 
 import BarVisual from "../BarVisual/BarVisual"
 import HorizontalBarVisual from '../HorizontalBarVisual/HorizontalBarVisual'
+import DoubleBarVisual from '../DoubleBarVisual/DoubleBarVisual'
 import PieVisual from "../PieVisual/PieVisual"
 import DoughnutVisual from "../DoughnutVisual/DoughnutVisual"
 import LineVisual from '../LineVisual/LineVisual'
@@ -70,6 +71,20 @@ const generateSpecificChart = (chartData) => {
         labels={chartData.labels}
         actualData={chartData.actualData}
         colors={generateColorList(chartData.labels.length)} />
+    }
+    else if (chartData.type === "doubleBar") {
+        let updatedLabel = [[], []]
+        if (chartData.label === "Max and Min per Category") {
+            updatedLabel[0] = "Minimum"
+            updatedLabel[1] = "Maximum"
+        }
+
+        return <DoubleBarVisual
+        label={updatedLabel}
+        labels={chartData.labels}
+        actualData={chartData.actualData}
+        colors1={generateColorList(1)}
+        colors2={generateColorList(1)} />
     }
     // and so on.
 }

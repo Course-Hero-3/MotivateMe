@@ -1,3 +1,4 @@
+
 import React from 'react'
 import "./BarVisual.css"
 import { Bar } from "react-chartjs-2"
@@ -18,6 +19,11 @@ export default function BarVisual( { labels, label, actualData, colors } ) {
             }]
         }}
         options={{
+            plugins: {
+                legend: {
+                display: false,
+              }
+            },
             scales: {
                 y: {
                     beginAtZero: true
@@ -29,3 +35,4 @@ export default function BarVisual( { labels, label, actualData, colors } ) {
         />
   )
 }
+
