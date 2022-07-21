@@ -1,34 +1,46 @@
 
-.heading-text{
-font-weight: bolder;
-}
 
-
-.about-me-section{
+/*landing page intro section styling*/
+.landing-page {
+    width: 100vw;
     display: flex;
     flex-direction: column;
-    font-size: 22px;
-    font-weight: 500;
-   justify-content: left;
-   
+    align-items: center;
+    justify-content: space-between;
+}
+.landing-intro {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
 }
 
-.about-me-text{
+.landing-intro-main {
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
 
-    font-size: 18px;
-    text-align:center;
-    color: #869197;
-    justify-content: left;
-    width: 30%;
+.landing-intro-hero {
+    width: 800px;
+}
 
- 
+.heading-text{
+font-weight: bolder;
+font-size: 30px;
+width: 80%;
+font-family: 'Nunito', sans-serif;
+
 }
 
 .header-text{
     display: flex;
     flex-direction: column;
     color: gray;
-    width:30%
+    font-size: 20px;
+    width:80%
 }
 
 .getstarted-button{
@@ -43,40 +55,113 @@ color: white;
 cursor: pointer;
 }
 
-.middle-text{
-    font-weight: 2000;
+.hero-img {
+    width: 70%;
 }
 
-.middle-section{
+/*landing page feature section styling*/
+
+
+.landing-body {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.landing-header{
+    font-weight: 2000;
+    font-family: 'Nunito', sans-serif;
+
+}
+
+.landing-middle-section{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    width: 1450px;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 40px;
 }
 
 .textbox{
+    display: flex;
+    flex-direction: column;
     color: gray;
     font-size:17px;
     text-align: center;
+    width: 400px;
+    padding: 5px 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px 5px rgb(224, 235, 239);
+
+}
+
+.textbox-header {
+    color: rgb(25, 19, 19);
+    font-weight: bold;
+    font-family: 'Nunito', sans-serif;
+    font-size: 24px;
 }
 
 .landing-page{
     overflow: hidden;
 }
+/*about section styling*/
+
+.landing-about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 56%;
+    margin-top: 40px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+
+}
+
+.about-section-text{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 60%;
+
+}
+.about-header {
+    font-family: 'Nunito', sans-serif;
+    font-size: 30px;
+}
+.about-main{
+    font-size: 18px;
+    text-align:center;
+    color: #869197;
+    justify-content: left;
+    width: 100%;
+}
+
 
 .contact-section{
 display: flex;
 flex-direction: column;
+width: 50%;
 
 }
-
+.contact-link {
+    display: flex;
+    width: 100%;
+}
+.dev-name {
+    width: 100px;
+    margin-right: 200px;
+    
+}
 .contact-info{
     display: flex;
     flex-direction: column;
     color: #869197;
-   
 }
-
 .contacts{
     display: flex;
     flex-direction: column;
