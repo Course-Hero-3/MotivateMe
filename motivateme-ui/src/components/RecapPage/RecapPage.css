@@ -9,13 +9,17 @@
 
 .chart-area {
     margin: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .chart-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
 }
+
 
 .chart-card {
     padding: 20px;
