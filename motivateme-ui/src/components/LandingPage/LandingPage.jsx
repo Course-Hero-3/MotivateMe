@@ -18,11 +18,9 @@ export default function LandingPage( { setCurrPage } ) {
 <div className="landing-page">
   <div className="landing-intro">
       <div className="landing-intro-main">
-        <div className="landing-intro-main-text">
           <h2 className="heading-text"> Get Organized and Stay Motivated</h2>
-          <h4 className="header-text">Join others in shaking of stress by staying organized and celebrating your accomplishments small or large</h4>
-        </div>
-        <div className="header-button">
+          <p className="header-text">Join others in shaking of stress by staying organized and celebrating your accomplishments small or large</p>
+          <div className="header-button">
           <Link to="/register">
             <button type="button" className="getstarted-button">Get Started</button>
           </Link>
@@ -76,21 +74,46 @@ export default function LandingPage( { setCurrPage } ) {
       </div>
       </div>
       <div className="contact-section">
-        <h2>Contact Us</h2>
-        <p className="contact-info"> If there's any problems, feel free to reach out to us:</p> 
-        <div className="contacts">
-         <div className="contact-link">
-            <h3 className="dev-name">Gikai</h3>
-            <h3 className="dev-email">Gikai.andrews.site@codepath.org</h3>
-         </div>
-         <div className="contact-link">
-            <h3 className="dev-name">Kian</h3>
-            <h3 className="dev-email">kian.ranjbar.site@codepath.org</h3>
+        <div className="contact-info">
+        <h1 className="contact-header">Get in Touch!</h1>      
+          <div className="contacts">
+            <div className="contact-footer-wrapper">
+            <img id="home-logo" className = "footer" src="https://cdn-icons-png.flaticon.com/512/2163/2163301.png" alt="Home Logo" />
+
+            <div className="contact-footer-column">
+                <ul>
+                <h3 className="footer-column-header">Developers</h3>
+                <li className="dev-name">Gikai</li>
+                <li className="dev-name">Stephane</li>
+                <li className="dev-name">Kian</li>
+                </ul>
+                
+            </div>
+            <div className="contact-footer-column">
+              <ul>
+              <h3 className="footer-column-header">Contact</h3>
+                <li className="dev-email"> Gikai.andrews.site@codepath.org</li>
+                <li className="dev-email">kian.ranjbar.site@codepath.org</li>
+                <li className="dev-email">stephane.mbenga.site@codepath.org</li>
+              </ul>
+              </div>
+              
+              <div className="contact-footer-column">
+                <ul>
+                <h3 className="footer-column-header">Company</h3>
+                  <li className="dev-name">Login</li>
+                  <li className="dev-email">Register</li>
+                </ul>
+              </div>
+            </div>
+          
           </div>
-          <div className="contact-link">
-            <h3 className="dev-name">Stephane</h3>
-            <h3 className="dev-email">stephane.mbenga.site@codepath.org</h3>
-          </div>
+        </div>
+        <div className="footer-company-text">
+          <p className="footer-text">@2022 MotivateMe   </p>
+          <p className="footer-text">Terms </p>
+          <p className="footer-text">Privacy </p>
+
         </div>
       </div>
     </div>

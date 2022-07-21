@@ -3,6 +3,7 @@
 /*landing page intro section styling*/
 .landing-page {
     width: 100vw;
+    height: 2400px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,21 +11,25 @@
 }
 .landing-intro {
     display: flex;
-    width: 100%;
+    width: 70%;
     justify-content: center;
     align-items: center;
     height: 600px;
 }
 
 .landing-intro-main {
-    width: 800px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
+}
+
+.landing-intro-main-text {
+    display: flex;
 }
 
 .landing-intro-hero {
-    width: 800px;
+    width: 900px;
+    
 }
 
 .heading-text{
@@ -36,11 +41,9 @@ font-family: 'Nunito', sans-serif;
 }
 
 .header-text{
-    display: flex;
-    flex-direction: column;
     color: gray;
     font-size: 20px;
-    width:80%
+    width:60%
 }
 
 .getstarted-button{
@@ -53,6 +56,7 @@ align-self: flex-start;
 padding: 15px 20px;
 color: white;
 cursor: pointer;
+margin-top: 22px;
 }
 
 .hero-img {
@@ -63,14 +67,18 @@ cursor: pointer;
 
 
 .landing-body {
-    width: 80%;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    height: 800px;
+    justify-content: center;
     align-items: center;
+    background: #f0f6f9;
 }
 .landing-header{
     font-weight: 2000;
     font-family: 'Nunito', sans-serif;
+    font-size: 30px;
 
 }
 
@@ -87,13 +95,14 @@ cursor: pointer;
     display: flex;
     flex-direction: column;
     color: gray;
+    background: var(--pure-white);
     font-size:17px;
     text-align: center;
     width: 400px;
     padding: 5px 5px;
     border: 1px solid var(--border-color);
     border-radius: 15px;
-    box-shadow: 5px 5px 5px 5px rgb(224, 235, 239);
+    box-shadow: 5px 5px 5px 5px rgb(200, 230, 241);
 
 }
 
@@ -111,19 +120,19 @@ cursor: pointer;
 
 .landing-about {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 56%;
-    margin-top: 40px;
-    border: 1px solid var(--border-color);
+    width: 100%;
+    margin: 0 auto;
     border-radius: 10px;
+    height: 200px;
 
 }
 
 .about-section-text{
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 40%;
     align-items: center;
     font-size: 22px;
     font-weight: 60%;
@@ -134,18 +143,27 @@ cursor: pointer;
     font-size: 30px;
 }
 .about-main{
-    font-size: 18px;
+    font-size: 22px;
     text-align:center;
     color: #869197;
     justify-content: left;
     width: 100%;
 }
 
-
+/*contact section styling*/
 .contact-section{
 display: flex;
 flex-direction: column;
-width: 50%;
+height: 400px;
+align-items: center;
+background: var(--primary-blue);
+width: 100%;
+color: var(--pure-white);
+
+}
+
+.contact-header {
+    font-family: 'Nunito', sans-serif;
 
 }
 .contact-link {
@@ -160,11 +178,55 @@ width: 50%;
 .contact-info{
     display: flex;
     flex-direction: column;
-    color: #869197;
+    align-items: center;
+    border-bottom: 1px solid rgb(217, 217, 217);
+    height: 80%;
+    width: 100%;
+
+}
+.contact-footer-column ul {
+    list-style-type: none;
+}
+
+#home-logo.footer {
+    height: 40px;
+    width: 40px;
+    margin-top: 20px;
+}
+
+.contact-footer-column ul li {
+    margin-top: 15px;
 }
 .contacts{
+   width:100%;
+    padding-top: 22px; ;
+}
+
+.contact-footer-wrapper {
     display: flex;
-    flex-direction: column;
-    font-size: 16px;
-    color: #869197;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 60%;
+    margin: 0 auto;
+    font-size: 1.2em;
+    font-weight: 300;
+
+}
+
+.footer-break {
+    width: 100%;
+    height: 1px;
+    background-color: #000000;
+}
+
+.footer-company-text {
+    align-self: flex-start;
+    margin-left: 62px;
+    display: flex;
+    width: 500px;
+    justify-content: space-evenly;
+}
+
+.footer-text {
+    margin-right: 15px;
 }
