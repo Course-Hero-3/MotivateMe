@@ -16,7 +16,7 @@ function App() {
 const [user, setUser] = useState(null)
 const [error, setError] = useState(null)
 const [currPage, setCurrPage] = useState(null)
-
+// when app is mounted, check if token is stored in order to log in user automatically.
   useEffect(() => {
     const fetchUser = async () => {
       const { data, error } = await apiClient.fetchUserFromToken()
