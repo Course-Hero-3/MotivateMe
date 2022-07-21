@@ -25,9 +25,13 @@
     height: 44px;
     border-radius: 10px;
     border: none;
-    background: var(--primary-red);
+    background: var(--primary-blue);
     color: var(--pure-white);
     
+}
+
+.task-name {
+    font-size: 20px;
 }
 
 .input-field.checkbox {
@@ -49,7 +53,9 @@
     margin-top: 10px;
     width: 100%;
 }
-
+.form-input {
+    font-size: 17px;
+}
 .form-input.form {
     width: 100%;
     padding: 10px 5px;
@@ -104,6 +110,7 @@
     color: #333;
 }
 
+
 .form_modal_content{
     text-align: center;
     margin: auto;
@@ -144,7 +151,7 @@
 }
 
 .form-submit-btn {
-    background: var(--primary-blue);
+    background: var(--bright-green);
     justify-self: flex-start;
 }
 .form-delete-btn {
