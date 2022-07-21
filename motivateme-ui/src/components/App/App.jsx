@@ -9,12 +9,14 @@ import LandingPage from "../LandingPage/LandingPage"
 import RecapPage from "../RecapPage/RecapPage"
 import apiClient from '../../../services/apiclient';
 import './App.css'
+import NotFound from '../NotFound/NotFound';
+import AccessForbidden from '../AccessForbidden/AccessForbidden';
 
 function App() {
 const [user, setUser] = useState(null)
 const [error, setError] = useState(null)
 const [currPage, setCurrPage] = useState(null)
-
+// when app is mounted, check if token is stored in order to log in user automatically.
   useEffect(() => {
     const fetchUser = async () => {
       const { data, error } = await apiClient.fetchUserFromToken()
@@ -51,7 +53,9 @@ const [currPage, setCurrPage] = useState(null)
                                                                     setUser = {setUser}
                                                                     setCurrPage={setCurrPage}/> }/>
                 <Route path = "/todo" element = {<TodoPage setCurrPage={setCurrPage}/>} />
-                <Route path = "/recap" element = {<RecapPage setCurrPage={setCurrPage} />} /> 
+                <Route path = "/recap" element = {<RecapPage setCurrPage={setCurrPage}/>} /> 
+                <Route path ="/accessforbidden" element={<AccessForbidden/>}/>
+                <Route path ="*" element={<NotFound user={user} setCurrPage={setCurrPage}/>}/>
             </Routes>
           </div>
       </BrowserRouter>
