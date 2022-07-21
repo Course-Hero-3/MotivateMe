@@ -36,7 +36,7 @@
 }
 
 .side-nav-image-wrapper {
-    margin-top: 14px;
+    margin-top: 10px;
 }
 
 
@@ -45,20 +45,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 800px;
-    width: 50%;
+    justify-content: center;
+    height: 100vh;
+    width: 60%;
 }
-
+.label {
+    margin-bottom: 4px;
+}
 .login-form{
     display: flex;
     flex-direction: column;
     height: 500px;
     width: 500px;
     justify-content: space-evenly;
-    align-items: center;
     }
 
-    
+    .login-form-intro {
+    }
 
 .login-text{
     display: flex;
@@ -86,12 +89,13 @@ font-size: 35px;
 
 }
 
-.login-form-input{
-    background-color:#ffff();
-    color: black;
-    width:450px;
-    border-radius: 4px;
-    font-size: 20px;
+.form-input{
+    width: 300px;
+    padding: 10px 5px;
+    border-radius: 5px;
+    background: var(--input-background);
+    border: none;
+    height: 54px;
 }
 
 #email {
@@ -111,6 +115,7 @@ background-color:#34B3F1;
 width: 450px;
 border-radius: 5px;
 font-size: 20px;
+height: 54px;
 border: none;
 align-self: flex-start;
 padding: 15px 20px;
