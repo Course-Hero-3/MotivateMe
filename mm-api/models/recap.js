@@ -55,7 +55,9 @@ class Recap {
             labels.push(catPlusAverage.category)
             actualData.push(catPlusAverage.average)
         })
-
+        if (actualData.length === 0) {
+            return null;
+        }
         return { "type": "bar",
                 "label": "Average Per Category",
                 "labels": labels,
@@ -63,8 +65,9 @@ class Recap {
     }
 
     static async maxMinPerCategory(userId) {
+        //create stats for max and min of every category 
         const text = `
-        SELECT t.category, ROUND(MAX(c.score)::numeric, 2) AS "max", ROUND(MIN(c.score)::numeric, 2) AS "min"
+        SELECT t.category, MAX(c.score) AS "max", MIN(c.score) AS "min"
         FROM completed as c
             INNER JOIN tasks as t ON c.user_id=t.user_id AND c.task_id=t.task_id
         WHERE c.user_id=$1 
@@ -74,11 +77,16 @@ class Recap {
         const result = await db.query(text, values)
 
         let labels = []
-        let actualData = []
+        let actualData = [[],[]]
         result.rows.forEach((catPlusMaxMin) => {
             labels.push(catPlusMaxMin.category)
-            actualData.push({one:catPlusMaxMin.max, two:catPlusMaxMin.min})
+            actualData[0].push(catPlusMaxMin.min)
+            actualData[1].push(catPlusMaxMin.max)
         })
+        console.log("actuaL data", actualData)
+        if (actualData[0].length === 0) {
+            return null
+        }
 
         return { "type": "doubleBar",
                 "label": "Max and Min per Category",
@@ -91,11 +99,14 @@ class Recap {
         let listOfFacts = []
 
         // Averages per Categories Bar Chart
-        listOfFacts.push(await Recap.averagePerCategory(userId))
+        let averagePerCategory = await Recap.averagePerCategory(userId)
 
-        let perCategory = null
+        if (averagePerCategory !== null) {
+            listOfFacts.push(await Recap.averagePerCategory(userId))
+        }
+
         // Test Pie Chart
-        perCategory = await Recap.letterGradesPerCategory(userId, "Test")
+        let perCategory = await Recap.letterGradesPerCategory(userId, "Test")
         if (perCategory !== null) {
             listOfFacts.push(perCategory)
         }
@@ -109,9 +120,13 @@ class Recap {
         if (perCategory !== null) {
             listOfFacts.push(perCategory)
         }
+        console.log("yoooo")
+
         //max and min 
-        listOfFacts.push(await Recap.maxMinPerCategory(userId))
-     
+        let maxMinPerCategory = await Recap.maxMinPerCategory(userId)
+        if (maxMinPerCategory !== null){
+            listOfFacts.push(maxMinPerCategory)
+        }
         
 
         return listOfFacts
