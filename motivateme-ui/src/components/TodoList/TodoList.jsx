@@ -117,11 +117,14 @@ export default function TodoList({ showModal, modalSelected}) {
 
 
 export function TodoCard ({name, description, category, dueDate, dueTime,handleOnCompleteFormChange, handleOnCompleteSubmit, taskId, handleOnUpdateFormChange, handleOnUpdateSubmit, handleOnDeleteTask}) {
+  //states and variables
   const [updateForm, setUpdateForm] = useState({name:name, description: description, category:category, dueDate:moment(dueDate).format('YYYY-MM-DD'), dueTime:dueTime, taskId:taskId})
   const originalForm = {name:name, description: description, category:category, dueDate:moment(dueDate).format('YYYY-MM-DD'), dueTime:dueTime, taskId:taskId}
   const [completeForm, setCompleteForm] = useState({score:null, timeSpent: null, peopleWith:0, comment:"", onTime:false, taskId:taskId, public:false})
   const [updateOrComplete, setUpdateOrComplete] = useState(null)
   const [colorState, setColorState] = useState("default")
+
+  //changes the card colors based on the category of the task given
   useEffect(() => {
     if (category.toLowerCase() === "homework") {
       setColorState("blue")
@@ -174,7 +177,7 @@ export function TodoCard ({name, description, category, dueDate, dueTime,handleO
         </div>
       )
 }
-
+/*when a user clicks on a task, displays detailed info about the task*/ 
 export function TaskDetail ({name, description, category, dueDate, dueTime, showModal}){
   return (
     <div className='task-detail-card task_modal'>
