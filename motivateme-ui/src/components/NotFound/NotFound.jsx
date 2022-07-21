@@ -3,7 +3,10 @@ import "./NotFound.css";
 import { Link } from "react-router-dom";
 
 export default function NotFound({user,setCurrPage}) {
+// when mounted, check if user is logged in. If so, show entire navbar. 
+// If not, show the same navbar as the landing page.
   React.useEffect(() => {
+  // set current page equal to not found for navbar to display entirely.
     if(user){setCurrPage("notfound")}
     else  {setCurrPage("landing")}
   }, [])
