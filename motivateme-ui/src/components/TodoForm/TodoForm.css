@@ -4,12 +4,12 @@
 
 }
 
-.input-field.form {
+.input-field {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
     margin-right: 10px;
-    align-items: flex-start;
+    align-items: baseline;
 }
 
 .form-header {
@@ -53,9 +53,11 @@
 .form-input.form {
     width: 100%;
     padding: 10px 5px;
-    border-radius: 5px;
-    background: var(--input-background);
-    border: none;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    box-sizing: border-box;
+
 }
 
 .form-split {
@@ -64,18 +66,21 @@
 
 .form-input.split {
     width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    box-sizing: border-box;
 }
 
 .form-input.description {
     width: 100%;
     height: 150px;
-    padding: 12px 20px;
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 4px;
     background-color: #f8f8f8;
-    font-size: 16px;
     resize: none;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .hidden {
@@ -163,3 +168,61 @@
     background-color: #5cb85c;
     color: white;
   }
+
+.error-create {
+    color: red;
+}
+
+.text-and-checkbox-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkbox-right {
+    display: flex;
+    align-items: flex-start;
+}
+
+.dropbtn {
+    background: var(--primary-blue);
+    color: white;
+    padding: 10px;
+    font-size: 15px;
+    border: none;
+  }
+
+.option-btn {
+    background: white;
+    color: black;
+    padding: 10px;
+    font-size: 15px;
+    border: solid 1px black;
+}
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: red;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0.3,0.3,0.3,0.4);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .option-btn :hover {background-color: var(--primary-blue);}
+  
+  .dropdown:hover .dropdown-content {display: flex;}
+  
+  .dropdown:hover .dropbtn {background-color: lightskyblue;}

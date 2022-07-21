@@ -65,9 +65,15 @@
 .todo-card.orange {
     background: var(--test-task);
 }
-
 .todo-card.orange:hover {
     background: var(--test-task-hover);
+}
+
+.todo-card.yellow {
+    background: var(--essay-task);
+}
+.todo-card.yellow:hover {
+    background: var(--essay-task-hover);
 }
 
 .due-icon {

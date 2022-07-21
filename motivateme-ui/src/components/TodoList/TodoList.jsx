@@ -15,7 +15,7 @@ export default function TodoList({ showModal, modalSelected}) {
   * handle
   */
   const [tasks, setTasks] = useState(null)
-  const [taskError, setTaskError] = useState("")
+  const [taskError, setTaskError] = useState(null)
   const [refreshTasks, setRefreshTasks] = useState(false)
 
   useEffect(() => {
@@ -28,26 +28,105 @@ export default function TodoList({ showModal, modalSelected}) {
     }
     getTasks()
     if(tasks) {
-      console.log("NEW TASKS AQUIRED: ", tasks)
     }
   }, [refreshTasks, modalSelected])
 
   const handleOnUpdateFormChange = (event, updateForm, setUpdateForm) => {
+    // first check if it got set to 0
+    if (event.target.name === "name" && event.target.value.length === 0) {
+      setTaskError("Name field cannot be left empty")
+    }
+    if (event.target.name === "category" && event.target.value.length === 0) {
+      setTaskError("Category field cannot be left empty")
+    }
+    if (event.target.name === "dueDate" && event.target.value.length === 0) {
+      setTaskError("Due Date field cannot be left empty")
+    }
+    if (event.target.name === "dueTime" && event.target.value.length === 0) {
+      setTaskError("Due Time field cannot be left empty")
+    }
+
+    // check if prior submits had anything set equal to zero
+    if (taskError === "Name field cannot be left empty" && 
+        event.target.name === "name" && event.target.value.length > 0) {
+          setTaskError(null)
+    }
+    if (taskError === "Category field cannot be left empty" && 
+        event.target.name === "category" && event.target.value.length > 0) {
+          setTaskError(null)
+    }
+    if (taskError === "Due Date field cannot be left empty" && 
+        event.target.name === "dueDate" && event.target.value.length > 0) {
+          setTaskError(null)
+    }
+    if (taskError === "Due Time field is cannot be left empty" && 
+        event.target.name === "dueTime" && event.target.value.length > 0) {
+          setTaskError(null)
+    }
+    // update the form after all the checks regardless
     setUpdateForm({ ...updateForm, [event.target.name]: event.target.value })
   }
 
-  const handleOnUpdateSubmit = async (event, updateForm) => {
+  const handleOnUpdateSubmit = async (event, updateForm, setUpdateOrComplete) => {
     event.preventDefault()
-    
+
+    // check if all required fields are filled
+    if (updateForm.category.length !== 0 &&
+      updateForm.dueDate.length !== 0 &&
+      updateForm.name.length !== 0 &&
+      updateForm.dueTime.length !== 0) {
+        setTaskError(null)
+    }
+    else { // if not then check which one and return
+      if (updateForm.name.length === 0) {
+        setTaskError("Name field cannot be left empty")
+        return
+      }
+      if (updateForm.category.length === 0) {
+        setTaskError("Category field cannot be left empty")
+        return
+      }
+      if (updateForm.dueDate.length === 0) {
+        setTaskError("Due Date field cannot be left empty")
+        return
+      }
+      if (updateForm.dueTime.length === 0) {
+        setTaskError("Due Time field cannot be left empty")
+        return
+      }
+    }
+    // if error message exists, return and don't submit
+    if (taskError !== null) {
+      return
+    }
+
     let {data, error} = await apiClient.updateTask(updateForm)
     
     if (data?.task) {
-      setTaskError("")
+      setTaskError(null)
       setRefreshTasks(!refreshTasks)
+      setUpdateOrComplete(null)
     } else {setTaskError(error)}
   }
 
   const handleOnCompleteFormChange = (event, completeForm, setCompleteForm) => {
+    if (event.target.name === "score" && event.target.value.length === 0) {
+      setTaskError("Score field cannot be left empty")
+    }
+    if (event.target.name === "timeSpent" && event.target.value.length === 0) {
+      setTaskError("Time Spent field cannot be left empty")
+    }
+
+    // check if prior submits had anything set equal to zero
+    if (taskError === "Score field cannot be left empty" && 
+        event.target.name === "score" && event.target.value.length > 0) {
+          setTaskError(null)
+    }
+    if (taskError === "Time Spent field cannot be left empty" && 
+        event.target.name === "timeSpent" && event.target.value.length > 0) {
+          setTaskError(null)
+    }
+
     if (event.target.name === "onTime") {
       let newObject = completeForm
       newObject.onTime = !(completeForm.onTime)
@@ -66,7 +145,28 @@ export default function TodoList({ showModal, modalSelected}) {
   
   const handleOnCompleteSubmit = async(event, completeForm) => {
     event.preventDefault()
-    console.log(completeForm)
+
+    if ((completeForm.score !== null && completeForm.score.length !== 0) &&
+      (completeForm.timeSpent !== null && completeForm.timeSpent.length !== 0)) {
+        setTaskError(null)
+    }
+    else { // if not then check which one and return
+      if (completeForm.score === null || completeForm.score.length === 0) {
+        setTaskError("Score field cannot be left empty")
+        return
+      }
+      if (completeForm.timeSpent === null || completeForm.timeSpent.length === 0) {
+        setTaskError("Time Spent field cannot be left empty")
+        return
+      }
+    }
+    // if error message exists, return and don't submit
+    if (taskError !== null) {
+      return
+    }
+
+
+
     let {data, error} = await apiClient.completeTask(completeForm)
     
     if (data?.completedTask) {
@@ -90,7 +190,8 @@ export default function TodoList({ showModal, modalSelected}) {
       <h3 className='todo-list-title'>Task Overview</h3>
       <div className='todo-list-wrapper'>
       {tasks?.map((task) => {
-        return (<TodoCard taskId = {task.taskId} 
+        return (<TodoCard taskError = {taskError}
+                          taskId = {task.taskId} 
                           name = {task.name} 
                           category = {task.category} 
                           dueDate= {task.dueDate} 
@@ -116,11 +217,33 @@ export default function TodoList({ showModal, modalSelected}) {
 }
 
 
-export function TodoCard ({name, description, category, dueDate, dueTime,handleOnCompleteFormChange, handleOnCompleteSubmit, taskId, handleOnUpdateFormChange, handleOnUpdateSubmit, handleOnDeleteTask}) {
-  //states and variables
-  const [updateForm, setUpdateForm] = useState({name:name, description: description, category:category, dueDate:moment(dueDate).format('YYYY-MM-DD'), dueTime:dueTime, taskId:taskId})
+export function TodoCard ({name, 
+                          description,
+                          category, 
+                          dueDate, 
+                          dueTime,
+                          handleOnCompleteFormChange, 
+                          handleOnCompleteSubmit, 
+                          taskId, 
+                          handleOnUpdateFormChange, 
+                          handleOnUpdateSubmit, 
+                          handleOnDeleteTask, 
+                          taskError }) {
+  const [updateForm, setUpdateForm] = useState({name:name, 
+                                                description: description, 
+                                                category:category, 
+                                                dueDate:moment(dueDate).format('YYYY-MM-DD'), 
+                                                dueTime:dueTime, 
+                                                taskId:taskId})
+
   const originalForm = {name:name, description: description, category:category, dueDate:moment(dueDate).format('YYYY-MM-DD'), dueTime:dueTime, taskId:taskId}
-  const [completeForm, setCompleteForm] = useState({score:null, timeSpent: null, peopleWith:0, comment:"", onTime:false, taskId:taskId, public:false})
+  const [completeForm, setCompleteForm] = useState({score:null, 
+                                                    timeSpent: null, 
+                                                    peopleWith:0, 
+                                                    comment:"", 
+                                                    onTime:false, 
+                                                    taskId:taskId, 
+                                                    public:false})
   const [updateOrComplete, setUpdateOrComplete] = useState(null)
   const [colorState, setColorState] = useState("default")
 
@@ -138,10 +261,10 @@ export function TodoCard ({name, description, category, dueDate, dueTime,handleO
     else if (category.toLowerCase() === "project"){
       setColorState("green")
     }
-
-    console.log("color state is: ", colorState, category)
-   
-  }, [updateForm])
+    else if (category.toLowerCase() === "essay"){
+      setColorState("yellow")
+    }   
+  }, [updateForm, handleOnUpdateSubmit])
 
     return (
         <div className={"todo-card " + colorState}>
@@ -162,6 +285,7 @@ export function TodoCard ({name, description, category, dueDate, dueTime,handleO
                                                           originalForm = {originalForm} 
                                                           setUpdateOrComplete = {setUpdateOrComplete}
                                                           handleOnDeleteTask = {handleOnDeleteTask}
+                                                          taskError = {taskError}
                 />:null}
                 {updateOrComplete === "complete"?<TodoForm formType={"complete"} 
                                                           completeForm = {completeForm} 
@@ -170,6 +294,8 @@ export function TodoCard ({name, description, category, dueDate, dueTime,handleO
                                                           handleOnCompleteSubmit = {handleOnCompleteSubmit} 
                                                           taskId = {taskId}
                                                           setUpdateOrComplete = {setUpdateOrComplete}
+                                                          taskError = {taskError}
+                                                          name = {name}
                 />:null}  
               </div>
             </div>
