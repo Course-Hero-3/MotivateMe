@@ -15,23 +15,32 @@ export default function TodoList({ showModal, modalSelected}) {
   * handle
   */
   const [tasks, setTasks] = useState(null)
+  //const [searchTasks, setSearchTasks] = useState(null)
+  const [searchBarQuery, setQuery] = useState("")
+  const [categoryQuery, setCategoryQuery] = useState("")
   const [taskError, setTaskError] = useState(null)
   const [refreshTasks, setRefreshTasks] = useState(false)
-
+  
+  /**gets the tasks that match users search query */
+  const searchTasks = tasks?.filter((task) => {
+      if (task.name.toLowerCase().match(searchBarQuery) !== null) {
+        return true
+      }
+      else {
+        return false
+      }
+  })
   /**get the most recent updated tasks */
   useEffect(() => {
 
     const getTasks = async () => {
      let currentTasks = await apiClient.getAllTasks()
      if (currentTasks?.data){
-      setTasks(currentTasks.data.allTasks)
+        setTasks(currentTasks.data.allTasks)
      }
     }
     getTasks()
-    if(tasks) {
-    }
-
-  }, [refreshTasks, modalSelected])
+  }, [refreshTasks, modalSelected, searchBarQuery])
 
   const handleOnUpdateFormChange = (event, updateForm, setUpdateForm) => {
     // first check if it got set to 0
@@ -188,12 +197,31 @@ export default function TodoList({ showModal, modalSelected}) {
     } else {setTaskError(error)}
   }
 
+  /** changes the searchBarQuery state based on the users search input*/
+ const handleOnQueryChange = (event) => {
+  setQuery(event.target.value)
+  console.log(searchBarQuery)
+ }
+
+ const handleGetSearchTasks = () => {
+      setSearchTasks(tasks?.filter((task) => {
+        return (task.name.toLowerCase().includes(searchBarQuery.toLowerCase()))
+      }))
+ }
+
   /**render a card with info for each task the user has */
   return (
     <div className='todo-list'>
+      <div className='todo-list-header'>
       <h3 className='todo-list-title'>Task Overview</h3>
+      <form className='task-form'>
+          <input type = "search" value={searchBarQuery} onChange = {(event) => {handleOnQueryChange(event)}} id = "query" name = "q" className='task-form-search'
+            placeholder = "Search..." role = "search" aria-label = "Search through site content"/>
+            <button className='task-form-btn'> <svg viewBox="0 0 1024 1024"><path class="path1" d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"></path></svg></button>
+        </form>
+      </div>
       <div className='todo-list-wrapper'>
-      {tasks?.map((task) => {
+      {searchTasks?.map((task) => {
         return (<TodoCard taskError = {taskError}
                           taskId = {task.taskId} 
                           name = {task.name} 
@@ -209,6 +237,9 @@ export default function TodoList({ showModal, modalSelected}) {
                           handleOnCompleteFormChange = {handleOnCompleteFormChange}
                           handleOnCompleteSubmit = {handleOnCompleteSubmit}
                           handleOnDeleteTask = {handleOnDeleteTask}
+                          handleQuery = {handleOnQueryChange}
+                          query = {query}
+                          setQuery = {setQuery}
                         
       />
       )
@@ -236,6 +267,9 @@ export function TodoCard ({name,
                           handleOnUpdateSubmit, 
                           handleOnDeleteTask, 
                           taskError,
+                          handleQuery,
+                          query,
+                          setQuery
                        }) {
   /**states */
   const [updateForm, setUpdateForm] = useState({name:name, 
@@ -281,13 +315,11 @@ export function TodoCard ({name,
 
   const taskIsLate = () => {
     let currentDate = new Date()
-    console.log("current day is: ", currentDate, "due date is: ", moment(dueDate).format("L"))
     let newDueDate = new Date (moment(dueDate).format(`YYYY-MM-DDT${dueTime}`))
     if (currentDate.getTime() > newDueDate.getTime()){
       return true
     }
     else {
-      console.log("should not be late")
       return false
     }
   }
