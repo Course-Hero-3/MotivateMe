@@ -9,29 +9,124 @@ import { useState } from 'react'
 import lateIcon from "../../assets/late-icon.png"
 import moment from "moment"
 
+
 import apiClient from '../../../services/apiclient'
+String.prototype.replaceAt = function(index, replacement) {
+  if (index >= this.length) {
+      return this.valueOf();
+  }
+
+  return this.substring(0, index) + replacement + this.substring(index + 1);
+}
+
+
 export default function TodoList({ showModal, modalSelected}) {
  /**useEffect 
   * handle
   */
   const [tasks, setTasks] = useState(null)
+  //const [searchTasks, setSearchTasks] = useState(null)
+  const [searchBarQuery, setQuery] = useState("")
+  const [categoryQuery, setCategoryQuery] = useState("")
+  const [sortByDate, setSortByDate] = useState("")
   const [taskError, setTaskError] = useState(null)
   const [refreshTasks, setRefreshTasks] = useState(false)
 
+  const fixRegexSpecialCharacters = (str) => {
+
+    for (let i = 0; i < str.length; i++) {
+    if (str[i] === "+") {
+      str = str.replaceAt(i, "\\+")
+      i += 1
+    }
+    // [ , ] , { , } , | , \
+    else if (str[i] === ".") {
+      str = str.replaceAt(i, "\\.")
+      i += 1
+    }
+    else if (str[i] === "*") {
+      str = str.replaceAt(i, "\\*")
+      i += 1
+    }
+    else if (str[i] === "?") {
+      str = str.replaceAt(i, "\\?")
+      i += 1
+    }
+    else if (str[i] === "^") {
+      str = str.replaceAt(i, "\\^")
+      i += 1
+    }
+    else if (str[i] === "$") {
+      str = str.replaceAt(i, "\\$")
+      i += 1
+    }
+    else if (str[i] === "(") {
+      str = str.replaceAt(i, "\\(")
+      i += 1
+    }
+    else if (str[i] === ")") {
+      str = str.replaceAt(i, "\\)")
+      i += 1
+    }
+    else if (str[i] === "[") {
+      str = str.replaceAt(i, "\\[")
+      i += 1
+    }
+    else if (str[i] === "]") {
+      str = str.replaceAt(i, "\\]")
+      i += 1
+    }
+    else if (str[i] === "{") {
+      str = str.replaceAt(i, "\\{")
+      i += 1
+    }
+    else if (str[i] === "}") {
+      str = str.replaceAt(i, "\\}")
+      i += 1
+    }
+    else if (str[i] === "|") {
+      str = str.replaceAt(i, "\\|")
+      i += 1
+    }
+    else if (str[i] === "\\") {
+      str = str.replaceAt(i, "\\")
+      i += 1
+    }
+    }
+    return str
+    }
+
+  /**gets the tasks that match users search query */
+  const searchTasks = tasks?.filter((task) => {
+    let fixedSearchBarQuery =  fixRegexSpecialCharacters(searchBarQuery)
+      if (task.name.toLowerCase().match(fixedSearchBarQuery.toLowerCase()) !== null && categoryQuery === "") {
+        return true
+      }
+      else if (categoryQuery === "Date" && tasks.sort((a,b) => { b.dueDate - a.dueDate})){
+        return true
+      }
+      else if (task.name.toLowerCase().match(fixedSearchBarQuery.toLowerCase()) !== null && categoryQuery === task.category) {
+        return true
+      }
+      else {
+        return false
+      }
+    
+    
+  })
+
+  
   /**get the most recent updated tasks */
   useEffect(() => {
 
     const getTasks = async () => {
      let currentTasks = await apiClient.getAllTasks()
      if (currentTasks?.data){
-      setTasks(currentTasks.data.allTasks)
+        setTasks(currentTasks.data.allTasks)
      }
     }
     getTasks()
-    if(tasks) {
-    }
-
-  }, [refreshTasks, modalSelected])
+  }, [refreshTasks, modalSelected, searchBarQuery, categoryQuery, setCategoryQuery])
 
   const handleOnUpdateFormChange = (event, updateForm, setUpdateForm) => {
     // first check if it got set to 0
@@ -167,7 +262,10 @@ export default function TodoList({ showModal, modalSelected}) {
       return
     }
 
-
+  /**sorts most recent tasks by category */
+  const handleCategory = (categoryName) => {
+    setCategoryQuery(categoryName)
+  }
 
     let {data, error} = await apiClient.completeTask(completeForm)
     
@@ -188,12 +286,38 @@ export default function TodoList({ showModal, modalSelected}) {
     } else {setTaskError(error)}
   }
 
+  /** changes the searchBarQuery state based on the users search input*/
+ const handleOnQueryChange = (event) => {
+
+  setQuery(event.target.value)
+ }
+
+
+
   /**render a card with info for each task the user has */
   return (
     <div className='todo-list'>
+      <div className='todo-list-header'>
       <h3 className='todo-list-title'>Task Overview</h3>
+      <form className='task-form'>
+          <input type = "search" value={searchBarQuery} onChange = {(event) => {handleOnQueryChange(event)}} id = "query" name = "q" className='task-form-search'
+            placeholder = "Search..." role = "search" aria-label = "Search through site content"/>
+            <button className='task-form-btn'> <svg viewBox="0 0 1024 1024"><path className="path1" d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"></path></svg></button>
+        </form>
+        <form className='sort-tasks'>
+          <label htmlFor = "categories">By Category </label>
+            <select name = "categories" className = "categories" onChange={(event) => {setCategoryQuery(event.target.value)}}>
+            <option value = "" className='category-option'>All</option>
+            <option value = "homework" className='category-option'>Homework</option>
+            <option value = "quiz" className='category-option' >Quiz</option>
+            <option value = "test" className='category-option' >Test</option>
+            <option value = "project" className='category-option' >Project</option>
+          </select>
+        </form>
+      </div>
       <div className='todo-list-wrapper'>
-      {tasks?.map((task) => {
+     
+      {searchTasks?.map((task) => {
         return (<TodoCard taskError = {taskError}
                           taskId = {task.taskId} 
                           name = {task.name} 
@@ -209,6 +333,9 @@ export default function TodoList({ showModal, modalSelected}) {
                           handleOnCompleteFormChange = {handleOnCompleteFormChange}
                           handleOnCompleteSubmit = {handleOnCompleteSubmit}
                           handleOnDeleteTask = {handleOnDeleteTask}
+                          handleQuery = {handleOnQueryChange}
+                          query = {query}
+                          setQuery = {setQuery}
                         
       />
       )
@@ -236,6 +363,9 @@ export function TodoCard ({name,
                           handleOnUpdateSubmit, 
                           handleOnDeleteTask, 
                           taskError,
+                          handleQuery,
+                          query,
+                          setQuery
                        }) {
   /**states */
   const [updateForm, setUpdateForm] = useState({name:name, 
@@ -300,7 +430,7 @@ export function TodoCard ({name,
             <div className='todo-card-footer'>
               <div className='due-date-wrapper'>
                   <img src={dueDateIcon} className = "due-icon"/>
-                  <span className='due-date'>{moment(dueDate).format('YYYY-MM-DD')}</span>
+                  <span className='due-date'>{moment(dueDate).format('MMMM Do YYYY')}</span>
               </div>
               <div className='form-icons'>
                 <img  className = "form-icon" src = {updateIcon} alt = "update-icon" onClick = {() => {setUpdateOrComplete("update")}}/>
@@ -356,7 +486,13 @@ export function TaskDetail ({name, description, category, dueDate, dueTime,showD
             <div className='task_modal_content'>
             <div className='task-header'>
                   <h2 className = "task-detail-name">{name}</h2>
-                <button className='back-btn' type='button' onClick={() => {setShowDetail(null)}}>Back</button>
+                  
+                  <svg onClick = {() => {
+             setShowDetail(null)}} xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-x" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#2c3e50" fill="none" strokeLinecap="round" strokeLinejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+</svg>
               </div>
               <div className='task-detail-body'>
                   <span className='task-detail-category'>{category}</span>
@@ -365,7 +501,7 @@ export function TaskDetail ({name, description, category, dueDate, dueTime,showD
                    </textarea>
               </div>
               <div className='task-detail-footer'>
-                <span className='task-detail-due'>Due: {moment(dueDate).format("L")} at {dueTime}</span>
+                <span className='task-detail-due'>Due: {moment(dueDate).format("MMMM Do YYYY")} at {dueTime}</span>
               </div>
             </div>
           
