@@ -28,19 +28,19 @@ User Personas:
 
 List the current user stories you will implement.
 
-- [ ] As a film student, I want to organize myself by listing what projects and short films are due for the film festival, so that’s why I would like to see all my tasks sorted in earliest date first. (Kai)
+- [x] As a film student, I want to organize myself by listing what projects and short films are due for the film festival, so that’s why I would like to see all my tasks sorted in earliest date first.
 
 - [x] As an honors student, I want to be able to see little graphs of previous accomplishments, so that I stay motivated and stay on top of my class while studying to become a surgeon.
 
 - [x] As a student I want to have my own account associated with my school email including a profile picture and username, so that my account feels customized.(Kai)
 
-- [ ] As a computer science student, I want to be able to see what projects are late for my internships at Google, Apple, and Amazon, so that I know which project to not waste my time on if I missed the deadline already.
+- [x] As a computer science student, I want to be able to see what projects are late for my internships at Google, Apple, and Amazon, so that I know which project to not waste my time on if I missed the deadline already.
 
 - [x] As a club president I want to add club meetings and log my club's activities and have different colors, so that I can easily tell the difference between tasks.
 
-- [x] As a student/teaching assistant, I need to keep track of the assignments I personally have, as well as the projects my students are working on, and any other type of task, so that I don't spend too much time on either one and balance my time.
+- [x] As a student/teaching assistant, I need to be able to quickly add, update, complete, and delte tasks I am working on, so I don't waste time using the app and focus my time on other things.
 
-- [ ] As a team captain for my intramural sports soccer team, I want to be able to keep track of our soccer games on a calendar, and also log our soccer games so we can track our progress over time.
+- [x] As a team captain for my intramural sports soccer team, I want to be able to keep track of our soccer games on a calendar, and also log our soccer games so we can track our progress over time.
 
 - [ ] As a working student, I want to be able to filter different graphs, so that I can see the difference in stats in terms of homeworks, tests, etc.
 
@@ -49,6 +49,10 @@ List the current user stories you will implement.
 - [x] As a nursing major, I need to be able to edit care plans, flash cards, drug cards, and process recordings organized, so that I can make small changes as time goes on.
 
 - [x] As a foreign student living abroad, I need to make sure I can delete tasks in case I need to drop out of a course, so I don't get incorrect charts in my recap page.
+
+- [ ] As a popular fraternity brother, I want to be able to look at my brothers' and friends' progress statistics, so I can push myself to do better if someone else is doing better than me in for example, testing.
+
+- [ ] As a student who already has too many things to keep track of, I want to have a dashboard page with little snippets of all the information the application has to offer and being able to click on those things so I can be redirected to the correct page which puts less pressure on me for navigating the page.
 
 ## Pages/Screens
 
