@@ -20,12 +20,11 @@ export default function DashboardPage({ user, setCurrPage }) {
       if (tempTasks?.data) {
         setTasks(tempTasks.data.allTasks);
       }
+      // if error when fetching user from token (happens if use refreshes)
+      const { error } = await apiClient.fetchUserFromToken();
+      if (error) navigate("/accessforbidden") ;
     };
-    // if user is not logged in, then redirect to access forbidden
-    if (user === null) {
-      navigate("/accessforbidden");
-    }
-    // get info for user and set curr page to dashboard
+
     getInformation();
     setCurrPage("dashboard");
   }, []);
