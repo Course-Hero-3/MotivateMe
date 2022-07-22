@@ -14,7 +14,7 @@ export default function RegisterPage({setUser, user, setCurrPage}) {
   useEffect(()=> {  
     setCurrPage("register")
     if (user?.email){
-      navigate("/todo")
+      navigate("/dashboard")
     }
   }, [user, navigate])
 

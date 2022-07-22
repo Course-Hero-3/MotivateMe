@@ -59,7 +59,7 @@ export default function Navbar( { user, setUser, currPage } ) {
                 <div className="content">
                       <div className="logo">
                         <h2 className='logo-title'>MotivateMe</h2>
-                        <Link to="/">
+                        <Link to="/dashboard">
                           <img id="home-logo" src="https://cdn-icons-png.flaticon.com/512/2163/2163301.png" alt="Home Logo" />
                         </Link>
                       </div>

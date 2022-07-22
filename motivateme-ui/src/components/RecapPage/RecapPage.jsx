@@ -3,6 +3,7 @@ import "./RecapPage.css";
 
 import GraphCard from "../GraphCard/GraphCard";
 import apiClient from "../../../services/apiclient";
+import { useNavigate } from "react-router-dom";
 
 // perhaps use a different variable which keeps track
 // of which index you left off on if we want to
@@ -16,9 +17,9 @@ const randomizeAndReturnItemsInArray = (arr, num) => {
 };
 
 
-export default function RecapPage({ setCurrPage }) {
+export default function RecapPage({ user, setCurrPage }) {
   const [facts, setFacts] = React.useState(null);
-
+  const navigate = useNavigate()
   React.useEffect(() => {
     const getFacts = async () => {
       let tempFacts = await apiClient.getSummary();
@@ -26,6 +27,12 @@ export default function RecapPage({ setCurrPage }) {
         setFacts(tempFacts.data.summary);
       }
     };
+
+    // if user is not logged in, then redirect to access forbidden
+    if (user === null) {
+      navigate("/accessforbidden");
+    }
+    // otherwise get the summary and set curr page to recap
     getFacts();
     setCurrPage("recap");
   }, []);

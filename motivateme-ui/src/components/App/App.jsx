@@ -72,13 +72,13 @@ function App() {
             />
             <Route
               path="/todo"
-              element={<TodoPage setCurrPage={setCurrPage} />}
+              element={<TodoPage user={user} setCurrPage={setCurrPage} />}
             />
             <Route
               path="/recap"
-              element={<RecapPage setCurrPage={setCurrPage} />}
+              element={<RecapPage user={user} setCurrPage={setCurrPage} />}
             />
-            <Route path="/accessforbidden" element={<AccessForbidden />} />
+            <Route path="/accessforbidden" element={<AccessForbidden setCurrPage={setCurrPage} />} />
             <Route
               path="*"
               element={<NotFound user={user} setCurrPage={setCurrPage} />}
