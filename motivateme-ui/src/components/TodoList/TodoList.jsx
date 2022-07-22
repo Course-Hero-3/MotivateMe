@@ -98,7 +98,6 @@ export default function TodoList({ showModal, modalSelected}) {
 
   /**gets the tasks that match users search query */
   const searchTasks = tasks?.filter((task) => {
-    console.log("query in searchTasks", searchBarQuery)
     let fixedSearchBarQuery =  fixRegexSpecialCharacters(searchBarQuery)
       if (task.name.toLowerCase().match(fixedSearchBarQuery.toLowerCase()) !== null && categoryQuery === "") {
         return true
@@ -124,9 +123,6 @@ export default function TodoList({ showModal, modalSelected}) {
      let currentTasks = await apiClient.getAllTasks()
      if (currentTasks?.data){
         setTasks(currentTasks.data.allTasks)
-        console.log(searchTasks)
-        console.log("category query is", categoryQuery)
-
      }
     }
     getTasks()
