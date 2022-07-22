@@ -57,7 +57,7 @@ export default function RegisterPage({setUser, user, setCurrPage}) {
         setRegisterError(null)
       }
     if (event.target.name === "password") {
-      if (registerForm.confirm && registerForm.confirm !== event.target.value) {
+      if (registerForm.confirm !== event.target.value) {
         setRegisterError("Passwords do not match")
       } else {
         setRegisterError(null)
@@ -78,6 +78,9 @@ export default function RegisterPage({setUser, user, setCurrPage}) {
       else {
         setRegisterError(null)
       }
+      if (event.target.value.length === 0) {
+        setRegisterError(null)
+      }
     }
 
     if (!registerError) {
@@ -86,8 +89,10 @@ export default function RegisterPage({setUser, user, setCurrPage}) {
       }
       
       const regex = /^[a-zA-Z0-9\.]+@[a-zA-Z0-9]+\.[A-Za-z]+$/  // implement this in login, and backend when logging in/registering
-      if (regex.test(registerForm.email) === false) {
-        setRegisterError("Please enter a valid email")
+      if (registerForm.email.length !== 0) {
+        if (regex.test(registerForm.email) === false) {
+          setRegisterError("Please enter a valid email")
+        }
       }
     }
 

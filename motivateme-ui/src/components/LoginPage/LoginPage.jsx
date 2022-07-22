@@ -45,12 +45,20 @@ export default function LoginPage({user, setUser,setCurrPage}) {
       else {
         setLoginError(null)
       }
+      if (event.target.value.length === 0) {
+        setLoginError(null)
+      }
     }
-
-    if (!loginError) { 
+    console.log("got here1")
+    console.log(loginError)
+    if (!loginError) {
+      console.log("got here2")
+      console.log("3", loginForm)
       const regex = /^[a-zA-Z0-9\.]+@[a-zA-Z0-9]+\.[A-Za-z]+$/  // implement this in login, and backend when logging in/registering
-      if (regex.test(loginForm.email) === false) {
-        setLoginError("Please enter a valid email")
+      if (loginForm.email.length !== 0) {
+        if (regex.test(loginForm.email) === false) {
+          setLoginError("Please enter a valid email")
+        }
       }
     }
     if (loginError === "Invalid email and password combination") {
@@ -66,10 +74,19 @@ export default function LoginPage({user, setUser,setCurrPage}) {
       setLoginError("Email field was left blank")
       return
     }
+
     if (loginForm.password.length === 0) {
       setLoginError("Password field was left blank")
       return
     }
+    if (loginForm.email.length > 0) {
+      const regex = /^[a-zA-Z0-9\.]+@[a-zA-Z0-9]+\.[A-Za-z]+$/  // implement this in login, and backend when logging in/registering
+      if (regex.test(loginForm.email) === false) {
+        setLoginError("Please enter a valid email")
+        return
+      }
+    }
+    
     if (loginError) {
       return
     }
