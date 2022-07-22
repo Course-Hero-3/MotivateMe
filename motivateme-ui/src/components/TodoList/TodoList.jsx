@@ -279,15 +279,14 @@ export function TodoCard ({name,
 
   }, [updateForm, handleOnUpdateSubmit])
 
+ /**determines if the task is late */
   const taskIsLate = () => {
     let currentDate = new Date()
-    console.log("current day is: ", currentDate, "due date is: ", moment(dueDate).format("L"))
     let newDueDate = new Date (moment(dueDate).format(`YYYY-MM-DDT${dueTime}`))
     if (currentDate.getTime() > newDueDate.getTime()){
       return true
     }
     else {
-      console.log("should not be late")
       return false
     }
   }
@@ -306,7 +305,7 @@ export function TodoCard ({name,
               <div className='form-icons'>
                 <img  className = "form-icon" src = {updateIcon} alt = "update-icon" onClick = {() => {setUpdateOrComplete("update")}}/>
                 <img className = "form-icon"  src = {completeIcon} alt = "complete-icon" onClick = {() => {setUpdateOrComplete("complete")}}/>
-                <svg className = "form-icon info" alt = "form-icon" onClick= {() => {setShowDetail({name, description, category, dueDate, dueTime})}} xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-circle" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <svg  alt = "form-icon" id = "form-icon-info" onClick= {() => {setShowDetail({name, description, category, dueDate, dueTime})}} xmlns="http://www.w3.org/2000/svg" className ="icon icon-tabler icon-tabler-info-circle" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#2c3e50" fill="none" strokeLinecap="round" strokeLinejoin="round">
   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
   <circle cx="12" cy="12" r="9" />
   <line x1="12" y1="8" x2="12.01" y2="8" />
