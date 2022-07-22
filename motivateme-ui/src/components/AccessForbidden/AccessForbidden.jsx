@@ -2,7 +2,11 @@ import React from "react";
 import "./AccessForbidden.css";
 import {Link} from "react-router-dom"
 
-export default function AccessForbidden() {
+export default function AccessForbidden( { setCurrPage } ) {
+  React.useEffect(() => {
+    setCurrPage("landing")
+}, [])
+
   return (
     <div className="accessforbidden">
       <h1>ACCESS FORBIDDEN</h1>

@@ -19,7 +19,7 @@ export default function LoginPage({user, setUser,setCurrPage}) {
   }, [])
   useEffect(()=> {  
     if (user?.email){
-      navigate("/todo")
+      navigate("/dashboard")
     }
   }, [user, navigate])
 

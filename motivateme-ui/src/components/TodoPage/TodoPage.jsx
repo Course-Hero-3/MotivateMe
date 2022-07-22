@@ -3,12 +3,20 @@ import "./TodoPage.css"
 import TodoForm from "../TodoForm/TodoForm"
 import TodoList from '../TodoList/TodoList'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-export default function TodoPage({ setCurrPage }) {
+export default function TodoPage({ user, setCurrPage }) {
   const [modalSelected, setModalSelected] = useState("")
-
+  const navigate = useNavigate()
   React.useEffect(() => {
+
+    // if user is not logged in, redirect to access forbidden page
+    if (user === null) {
+      navigate("/accessforbidden")
+    }
+    // otherwise, set the curr page to "to do"
     setCurrPage("todo")
+    
   }, [])
 
   /*if the create btn was clicked pop up the create form*/
