@@ -163,7 +163,6 @@
 .due-date-wrapper {
     display: flex;
     flex-direction: row;
-    width: 150px;
     align-items: center;
     margin-left: 15px;
 }

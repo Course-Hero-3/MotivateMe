@@ -429,7 +429,7 @@ export function TodoCard ({name,
             <div className='todo-card-footer'>
               <div className='due-date-wrapper'>
                   <img src={dueDateIcon} className = "due-icon"/>
-                  <span className='due-date'>{moment(dueDate).format('YYYY-MM-DD')}</span>
+                  <span className='due-date'>{moment(dueDate).format('MMMM Do YYYY')}</span>
               </div>
               <div className='form-icons'>
                 <img  className = "form-icon" src = {updateIcon} alt = "update-icon" onClick = {() => {setUpdateOrComplete("update")}}/>
@@ -494,7 +494,7 @@ export function TaskDetail ({name, description, category, dueDate, dueTime,showD
                    </textarea>
               </div>
               <div className='task-detail-footer'>
-                <span className='task-detail-due'>Due: {moment(dueDate).format("L")} at {dueTime}</span>
+                <span className='task-detail-due'>Due: {moment(dueDate).format("MMMM Do YYYY")} at {dueTime}</span>
               </div>
             </div>
           
