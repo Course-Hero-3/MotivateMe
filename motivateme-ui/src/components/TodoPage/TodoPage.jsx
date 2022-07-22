@@ -11,9 +11,12 @@ export default function TodoPage({ user, setCurrPage }) {
   React.useEffect(() => {
 
     // if user is not logged in, redirect to access forbidden page
-    if (user === null) {
-      navigate("/accessforbidden")
-    }
+    const checkUserLoggedIn = async () => {
+      const { error } = await apiClient.fetchUserFromToken();
+      if (error) navigate("/accessforbidden") ;
+    };
+
+    checkUserLoggedIn()
     // otherwise, set the curr page to "to do"
     setCurrPage("todo")
     
