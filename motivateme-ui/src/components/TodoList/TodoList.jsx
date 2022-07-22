@@ -276,11 +276,28 @@ export function TodoCard ({name,
     else if (category.toLowerCase() === "essay"){
       setColorState("yellow")
     }   
+
   }, [updateForm, handleOnUpdateSubmit])
+
+  const taskIsLate = () => {
+    let currentDate = new Date()
+    console.log("current day is: ", currentDate, "due date is: ", moment(dueDate).format("L"))
+    let newDueDate = new Date (moment(dueDate).format(`YYYY-MM-DDT${dueTime}`))
+    if (currentDate.getTime() > newDueDate.getTime()){
+      return true
+    }
+    else {
+      console.log("should not be late")
+      return false
+    }
+  }
 
     return (
         <div className={"todo-card " + colorState}>
-            <div className='name-wrapper'><span className = "name">{name}</span></div>
+            <div className='card-header'>
+              <div className='name-wrapper'><span className = "name">{name}</span></div>
+              {taskIsLate()?<img src={lateIcon} className = "late-icon"/>:null}
+            </div>
             <div className='todo-card-footer'>
               <div className='due-date-wrapper'>
                   <img src={dueDateIcon} className = "due-icon"/>
@@ -295,6 +312,8 @@ export function TodoCard ({name,
   <line x1="12" y1="8" x2="12.01" y2="8" />
   <polyline points="11 12 12 12 12 16 13 16" />
 </svg>
+            </div>
+
   </div>
                 {updateOrComplete === "update"?<TodoForm formType={"update"} 
                                                           updateForm = {updateForm} 
@@ -325,7 +344,6 @@ export function TodoCard ({name,
                                         showDetail = {showDetail}
                                          />:null}  
             
-            </div>
 
         </div>
       )
@@ -348,7 +366,7 @@ export function TaskDetail ({name, description, category, dueDate, dueTime,showD
                    </textarea>
               </div>
               <div className='task-detail-footer'>
-                <span className='task-detail-due'>Due: {moment(dueDate).format('MMM Do YY')} at {dueTime}</span>
+                <span className='task-detail-due'>Due: {moment(dueDate).format("L")} at {dueTime}</span>
               </div>
             </div>
           
