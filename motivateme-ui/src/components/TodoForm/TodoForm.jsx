@@ -137,10 +137,15 @@ export function TodoCreate ({showModal,
         <form className='form_modal_content'>
         <div className='form-header'>
         <h2 className='form-title'>Create </h2>
-        <button className='back-btn' onClick={() => {
+        <svg onClick={() => {
               showModal("")
               setCreateForm({name:"", description: "", category:"", dueDate:"", dueTime:""})
-        }} type = "button">Back</button>
+        }} xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-x" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#2c3e50" fill="none" strokeLinecap="round" strokeLinejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+</svg>
+       
         </div>
         <div className='input-fields form'>
              <div className='input-field form'>
@@ -211,10 +216,14 @@ export function TodoUpdate ({ updateForm,
     <form className='form_modal_content'>
     <div className='form-header'>
         <h2 className='form-title'>Update</h2>
-        <button className='back-btn' onClick={() => {
+        <svg onClick = {() => {
              setUpdateOrComplete(null)
-              setUpdateForm(originalForm)
-        }} type = "button">Back</button>
+              setUpdateForm(originalForm)}} xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-x" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#2c3e50" fill="none" strokeLinecap="round" strokeLinejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+</svg>
+        
         </div>
     <div className='input-fields form'>
          <div className='input-field form'>
@@ -287,10 +296,14 @@ export function TodoComplete ({setUpdateOrComplete,
     <div className='form_modal_content'>
     <div className='form-header'>
         <h2 className='form-title'>Complete</h2>
-        <button className='back-btn' onClick={() => {
+        <svg onClick={() => {
               setUpdateOrComplete("")
               setCompleteForm({score:null, timeSpent: null, peopleWith:0, comment:"", onTime:false, taskId:taskId, public:false})
-        }} type = "button">Back</button>
+        }} xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-x" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#2c3e50" fill="none" strokeLinecap="round" strokeLinejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+</svg>
         </div>
     <div className='input-fields form'>
          <div className='input-field'>

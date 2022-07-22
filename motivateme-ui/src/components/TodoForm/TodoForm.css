@@ -16,8 +16,11 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
-
+.form-header svg {
+    cursor: pointer;
+}
 .back-btn {
     width: 80px;
     cursor: pointer;

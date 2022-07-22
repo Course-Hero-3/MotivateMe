@@ -213,7 +213,7 @@
 .task-detail-name {
     color: #333;
 }
-::placeholder {
+.task-form-search::placeholder {
     color: var(--pure-white);
 }
 
