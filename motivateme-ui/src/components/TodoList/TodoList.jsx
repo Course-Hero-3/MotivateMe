@@ -9,7 +9,17 @@ import { useState } from 'react'
 import lateIcon from "../../assets/late-icon.png"
 import moment from "moment"
 
+
 import apiClient from '../../../services/apiclient'
+String.prototype.replaceAt = function(index, replacement) {
+  if (index >= this.length) {
+      return this.valueOf();
+  }
+
+  return this.substring(0, index) + replacement + this.substring(index + 1);
+}
+
+
 export default function TodoList({ showModal, modalSelected}) {
  /**useEffect 
   * handle
@@ -18,18 +28,95 @@ export default function TodoList({ showModal, modalSelected}) {
   //const [searchTasks, setSearchTasks] = useState(null)
   const [searchBarQuery, setQuery] = useState("")
   const [categoryQuery, setCategoryQuery] = useState("")
+  const [sortByDate, setSortByDate] = useState("")
   const [taskError, setTaskError] = useState(null)
   const [refreshTasks, setRefreshTasks] = useState(false)
-  
+
+  const fixRegexSpecialCharacters = (str) => {
+
+    for (let i = 0; i < str.length; i++) {
+    if (str[i] === "+") {
+      str = str.replaceAt(i, "\\+")
+      i += 1
+    }
+    // [ , ] , { , } , | , \
+    else if (str[i] === ".") {
+      str = str.replaceAt(i, "\\.")
+      i += 1
+    }
+    else if (str[i] === "*") {
+      str = str.replaceAt(i, "\\*")
+      i += 1
+    }
+    else if (str[i] === "?") {
+      str = str.replaceAt(i, "\\?")
+      i += 1
+    }
+    else if (str[i] === "^") {
+      str = str.replaceAt(i, "\\^")
+      i += 1
+    }
+    else if (str[i] === "$") {
+      str = str.replaceAt(i, "\\$")
+      i += 1
+    }
+    else if (str[i] === "(") {
+      str = str.replaceAt(i, "\\(")
+      i += 1
+    }
+    else if (str[i] === ")") {
+      str = str.replaceAt(i, "\\)")
+      i += 1
+    }
+    else if (str[i] === "[") {
+      str = str.replaceAt(i, "\\[")
+      i += 1
+    }
+    else if (str[i] === "]") {
+      str = str.replaceAt(i, "\\]")
+      i += 1
+    }
+    else if (str[i] === "{") {
+      str = str.replaceAt(i, "\\{")
+      i += 1
+    }
+    else if (str[i] === "}") {
+      str = str.replaceAt(i, "\\}")
+      i += 1
+    }
+    else if (str[i] === "|") {
+      str = str.replaceAt(i, "\\|")
+      i += 1
+    }
+    else if (str[i] === "\\") {
+      str = str.replaceAt(i, "\\")
+      i += 1
+    }
+    }
+    return str
+    }
+
   /**gets the tasks that match users search query */
   const searchTasks = tasks?.filter((task) => {
-      if (task.name.toLowerCase().match(searchBarQuery) !== null) {
+    console.log("query in searchTasks", searchBarQuery)
+    let fixedSearchBarQuery =  fixRegexSpecialCharacters(searchBarQuery)
+      if (task.name.toLowerCase().match(fixedSearchBarQuery.toLowerCase()) !== null && categoryQuery === "") {
+        return true
+      }
+      else if (categoryQuery === "Date" && tasks.sort((a,b) => { b.dueDate - a.dueDate})){
+        return true
+      }
+      else if (task.name.toLowerCase().match(fixedSearchBarQuery.toLowerCase()) !== null && categoryQuery === task.category) {
         return true
       }
       else {
         return false
       }
+    
+    
   })
+
+  
   /**get the most recent updated tasks */
   useEffect(() => {
 
@@ -37,10 +124,13 @@ export default function TodoList({ showModal, modalSelected}) {
      let currentTasks = await apiClient.getAllTasks()
      if (currentTasks?.data){
         setTasks(currentTasks.data.allTasks)
+        console.log(searchTasks)
+        console.log("category query is", categoryQuery)
+
      }
     }
     getTasks()
-  }, [refreshTasks, modalSelected, searchBarQuery])
+  }, [refreshTasks, modalSelected, searchBarQuery, categoryQuery, setCategoryQuery])
 
   const handleOnUpdateFormChange = (event, updateForm, setUpdateForm) => {
     // first check if it got set to 0
@@ -176,7 +266,10 @@ export default function TodoList({ showModal, modalSelected}) {
       return
     }
 
-
+  /**sorts most recent tasks by category */
+  const handleCategory = (categoryName) => {
+    setCategoryQuery(categoryName)
+  }
 
     let {data, error} = await apiClient.completeTask(completeForm)
     
@@ -199,15 +292,11 @@ export default function TodoList({ showModal, modalSelected}) {
 
   /** changes the searchBarQuery state based on the users search input*/
  const handleOnQueryChange = (event) => {
+
   setQuery(event.target.value)
-  console.log(searchBarQuery)
  }
 
- const handleGetSearchTasks = () => {
-      setSearchTasks(tasks?.filter((task) => {
-        return (task.name.toLowerCase().includes(searchBarQuery.toLowerCase()))
-      }))
- }
+
 
   /**render a card with info for each task the user has */
   return (
@@ -217,10 +306,21 @@ export default function TodoList({ showModal, modalSelected}) {
       <form className='task-form'>
           <input type = "search" value={searchBarQuery} onChange = {(event) => {handleOnQueryChange(event)}} id = "query" name = "q" className='task-form-search'
             placeholder = "Search..." role = "search" aria-label = "Search through site content"/>
-            <button className='task-form-btn'> <svg viewBox="0 0 1024 1024"><path class="path1" d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"></path></svg></button>
+            <button className='task-form-btn'> <svg viewBox="0 0 1024 1024"><path className="path1" d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"></path></svg></button>
+        </form>
+        <form className='sort-tasks'>
+          <label htmlFor = "categories">By Category </label>
+            <select name = "categories" className = "categories" onChange={(event) => {setCategoryQuery(event.target.value)}}>
+            <option value = "" className='category-option'>All</option>
+            <option value = "homework" className='category-option'>Homework</option>
+            <option value = "quiz" className='category-option' >Quiz</option>
+            <option value = "test" className='category-option' >Test</option>
+            <option value = "project" className='category-option' >Project</option>
+          </select>
         </form>
       </div>
       <div className='todo-list-wrapper'>
+     
       {searchTasks?.map((task) => {
         return (<TodoCard taskError = {taskError}
                           taskId = {task.taskId} 
