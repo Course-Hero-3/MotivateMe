@@ -4,7 +4,6 @@ import {Link} from "react-router-dom"
 
 export default function AccessForbidden( { setCurrPage } ) {
   React.useEffect(() => {
-    console.log("GOING TO BE LANDING")
     setCurrPage("landing")
 }, [])
 
