@@ -1,0 +1,75 @@
+.social-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-title {
+  align-self: center;
+}
+
+.social-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.activity-feed{
+
+
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 50px;
+}
+
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  width: 350px;
+  border-radius: 5px;
+  font-size: 20px;
+  height: 54px;
+  border: none;
+  padding: 11px 23px;
+  color: #34b3f1;
+  cursor: pointer;
+}
+
+.button {
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+  background-color: #34b3f1;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.friends-content{
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-right: 50px;
+}
+
+.friend-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.friend-text {
+  color: #172b4d;
+  font-weight: bolder;
+}
+
+.search {
+  background-color: #d9d9d9;
+  color: black;
+  width: 300px;
+  padding: 10px 5px;
+  margin-right: 2px;
+  border: none;
+}
