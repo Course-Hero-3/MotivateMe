@@ -40,6 +40,7 @@
 
 .nav-btn {
     padding: 10px 20px;
+    cursor: pointer;
     margin: 5px;
     border-radius: 5px;
     color: black;
@@ -77,3 +78,4 @@
     width: 60px;
     border-radius: 50%;
 }
+

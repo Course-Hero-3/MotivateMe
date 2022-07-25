@@ -79,12 +79,13 @@ function App() {
               path="/recap"
               element={<RecapPage user={user} setCurrPage={setCurrPage} />}
             />
-            <Route path="/accessforbidden" element={<AccessForbidden setCurrPage={setCurrPage} />} />
+            <Route
+              path="/social"
+              element={<SocialPage user={user} setCurrPage={setCurrPage} />}
+            />
             <Route
               path="*"
               element={<NotFound user={user} setCurrPage={setCurrPage} />}
-            />
-            <Route path ="/social" element={<SocialPage user={user} setCurrPage={setCurrPage}/>}
             />
           </Routes>
         </div>

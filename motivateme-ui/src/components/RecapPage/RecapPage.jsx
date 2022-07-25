@@ -3,7 +3,7 @@ import "./RecapPage.css";
 
 import GraphCard from "../GraphCard/GraphCard";
 import apiClient from "../../../services/apiclient";
-import { useNavigate } from "react-router-dom";
+import AccessForbidden from "../AccessForbidden/AccessForbidden";
 
 // perhaps use a different variable which keeps track
 // of which index you left off on if we want to
@@ -16,10 +16,8 @@ const randomizeAndReturnItemsInArray = (arr, num) => {
   return shuffled.slice(0, num);
 };
 
-
 export default function RecapPage({ user, setCurrPage }) {
   const [facts, setFacts] = React.useState(null);
-  const navigate = useNavigate()
   React.useEffect(() => {
     const getFacts = async () => {
       let tempFacts = await apiClient.getSummary();
@@ -27,31 +25,41 @@ export default function RecapPage({ user, setCurrPage }) {
         setFacts(tempFacts.data.summary);
       }
       // if error when fetching user from token (happens if use refreshes)
-      const { error } = await apiClient.fetchUserFromToken();
-      if (error) navigate("/accessforbidden") ;
     };
 
     // otherwise get the summary and set curr page to recap
     getFacts();
-    setCurrPage("recap");
+    if (user !== null && user !== undefined) {
+      setCurrPage("recap");
+    }
   }, []);
 
   return (
-    <div className="recap-page">
-      <h2 className="recap-title">Recap</h2>
-      <div className="chart-area">
-        <div className="chart-grid">
-          {facts ?
-              // change "facts.length" to another variable if we implement a load more function
-              // might need to change some other variables as well actually
-              randomizeAndReturnItemsInArray(facts, facts.length).map(
-                (fact, idx) => (
-                  <GraphCard key={idx} chartInformation={fact}/>
-                )
-              )
-            : null}
-        </div>
-      </div>
-    </div>
+    <>
+      {user !== undefined && user !== null ? (
+        <>
+          <div className="recap-page">
+            <h2 className="recap-title">Recap</h2>
+            <div className="chart-area">
+              <div className="chart-grid">
+                {facts
+                  ? // change "facts.length" to another variable if we implement a load more function
+                    // might need to change some other variables as well actually
+                    randomizeAndReturnItemsInArray(facts, facts.length).map(
+                      (fact, idx) => (
+                        <GraphCard key={idx} chartInformation={fact} />
+                      )
+                    )
+                  : null}
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <AccessForbidden setCurrPage={setCurrPage} />
+        </>
+      )}
+    </>
   );
 }
