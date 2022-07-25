@@ -35,25 +35,36 @@ router.post("/follow", security.requireAuthenticatedUser, async (req, res, next)
         const publicUserFromDecodedToken = res.locals.user 
         const newRelationship = await Social.follow(req.body, publicUserFromDecodedToken)
         res.status(201) 
-        res.json( { completedTask: completedPublicTask } )
+        res.json( { newRelationship: newRelationship } )
     }
     catch (error) {
         next(error)
     }
 })
 
-router.delete("/deletetask", security.requireAuthenticatedUser, permissions.authedUserOwnsTask, async (req, res, next) => {
+router.delete("/unfollow", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
-        // req.body needs to look like { taskId: taskId }
+        // needs username of person that is going to be UNfollowed in req.body
         const publicUserFromDecodedToken = res.locals.user 
-        const deletedTask = await Todo.deleteTask(req.body, publicUserFromDecodedToken)
+        const unfollowedRelationship = await Social.unfollow(req.body, publicUserFromDecodedToken)
         res.status(200) 
-        res.json( { deletedTask: deletedTask } )
+        res.json( { unfollowedRelationship: unfollowedRelationship } )
     }
     catch (error) {
         next(error)
     }
 })
 
+router.get("/activity", security.requireAuthenticatedUser, async (req, res, next) => {
+    try {
+        const publicUserFromDecodedToken = res.locals.user 
+        const usersAndActivity = await Social.fetchActivity(publicUserFromDecodedToken) 
+        res.status(200)
+        res.json( { activity: usersAndActivity } )
+    }
+    catch (error) {
+        next(error)
+    }
+})
 
 module.exports = router
