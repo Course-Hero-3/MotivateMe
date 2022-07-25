@@ -80,6 +80,9 @@ export default function Navbar( { user, setUser, currPage } ) {
                         <Link to="/todo">
                           <button className={`nav-btn ${currPage==="todo" ? "active" : ""}`}>To-Do</button>
                         </Link>
+                        <Link to ="/social">
+                          <button className={`nav-btn ${currPage==="social"?"active":""}`}>Social Feed</button>
+                        </Link>
                       </div>
                       <div className='account-links'>
 
