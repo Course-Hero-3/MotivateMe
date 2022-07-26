@@ -67,4 +67,17 @@ router.get("/activity", security.requireAuthenticatedUser, async (req, res, next
     }
 })
 
+
+router.get("/notfollowing", security.requireAuthenticatedUser, async (req, res, next) => {
+    try {
+        const publicUserFromDecodedToken = res.locals.user 
+        const otherUsers = await Social.notFollowingUsers(publicUserFromDecodedToken) 
+        res.status(200)
+        res.json( { otherUsers: otherUsers } )
+    }
+    catch (error) {
+        next(error)
+    }
+})
+
 module.exports = router

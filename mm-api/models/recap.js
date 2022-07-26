@@ -422,7 +422,7 @@ class Recap {
         functionToCall = shuffled[0];
         statisticRetrieved = await functionToCall(userId, true);
         // if graph was received, return it for that user
-        if (statisticRetrieved !== null) {
+        if (statisticRetrieved !== null && statisticRetrieved !== undefined) {
           return statisticRetrieved;
         }
         // else, get rid of that option and try the other graphs (if any)
@@ -454,7 +454,7 @@ class Recap {
               categoriesShuffled[0],
               true
             );
-            if (statisticRetrieved !== null) {
+            if (statisticRetrieved !== null && statisticRetrieved !== undefined) {
               return statisticRetrieved;
             }
             categoriesShuffled = categoriesShuffled.splice(1);
@@ -462,7 +462,7 @@ class Recap {
         } else {
           functionToCall = shuffled[0]
           statisticRetrieved = await functionToCall(userId, "project", true);
-          if (statisticRetrieved !== null) {
+          if (statisticRetrieved !== null && statisticRetrieved !== undefined) {
             return statisticRetrieved;
           }
         }
@@ -470,6 +470,8 @@ class Recap {
       }
       return null;
     }
+    
+    return null
   }
 
   // {

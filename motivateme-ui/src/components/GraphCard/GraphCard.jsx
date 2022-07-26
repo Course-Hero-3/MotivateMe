@@ -106,7 +106,7 @@ export default function GraphCard({ chartInformation }) {
   // render the card by itself
   return (
     <>
-      {chartInformation !== null ? (
+      {chartInformation !== null && chartInformation !== undefined ? (
         <div className="chart-card">
           <h3 className="chart-title">{chartInformation.label}</h3>
           {generateSpecificChart(chartInformation)}

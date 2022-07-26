@@ -47,7 +47,9 @@ export default function RecapPage({ user, setCurrPage }) {
                     // might need to change some other variables as well actually
                     randomizeAndReturnItemsInArray(facts, facts.length).map(
                       (fact, idx) => (
+                        <div className="graph-area">
                         <GraphCard key={idx} chartInformation={fact} />
+                        </div>
                       )
                     )
                   : null}
