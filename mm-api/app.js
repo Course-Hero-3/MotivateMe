@@ -30,13 +30,13 @@ app.use(security.extractUserFromJwt)
 const authRoute = require("./routes/auth")
 const todoRoute = require("./routes/todo")
 const recapRoute = require("./routes/recap")
-// social - stretch
+const socialRoute = require("./routes/social")
 
 // put all extra route paths here such ass
 app.use("/auth", authRoute)
 app.use("/todo", todoRoute)
 app.use("/recap", recapRoute)
-// app.use("/social", socialRoute) - stretch
+app.use("/social", socialRoute)
 
 
 app.get("/", async (req, res, next) => {

@@ -8,15 +8,31 @@ require("dotenv").config();
 
 class Recap {
   // amount of people they work with on some category
-  static async peopleWorkedWithPerCategory(userId, category) {
-    const text = `
+  static async peopleWorkedWithPerCategory(
+    userId,
+    category,
+    mustBePublic = false
+  ) {
+    let text = "";
+    if (mustBePublic) {
+      text = `
             SELECT people_with AS "peopleWith", COUNT(*) AS "times"
             FROM completed as c
                 INNER JOIN tasks as t ON c.user_id=t.user_id AND c.task_id=t.task_id
-            WHERE c.user_id=$1 AND t.category=$2
+            WHERE c.user_id=$1 AND t.category=$2 AND c.public=true
             GROUP BY c.people_with
             ORDER BY c.people_with ASC
         `;
+    } else {
+      text = `
+      SELECT people_with AS "peopleWith", COUNT(*) AS "times"
+      FROM completed as c
+          INNER JOIN tasks as t ON c.user_id=t.user_id AND c.task_id=t.task_id
+      WHERE c.user_id=$1 AND t.category=$2
+      GROUP BY c.people_with
+      ORDER BY c.people_with ASC
+  `;
+    }
 
     const values = [userId, category.toLowerCase()];
     const result = await db.query(text, values);
@@ -43,7 +59,7 @@ class Recap {
 
     const reducer = (accumulator, curr) => accumulator + curr;
     if (actualData.reduce(reducer) === 0) {
-      return;
+      return null;
     }
 
     return {
@@ -57,13 +73,23 @@ class Recap {
   }
 
   // see if student has been on time with all of their assignments
-  static async assignmentsLate(userId) {
-    const text = `
-        SELECT c.on_time, COUNT(*)
-        FROM completed as c
-        WHERE c.user_id=$1
-        GROUP BY c.on_time
-        `;
+  static async assignmentsLate(userId, mustBePublic = false) {
+    let text = "";
+    if (mustBePublic) {
+      text = `
+      SELECT c.on_time, COUNT(*)
+      FROM completed as c
+      WHERE c.user_id=$1 AND c.public=true
+      GROUP BY c.on_time
+      `;
+    } else {
+      text = `
+      SELECT c.on_time, COUNT(*)
+      FROM completed as c
+      WHERE c.user_id=$1
+      GROUP BY c.on_time
+      `;
+    }
     const values = [userId];
     const result = await db.query(text, values);
 
@@ -89,14 +115,25 @@ class Recap {
   }
 
   // See where the user is allocating most of their time
-  static async timeSpentPerCategory(userId) {
-    const text = `
+  static async timeSpentPerCategory(userId, mustBePublic = false) {
+    let text = "";
+    if (mustBePublic) {
+      text = `
+        SELECT t.category, SUM(c.time_spent) AS "total_time_spent"
+        FROM completed as c
+            INNER JOIN tasks as t ON c.user_id=t.user_id AND c.task_id=t.task_id
+        WHERE c.user_id=$1 AND c.public=true
+        GROUP BY t.category
+        `;
+    } else {
+      text = `
         SELECT t.category, SUM(c.time_spent) AS "total_time_spent"
         FROM completed as c
             INNER JOIN tasks as t ON c.user_id=t.user_id AND c.task_id=t.task_id
         WHERE c.user_id=$1 
         GROUP BY t.category
         `;
+    }
     const values = [userId];
     const result = await db.query(text, values);
 
@@ -118,6 +155,7 @@ class Recap {
   }
 
   static async assignmentsPerMonth(userId) {
+    // does not need to be public/private
     const text = `
             SELECT EXTRACT(MONTH FROM due_date), COUNT(EXTRACT(MONTH FROM due_date))
             FROM tasks as t
@@ -165,8 +203,21 @@ class Recap {
     };
   }
 
-  static async letterGradesPerCategory(userId, category) {
-    const text = `
+  static async letterGradesPerCategory(userId, category, mustBePublic = false) {
+    let text = "";
+    if (mustBePublic) {
+      text = `
+      SELECT  COUNT(*) FILTER (WHERE c.score >= 90) AS "A",
+          COUNT(*) FILTER (WHERE c.score BETWEEN 80 AND 89.99) AS "B",
+          COUNT(*) FILTER (WHERE c.score BETWEEN 70 AND 79.99) AS "C",
+          COUNT(*) FILTER (WHERE c.score BETWEEN 60 AND 69.99) AS "D",
+          COUNT(*) FILTER (WHERE c.score < 60) AS "F"
+      FROM completed as c
+          INNER JOIN tasks as t ON c.user_id=t.user_id AND c.task_id=t.task_id AND c.public=true
+      WHERE c.user_id=$1 AND t.category=$2
+  `;
+    } else {
+      text = `
             SELECT  COUNT(*) FILTER (WHERE c.score >= 90) AS "A",
                 COUNT(*) FILTER (WHERE c.score BETWEEN 80 AND 89.99) AS "B",
                 COUNT(*) FILTER (WHERE c.score BETWEEN 70 AND 79.99) AS "C",
@@ -176,6 +227,7 @@ class Recap {
                 INNER JOIN tasks as t ON c.user_id=t.user_id AND c.task_id=t.task_id
             WHERE c.user_id=$1 AND t.category=$2
         `;
+    }
 
     const values = [userId, category.toLowerCase()];
     const result = await db.query(text, values);
@@ -200,14 +252,26 @@ class Recap {
     };
   }
 
-  static async averagePerCategory(userId) {
-    const text = `
+  static async averagePerCategory(userId, mustBePublic = false) {
+    let text = "";
+    if (mustBePublic) {
+      text = `
+      SELECT t.category, ROUND(AVG(c.score)::numeric, 2) AS "average"
+      FROM completed as c
+          INNER JOIN tasks as t ON c.user_id=t.user_id AND c.task_id=t.task_id
+      WHERE c.user_id=$1 AND c.public=true
+      GROUP BY t.category
+      `;
+    } else {
+      text = `
         SELECT t.category, ROUND(AVG(c.score)::numeric, 2) AS "average"
         FROM completed as c
             INNER JOIN tasks as t ON c.user_id=t.user_id AND c.task_id=t.task_id
         WHERE c.user_id=$1 
         GROUP BY t.category
         `;
+    }
+
     const values = [userId];
     const result = await db.query(text, values);
 
@@ -228,14 +292,24 @@ class Recap {
     };
   }
 
-  static async maxMinPerCategory(userId) {
+  static async maxMinPerCategory(userId, mustBePublic = false) {
     //create stats for max and min of every category
-    const text = `
+    let text = "";
+    if (mustBePublic) {
+      text = `
+      SELECT t.category, MAX(c.score) AS "max", MIN(c.score) AS "min"
+      FROM completed as c
+          INNER JOIN tasks as t ON c.user_id=t.user_id AND c.task_id=t.task_id
+      WHERE c.user_id=$1 AND c.public=true
+      GROUP BY t.category`;
+    } else {
+      text = `
         SELECT t.category, MAX(c.score) AS "max", MIN(c.score) AS "min"
         FROM completed as c
             INNER JOIN tasks as t ON c.user_id=t.user_id AND c.task_id=t.task_id
         WHERE c.user_id=$1 
         GROUP BY t.category`;
+    }
 
     const values = [userId];
     const result = await db.query(text, values);
@@ -315,6 +389,89 @@ class Recap {
     }
 
     return listOfFacts;
+  }
+
+  static async fetchPublicGraphById(userId) {
+    // randomize and pick 1 graph, if no graph for that statistic
+    // move onto the next choice. If still no grpah, return "no graph"
+    let typeGraph = Math.floor(Math.random() * 2); // randomize between 2 types of graphs
+    // ones that take in 1 parameter vs
+    // ones that take in 2 parameters
+
+    // we do this to randomize which graph gets picked for that user
+    let typeOneGraphs = [
+      Recap.averagePerCategory,
+      Recap.maxMinPerCategory,
+      Recap.assignmentsPerMonth,
+      Recap.timeSpentPerCategory,
+      Recap.assignmentsLate,
+    ];
+    let typeTwoGraphs = [
+      Recap.letterGradesPerCategory,
+      Recap.peopleWorkedWithPerCategory,
+    ];
+    let statisticRetrieved = null;
+    let functionToCall = null;
+
+    if (typeGraph == 0) {
+      // shuffle the type one graphs
+      let shuffled = [...typeOneGraphs].sort(() => 0.5 - Math.random());
+      // while there are still other graphs to try out, keep going if we get nulls back
+      while (shuffled.length > 0) {
+        shuffled = [...shuffled].sort(() => 0.5 - Math.random());
+        functionToCall = shuffled[0];
+        statisticRetrieved = await functionToCall(userId, true);
+        // if graph was received, return it for that user
+        if (statisticRetrieved !== null && statisticRetrieved !== undefined) {
+          return statisticRetrieved;
+        }
+        // else, get rid of that option and try the other graphs (if any)
+        shuffled = shuffled.splice(1);
+      }
+      return null;
+    }
+    if (typeGraph == 1) {
+      // shuffle type two graphs for randomized resulting graph
+      let shuffled = [...typeTwoGraphs].sort(() => 0.5 - Math.random());
+      while (shuffled.length > 0) {
+        shuffled = [...shuffled].sort(() => 0.5 - Math.random());
+        functionToCall = shuffled[0];
+        // multiple function calls to letter grades per category so special case
+        if (functionToCall === Recap.letterGradesPerCategory) {
+          let categoriesShuffled = [
+            "test",
+            "homework",
+            "quiz",
+            "project",
+            "essay",
+          ].sort(() => 0.5 - Math.random());
+          while (categoriesShuffled.length > 0) {
+            categoriesShuffled = [...categoriesShuffled].sort(
+              () => 0.5 - Math.random()
+            );
+            statisticRetrieved = await functionToCall(
+              userId,
+              categoriesShuffled[0],
+              true
+            );
+            if (statisticRetrieved !== null && statisticRetrieved !== undefined) {
+              return statisticRetrieved;
+            }
+            categoriesShuffled = categoriesShuffled.splice(1);
+          }
+        } else {
+          functionToCall = shuffled[0]
+          statisticRetrieved = await functionToCall(userId, "project", true);
+          if (statisticRetrieved !== null && statisticRetrieved !== undefined) {
+            return statisticRetrieved;
+          }
+        }
+        shuffled = shuffled.splice(1);
+      }
+      return null;
+    }
+    
+    return null
   }
 
   // {

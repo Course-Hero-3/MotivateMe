@@ -12,6 +12,7 @@ import apiClient from "../../../services/apiclient";
 import "./App.css";
 import NotFound from "../NotFound/NotFound";
 import AccessForbidden from "../AccessForbidden/AccessForbidden";
+import SocialPage from "../SocialPage/SocialPage";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -78,7 +79,10 @@ function App() {
               path="/recap"
               element={<RecapPage user={user} setCurrPage={setCurrPage} />}
             />
-            <Route path="/accessforbidden" element={<AccessForbidden setCurrPage={setCurrPage} />} />
+            <Route
+              path="/social"
+              element={<SocialPage user={user} setCurrPage={setCurrPage} />}
+            />
             <Route
               path="*"
               element={<NotFound user={user} setCurrPage={setCurrPage} />}

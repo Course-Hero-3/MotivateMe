@@ -1,0 +1,275 @@
+.social-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-title {
+  align-self: center;
+}
+
+.social-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.activity-feed{
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 75px;
+    margin-right: 15px;
+    /* border: 2px black solid; */
+    border-radius: 10px;
+}
+
+.activity-title {
+  color: #172b4d;
+  font-weight: bolder;
+  font-size: 28px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  width: 455px;
+  border-radius: 5px;
+  font-size: 20px;
+  height: 54px;
+  border: none;
+  padding: 11px 23px;
+  color: #34b3f1;
+}
+
+.button-right-tab {
+  border-radius: 5px;
+  font-size: 16px;
+  color: black;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.active {
+  background-color: #34b3f1;
+  color: white;
+}
+
+/* New container for recommended box to be below the friends section */
+.right-panel{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.friends-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 75px;
+  padding-bottom: 30px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.friend-section {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+
+.friend-text {
+  color: #172b4d;
+  font-weight: bolder;
+  font-size: 28px;
+}
+
+
+.social-query-form {
+  background-color: var(--primary-blue);
+width: 300px;
+height: 44px;
+border-radius: 5px;
+display: flex;
+flex-direction: row;
+align-items: center;
+}
+
+
+.social-form-search {
+  all: unset;
+  font: 16px system-ui;
+  color: white;
+  height: 100%;
+  width: 100%;
+  padding: 6px 10px;
+}
+
+.social-form-search::placeholder {
+  color:white;
+}
+
+.show-users-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.user-card {
+  background-color: #8acaea;
+  width: 100%;
+  border-radius: 4px;
+  height: 80px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+
+.user-pfp {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.user-text-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5px;
+  height: 10px;
+}
+
+.user-username {
+  margin-top: 5px;
+  margin-right: 5px;
+  font-size: 15px;
+}
+
+.user-name {
+  margin: 0px;
+}
+
+.unfollow-and-follow {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+
+.follow {
+  background-color: lightgreen;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  width: 60px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.unfollow {
+  background-color: rgb(255, 121, 121);
+  margin-right: 5px;
+  margin-bottom: 5px;
+  width: 70px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.main-feed {
+  width: 95%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.activity-card {
+  width: 620px;
+  height: 725px;
+  border-radius: 5px;
+  background-color: white;
+  margin-top: 15px;
+  margin-right: 46px;
+  display: flex;
+  flex-direction: column; 
+}
+
+.activity-user-info {
+  margin-left: 30px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.activity-user-graph {
+  height: 200px;
+  width: 200px;
+}
+
+.activity-card-username {
+  font-size: 22px;
+  font-weight: 900;  
+}
+
+.activity-card-name {
+  margin-left: 4px;
+}
+
+.social-date-area {
+  display: flex;
+  align-items: flex-start;
+  margin-left: 75px;
+}
+
+.social-date {
+  font-size: 22px;
+}
+
+/* messages to show that the user has no friends / follows everyone and/or doesn't have activity to view */
+.no-feed {
+  font-size: 25px;
+}
+
+.no-friends {
+  align-self: flex-start;
+}
+
+/* New container for recommended box and all of its contents */
+.recommended-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 75px;
+    padding-bottom: 30px;
+    border: 2px solid black;
+    border-radius: 10px;
+    justify-content: space-between;
+    width: 460px;
+    margin-top: 30px;
+}
+
+/* Content where thing such as title, description, and recommended users will reside in */
+.recommended-content{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+}
+
+/* Div for Title of recommended section */
+.recommended-text{
+  color: #172b4d;
+  font-weight: bolder;
+  font-size: 28px;
+  margin-left: 28px;
+}
