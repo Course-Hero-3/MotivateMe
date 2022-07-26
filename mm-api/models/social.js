@@ -12,7 +12,11 @@ class Social {
 
     // Get all the user is FOLLOWING
     const text = `
-        SELECT followee_id AS "followeeId", u.username AS "username", u.image as "profilePicture"
+        SELECT followee_id AS "followeeId", 
+                u.username AS "username", 
+                u.image AS "profilePicture", 
+                u.first_name AS "firstName", 
+                u.last_name AS "lastName"
         FROM follow AS f
             INNER JOIN users AS u ON f.followee_id=u.user_id
         WHERE follower_id=$1
@@ -30,11 +34,37 @@ class Social {
 
     // Get all the user is being FOLLOWED BY
     const text = `
-        SELECT follower_id AS "followerId", u.username AS "username", u.image as "profilePicture"
+        SELECT follower_id AS "followerId", 
+                u.username AS "username", 
+                u.image as "profilePicture",
+                u.first_name AS "firstName", 
+                u.last_name AS "lastName"
         FROM follow AS f
             INNER JOIN users AS u ON f.follower_id=u.user_id
         WHERE followee_id=$1
         `;
+    const values = [user.userId];
+    const result = await db.query(text, values);
+
+    return result.rows; // array of objects { followeeId, username }
+  }
+
+  static async notFollowingUsers(user) {
+    if (!user?.userId) {
+      throw new BadRequestError(`userId is missing from the user information in order 
+                                        to get users for explore part`);
+    }
+    const text = `
+    SELECT u.user_id AS "strangerId", 
+            u.username AS "username", 
+            u.image AS "profilePicture", 
+            u.first_name AS "firstName", 
+            u.last_name AS "lastName"
+    FROM users AS u
+    WHERE u.user_id !=$1 AND u.user_id  NOT IN ( SELECT followee_id 
+                              FROM follow
+                              WHERE follower_id=$1 )
+    `;
     const values = [user.userId];
     const result = await db.query(text, values);
 
@@ -68,9 +98,7 @@ class Social {
 
     // check if trying to follow themselves
     if (followeeId === user.userId) {
-      throw new BadRequestError(
-        "Cannot follow yourself"
-      );
+      throw new BadRequestError("Cannot follow yourself");
     }
 
     text = `SELECT followee_id FROM follow WHERE follower_id=$1`;
@@ -122,9 +150,7 @@ class Social {
 
     // make sure the user is not trying to unfollow themselves
     if (followeeId === user.userId) {
-      throw new BadRequestError(
-        "Cannot unfollow yourself"
-      );
+      throw new BadRequestError("Cannot unfollow yourself");
     }
 
     text = `SELECT followee_id FROM follow WHERE follower_id=$1`;
@@ -182,7 +208,7 @@ class Social {
       });
     }
 
-    return activity
+    return activity;
   }
 }
 

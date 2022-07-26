@@ -62,6 +62,24 @@ class ApiClient {
     async getSummary() {
         return await this.request({ endpoint: `recap/summary`, method: `GET` })
     }
+    async getActivity() {
+        return await this.request({ endpoint: `social/activity`, method: `GET` })
+    }
+    async follow(usernameObject) {
+        return await this.request({ endpoint:`social/follow`, method:`POST`, data:usernameObject })
+    }
+    async unfollow(usernameObject) {
+        return await this.request({ endpoint:`social/unfollow`, method:`DELETE`, data:usernameObject })
+    }
+    async followers() {
+        return await this.request({ endpoint: `social/followers`, method: `GET` })
+    }
+    async following() {
+        return await this.request({ endpoint: `social/following`, method: `GET` })
+    }
+    async notFollowing() {
+        return await this.request({ endpoint: `social/notfollowing`, method: `GET` })
+    }
 }
 
 export default new ApiClient("http://localhost:3001")
