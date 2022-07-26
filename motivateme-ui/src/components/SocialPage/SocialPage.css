@@ -121,7 +121,7 @@ align-items: center;
 
 .user-card {
   background-color: #8acaea;
-  width: 100%;
+  width: 400px;
   border-radius: 4px;
   height: 80px;
   margin-top: 15px;
@@ -225,14 +225,8 @@ align-items: center;
   margin-left: 4px;
 }
 
-.social-date-area {
-  display: flex;
-  align-items: flex-start;
-  margin-left: 75px;
-}
-
 .social-date {
-  font-size: 22px;
+  font-size: 21px;
 }
 
 /* messages to show that the user has no friends / follows everyone and/or doesn't have activity to view */
@@ -259,17 +253,46 @@ align-items: center;
 }
 
 /* Content where thing such as title, description, and recommended users will reside in */
-.recommended-content{
-  display: flex;
-  flex-direction: column;
+.recommended-content {
   width: 100%;
-
 }
 
 /* Div for Title of recommended section */
-.recommended-text{
+.recommended-title {
   color: #172b4d;
   font-weight: bolder;
   font-size: 28px;
   margin-left: 28px;
+}
+
+.recommended-text {
+  color: #172b4d;
+  font-size: 20px;
+  margin-left: 28px;
+}
+
+.no-users {
+  align-self: flex-start;
+  height: 550px;
+}
+
+.recommended-list {
+  margin-left: 28px;
+}
+
+.scrollable-container-parent {
+  height: 550px;
+  position:relative;
+}
+.scrollable-container-child {
+  max-height:100%;
+  overflow:auto;
+}
+
+.smaller {
+  height: 200px;
+}
+
+.empty-recommended-box {
+  height: 185px;
 }

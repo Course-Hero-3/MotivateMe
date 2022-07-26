@@ -10,6 +10,7 @@ export default function SocialPage({ user, setCurrPage }) {
   const [rightTabState, setRightTabState] = useState("friends");
   const [friends, setFriends] = useState(null);
   const [allPeople, setAllPeople] = useState(null); // need endpoint for this (also add to apiClient)
+  const [recommended, setRecommended] = useState(null); // endpoint for recommended users (friends of friends)
   const [activity, setActivity] = useState(null);
   const [friendQuery, setFriendQuery] = useState("");
   const [exploreQuery, setExploreQuery] = useState("");
@@ -29,7 +30,10 @@ export default function SocialPage({ user, setCurrPage }) {
       if (tempAllPeople?.data) {
         setAllPeople(tempAllPeople.data.otherUsers);
       }
-      // if error when fetching user from token (happens if use refreshes)
+      let tempRecommended = await apiClient.recommended();
+      if (tempRecommended?.data) {
+        setRecommended(tempRecommended.data.recommended);
+      }
     };
 
     getInfo();
@@ -99,18 +103,16 @@ export default function SocialPage({ user, setCurrPage }) {
         <>
           <div className="social-page">
             <h1 className="main-title">Social Page</h1>
-            <div className="social-date-area">
-              <h4 className="social-date">
-                {moment(new Date()).format("llll")}
-              </h4>
-            </div>
             <div className="social-content">
               <div className="activity-feed">
                 <h2 className="activity-title">Activity Feed</h2>
+                <h4 className="social-date">
+                Last time refreshed: {moment(new Date()).format("llll")}
+              </h4>
                 <div className="main-feed">
                   {activity?.length === 0 ? (
                     <h3 className="no-feed">
-                      Follow friends to see how others are doing!
+                      Nothing in your feed. Follow more friends to see how others are doing!
                     </h3>
                   ) : (
                     <>
@@ -197,46 +199,50 @@ export default function SocialPage({ user, setCurrPage }) {
                         <div className="show-users-list">
                           {friendFilter?.length > 0 ? (
                             <>
-                              {friendFilter?.map((friend, idx) => (
-                                <div className="user-card" key={idx}>
-                                  <div className="user-info">
-                                    <img
-                                      className="user-pfp"
-                                      src={friend.profilePicture}
-                                      alt="PFP"
-                                      onError={(event) => {
-                                        event.target.src =
-                                          "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png";
-                                        event.onerror = null;
-                                      }}
-                                    />
-                                    <div className="user-text-info">
-                                      <h4 className="user-username">
-                                        @{friend.username}
-                                      </h4>
-                                      <h4 className="user-name">
-                                        {friend.firstName} {friend.lastName}
-                                      </h4>
-                                    </div>
-                                  </div>
+                              <div className="scrollable-container-parent">
+                                <div className="scrollable-container-child">
+                                  {friendFilter?.map((friend, idx) => (
+                                    <div className="user-card" key={idx}>
+                                      <div className="user-info">
+                                        <img
+                                          className="user-pfp"
+                                          src={friend.profilePicture}
+                                          alt="PFP"
+                                          onError={(event) => {
+                                            event.target.src =
+                                              "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png";
+                                            event.onerror = null;
+                                          }}
+                                        />
+                                        <div className="user-text-info">
+                                          <h4 className="user-username">
+                                            @{friend.username}
+                                          </h4>
+                                          <h4 className="user-name">
+                                            {friend.firstName} {friend.lastName}
+                                          </h4>
+                                        </div>
+                                      </div>
 
-                                  <div className="unfollow-and-follow">
-                                    <button
-                                      type="button"
-                                      className="unfollow"
-                                      onClick={() => {
-                                        handleOnUnfollow(friend.username);
-                                      }}
-                                    >
-                                      Unfollow
-                                    </button>
-                                  </div>
+                                      <div className="unfollow-and-follow">
+                                        <button
+                                          type="button"
+                                          className="unfollow"
+                                          onClick={() => {
+                                            handleOnUnfollow(friend.username);
+                                          }}
+                                        >
+                                          Unfollow
+                                        </button>
+                                      </div>
+                                    </div>
+                                  ))}
                                 </div>
-                              ))}
+                              </div>
                             </>
                           ) : (
                             <>
-                              <p className="no-friends">
+                              <p className="no-users">
                                 Add friends from the explore section!
                               </p>
                             </>
@@ -271,47 +277,51 @@ export default function SocialPage({ user, setCurrPage }) {
                         <div className="show-users-list">
                           {exploreFilter?.length > 0 ? (
                             <>
-                              {exploreFilter?.map((stranger, idx) => (
-                                <div className="user-card" key={idx}>
-                                  <div className="user-info">
-                                    <img
-                                      className="user-pfp"
-                                      src={stranger?.profilePicture}
-                                      alt="PFP"
-                                      onError={(event) => {
-                                        event.target.src =
-                                          "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png";
-                                        event.onerror = null;
-                                      }}
-                                    />
-                                    <div className="user-text-info">
-                                      <h4 className="user-username">
-                                        @{stranger?.username}
-                                      </h4>
-                                      <h4 className="user-name">
-                                        {stranger?.firstName}{" "}
-                                        {stranger?.lastName}
-                                      </h4>
-                                    </div>
-                                  </div>
+                              <div className="scrollable-container-parent">
+                                <div className="scrollable-container-child">
+                                  {exploreFilter?.map((stranger, idx) => (
+                                    <div className="user-card" key={idx}>
+                                      <div className="user-info">
+                                        <img
+                                          className="user-pfp"
+                                          src={stranger?.profilePicture}
+                                          alt="PFP"
+                                          onError={(event) => {
+                                            event.target.src =
+                                              "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png";
+                                            event.onerror = null;
+                                          }}
+                                        />
+                                        <div className="user-text-info">
+                                          <h4 className="user-username">
+                                            @{stranger?.username}
+                                          </h4>
+                                          <h4 className="user-name">
+                                            {stranger?.firstName}{" "}
+                                            {stranger?.lastName}
+                                          </h4>
+                                        </div>
+                                      </div>
 
-                                  <div className="unfollow-and-follow">
-                                    <button
-                                      type="button"
-                                      className="follow"
-                                      onClick={() => {
-                                        handleOnFollow(stranger.username);
-                                      }}
-                                    >
-                                      Follow
-                                    </button>
-                                  </div>
+                                      <div className="unfollow-and-follow">
+                                        <button
+                                          type="button"
+                                          className="follow"
+                                          onClick={() => {
+                                            handleOnFollow(stranger.username);
+                                          }}
+                                        >
+                                          Follow
+                                        </button>
+                                      </div>
+                                    </div>
+                                  ))}
                                 </div>
-                              ))}
+                              </div>
                             </>
                           ) : (
                             <>
-                              <p className="no-friends">
+                              <p className="no-users">
                                 You follow every user on MotivateMe already!
                               </p>
                             </>
@@ -322,10 +332,66 @@ export default function SocialPage({ user, setCurrPage }) {
                   </div>
                 </div>
                 <div className="recommended-section">
-                    <div className="recommended-content">
-                      <h2 class="recommended-text">Recommended</h2>
+                  <div className="recommended-content">
+                    <h2 className="recommended-title">Recommended</h2>
+                    <h4 className="recommended-text">
+                      People your friends are following!
+                    </h4>
+                    <div className="recommended-list">
+                      {recommended?.length > 0 ? (
+                        <>
+                          <div className="scrollable-container-parent smaller">
+                            <div className="scrollable-container-child">
+                              {recommended?.map((recommendedUser, idx) => (
+                                <div className="user-card" key={idx}>
+                                  <div className="user-info">
+                                    <img
+                                      className="user-pfp"
+                                      src={recommendedUser?.profilePicture}
+                                      alt="PFP"
+                                      onError={(event) => {
+                                        event.target.src =
+                                          "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png";
+                                        event.onerror = null;
+                                      }}
+                                    />
+                                    <div className="user-text-info">
+                                      <h4 className="user-username">
+                                        @{recommendedUser?.username}
+                                      </h4>
+                                      <h4 className="user-name">
+                                        {recommendedUser?.firstName}{" "}
+                                        {recommendedUser?.lastName}
+                                      </h4>
+                                    </div>
+                                  </div>
+
+                                  <div className="unfollow-and-follow">
+                                    <button
+                                      type="button"
+                                      className="follow"
+                                      onClick={() => {
+                                        handleOnFollow(
+                                          recommendedUser.username
+                                        );
+                                      }}
+                                    >
+                                      Follow
+                                    </button>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <p className="no-users empty-recommended-box">No recommended users.</p>
+                        </>
+                      )}
                     </div>
                   </div>
+                </div>
               </div>
             </div>
           </div>
@@ -336,4 +402,3 @@ export default function SocialPage({ user, setCurrPage }) {
     </>
   );
 }
-//social page now has recommended
