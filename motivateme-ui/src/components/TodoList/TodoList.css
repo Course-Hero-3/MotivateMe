@@ -292,3 +292,7 @@
     justify-content: flex-start;
     margin-top: 10px;
 }
+
+.todo-no-tasks {
+    font-size: 25px;
+}
