@@ -336,3 +336,4 @@ export default function SocialPage({ user, setCurrPage }) {
     </>
   );
 }
+//social page now has recommended
