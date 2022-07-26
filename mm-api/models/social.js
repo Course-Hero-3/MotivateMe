@@ -195,17 +195,25 @@ class Social {
     let result = await db.query(text, values);
 
     let activity = [];
-
+    let checkUser = null
+    let checkGraph = null
     for (let followeeObject of result.rows) {
-      activity.push({
+      checkUser = {
         friendId: followeeObject.followeeId,
         username: followeeObject.username,
         firstName: followeeObject.firstName,
         lastName: followeeObject.lastName,
-        publicGraph: await Recap.fetchPublicGraphById(
-          followeeObject.followeeId
-        ),
-      });
+        publicGraph: null,
+      }
+      checkGraph = await Recap.fetchPublicGraphById(
+        followeeObject.followeeId
+      )
+      // don't return a user object if they don't have a graph associated with them
+      if (checkGraph !== null && checkGraph !== undefined) {
+        checkUser.publicGraph = checkGraph
+        activity.push(checkUser)
+      }
+       
     }
 
     return activity;
@@ -221,14 +229,14 @@ class Social {
 
     // Get all of the user's friends' friends that the user doesn't already follow
     let text = `
-    SELECT f2.followee_id AS "recommendedId",
+    SELECT DISTINCT f2.followee_id AS "recommendedId",
             u2.username AS "username", 
             u2.image AS "profilePicture", 
             u2.first_name AS "firstName", 
             u2.last_name AS "lastName"
     FROM follow AS f2
         INNER JOIN users AS u2 ON f2.followee_id=u2.user_id
-    WHERE f2.follower_id IN (SELECT f1.followee_id -- get all the ids that the original user follows
+    WHERE u2.user_id != $1 AND f2.follower_id IN (SELECT f1.followee_id -- get all the ids that the original user follows
             FROM follow AS f1
             WHERE f1.follower_id=$1) AND f2.followee_id NOT IN (SELECT f1.followee_id -- get all the ids that the original user follows
               FROM follow AS f1
@@ -242,17 +250,3 @@ class Social {
 }
 
 module.exports = Social;
-
-/*
-    SELECT f2.followee_id AS "recommendedId",
-            u2.username AS "username", 
-            u2.image AS "profilePicture", 
-            u2.first_name AS "firstName", 
-            u2.last_name AS "lastName"
-    FROM follow AS f2
-        INNER JOIN users AS u2 ON f2.followee_id=u2.user_id
-    WHERE f2.follower_id IN (SELECT f1.followee_id -- get all the ids that the original user follows
-            FROM follow AS f1
-            WHERE f1.follower_id=1);
-
-*/
