@@ -210,6 +210,49 @@ class Social {
 
     return activity;
   }
+
+  // get all of the user's friends of friends (for recommended feature)
+  static async recommended(user) {
+    if (!user?.userId) {
+      throw new BadRequestError(
+        `userId is missing in order to get recommended users`
+      );
+    }
+
+    // Get all of the user's friends' friends that the user doesn't already follow
+    let text = `
+    SELECT f2.followee_id AS "recommendedId",
+            u2.username AS "username", 
+            u2.image AS "profilePicture", 
+            u2.first_name AS "firstName", 
+            u2.last_name AS "lastName"
+    FROM follow AS f2
+        INNER JOIN users AS u2 ON f2.followee_id=u2.user_id
+    WHERE f2.follower_id IN (SELECT f1.followee_id -- get all the ids that the original user follows
+            FROM follow AS f1
+            WHERE f1.follower_id=$1) AND f2.followee_id NOT IN (SELECT f1.followee_id -- get all the ids that the original user follows
+              FROM follow AS f1
+              WHERE f1.follower_id=$1)
+    `;
+    let values = [user.userId];
+    let result = await db.query(text, values);
+
+    return result.rows; // array of objects { recommendedId, username, ...etc }
+  }
 }
 
 module.exports = Social;
+
+/*
+    SELECT f2.followee_id AS "recommendedId",
+            u2.username AS "username", 
+            u2.image AS "profilePicture", 
+            u2.first_name AS "firstName", 
+            u2.last_name AS "lastName"
+    FROM follow AS f2
+        INNER JOIN users AS u2 ON f2.followee_id=u2.user_id
+    WHERE f2.follower_id IN (SELECT f1.followee_id -- get all the ids that the original user follows
+            FROM follow AS f1
+            WHERE f1.follower_id=1);
+
+*/

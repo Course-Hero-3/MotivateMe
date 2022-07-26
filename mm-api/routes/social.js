@@ -80,4 +80,17 @@ router.get("/notfollowing", security.requireAuthenticatedUser, async (req, res, 
     }
 })
 
+router.get("/recommended", security.requireAuthenticatedUser, async (req, res, next) => {
+    try {
+        const publicUserFromDecodedToken = res.locals.user 
+        const recommended = await Social.recommended(publicUserFromDecodedToken) 
+        res.status(200)
+        res.json( { recommended: recommended } )
+    }
+    catch (error) {
+        next(error)
+    }
+})
+
+
 module.exports = router

@@ -80,6 +80,9 @@ class ApiClient {
     async notFollowing() {
         return await this.request({ endpoint: `social/notfollowing`, method: `GET` })
     }
+    async recommended() {
+        return await this.request({ endpoint: `social/recommended`, method: `GET` })
+    }
 }
 
 export default new ApiClient("http://localhost:3001")
