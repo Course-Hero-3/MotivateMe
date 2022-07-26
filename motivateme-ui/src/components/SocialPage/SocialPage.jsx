@@ -40,11 +40,9 @@ export default function SocialPage({ user, setCurrPage }) {
   }, [refresh]);
 
   const handleOnFriendQueryChange = (event) => {
-    console.log(event.target.name, event.target.value);
     setFriendQuery(event.target.value);
   };
   const handleOnExploreQueryChange = (event) => {
-    console.log(event.target.name, event.target.value);
     setExploreQuery(event.target.value);
   };
 
