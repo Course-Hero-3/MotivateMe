@@ -14,7 +14,7 @@ import LineVisual from "../LineVisual/LineVisual";
 
 // take in chartInformation
 
-export default function GraphCard({ chartInformation }) {
+export default function GraphCard({ chartInformation, dashboardOn }) {
   // generate random colors for each card
   const generateColorList = (amount) => {
     let fillColor = [];
@@ -97,6 +97,7 @@ export default function GraphCard({ chartInformation }) {
           actualData={chartData.actualData}
           colors1={generateColorList(1)}
           colors2={generateColorList(1)}
+
         />
       );
     }
@@ -107,7 +108,7 @@ export default function GraphCard({ chartInformation }) {
   return (
     <>
       {chartInformation !== null ? (
-        <div className="chart-card">
+        <div className={dashboardOn?"chart-card-mini":"chart-card"}>
           <h3 className="chart-title">{chartInformation.label}</h3>
           {generateSpecificChart(chartInformation)}
         </div>
