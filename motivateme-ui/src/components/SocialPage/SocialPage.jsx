@@ -142,186 +142,192 @@ export default function SocialPage({ user, setCurrPage }) {
                   )}
                 </div>
               </div>
-              <div className="friends-content">
-                <div className="buttons">
-                  <button
-                    type="button"
-                    className={`button-right-tab ${
-                      rightTabState === "explore" ? "active" : ""
-                    }`}
-                    onClick={() => {
-                      setRightTabState("explore");
-                    }}
-                  >
-                    Explore
-                  </button>
-                  <button
-                    type="button"
-                    className={`button-right-tab ${
-                      rightTabState === "friends" ? "active" : ""
-                    }`}
-                    onClick={() => {
-                      setRightTabState("friends");
-                    }}
-                  >
-                    Friends
-                  </button>
-                </div>
-                <div className="friend-section">
-                  {rightTabState === "friends" ? (
-                    <>
-                      <h2 className="friend-text">Friends List</h2>
-                      <form className="social-query-form">
-                        <input
-                          type="search"
-                          value={friendQuery}
-                          onChange={handleOnFriendQueryChange}
-                          id="query"
-                          name="q"
-                          className="social-form-search"
-                          placeholder="Search for other users"
-                          role="search"
-                          aria-label="Search through site content"
-                        />
-                        <button className="task-form-btn">
-                          {" "}
-                          <svg viewBox="0 0 1024 1024">
-                            <path
-                              className="path1"
-                              d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"
-                            ></path>
-                          </svg>
-                        </button>
-                      </form>
-                      <div className="show-users-list">
-                        {friendFilter?.length > 0 ? (
-                          <>
-                            {friendFilter?.map((friend, idx) => (
-                              <div className="user-card" key={idx}>
-                                <div className="user-info">
-                                  <img
-                                    className="user-pfp"
-                                    src={friend.profilePicture}
-                                    alt="PFP"
-                                    onError={(event) => {
-                                      event.target.src =
-                                        "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png";
-                                      event.onerror = null;
-                                    }}
-                                  />
-                                  <div className="user-text-info">
-                                    <h4 className="user-username">
-                                      @{friend.username}
-                                    </h4>
-                                    <h4 className="user-name">
-                                      {friend.firstName} {friend.lastName}
-                                    </h4>
+              <div className="right-panel">
+                <div className="friends-content">
+                  <div className="buttons">
+                    <button
+                      type="button"
+                      className={`button-right-tab ${
+                        rightTabState === "explore" ? "active" : ""
+                      }`}
+                      onClick={() => {
+                        setRightTabState("explore");
+                      }}
+                    >
+                      Explore
+                    </button>
+                    <button
+                      type="button"
+                      className={`button-right-tab ${
+                        rightTabState === "friends" ? "active" : ""
+                      }`}
+                      onClick={() => {
+                        setRightTabState("friends");
+                      }}
+                    >
+                      Friends
+                    </button>
+                  </div>
+                  <div className="friend-section">
+                    {rightTabState === "friends" ? (
+                      <>
+                        <h2 className="friend-text">Friends List</h2>
+                        <form className="social-query-form">
+                          <input
+                            type="search"
+                            value={friendQuery}
+                            onChange={handleOnFriendQueryChange}
+                            id="query"
+                            name="q"
+                            className="social-form-search"
+                            placeholder="Search for other users"
+                            role="search"
+                            aria-label="Search through site content"
+                          />
+                          <button className="task-form-btn">
+                            {" "}
+                            <svg viewBox="0 0 1024 1024">
+                              <path
+                                className="path1"
+                                d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"
+                              ></path>
+                            </svg>
+                          </button>
+                        </form>
+                        <div className="show-users-list">
+                          {friendFilter?.length > 0 ? (
+                            <>
+                              {friendFilter?.map((friend, idx) => (
+                                <div className="user-card" key={idx}>
+                                  <div className="user-info">
+                                    <img
+                                      className="user-pfp"
+                                      src={friend.profilePicture}
+                                      alt="PFP"
+                                      onError={(event) => {
+                                        event.target.src =
+                                          "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png";
+                                        event.onerror = null;
+                                      }}
+                                    />
+                                    <div className="user-text-info">
+                                      <h4 className="user-username">
+                                        @{friend.username}
+                                      </h4>
+                                      <h4 className="user-name">
+                                        {friend.firstName} {friend.lastName}
+                                      </h4>
+                                    </div>
+                                  </div>
+
+                                  <div className="unfollow-and-follow">
+                                    <button
+                                      type="button"
+                                      className="unfollow"
+                                      onClick={() => {
+                                        handleOnUnfollow(friend.username);
+                                      }}
+                                    >
+                                      Unfollow
+                                    </button>
                                   </div>
                                 </div>
+                              ))}
+                            </>
+                          ) : (
+                            <>
+                              <p className="no-friends">
+                                Add friends from the explore section!
+                              </p>
+                            </>
+                          )}
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <h2 className="friend-text">Other Users</h2>
+                        <form className="social-query-form">
+                          <input
+                            type="search"
+                            value={exploreQuery}
+                            onChange={handleOnExploreQueryChange}
+                            id="query"
+                            name="q"
+                            className="social-form-search"
+                            placeholder="Search for your friends"
+                            role="search"
+                            aria-label="Search through site content"
+                          />
+                          <button className="task-form-btn">
+                            {" "}
+                            <svg viewBox="0 0 1024 1024">
+                              <path
+                                className="path1"
+                                d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"
+                              ></path>
+                            </svg>
+                          </button>
+                        </form>
+                        <div className="show-users-list">
+                          {exploreFilter?.length > 0 ? (
+                            <>
+                              {exploreFilter?.map((stranger, idx) => (
+                                <div className="user-card" key={idx}>
+                                  <div className="user-info">
+                                    <img
+                                      className="user-pfp"
+                                      src={stranger?.profilePicture}
+                                      alt="PFP"
+                                      onError={(event) => {
+                                        event.target.src =
+                                          "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png";
+                                        event.onerror = null;
+                                      }}
+                                    />
+                                    <div className="user-text-info">
+                                      <h4 className="user-username">
+                                        @{stranger?.username}
+                                      </h4>
+                                      <h4 className="user-name">
+                                        {stranger?.firstName}{" "}
+                                        {stranger?.lastName}
+                                      </h4>
+                                    </div>
+                                  </div>
 
-                                <div className="unfollow-and-follow">
-                                  <button
-                                    type="button"
-                                    className="unfollow"
-                                    onClick={() => {
-                                      handleOnUnfollow(friend.username);
-                                    }}
-                                  >
-                                    Unfollow
-                                  </button>
-                                </div>
-                              </div>
-                            ))}
-                          </>
-                        ) : (
-                          <>
-                            <p className="no-friends">
-                              Add friends from the explore section!
-                            </p>
-                          </>
-                        )}
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <h2 className="friend-text">Other Users</h2>
-                      <form className="social-query-form">
-                        <input
-                          type="search"
-                          value={exploreQuery}
-                          onChange={handleOnExploreQueryChange}
-                          id="query"
-                          name="q"
-                          className="social-form-search"
-                          placeholder="Search for your friends"
-                          role="search"
-                          aria-label="Search through site content"
-                        />
-                        <button className="task-form-btn">
-                          {" "}
-                          <svg viewBox="0 0 1024 1024">
-                            <path
-                              className="path1"
-                              d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"
-                            ></path>
-                          </svg>
-                        </button>
-                      </form>
-                      <div className="show-users-list">
-                        {exploreFilter?.length > 0 ? (
-                          <>
-                            {exploreFilter?.map((stranger, idx) => (
-                              <div className="user-card" key={idx}>
-                                <div className="user-info">
-                                  <img
-                                    className="user-pfp"
-                                    src={stranger?.profilePicture}
-                                    alt="PFP"
-                                    onError={(event) => {
-                                      event.target.src =
-                                        "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png";
-                                      event.onerror = null;
-                                    }}
-                                  />
-                                  <div className="user-text-info">
-                                    <h4 className="user-username">
-                                      @{stranger?.username}
-                                    </h4>
-                                    <h4 className="user-name">
-                                      {stranger?.firstName} {stranger?.lastName}
-                                    </h4>
+                                  <div className="unfollow-and-follow">
+                                    <button
+                                      type="button"
+                                      className="follow"
+                                      onClick={() => {
+                                        handleOnFollow(stranger.username);
+                                      }}
+                                    >
+                                      Follow
+                                    </button>
                                   </div>
                                 </div>
-
-                                <div className="unfollow-and-follow">
-                                  <button
-                                    type="button"
-                                    className="follow"
-                                    onClick={() => {
-                                      handleOnFollow(stranger.username);
-                                    }}
-                                  >
-                                    Follow
-                                  </button>
-                                </div>
-                              </div>
-                            ))}
-                          </>
-                        ) : (
-                          <>
-                            <p className="no-friends">
-                              You follow every user on MotivateMe already!
-                            </p>
-                          </>
-                        )}
-                      </div>
-                    </>
-                  )}
+                              ))}
+                            </>
+                          ) : (
+                            <>
+                              <p className="no-friends">
+                                You follow every user on MotivateMe already!
+                              </p>
+                            </>
+                          )}
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
+                <div className="recommended-section">
+                    <div className="recommended-content">
+                      <h2 class="recommended-text">Recommended</h2>
+                    </div>
+                  </div>
               </div>
             </div>
-
-            <div className="main-feed"></div>
           </div>
         </>
       ) : (
@@ -330,3 +336,4 @@ export default function SocialPage({ user, setCurrPage }) {
     </>
   );
 }
+//social page now has recommended
