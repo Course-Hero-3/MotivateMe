@@ -17,15 +17,15 @@ export default function LoginPage({ user, setUser, setCurrPage }) {
   const navigate = useNavigate();
 
   // Google Login UseEffect hook separated 
-  useEffect(() => {
-    function start() {
-      gapi.client.init({
-        clientId: clientId,
-        scope: ""
-      })
-    }
-    gapi.load('client:auth2', start)
-  })
+  // useEffect(() => {
+  //   function start() {
+  //     gapi.client.init({
+  //       clientId: clientId,
+  //       scope: ""
+  //     })
+  //   }
+  //   gapi.load('client:auth2', start)
+  // }, []);
 
   // set currPage to login for navbar functionality
   useEffect(() => {
@@ -38,10 +38,20 @@ export default function LoginPage({ user, setUser, setCurrPage }) {
   }, [user, navigate]);
 
   // google sign in login success and failure handlers
-  const onSuccess = (googleData) => {
+  const onSuccess = async (googleData) => {
     console.log('GOOGLE SUCCESS:', googleData.profileObj);
-    let token = gapi.auth.getToken().access_token;
-    console.log("TOKEN:", token)
+
+    let { data, error } = await apiClient.googleLogin(googleData.profileObj);
+
+    if (data?.token) {
+      apiClient.setToken(data.token);
+      setUser(data.user);
+      setLoginForm({ email: "", password: "" });
+    }
+    if (error) {
+      console.log("error", error);
+      setLoginError(error);
+    }
   };
 
   const onFailure = (result) => {

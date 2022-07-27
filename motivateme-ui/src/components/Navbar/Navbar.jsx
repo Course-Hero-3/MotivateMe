@@ -2,8 +2,10 @@ import React from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import apiClient from "../../../services/apiclient";
+import { GoogleLogout } from "react-google-login";
 
-export default function Navbar({ user, setUser, currPage }) {
+
+export default function Navbar({ user, setUser, currPage, loggedInWithGoogle, setLoggedInWithGoogle }) {
   // Function needed in order to conditionally render different navbars
   // to different specific pages (ie 1. landing, 2. login/register 3.else)
   return (
@@ -60,6 +62,12 @@ export default function Navbar({ user, setUser, currPage }) {
               </div>
               <div className="account-links">
                 <img id="pfp" src={user.image} alt="PFP" />
+                {loggedInWithGoogle ? 
+                <>
+                {/* GOOGLE LOG OUT BUTTON */}
+                </>
+                :
+                <>
                 <Link to="/">
                   <button
                     className="nav-btn"
@@ -71,6 +79,7 @@ export default function Navbar({ user, setUser, currPage }) {
                     Log Out
                   </button>
                 </Link>
+                </>}
               </div>
             </div>
           </div>
