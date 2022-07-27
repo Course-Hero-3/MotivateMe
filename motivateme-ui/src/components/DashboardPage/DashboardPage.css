@@ -89,11 +89,15 @@
     background-color: white;
     border-style: solid;
     border-radius: 10px;
-    border: 1px solid var(--border-color);
+    border: none;
     align-items: flex-start;
+    background-color: #63a4ff;
+    color: #333;
+    background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
+        
 }
 
-.task-card-header {
+.task-card-header, .grade-card-header {
     display: flex;
     width: 100%;
     justify-content: space-evenly;
@@ -101,7 +105,7 @@
     margin-left: 10px;
 }
 
-.total-tasks {
+.total-tasks,.latest-grade {
     font-size: 55px;
     margin-left: 50px;
 }
@@ -142,6 +146,7 @@
     margin-top: 60px;
 }
 
+
 .todo-bulletin {
     display: flex;
     flex-direction: column;
@@ -159,12 +164,30 @@
     font-size: 25px;
 }
 
-
 .todo-bulletin-area {
+    width: 100%;
+    display: flex;
+}
+.todo-bulletin-tasks {
     display: flex;
     flex-direction: column;
     width: 100%;
 }   
+
+.view-more-btn {
+    margin-right: 4px;
+    margin-bottom: 12px;
+    align-self: flex-end;
+    background: var(--primary-blue);
+    font-size: 22px;
+    width: 80px;
+    cursor: pointer;
+    font-size: 15px;
+    height: 44px;
+    border-radius: 10px;
+    border: none;
+    color: var(--pure-white);
+}
 
 .mini-card {
     display: flex;

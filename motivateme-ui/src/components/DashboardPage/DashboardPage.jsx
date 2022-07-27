@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import "./DashboardPage.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import gradeIcon from "../../assets/Exam Grade.svg"
 import AccessForbidden from "../AccessForbidden/AccessForbidden"
 import GraphCard from "../GraphCard/GraphCard";
 import apiClient from "../../../services/apiclient";
 import moment from "moment";
+import { TaskDetail } from "../TodoList/TodoList";
 
 export default function DashboardPage({ user, setCurrPage }) {
   const [graphs, setGraphs] = React.useState(null);
   const [tasks, setTasks] = React.useState(null);
   const [singleFact, setSingleFact] = useState(null)
+  const [showDetail, setShowDetail] = React.useState(null)
   const currentDate = new Date()
   const navigate = useNavigate();
   // when mounted, update the page state
@@ -37,7 +40,7 @@ export default function DashboardPage({ user, setCurrPage }) {
     if (user!==null && user!== undefined) {
       setCurrPage("dashboard");
 
-    }  }, [setSingleFact]);
+    }  }, []);
 
   const returnRandomItemInArray = (arr) => {
     const shuffled = [...arr].sort(() => 0.5 - Math.random());
@@ -66,18 +69,18 @@ export default function DashboardPage({ user, setCurrPage }) {
            </div>
               <span className="total-tasks"> {tasks?.length}</span>
           </div>
-          <div className="total-task-card">
-           <div className="task-card-header">
+          <div className="latest-grade-card">
+           <div className="grade-card-header">
             <img
                 id="total-task-card-img"
-                src="https://freeiconshop.com/wp-content/uploads/edd/task-done-flat.png"
-                alt="Total Tasks Icon"
+                src={gradeIcon}
+                alt="lates grade icon"
               />
               <h3 className="latest-grade-card-title">
                 Latest Grade
               </h3>
            </div>
-              <span className="total-tasks"> {tasks?.length}</span>
+              <span className="latest-grade"> {tasks?.length}</span>
           </div>
           <div className="friends-column">
               <span className="friends-column-header">
@@ -105,36 +108,56 @@ export default function DashboardPage({ user, setCurrPage }) {
                   )):<h2 className="no-data-dash">Nothing to show here!</h2>}
           </div>
           <div className="dash-todo-viewer">
-              <TodoViewer currentTasks={tasks}/>
+              <TodoViewer currentTasks={tasks} setShowDetail = {setShowDetail}/>
           </div>
         </div>
       </div>
     </div>
       </>:<><AccessForbidden setCurrPage={setCurrPage}/></>
 
-    }</>
+    }
+    {showDetail? <TaskDetail
+          name={showDetail.name}
+          description={showDetail.description}
+          category={showDetail.category}
+          dueDate={showDetail.dueDate}
+          dueTime={showDetail.dueTime}
+          setShowDetail={setShowDetail}
+          showDetail={showDetail}
+        />:null}</>
   
   );
 }
 
-export function TodoViewer({currentTasks}) {
+export function TodoViewer({currentTasks, setShowDetail}) {
 
   return (
     <div className="todo-bulletin">
       <p className="todo-date">Today is: {moment(new Date()).format("llll")}</p>
       <h3 className="todo-title"> To Do</h3>
       <div className="todo-bulletin-area">
-      {currentTasks?currentTasks?.map((task, idx) => {
-        if (idx < 3){
-          return (<MiniTodoCard name = {task.name} category = {task.category}/>)
-        }
-      }):<span className="no-tasks-message">Nothing to show here... </span>}
+        <div className="todo-bulletin-tasks">
+            {currentTasks?currentTasks?.map((task, idx) => {
+              if (idx < 3){
+                return (<MiniTodoCard 
+                        name = {task.name} 
+                        category = {task.category}
+                        dueDate={task.dueDate}
+                        dueTime={task.dueTime}
+                        description={task.description}
+                        setShowDetail = {setShowDetail}
+                />)
+              }
+            }):<span className="no-tasks-message">Nothing to show here... </span>}
+            </div>
+            <Link to = "/todo" className="view-more-btn"><button className="view-more-btn" type="button">More</button></Link>
       </div>
+        
     </div>
   )
 }
 
-export function MiniTodoCard ({name, category}) {
+export function MiniTodoCard ({name, category, dueDate, dueTime, description, setShowDetail, showDetail}) {
   const [colorState, setColorState] = useState(null)
   useEffect(() => {
     if (category.toLowerCase() === "homework") {
@@ -152,7 +175,7 @@ export function MiniTodoCard ({name, category}) {
     else if (category.toLowerCase() === "essay"){
       setColorState("yellow")
     }   
-
+    console.log(category)
   }, [])
     return (
       <div className={"mini-card "}>
@@ -165,7 +188,10 @@ export function MiniTodoCard ({name, category}) {
    <line x1="11" y1="12" x2="20" y2="12"></line>
    <line x1="11" y1="18" x2="20" y2="18"></line>
 </svg>
-          <span className={"card-name " + colorState}>{name}</span>
+          <span className={"card-name " + colorState} 
+           onClick={() => {
+              setShowDetail({name, category, description, dueDate, dueTime, showDetail, setShowDetail});
+            }}>{name}</span>
       </div>
     )
 }
