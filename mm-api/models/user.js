@@ -2,6 +2,9 @@ const db = require("../db");
 const { BadRequestError, UnauthorizedError } = require("../utils/errors");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
+const {
+  generateFromEmail
+} = require("unique-username-generator");
 
 const BCRYPT_WORK_FACTOR = process.env.BCRYPT_WORK_FACTOR
   ? Number(process.env.BCRYPT_WORK_FACTOR)
@@ -9,6 +12,11 @@ const BCRYPT_WORK_FACTOR = process.env.BCRYPT_WORK_FACTOR
 
 class User {
   static returnPublicUser(userWithAllAttributes) {
+    let loggedInWithGoogle = false
+    if (userWithAllAttributes.made_from === "GOOGLE") {
+      loggedInWithGoogle = true
+    }
+
     return {
       userId: userWithAllAttributes.user_id,
       email: userWithAllAttributes.email,
@@ -16,6 +24,7 @@ class User {
       firstName: userWithAllAttributes.first_name,
       lastName: userWithAllAttributes.last_name,
       image: userWithAllAttributes.image,
+      loggedInWithGoogle: loggedInWithGoogle
     };
   }
 
@@ -47,17 +56,15 @@ name: "Kian Ranjbar"
     } else {
       // then create a new user for this google account
 
-      // IMPLEMENT LATER, AUTOGENERATE USERNAMES FOR USER
-      // const maybeUserExistsUsername = await User.fetchUserByUsername(
-      //   information.username
-      // );
-      // if (maybeUserExistsUsername) {
-      //   // should not enter since username should not exist already
-      //   throw new BadRequestError(
-      //     "Email/Username already exists in our system. Try logging in"
-      //   );
-      // }
-      // FOR NOW, USERNAME IS THE EMAIL SO IF THE EMAIL USERNAME IS TAKEN ALREADY THEY CAN'T SIGN IN WITH GOOGLE
+      // generate a username similar to email and add 5 random numbers
+      let generatedUsername = generateFromEmail(information.email, 5);
+      let maybeUserExistsUsername = await User.fetchUserByUsername(generatedUsername);
+      while (maybeUserExistsUsername) {
+        // should not enter but if it exists, generate another username
+        generatedUsername = generateFromEmail(information.email, 5);
+        maybeUserExistsUsername = await User.fetchUserByUsername(generatedUsername);
+      }
+
       const text = `INSERT INTO users (
         email, 
         password,
@@ -71,11 +78,11 @@ name: "Kian Ranjbar"
       const values = [
         information.email.toLowerCase(),
         "googlepassword",
-        information.email.substring(0, information.email.indexOf("@")),
+        generatedUsername,
         information.givenName,
         information.familyName,
         information.imageUrl,
-        'GOOGLE'
+        "GOOGLE",
       ];
       const result = await db.query(text, values);
 

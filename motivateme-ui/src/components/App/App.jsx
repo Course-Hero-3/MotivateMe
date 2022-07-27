@@ -23,7 +23,12 @@ function App() {
   useEffect(() => {
     const fetchUser = async () => {
       const { data, error } = await apiClient.fetchUserFromToken();
-      if (data) setUser(data.user);
+      if (data) {
+        setUser(data.user);
+        if (data.user.loggedInWithGoogle) {
+          setLoggedInWithGoogle(true)
+        }
+      }
       if (error) {
         setError(error);
       } else {

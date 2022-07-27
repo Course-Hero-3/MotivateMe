@@ -5,27 +5,33 @@ import apiClient from "../../../services/apiclient";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
-import { gapi } from "gapi-script"
+import { gapi } from "gapi-script";
 
-const clientId = "505543512767-7eaflkfnc9l791ojove3bgb2hvuh61a3.apps.googleusercontent.com"
+const clientId =
+  "505543512767-7eaflkfnc9l791ojove3bgb2hvuh61a3.apps.googleusercontent.com";
 
-
-export default function LoginPage({ user, setUser, setCurrPage }) {
+export default function LoginPage({
+  user,
+  setUser,
+  setCurrPage,
+  loggedInWithGoogle,
+  setLoggedInWithGoogle,
+}) {
   // track the form and error for login
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   const [loginError, setLoginError] = useState(null);
   const navigate = useNavigate();
 
-  // Google Login UseEffect hook separated 
-  // useEffect(() => {
-  //   function start() {
-  //     gapi.client.init({
-  //       clientId: clientId,
-  //       scope: ""
-  //     })
-  //   }
-  //   gapi.load('client:auth2', start)
-  // }, []);
+  // Google Login UseEffect hook separated
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId: clientId,
+        scope: ""
+      })
+    }
+    gapi.load('client:auth2', start)
+  }, []);
 
   // set currPage to login for navbar functionality
   useEffect(() => {
@@ -39,11 +45,11 @@ export default function LoginPage({ user, setUser, setCurrPage }) {
 
   // google sign in login success and failure handlers
   const onSuccess = async (googleData) => {
-    console.log('GOOGLE SUCCESS:', googleData.profileObj);
-
     let { data, error } = await apiClient.googleLogin(googleData.profileObj);
 
     if (data?.token) {
+      setLoginError(null);
+      setLoggedInWithGoogle(true)
       apiClient.setToken(data.token);
       setUser(data.user);
       setLoginForm({ email: "", password: "" });
@@ -51,11 +57,12 @@ export default function LoginPage({ user, setUser, setCurrPage }) {
     if (error) {
       console.log("error", error);
       setLoginError(error);
+      setLoggedInWithGoogle(false)
     }
   };
 
   const onFailure = (result) => {
-    alert("failed GOOGLE:", result);
+    setLoginError("Google sign in failed");
   };
 
   // change the login form when we change anything
@@ -86,11 +93,7 @@ export default function LoginPage({ user, setUser, setCurrPage }) {
         setLoginError(null);
       }
     }
-    console.log("got here1");
-    console.log(loginError);
     if (!loginError) {
-      console.log("got here2");
-      console.log("3", loginForm);
       const regex = /^[a-zA-Z0-9\.]+@[a-zA-Z0-9]+\.[A-Za-z]+$/; // implement this in login, and backend when logging in/registering
       if (loginForm.email.length !== 0) {
         if (regex.test(loginForm.email) === false) {
@@ -131,6 +134,7 @@ export default function LoginPage({ user, setUser, setCurrPage }) {
     let { data, error } = await apiClient.login(loginForm);
 
     if (data?.token) {
+      setLoggedInWithGoogle(false)
       apiClient.setToken(data.token);
       setUser(data.user);
       setLoginForm({ email: "", password: "" });
@@ -157,20 +161,20 @@ export default function LoginPage({ user, setUser, setCurrPage }) {
       <div className="login-wrapper">
         <form className="login-form">
           <div className="login-form-intro">
-            <h2 className="login-title">Login</h2>
+            <h2 className="login-title">Log In</h2>
             <h3 className="login-text">Track your progress with friends!</h3>
           </div>
-            <div className="google-login">
-              <GoogleLogin
-                clientId={clientId}
-                buttonText="Log in with Google"
-                onSuccess={onSuccess}
-                onFailure={onFailure}
-                cookiePolicy={"single_host_origin"}
-                isSignedIn={true}
-              ></GoogleLogin>
-            </div>
-            <p className="ride-line">Or sign in with</p>
+          <div className="google-login">
+            <GoogleLogin
+              clientId={clientId}
+              buttonText="Log In with Google"
+              onSuccess={onSuccess}
+              onFailure={onFailure}
+              cookiePolicy={"single_host_origin"}
+              isSignedIn={true}
+            ></GoogleLogin>
+          </div>
+          <p className="ride-line">Or sign in with</p>
 
           <div className="input-field">
             <label htmlFor="email" className="label">
@@ -209,10 +213,8 @@ export default function LoginPage({ user, setUser, setCurrPage }) {
               className="login-button"
               onClick={handleOnLoginFormSubmit}
             >
-              Login
+              Log In
             </button>
-
-            
 
             <p className="footer-text">
               Don't have an account? Sign up
