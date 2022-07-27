@@ -62,6 +62,9 @@ class ApiClient {
     async getSummary() {
         return await this.request({ endpoint: `recap/summary`, method: `GET` })
     }
+    async getLatestGrade() {
+        return await this.request({ endpoint: `recap/latestgrade`, method: `GET` })
+    }
     async getActivity() {
         return await this.request({ endpoint: `social/activity`, method: `GET` })
     }

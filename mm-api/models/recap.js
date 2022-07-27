@@ -7,6 +7,78 @@ const {
 require("dotenv").config();
 
 class Recap {
+  // This will ONLY be showed in dashboard so no need for public/private check
+  static async latestGradeForUser(user) {
+    if (!user?.userId) {
+      throw new BadRequestError(
+        "No user /user ID passed in to get the latest grade"
+      );
+    }
+
+    const text = `
+      SELECT c.score, t.name, c.completed_at AS "completedAt"
+      FROM completed as c
+          INNER JOIN tasks as t ON c.user_id=t.user_id AND c.task_id=t.task_id
+      WHERE c.user_id=$1
+      ORDER BY c.completed_at DESC
+      LIMIT 1
+  `;
+
+    const values = [user.userId];
+    const result = await db.query(text, values);
+    
+    // make sure they have at least one completed grade
+    if (result.rows[0] === undefined || result.rows[0] === null) {
+      return null
+    }
+
+    // find the letter score
+    if (result.rows[0].score >=97.00) {
+      result.rows[0]["actualLetterGrade"] = "A+"
+    }
+    else if (result.rows[0].score >=93.00) {
+      result.rows[0]["actualLetterGrade"] = "A"
+    }
+    else if (result.rows[0].score >=90.00) {
+      result.rows[0]["actualLetterGrade"] = "A-"
+    }
+    else if (result.rows[0].score >=87.00) {
+      result.rows[0]["actualLetterGrade"] = "B+"
+    }
+    else if (result.rows[0].score >=83.00) {
+      result.rows[0]["actualLetterGrade"] = "B"
+    }
+    else if (result.rows[0].score >=80.00) {
+      result.rows[0]["actualLetterGrade"] = "B-"
+    }
+    else if (result.rows[0].score >=77.00) {
+      result.rows[0]["actualLetterGrade"] = "C+"
+    }
+    else if (result.rows[0].score >=73.00) {
+      result.rows[0]["actualLetterGrade"] = "C"
+    }
+    else if (result.rows[0].score >=70.00) {
+      result.rows[0]["actualLetterGrade"] = "C-"
+    }
+    else if (result.rows[0].score >=67.00) {
+      result.rows[0]["actualLetterGrade"] = "D+"
+    }
+    else if (result.rows[0].score >=63.00) {
+      result.rows[0]["actualLetterGrade"] = "D"
+    }
+    else if (result.rows[0].score >=60.00) {
+      result.rows[0]["actualLetterGrade"] = "D-"
+    }
+    else if (result.rows[0].score < 60.00) {
+      result.rows[0]["actualLetterGrade"] = "F"
+    }
+
+    result.rows[0]["scoreWithPercentage"] = String(result.rows[0]["score"]) + "%"
+
+    
+    return result.rows[0]
+  }
+
   // amount of people they work with on some category
   static async peopleWorkedWithPerCategory(
     userId,
@@ -454,13 +526,16 @@ class Recap {
               categoriesShuffled[0],
               true
             );
-            if (statisticRetrieved !== null && statisticRetrieved !== undefined) {
+            if (
+              statisticRetrieved !== null &&
+              statisticRetrieved !== undefined
+            ) {
               return statisticRetrieved;
             }
             categoriesShuffled = categoriesShuffled.splice(1);
           }
         } else {
-          functionToCall = shuffled[0]
+          functionToCall = shuffled[0];
           statisticRetrieved = await functionToCall(userId, "project", true);
           if (statisticRetrieved !== null && statisticRetrieved !== undefined) {
             return statisticRetrieved;
@@ -470,8 +545,8 @@ class Recap {
       }
       return null;
     }
-    
-    return null
+
+    return null;
   }
 
   // {
