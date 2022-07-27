@@ -88,4 +88,5 @@ class ApiClient {
     }
 }
 
+// when deploying to heroku may have to change!!!
 export default new ApiClient("http://localhost:3001")
