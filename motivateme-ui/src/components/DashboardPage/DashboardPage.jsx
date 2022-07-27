@@ -175,7 +175,6 @@ export function MiniTodoCard ({name, category, dueDate, dueTime, description, se
     else if (category.toLowerCase() === "essay"){
       setColorState("yellow")
     }   
-    console.log(category)
   }, [])
     return (
       <div className={"mini-card "}>
