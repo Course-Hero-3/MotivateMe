@@ -41,7 +41,7 @@ export default function DashboardPage({ user, setCurrPage }) {
 
   const returnRandomItemInArray = (arr) => {
     const shuffled = [...arr].sort(() => 0.5 - Math.random());
-    setSingleFact({first:shuffled[0], second:shuffled[1]});
+    return (shuffled.slice(0, 2))
   };
 
   return (
@@ -85,7 +85,7 @@ export default function DashboardPage({ user, setCurrPage }) {
               </span>   
           </div>
         </div>
-        <div className="dashboard-column middle">
+        <div className="d-flex flex-column">
           {/* <div className="welcome-card">
             <img
               id="dashboard-pfp"
@@ -100,13 +100,12 @@ export default function DashboardPage({ user, setCurrPage }) {
             <h3 id="dashboard-welcome-text">{`Hey ${user?.firstName}! Welcome to your dashboard`}</h3>
           </div> */}
           <div className="dashboard-stats">
-                  {singleFact?<GraphCard chartInformation={singleFact.first} dashboardOn = {true}/>:null}
-                  <TodoViewer currentTasks={tasks}/>
-
+                  {graphs? returnRandomItemInArray(graphs).map((fact) => (
+                      <GraphCard chartInformation={fact} dashboardOn={true}/>
+                  )):<h2 className="no-data-dash">Nothing to show here!</h2>}
           </div>
           <div className="dash-todo-viewer">
-              {singleFact?<GraphCard chartInformation={singleFact.second} dashboardOn = {true}/>:null}
-
+              <TodoViewer currentTasks={tasks}/>
           </div>
         </div>
       </div>
