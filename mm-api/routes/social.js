@@ -47,7 +47,7 @@ router.delete("/unfollow", security.requireAuthenticatedUser, async (req, res, n
         // needs username of person that is going to be UNfollowed in req.body
         const publicUserFromDecodedToken = res.locals.user 
         const unfollowedRelationship = await Social.unfollow(req.body, publicUserFromDecodedToken)
-        res.status(200) 
+        res.status(204) 
         res.json( { unfollowedRelationship: unfollowedRelationship } )
     }
     catch (error) {
