@@ -4,6 +4,19 @@ const { createUserJwt } = require("../utils/tokens")
 const security = require("../middleware/security")
 const router = express.Router()
 
+router.post("/googlelogin", async (req, res, next) => {
+    try {
+        console.log('GOT HERE')
+        const publicUser = await User.googleLogin(req.body)
+        const token = createUserJwt(publicUser)   // encode the user as a payload
+        res.status(200)
+        res.json( { user: publicUser, token } )
+    }
+    catch (error) {
+        next(error)
+    }
+})
+
 router.post("/login", async (req, res, next) => {
     try {
         const publicUser = await User.login(req.body)

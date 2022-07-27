@@ -3,13 +3,13 @@ Things to do if you want to work on this by yourself..
 1) npm install --save express@next morgan cors nodemon
 2) npm install --save bcrypt colors dotenv pg
 3) npm install --save jsonwebtoken
-4) npm install regex                (THIS ONE IS NEW 7/21/22 - KIAN)
-(you could do all the top 3 steps in 1 step but up to you)
+4) npm install regex              
+5) npm install unique-username-generator --save  (NECESSARY 7-27-2022)
 
-5) psql -f motivateme.sql
+6) psql -f motivateme.sql (NECESSARY SINCE DATABASE CHANGED 7-27-2022)
     a) then click enter (to clear the database and start over if you want)
 
-6) npm run dev
+7) npm run dev
 
 
 also:

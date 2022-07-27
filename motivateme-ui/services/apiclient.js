@@ -38,6 +38,9 @@ class ApiClient {
     async login(userInfo) {
        return await this.request({ endpoint:`auth/login`, method:`POST`, data:userInfo })
     }
+    async googleLogin(userInfo) {
+        return await this.request({ endpoint:`auth/googlelogin`, method:`POST`, data:userInfo })
+    }
     async register(userInfo) {
         return await this.request({ endpoint:`auth/register`, method:`POST`, data:userInfo })
     }
@@ -88,4 +91,5 @@ class ApiClient {
     }
 }
 
+// when deploying to heroku may have to change!!!
 export default new ApiClient("http://localhost:3001")

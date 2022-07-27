@@ -2,8 +2,23 @@ import React from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import apiClient from "../../../services/apiclient";
+import { GoogleLogout } from "react-google-login";
 
-export default function Navbar({ user, setUser, currPage }) {
+const clientId =
+  "505543512767-7eaflkfnc9l791ojove3bgb2hvuh61a3.apps.googleusercontent.com";
+
+export default function Navbar({
+  user,
+  setUser,
+  currPage,
+  loggedInWithGoogle,
+  setLoggedInWithGoogle,
+}) {
+  const onLogoutSuccess = () => {
+    setLoggedInWithGoogle(false);
+    apiClient.logout();
+    setUser(null);
+  };
   // Function needed in order to conditionally render different navbars
   // to different specific pages (ie 1. landing, 2. login/register 3.else)
   return (
@@ -32,6 +47,13 @@ export default function Navbar({ user, setUser, currPage }) {
                     Dashboard
                   </button>
                 </Link>
+                <Link to="/todo">
+                  <button
+                    className={`nav-btn ${currPage === "todo" ? "active" : ""}`}
+                  >
+                    To-Do
+                  </button>
+                </Link>
                 <Link to="/recap">
                   <button
                     className={`nav-btn ${
@@ -39,13 +61,6 @@ export default function Navbar({ user, setUser, currPage }) {
                     }`}
                   >
                     Recap
-                  </button>
-                </Link>
-                <Link to="/todo">
-                  <button
-                    className={`nav-btn ${currPage === "todo" ? "active" : ""}`}
-                  >
-                    To-Do
                   </button>
                 </Link>
                 <Link to="/social">
@@ -60,17 +75,29 @@ export default function Navbar({ user, setUser, currPage }) {
               </div>
               <div className="account-links">
                 <img id="pfp" src={user.image} alt="PFP" />
-                <Link to="/">
-                  <button
-                    className="nav-btn"
-                    onClick={() => {
-                      apiClient.logout();
-                      setUser(null);
-                    }}
-                  >
-                    Log Out
-                  </button>
-                </Link>
+                {loggedInWithGoogle ? (
+                  <Link to="/">
+                    <GoogleLogout
+                      clientId={clientId}
+                      buttontext="Log Out"
+                      onLogoutSuccess={onLogoutSuccess}
+                    ></GoogleLogout>
+                  </Link>
+                ) : (
+                  <>
+                    <Link to="/">
+                      <button
+                        className="nav-btn"
+                        onClick={() => {
+                          apiClient.logout();
+                          setUser(null);
+                        }}
+                      >
+                        Log Out
+                      </button>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>
