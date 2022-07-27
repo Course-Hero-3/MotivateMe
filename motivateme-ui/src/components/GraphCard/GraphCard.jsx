@@ -109,7 +109,7 @@ export default function GraphCard({ chartInformation, dashboardOn }) {
     <>
 
       {chartInformation !== null && chartInformation !== undefined ? (
-        <div className="chart-card">
+        <div className={dashboardOn?"chart-card-mini":"chart-card"}>
 
 <h3 className="chart-title">{chartInformation.label}</h3>
           {generateSpecificChart(chartInformation)}

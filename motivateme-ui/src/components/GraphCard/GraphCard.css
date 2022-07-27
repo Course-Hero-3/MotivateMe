@@ -12,9 +12,11 @@
 
 .chart-card-mini {
     width: 575px;
-    height: 575px;
+    height: 555px;
     border: 1px solid var(--border-color);
     border-radius: 10px;
+    padding: 20px;
+    
 }
 
 .chart-title {
