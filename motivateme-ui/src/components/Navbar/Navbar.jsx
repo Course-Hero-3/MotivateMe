@@ -69,12 +69,21 @@ export default function Navbar({
                       currPage === "social" ? "active" : ""
                     }`}
                   >
-                    Social Feed
+                    Social
                   </button>
                 </Link>
               </div>
               <div className="account-links">
-                <img id="pfp" src={user.image} alt="PFP" />
+                <img
+                  id="pfp"
+                  src={user.image}
+                  alt="PFP"
+                  onError={(event) => {
+                    event.target.src =
+                      "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png";
+                    event.onerror = null;
+                  }}
+                />
                 {loggedInWithGoogle ? (
                   <Link to="/">
                     <GoogleLogout
