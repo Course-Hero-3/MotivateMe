@@ -3,7 +3,6 @@
     flex-direction: column;
     width: 100vw;
     height: 1021px;
-    background:var(--grey-bg) ;
 }
 
 
@@ -26,9 +25,8 @@
 
 .dashboard-column.intro {
     justify-content: space-between;
-    align-items: center;
-    gap: 20px
-    ;
+    align-items: flex-start;
+    gap: 20px;
     width: 30%;
 }
 
@@ -47,8 +45,7 @@
 }
 
 .dashboard-welcome {
-        margin-left: 25px;
-        text-align: center;
+        margin-left: 0px;
 }
 
 /* editing the welcome card */
@@ -188,8 +185,8 @@
     border-radius: 10px;
     align-items: flex-start;
     padding-left: 15px;
-    width: 100%;
-    height: 100%;
+    width: 650px;
+    height: 400px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
@@ -204,7 +201,7 @@
 }
 
 .todo-bulletin-area {
-    width: 100%;
+    width: 1100px;
     display: flex;
 }
 .todo-bulletin-tasks {
@@ -251,13 +248,23 @@
     height: 80px;
     background:#D9EAFF;
     display: flex;
-    flex-direction: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     border-radius: 20px;
     box-shadow: 0 0 10px #dbdbdb;
     transition: .3s;
 }
+
+.mini-card-name {
+    width: 160px;
+}
+
+.mini-card-date {
+    width: 220px;
+    margin-top: 9px;
+}
+
 
 .mini-card-content.blue {
     background:var(--homework-task);
@@ -294,4 +301,30 @@
 }
 .todo-title{
    color: #172b4d;
+}
+
+.dashboard-links {
+    text-decoration: none;
+    color: black;
+}
+
+.dashboard-links:hover {
+    color: black;
+}
+
+
+.no-friends-dash {
+    font-size: 25px;
+}
+
+.late-text-dash {
+    font-size: 20px;
+    color: var(--primary-red);
+    margin-top: 9px;
+}
+
+.upcoming-text-dash {
+    font-size: 20px;
+    color: black;
+    margin-top: 9px;
 }
