@@ -89,6 +89,21 @@ class ApiClient {
     async recommended() {
         return await this.request({ endpoint: `social/recommended`, method: `GET` })
     }
+    async editPassword(password) {
+        return await this.request({ endpoint:`auth/editpassword`, method:`PUT`, data: { password } })
+    }
+    async editUsername(username) {
+        return await this.request({ endpoint:`auth/editusername`, method:`PUT`, data: { username } })
+    }
+    async editFirstName(firstName) {
+        return await this.request({ endpoint:`auth/editfirstname`, method:`PUT`, data: { firstName } })
+    }
+    async editLastName(lastName) {
+        return await this.request({ endpoint:`auth/editlastname`, method:`PUT`, data: { lastName } })
+    }
+    async editImage(image) {
+        return await this.request({ endpoint:`auth/editimage`, method:`PUT`, data: { image } })
+    }
 }
 
 // when deploying to heroku may have to change!!!
