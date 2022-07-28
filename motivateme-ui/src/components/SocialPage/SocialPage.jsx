@@ -227,7 +227,7 @@ export default function SocialPage({ user, setCurrPage }) {
                                       <div className="unfollow-and-follow">
                                         <button
                                           type="button"
-                                          className="unfollow"
+                                          className="unfollow-btn"
                                           onClick={() => {
                                             handleOnUnfollow(friend.username);
                                           }}
@@ -306,7 +306,7 @@ export default function SocialPage({ user, setCurrPage }) {
                                       <div className="unfollow-and-follow">
                                         <button
                                           type="button"
-                                          className="follow"
+                                          className="follow-btn"
                                           onClick={() => {
                                             handleOnFollow(stranger.username);
                                           }}
@@ -369,7 +369,7 @@ export default function SocialPage({ user, setCurrPage }) {
                                   <div className="unfollow-and-follow">
                                     <button
                                       type="button"
-                                      className="follow"
+                                      className="follow-btn"
                                       onClick={() => {
                                         handleOnFollow(
                                           recommendedUser.username

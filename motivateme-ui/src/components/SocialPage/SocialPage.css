@@ -36,13 +36,14 @@
   display: flex;
   justify-content: space-between;
   background-color: white;
-  width: 455px;
+  width: 500px;
   border-radius: 5px;
   font-size: 20px;
   height: 54px;
   border: none;
   padding: 11px 23px;
   color: #34b3f1;
+  margin-bottom: 15px;
 }
 
 .button-right-tab {
@@ -53,6 +54,8 @@
   border: none;
   cursor: pointer;
   padding: 8px 12px;
+  height: 39px;
+  width: 80px;
 }
 
 .active {
@@ -81,7 +84,7 @@
 .friend-section {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 430px;
 }
 
 .friend-text {
@@ -124,9 +127,9 @@ align-items: center;
 
 .user-card {
   background-color: #8acaea;
-  width: 400px;
+  width: 425px;
   border-radius: 4px;
-  height: 80px;
+  height: 100px;
   margin-top: 15px;
   display: flex;
   justify-content: space-between;
@@ -143,25 +146,26 @@ align-items: center;
   height: 70px;
   width: 70px;
   border-radius: 50%;
-  margin-top: 5px;
-  margin-left: 5px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .user-text-info {
   display: flex;
   flex-direction: column;
-  margin-left: 5px;
+  margin-left: 10px;
   height: 10px;
 }
 
 .user-username {
-  margin-top: 5px;
+  margin-top: 10px;
   margin-right: 5px;
   font-size: 15px;
 }
 
 .user-name {
   margin: 0px;
+  margin-bottom: 10px;
 }
 
 .unfollow-and-follow {
@@ -169,22 +173,22 @@ align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-end;
+  margin-right: 10px;
+
 }
 
-.follow {
+.follow-btn {
   background-color: lightgreen;
-  margin-right: 5px;
   margin-bottom: 5px;
-  width: 60px;
+  width: 75px;
   cursor: pointer;
   border-radius: 5px;
 }
 
-.unfollow {
+.unfollow-btn {
   background-color: rgb(255, 121, 121);
-  margin-right: 5px;
   margin-bottom: 5px;
-  width: 70px;
+  width: 90px;
   cursor: pointer;
   border-radius: 5px;
 }
@@ -253,13 +257,14 @@ align-items: center;
     border: 1px solid #172b4d;
     border-radius: 10px;
     justify-content: space-between;
-    width: 460px;
+    width: 500px;
     margin-top: 30px;
 }
 
 /* Content where thing such as title, description, and recommended users will reside in */
 .recommended-content {
   width: 100%;
+  margin-top: 20px;
 }
 
 /* Div for Title of recommended section */
@@ -296,7 +301,7 @@ align-items: center;
 }
 
 .smaller {
-  height: 200px;
+  height: 240px;
 }
 
 .empty-recommended-box {
