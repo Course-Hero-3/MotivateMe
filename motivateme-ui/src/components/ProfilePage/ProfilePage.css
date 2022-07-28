@@ -1,0 +1,65 @@
+.profile-card{
+display: flex;
+flex-direction: column;
+}
+
+.profile-banner{
+display: flex;
+flex-direction: row;
+justify-content: space-evenly;
+    background-color:#34b3f1;
+    width: 100vw;
+    height: 250px;
+    color: white;
+}
+
+.profile-info{
+    display: flex;
+    flex-direction: column;
+    /* color: white; */
+    align-items: flex-end;
+    height: 950px;
+   
+}
+
+.edit-section{
+display: flex;
+flex-direction: column;
+align-items: center;
+padding-top: 40px;
+}
+/* .form-input{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: transparent;
+    color: white;
+} */
+
+/* .edit-button{
+    display: flex;
+    flex-direction: column;
+    width: 130px;
+    height:40px;
+    color: white;
+    background-color: white;
+} */
+.label{
+ display: flex;
+ flex-direction: column;
+ padding-bottom: 40px;
+}
+
+/* .update-button{
+    background-color:#34B3F1;
+    width: 450px;
+    border-radius: 5px;
+    font-size: 20px;
+    height: 54px;
+    border: none;
+    align-self: flex-start;
+    padding: 14px 20px;
+    color: white;
+    cursor: pointer;
+    margin-top: 15px;
+} */
