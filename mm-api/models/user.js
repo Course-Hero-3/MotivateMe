@@ -2,9 +2,7 @@ const db = require("../db");
 const { BadRequestError, UnauthorizedError } = require("../utils/errors");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
-const {
-  generateFromEmail
-} = require("unique-username-generator");
+const { generateFromEmail } = require("unique-username-generator");
 
 const BCRYPT_WORK_FACTOR = process.env.BCRYPT_WORK_FACTOR
   ? Number(process.env.BCRYPT_WORK_FACTOR)
@@ -12,10 +10,16 @@ const BCRYPT_WORK_FACTOR = process.env.BCRYPT_WORK_FACTOR
 
 class User {
   static returnPublicUser(userWithAllAttributes) {
-    let loggedInWithGoogle = false
-    if (userWithAllAttributes.made_from === "GOOGLE") {
-      loggedInWithGoogle = true
+    let loggedInWithGoogle = false;
+    try {
+      if (userWithAllAttributes?.made_from === "GOOGLE") {
+        loggedInWithGoogle = true;
+      }
     }
+    catch (error) {
+      loggedInWithGoogle = false
+    }
+    
 
     return {
       userId: userWithAllAttributes.user_id,
@@ -24,20 +28,159 @@ class User {
       firstName: userWithAllAttributes.first_name,
       lastName: userWithAllAttributes.last_name,
       image: userWithAllAttributes.image,
-      loggedInWithGoogle: loggedInWithGoogle
+      loggedInWithGoogle: loggedInWithGoogle,
     };
   }
 
-  /*
-{
-email: "kianranjbar7@gmail.com"
-familyName: "Ranjbar"
-givenName: "Kian"
-googleId: "114798511507055359486"
-imageUrl: "https://lh3.googleusercontent.com/a/AItbvmltXkz8QRkMlAbL77_hBUKdcPZ4JWGqSvU7L-O2=s96-c"
-name: "Kian Ranjbar"
-}
-  */
+
+  static async editFirstName(user, firstNameObject) {
+    if (!firstNameObject?.firstName) {
+      throw new BadRequestError("No first name passed through to edit");
+    }
+    if (firstNameObject.firstName.length === 0) {
+      throw new BadRequestError("First Name cannot be empty");
+    }
+    if (!user) {
+      throw new BadRequestError("No user in order to update");
+    }
+
+
+    let updateQuery = await db.query(
+      `
+      UPDATE users
+      SET first_name=$1
+      WHERE user_id=$2
+      RETURNING user_id, email, username, first_name, last_name, image, made_from
+      `,
+      [
+        firstNameObject.firstName,
+        user.userId
+      ]
+    );
+
+    return await User.returnPublicUser(updateQuery.rows[0])
+  }
+
+
+  static async editLastName(user, lastNameObject) {
+    if (!lastNameObject?.lastName) {
+      throw new BadRequestError("No last name passed through to edit");
+    }
+    if (lastNameObject.lastName.length === 0) {
+      throw new BadRequestError("Last Name cannot be empty");
+    }
+    if (!user) {
+      throw new BadRequestError("No user in order to update");
+    }
+
+
+    let updateQuery = await db.query(
+      `
+      UPDATE users
+      SET last_name=$1
+      WHERE user_id=$2
+      RETURNING user_id, email, username, first_name, last_name, image, made_from
+      `,
+      [
+        lastNameObject.lastName,
+        user.userId
+      ]
+    );
+
+    return await User.returnPublicUser(updateQuery.rows[0])
+  }
+
+  static async editPassword(user, passwordObject) {
+    if (!passwordObject?.password) {
+      throw new BadRequestError("No password passed through to edit");
+    }
+    if (passwordObject.password.length === 0) {
+      throw new BadRequestError("Password cannot be empty");
+    }
+    if (!user) {
+      throw new BadRequestError("No user in order to update");
+    }
+
+
+    const hashedPassword = await bcrypt.hash(
+      passwordObject.password,
+      BCRYPT_WORK_FACTOR
+    );
+
+    let updateQuery = await db.query(
+      `
+      UPDATE users
+      SET password=$1
+      WHERE user_id=$2
+      RETURNING user_id, email, username, first_name, last_name, image, made_from
+      `,
+      [
+        hashedPassword,
+        user.userId
+      ]
+    );
+
+    return await User.returnPublicUser(updateQuery.rows[0])
+  }
+
+  static async editImage(user, imageObject) {
+    if (!imageObject?.image) {
+      throw new BadRequestError("No image passed through to change");
+    }
+    if (imageObject.image.length === 0) {
+      throw new BadRequestError("Image cannot be empty");
+    }
+    if (!user) {
+      throw new BadRequestError("No user in order to update");
+    }
+
+    let updateQuery = await db.query(
+      `
+      UPDATE users
+      SET image=$1
+      WHERE user_id=$2
+      RETURNING user_id, email, username, first_name, last_name, image, made_from
+      `,
+      [
+        imageObject.image,
+        user.userId
+      ]
+    );
+
+    return await User.returnPublicUser(updateQuery.rows[0])
+  }
+
+  static async editUsername(user, usernameObject) {
+    if (!usernameObject?.username) {
+      throw new BadRequestError("No username passed through to edit");
+    }
+    if (!user) {
+      throw new BadRequestError("No user in order to update");
+    }
+
+    let maybeUserExistsUsername = await User.fetchUserByUsername(
+      usernameObject.username
+    );
+    if (maybeUserExistsUsername) {
+      throw new BadRequestError("Username already exists. Try another one.");
+    }
+
+    let updateQuery = await db.query(
+      `
+      UPDATE users
+      SET username=$1
+      WHERE user_id=$2
+      RETURNING user_id, email, username, first_name, last_name, image, made_from
+      `,
+      [
+        usernameObject.username,
+        user.userId
+      ]
+    );
+
+    return await User.returnPublicUser(updateQuery.rows[0])
+  }
+
   static async googleLogin(information) {
     if (!information) {
       throw new BadRequestError(
@@ -58,11 +201,15 @@ name: "Kian Ranjbar"
 
       // generate a username similar to email and add 5 random numbers
       let generatedUsername = generateFromEmail(information.email, 5);
-      let maybeUserExistsUsername = await User.fetchUserByUsername(generatedUsername);
+      let maybeUserExistsUsername = await User.fetchUserByUsername(
+        generatedUsername
+      );
       while (maybeUserExistsUsername) {
         // should not enter but if it exists, generate another username
         generatedUsername = generateFromEmail(information.email, 5);
-        maybeUserExistsUsername = await User.fetchUserByUsername(generatedUsername);
+        maybeUserExistsUsername = await User.fetchUserByUsername(
+          generatedUsername
+        );
       }
 
       const text = `INSERT INTO users (
@@ -74,7 +221,7 @@ name: "Kian Ranjbar"
         image,
         made_from)
         VALUES ($1, $2, $3, $4, $5, $6, $7)
-        RETURNING user_id, email, password, username, first_name, last_name, image`;
+        RETURNING user_id, email, password, username, first_name, last_name, image, made_from`;
       const values = [
         information.email.toLowerCase(),
         "googlepassword",
@@ -187,7 +334,7 @@ name: "Kian Ranjbar"
             last_name,
             image)
         VALUES ($1, $2, $3, $4, $5, $6)
-        RETURNING user_id, email, password, username, first_name, last_name, image`;
+        RETURNING user_id, email, password, username, first_name, last_name, image, made_from`;
     const values = [
       information.email.toLowerCase(),
       hashedPassword,
