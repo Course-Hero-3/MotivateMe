@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./TodoList.css";
+import onTime from "../../assets/greenstatus-icon.png"
 import dueDateIcon from "../../assets/due-icon3.png";
 import updateIcon from "../../assets/update-icon.png";
 import completeIcon from "../../assets/complete-icon.png";
@@ -29,6 +30,7 @@ export default function TodoList({ showModal, modalSelected }) {
   const [sortByDate, setSortByDate] = useState("");
   const [taskError, setTaskError] = useState(null);
   const [refreshTasks, setRefreshTasks] = useState(false);
+  const [taskMessage, setTaskMessage] = useState("You currently don't have any tasks to complete!")
 
   const fixRegexSpecialCharacters = (str) => {
     for (let i = 0; i < str.length; i++) {
@@ -102,6 +104,7 @@ export default function TodoList({ showModal, modalSelected }) {
         null &&
       categoryQuery === task.category
     ) {
+
       return true;
     } else {
       return false;
@@ -380,10 +383,13 @@ export default function TodoList({ showModal, modalSelected }) {
             <option value="project" className="category-option">
               Project
             </option>
+            <option value="essay" className="category-option">
+              Essay
+            </option>
           </select>
         </form>
       </div>
-      <div className="todo-list-wrapper">
+      <div className="todo-list-wrapper d-flex flex-column justify-content-flex-start align-items-center">
         {searchTasks?.length === 0 ? (
           <>
             <h3 className="todo-no-tasks">
@@ -420,6 +426,14 @@ export default function TodoList({ showModal, modalSelected }) {
           </>
         )}
       </div>
+      <svg onClick={() => {
+          showModal("create");
+        }} xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-circle-plus todo-btn create" width="89" height="89" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#00abfb" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <circle cx="12" cy="12" r="9" />
+        <line x1="9" y1="12" x2="15" y2="12" />
+        <line x1="12" y1="9" x2="12" y2="15" />
+        </svg>
     </div>
   );
 }
@@ -500,19 +514,18 @@ export function TodoCard({
 
   return (
     <div className={"todo-card " + colorState}>
-      <div className="card-header">
+      <div className="card-body d-flex flex-row justify-content-between align-items-center">
         <div className="name-wrapper">
           <span className="name">{name}</span>
         </div>
-        {taskIsLate() ? <img src={lateIcon} className="late-icon" /> : null}
-      </div>
-      <div className="todo-card-footer">
         <div className="due-date-wrapper">
           <img src={dueDateIcon} className="due-icon" />
           <span className="due-date">
             {moment(dueDate).format("MMMM Do YYYY")}
           </span>
         </div>
+        {taskIsLate() ? <span className="late-task">Late</span> : <span className="ontime-task">In Progress</span>}
+
         <div className="form-icons">
           <img
             className="form-icon"
@@ -552,7 +565,8 @@ export function TodoCard({
             <line x1="12" y1="8" x2="12.01" y2="8" />
             <polyline points="11 12 12 12 12 16 13 16" />
           </svg>
-        </div>
+          </div>
+
       </div>
       {updateOrComplete === "update" ? (
         <TodoForm

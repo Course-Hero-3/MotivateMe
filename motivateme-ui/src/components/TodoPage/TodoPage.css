@@ -7,6 +7,8 @@
     font-family: 'Nunito', sans-serif;
 }
 
+
+
 .todo-title {
     font-size: 30px;
 }
@@ -19,11 +21,5 @@
 }
 
 .todo-btn.create {
-    padding: 10px 25px;
-    border-radius: 10px;
-    border: none;
-    background: var(--primary-blue);
-    color: white;
-    font-size: 15px;
     cursor: pointer;
 }

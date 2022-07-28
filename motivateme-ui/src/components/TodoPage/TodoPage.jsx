@@ -25,23 +25,14 @@ export default function TodoPage({ user, setCurrPage }) {
   return (
     <>{user !== null && user !== undefined ? 
       <><div className="todo-page">
-    <h2 className="todo-title">To-Do</h2>
+        <h2 className="todo-title">To-Do</h2>
     <div className="todo-btns">
-      <button
-        className="todo-btn create"
-        type="button"
-        onClick={() => {
-          showModal("create");
-        }}
-      >
-        Create
-      </button>
     </div>
     {modalSelected === "create" ? (
       <TodoForm formType={"create"} showModal={showModal} />
     ) : null}
     <div className="todo-wrapper">
-      <TodoList showModal={showModal} modalSelected={modalSelected} />
+      <TodoList showModal={showModal} modalSelected={modalSelected}/>
     </div>
   </div></>
   : <>

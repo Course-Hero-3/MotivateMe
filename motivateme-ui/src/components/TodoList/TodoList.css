@@ -19,36 +19,67 @@
 .todo-list-wrapper {
     height: 800px;
     display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
-    overflow-y: auto;
-    justify-content: flex-start;
-    align-items: center;
+    overflow-y: scroll;
     width: 80%;
 }
+
+/*scroll bar styling*/
+::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 8px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 8px;
+
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+
+
+
 /*todo page header styling*/
 /*all:unsert resets the search box*/
 
 .task-form {
-    background-color: var(--primary-blue);
+  background-color: var(--pure-white);
   width: 300px;
+  border:1px solid var(--border-color);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   height: 44px;
   border-radius: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-
+.task-form:hover{
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);}
 
 .task-form-search {
     all: unset;
     font: 16px system-ui;
-    color: #fff;
+    color: #333;
     height: 100%;
     width: 100%;
     padding: 6px 10px;
 }
 
+.task-form-search::placeholder {
+    color:#333;
+}
 .categories {
     background: var(--pure-white);
     border: 1px solid var(--border-color);
@@ -63,10 +94,11 @@
     cursor:pointer;
     width: 44px;
     height: 44px;
+    
 }
 
 .task-form-btn svg {
-    color: var(--pure-white);
+    color: #333;
     fill: currentColor;
     width: 44px;
     height: 44px;
@@ -84,11 +116,10 @@
 
 /*todo card styling*/
 .todo-card {
-    flex: 0 1 10%;
     margin-bottom: 15px;
     width: 80%;
-    height: 80px;
-    background:#D9EAFF;
+    height: 60px;
+    background:rgb(247, 247, 247);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -97,6 +128,7 @@
     box-shadow: 0 0 10px #dbdbdb;
     transition: .3s;
 }
+
 .todo-card.blue {
     background:var(--homework-task);
 }
@@ -131,11 +163,15 @@
     background: var(--essay-task-hover);
 }
 
-.card-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+.card-body {
+    height: 60px;
 }
+
+
+.card-body {
+    width: 100%;
+}
+
 
 .due-icon {
     height: 33px;
@@ -144,10 +180,17 @@
     margin-right: 10px;
 }
 
-.late-icon {
-    height:22px;
-    width:22px ;
-    margin-right: 14px;
+.late-task, .ontime-task {
+    font-size: 20px;
+    width: 110px;
+}
+.late-task {
+color: var(--primary-red);
+    text-align: center;
+}
+
+.ontime-task {
+
 }
 
 .todo-card:hover {
@@ -165,11 +208,22 @@
     flex-direction: row;
     align-items: center;
     margin-left: 15px;
+    width: 250px;
+}
+
+.due-date {
+    font-size: 20px;
 }
 
 .name-wrapper {
     margin-left: 20px;
+    width: 200px;
 }
+
+.name {
+    font-size: 20px;
+}
+
 .form-icons {
     margin-right: 10px;
     display: flex;
@@ -178,12 +232,12 @@
 }
 
 .form-icons svg {
-    width: 33px;
-    height: 33px;
+    width: 40px;
+    height: 40px;
 }
 .form-icon {
-    width: 22px;
-    height: 22px;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
     margin-right: 5px;
 }
@@ -213,9 +267,7 @@
 .task-detail-name {
     color: #333;
 }
-.task-form-search::placeholder {
-    color: var(--pure-white);
-}
+
 
 .task_modal {
     position: fixed;
@@ -262,7 +314,6 @@
  .task-detail-category, .detail-description {
     margin-bottom: 15px;
  }
- 
 
 .task_modal_content{
     text-align: center;
