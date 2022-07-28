@@ -10,9 +10,10 @@ import moment from "moment";
 import { TaskDetail } from "../TodoList/TodoList";
 
 export default function DashboardPage({ user, setCurrPage }) {
+  const [friends, setFriends] = useState(null);
   const [graphs, setGraphs] = React.useState(null);
   const [tasks, setTasks] = React.useState(null);
-  const [singleFact, setSingleFact] = useState(null)
+  const [latestGrade, setLatestGrade] = useState(null)
   const [showDetail, setShowDetail] = React.useState(null)
   const currentDate = new Date()
   const navigate = useNavigate();
@@ -31,6 +32,14 @@ export default function DashboardPage({ user, setCurrPage }) {
       if (tempTasks?.data) {
         setTasks(tempTasks.data.allTasks);
       }
+      let {data, error} = await apiClient.getLatestGrade()
+      if (data){console.log(data.latestGrade.score);
+         setLatestGrade(data.latestGrade.score)
+      }
+      let tempFriends = await apiClient.following();
+      if (tempFriends?.data) {
+        setFriends(tempFriends.data.following);
+      }
       // if error when fetching user from token (happens if use refreshes)
 
     };
@@ -40,7 +49,7 @@ export default function DashboardPage({ user, setCurrPage }) {
     if (user!==null && user!== undefined) {
       setCurrPage("dashboard");
 
-    }  }, []);
+    }}, []);
 
   const returnRandomItemInArray = (arr) => {
     const shuffled = [...arr].sort(() => 0.5 - Math.random());
@@ -51,7 +60,7 @@ export default function DashboardPage({ user, setCurrPage }) {
     <>{
       user!==null && user!== undefined?<>
       <div className="dashboard-page">
-      <div className="dashboard-columns">
+      <div className="dashboard-columns d-flex flex-row">
         <div className="dashboard-column intro">
           <div className="dashboard-welcome">
             <h1 className="dashboard-main-welcome">Hey {user?.firstName}, Welcome to your dashboard!</h1>
@@ -80,12 +89,29 @@ export default function DashboardPage({ user, setCurrPage }) {
                 Latest Grade
               </h3>
            </div>
-              <span className="latest-grade"> {tasks?.length}</span>
+              <span className="latest-grade"> {latestGrade}%</span>
           </div>
           <div className="friends-column">
               <span className="friends-column-header">
                  Friends
               </span>   
+              <div className="friends d-flex flex-column">
+                {friends?friends.map((friend, idx) => {
+                 if (idx < 8) {
+                  return (<div className="friend d-flex flex-row align-items-center">
+                    <img src={friend.profilePicture} className="friend-img" alt="friend-img"
+                      onError={(event) => {
+                                            event.target.src =
+                                              "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png";
+                                            event.onerror = null;
+                                          }}
+                    />
+                    <span className="friend-username">@{friend.username}</span>
+                  </div>)
+                 } 
+                 
+                }): (<span className="no-friends">Nothing to show here</span>)}
+              </div>
           </div>
         </div>
         <div className="d-flex flex-column">
@@ -187,10 +213,11 @@ export function MiniTodoCard ({name, category, dueDate, dueTime, description, se
    <line x1="11" y1="12" x2="20" y2="12"></line>
    <line x1="11" y1="18" x2="20" y2="18"></line>
 </svg>
-          <span className={"card-name " + colorState} 
+          <div className={"mini-card-content " + colorState} 
            onClick={() => {
               setShowDetail({name, category, description, dueDate, dueTime, showDetail, setShowDetail});
-            }}>{name}</span>
+            }}><h3 className="mini-card-name">{name}</h3>
+              Due {moment(dueDate).format("ll")}</div>
       </div>
     )
 }

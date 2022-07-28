@@ -36,7 +36,7 @@ router.put("/updatetask", security.requireAuthenticatedUser, permissions.authedU
         // needs taskId in req.body
         const publicUserFromDecodedToken = res.locals.user 
         const updatedPublicTask = await Todo.updateTask(req.body, publicUserFromDecodedToken)
-        res.status(204) 
+        res.status(200) 
         res.json( { task: updatedPublicTask } )
 
     }
@@ -63,7 +63,7 @@ router.delete("/deletetask", security.requireAuthenticatedUser, permissions.auth
         // req.body needs to look like { taskId: taskId }
         const publicUserFromDecodedToken = res.locals.user 
         const deletedTask = await Todo.deleteTask(req.body, publicUserFromDecodedToken)
-        res.status(204) 
+        res.status(200) 
         res.json( { deletedTask: deletedTask } )
     }
     catch (error) {
