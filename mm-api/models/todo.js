@@ -173,7 +173,6 @@ class Todo {
     }
 
     static async updateTask(givenTaskWithId, user) {
-        console.log("Bug in updateTask function")
         if (!givenTaskWithId) {
             throw new BadRequestError("No task information passed through to create a new task.");
         }
