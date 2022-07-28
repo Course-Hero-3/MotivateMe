@@ -13,6 +13,7 @@ import "./App.css";
 import NotFound from "../NotFound/NotFound";
 import AccessForbidden from "../AccessForbidden/AccessForbidden";
 import SocialPage from "../SocialPage/SocialPage";
+import ProfilePage from "../ProfilePage/ProfilePage";
 
 function App() {
   const [loggedInWithGoogle, setLoggedInWithGoogle] = useState(false);
@@ -100,6 +101,10 @@ function App() {
             <Route
               path="*"
               element={<NotFound user={user} setCurrPage={setCurrPage} />}
+            />
+            <Route 
+              path = "profile"
+              element={<ProfilePage user={user} setCurrPage={setCurrPage}/>}
             />
           </Routes>
         </div>
