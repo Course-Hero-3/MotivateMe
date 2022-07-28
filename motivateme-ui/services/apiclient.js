@@ -38,6 +38,9 @@ class ApiClient {
     async login(userInfo) {
        return await this.request({ endpoint:`auth/login`, method:`POST`, data:userInfo })
     }
+    async googleLogin(userInfo) {
+        return await this.request({ endpoint:`auth/googlelogin`, method:`POST`, data:userInfo })
+    }
     async register(userInfo) {
         return await this.request({ endpoint:`auth/register`, method:`POST`, data:userInfo })
     }
@@ -62,6 +65,9 @@ class ApiClient {
     async getSummary() {
         return await this.request({ endpoint: `recap/summary`, method: `GET` })
     }
+    async getLatestGrade() {
+        return await this.request({ endpoint: `recap/latestgrade`, method: `GET` })
+    }
     async getActivity() {
         return await this.request({ endpoint: `social/activity`, method: `GET` })
     }
@@ -85,4 +91,5 @@ class ApiClient {
     }
 }
 
+// when deploying to heroku may have to change!!!
 export default new ApiClient("http://localhost:3001")

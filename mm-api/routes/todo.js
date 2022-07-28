@@ -36,7 +36,7 @@ router.put("/updatetask", security.requireAuthenticatedUser, permissions.authedU
         // needs taskId in req.body
         const publicUserFromDecodedToken = res.locals.user 
         const updatedPublicTask = await Todo.updateTask(req.body, publicUserFromDecodedToken)
-        res.status(200) // success and it is returning content (that is why it is not 204)
+        res.status(200) 
         res.json( { task: updatedPublicTask } )
 
     }

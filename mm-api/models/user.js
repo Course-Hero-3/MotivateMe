@@ -2,6 +2,9 @@ const db = require("../db");
 const { BadRequestError, UnauthorizedError } = require("../utils/errors");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
+const {
+  generateFromEmail
+} = require("unique-username-generator");
 
 const BCRYPT_WORK_FACTOR = process.env.BCRYPT_WORK_FACTOR
   ? Number(process.env.BCRYPT_WORK_FACTOR)
@@ -9,6 +12,11 @@ const BCRYPT_WORK_FACTOR = process.env.BCRYPT_WORK_FACTOR
 
 class User {
   static returnPublicUser(userWithAllAttributes) {
+    let loggedInWithGoogle = false
+    if (userWithAllAttributes.made_from === "GOOGLE") {
+      loggedInWithGoogle = true
+    }
+
     return {
       userId: userWithAllAttributes.user_id,
       email: userWithAllAttributes.email,
@@ -16,7 +24,70 @@ class User {
       firstName: userWithAllAttributes.first_name,
       lastName: userWithAllAttributes.last_name,
       image: userWithAllAttributes.image,
+      loggedInWithGoogle: loggedInWithGoogle
     };
+  }
+
+  /*
+{
+email: "kianranjbar7@gmail.com"
+familyName: "Ranjbar"
+givenName: "Kian"
+googleId: "114798511507055359486"
+imageUrl: "https://lh3.googleusercontent.com/a/AItbvmltXkz8QRkMlAbL77_hBUKdcPZ4JWGqSvU7L-O2=s96-c"
+name: "Kian Ranjbar"
+}
+  */
+  static async googleLogin(information) {
+    if (!information) {
+      throw new BadRequestError(
+        "No information was passed through when logging in with Google"
+      );
+    }
+
+    const maybeUserExists = await User.fetchUserByEmail(information.email);
+    if (maybeUserExists) {
+      if (maybeUserExists.made_from !== "GOOGLE") {
+        throw new BadRequestError(
+          "Can only log into this email via manual log in"
+        );
+      }
+      return User.returnPublicUser(maybeUserExists);
+    } else {
+      // then create a new user for this google account
+
+      // generate a username similar to email and add 5 random numbers
+      let generatedUsername = generateFromEmail(information.email, 5);
+      let maybeUserExistsUsername = await User.fetchUserByUsername(generatedUsername);
+      while (maybeUserExistsUsername) {
+        // should not enter but if it exists, generate another username
+        generatedUsername = generateFromEmail(information.email, 5);
+        maybeUserExistsUsername = await User.fetchUserByUsername(generatedUsername);
+      }
+
+      const text = `INSERT INTO users (
+        email, 
+        password,
+        username,
+        first_name,
+        last_name,
+        image,
+        made_from)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        RETURNING user_id, email, password, username, first_name, last_name, image`;
+      const values = [
+        information.email.toLowerCase(),
+        "googlepassword",
+        generatedUsername,
+        information.givenName,
+        information.familyName,
+        information.imageUrl,
+        "GOOGLE",
+      ];
+      const result = await db.query(text, values);
+
+      return User.returnPublicUser(result.rows[0]);
+    }
   }
 
   static async login(information) {
@@ -39,11 +110,16 @@ class User {
     // EMAIL regex (not just @ symbol)
     const regex = /^[a-zA-Z0-9\.]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
     if (regex.test(information.email) === false) {
-        throw new BadRequestError("Invalid email passed through");
+      throw new BadRequestError("Invalid email passed through");
     }
 
     const maybeUserExists = await User.fetchUserByEmail(information.email);
     if (maybeUserExists) {
+      if (maybeUserExists.made_from !== "APP") {
+        throw new BadRequestError(
+          "Can only log into this email via Google Log In"
+        );
+      }
       const isValid = await bcrypt.compare(
         information.password,
         maybeUserExists.password
@@ -77,7 +153,7 @@ class User {
     // EMAIL regex (not just @ symbol)
     const regex = /^[a-zA-Z0-9\.]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
     if (regex.test(information.email) === false) {
-        throw new BadRequestError("Invalid email passed through");
+      throw new BadRequestError("Invalid email passed through");
     }
 
     const maybeUserExistsEmail = await User.fetchUserByEmail(information.email);

@@ -15,6 +15,7 @@ import AccessForbidden from "../AccessForbidden/AccessForbidden";
 import SocialPage from "../SocialPage/SocialPage";
 
 function App() {
+  const [loggedInWithGoogle, setLoggedInWithGoogle] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [currPage, setCurrPage] = useState(null);
@@ -22,7 +23,12 @@ function App() {
   useEffect(() => {
     const fetchUser = async () => {
       const { data, error } = await apiClient.fetchUserFromToken();
-      if (data) setUser(data.user);
+      if (data) {
+        setUser(data.user);
+        if (data.user.loggedInWithGoogle) {
+          setLoggedInWithGoogle(true)
+        }
+      }
       if (error) {
         setError(error);
       } else {
@@ -41,7 +47,13 @@ function App() {
     <React.Fragment>
       <BrowserRouter>
         <div className="App">
-          <Navbar user={user} setUser={setUser} currPage={currPage} />
+          <Navbar
+            user={user}
+            setUser={setUser}
+            currPage={currPage}
+            loggedInWithGoogle={loggedInWithGoogle}
+            setLoggedInWithGoogle={setLoggedInWithGoogle}
+          />
           <Routes>
             <Route
               path="/"
@@ -54,6 +66,8 @@ function App() {
                   user={user}
                   setUser={setUser}
                   setCurrPage={setCurrPage}
+                  loggedInWithGoogle={loggedInWithGoogle}
+                  setLoggedInWithGoogle={setLoggedInWithGoogle}
                 />
               }
             />

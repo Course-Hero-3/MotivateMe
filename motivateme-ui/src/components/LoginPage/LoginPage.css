@@ -140,6 +140,10 @@ margin-top: 15px;
     align-items: center;
 }
 
+.footer-text {
+    margin-top: 50px;
+}
+
 .footer-text a:link{
     text-decoration: none;
     
@@ -148,3 +152,17 @@ margin-top: 15px;
 .footer-text a:active{
     text-decoration: underline;
 }
+
+/* Adding css for google sign in  */
+.ride-line {
+    margin-top: 20px;
+    color: #747487;
+    margin-right: 35px;
+}
+
+.google-login {
+    margin-right: 35px;
+    margin-top: 20px;
+}
+
+

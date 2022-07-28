@@ -16,4 +16,16 @@ router.get("/summary", security.requireAuthenticatedUser, async (req, res, next)
     }
 })
 
+router.get("/latestgrade", security.requireAuthenticatedUser, async (req, res, next) => {
+    try {
+        const publicUserFromDecodedToken = res.locals.user 
+        const latestGrade = await Recap.latestGradeForUser(publicUserFromDecodedToken) 
+        res.status(200)
+        res.json( { latestGrade } )
+    }
+    catch (error) {
+        next(error)
+    }
+})
+
 module.exports = router

@@ -5,6 +5,8 @@
 
 .main-title {
   align-self: center;
+  font-size: 30px;
+  margin-bottom: 40px;
 }
 
 .social-content {
@@ -27,7 +29,7 @@
 .activity-title {
   color: #172b4d;
   font-weight: bolder;
-  font-size: 28px;
+  font-size: 26px;
 }
 
 .buttons {
@@ -85,7 +87,7 @@
 .friend-text {
   color: #172b4d;
   font-weight: bolder;
-  font-size: 28px;
+  font-size: 26px;
 }
 
 
@@ -264,7 +266,7 @@ align-items: center;
 .recommended-title {
   color: #172b4d;
   font-weight: bolder;
-  font-size: 28px;
+  font-size: 26px;
   margin-left: 28px;
 }
 
