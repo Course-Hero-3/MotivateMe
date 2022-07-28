@@ -3,16 +3,15 @@
     flex-direction: column;
     width: 100vw;
     height: 1021px;
+    background:var(--grey-bg) ;
 }
 
 
 /* editing the content section formatting into 3 columns */
 .dashboard-columns {
-    display: flex;
-    flex-direction: row;
+    
     justify-content: center;
-    gap: 30px
-    ;
+    gap: 30px;
     width: 100%;
     height: 100%;
     margin-top: 60px;
@@ -78,6 +77,7 @@
     height: 325px;
 }
 
+
 /* editing total task card */
 
 .total-task-card, .latest-grade-card{
@@ -94,6 +94,8 @@
     background-color: #63a4ff;
     color: #333;
     background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
         
 }
 
@@ -118,17 +120,44 @@
 }
 .friends-column {
     height: 400px;
-    border: 1px solid var(--border-color);
+    border: none;
     width: 470px;
     display: flex;
     flex-direction: column;
     padding: 25px;
     border-radius: 20px;
     justify-content: flex-start;
+    background: rgb(255, 192, 74);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.friends-column:hover {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .friends-column-header {
     font-size: 35px;
+}
+.friends {
+    width: 100%;
+}
+
+.friend-img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right:10px;
+}
+
+.friend {
+    width: 100%;
+}
+
+.friend-username {
+    font-size: 22px;
 }
 
 .total-task-card-title, .latest-grade-card-title {
@@ -144,6 +173,8 @@
     width:100%;
     align-self: flex-end;
     margin-top: 60px;
+    height:382px;
+  
 }
 
 
@@ -158,6 +189,8 @@
     padding-left: 15px;
     width: 100%;
     height: 100%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
 .no-tasks-message {
@@ -189,6 +222,10 @@
     color: var(--pure-white);
 }
 
+.todo-date {
+    margin-top: 15px;
+}
+
 .mini-card {
     display: flex;
     align-items: center;
@@ -199,53 +236,53 @@
 }
 
 
-.card-name {
-    margin-bottom: 15px;
+
+.mini-card-content {
     margin-left: 20px;
     width: 50%;
-    padding-left: 15px;
+    padding:10px;
     font-size: 25px;
     height: 80px;
     background:#D9EAFF;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: flex;
+    justify-content: space-between;
+    align-items: center;
     border-radius: 20px;
     box-shadow: 0 0 10px #dbdbdb;
     transition: .3s;
 }
 
-.card-name.blue {
+.mini-card-content.blue {
     background:var(--homework-task);
 }
-.card-name.blue:hover {
+.mini-card-content.blue:hover {
     background:var(--homework-task-hover);
 }
-.card-name.green{
+.mini-card-content.green{
     background:var(--project-task);
 }
-.card-name.green:hover {
+.mini-card-content.green:hover {
     background: var(--project-task-hover);
 }
 
-.card-name.purple {
+.mini-card-content.purple {
     background: var(--quiz-task);
 }
-.card-name.purple:hover {
+.mini-card-content.purple:hover {
     background: var(--quiz-task-hover);
 }
 
-.card-name.orange {
+.mini-card-content.orange {
     background: var(--test-task);
 }
-.card-name.orange:hover {
+.mini-card-content.orange:hover {
     background: var(--test-task-hover);
 }
 
-.card-name.yellow {
+.mini-card-content.yellow {
     background: var(--essay-task);
 }
-.card-name.yellow:hover {
+.mini-card-content.yellow:hover {
     background: var(--essay-task-hover);
 }
