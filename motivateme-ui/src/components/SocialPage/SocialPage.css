@@ -71,8 +71,9 @@
   align-items: center;
   margin-right: 75px;
   padding-bottom: 30px;
-  border: 2px solid black;
+  border: 1px solid #172b4d;
   border-radius: 10px;
+  border-style: solid;
 }
 
 .friend-section {
@@ -227,11 +228,13 @@ align-items: center;
 
 .social-date {
   font-size: 21px;
+  color: #172b4d;
 }
 
 /* messages to show that the user has no friends / follows everyone and/or doesn't have activity to view */
 .no-feed {
   font-size: 25px;
+  color: #172b4d;
 }
 
 .no-friends {
@@ -245,7 +248,7 @@ align-items: center;
     align-items: center;
     margin-right: 75px;
     padding-bottom: 30px;
-    border: 2px solid black;
+    border: 1px solid #172b4d;
     border-radius: 10px;
     justify-content: space-between;
     width: 460px;
@@ -274,6 +277,7 @@ align-items: center;
 .no-users {
   align-self: flex-start;
   height: 550px;
+  color: #172b4d;
 }
 
 .recommended-list {

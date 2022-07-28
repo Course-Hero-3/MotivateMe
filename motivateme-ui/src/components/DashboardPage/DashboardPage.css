@@ -132,6 +132,7 @@
     font-size: 30px;
     font-weight: bold;
     flex: 1;
+    color: #172b4d;
 }
 
 /* Editing formatting and spacing for Todo Bulletin */
@@ -159,6 +160,7 @@
 }
 
 .todo-date {
+    color: #172b4d;
 
 }
 
@@ -227,4 +229,7 @@
 }
 .card-name.yellow:hover {
     background: var(--essay-task-hover);
+}
+.todo-title{
+   color: #172b4d;
 }

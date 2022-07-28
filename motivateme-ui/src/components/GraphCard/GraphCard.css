@@ -7,7 +7,7 @@
     width: 600px;
     height: 600px;
     border-radius: 10px;
-    box-shadow: 5px 5px 5px 5px lightblue;
+    box-shadow: 0px 0px 10px  #dbdbdb;
 }
 
 .chart-card-mini {
@@ -20,4 +20,5 @@
 .chart-title {
     font-size: 25px;
     text-align: center;
+    color: #172b4d;
 }
