@@ -80,3 +80,14 @@
     border-radius: 50%;
 }
 
+.google-icon-nav {
+    height: 33px;
+    width: 33px;
+}
+.google-signin-text-nav{
+    font-size: 14px;
+    text-decoration: none;
+}
+.google-logout {
+ text-decoration: none;
+}

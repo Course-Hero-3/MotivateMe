@@ -85,7 +85,7 @@ export default function Navbar({
                   }}
                 />
                 {loggedInWithGoogle ? (
-                  <Link to="/">
+                  <Link to="/" className="google-logout">
                     <GoogleLogout
                       clientId={clientId}
                       buttontext="Log Out"
@@ -94,7 +94,7 @@ export default function Navbar({
                   </Link>
                 ) : (
                   <>
-                    <Link to="/">
+                    <Link to="/" className="google-logout">
                       <button
                         className="nav-btn"
                         onClick={() => {
