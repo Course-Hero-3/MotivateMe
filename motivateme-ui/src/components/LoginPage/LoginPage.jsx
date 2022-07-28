@@ -5,6 +5,7 @@ import apiClient from "../../../services/apiclient";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
+import googleIcon from "../../assets/google-icon.webp";
 import { gapi } from "gapi-script";
 
 const clientId =
@@ -160,22 +161,30 @@ export default function LoginPage({
       </div>
       <div className="login-wrapper">
         <form className="login-form">
-          <div className="login-form-intro">
+          <div className="login-form-intro d-flex flex-column">
             <h2 className="login-title">Log In</h2>
             <h3 className="login-text">Track your progress with friends!</h3>
-          </div>
-          <div className="google-login">
+            <div className="google-login">
             <GoogleLogin
               clientId={clientId}
               buttonText="Log In with Google"
               onSuccess={onSuccess}
               onFailure={onFailure}
+              render = {renderProps => (
+                <div className="button-wrapper" onClick={renderProps.onClick} disabled = {renderProps.disabled}>
+                  <img src={googleIcon} alt = "google-icon" className="google-icon"></img>
+                  <span className="google-signin-text">Sign in with Google</span>
+                </div>
+              )}
               cookiePolicy={"single_host_origin"}
               isSignedIn={true}
             ></GoogleLogin>
+            
           </div>
-          <p className="ride-line">Or sign in with</p>
+          <p className="ride-line">Or sign in with email</p>
 
+          </div>
+      
           <div className="input-field">
             <label htmlFor="email" className="label">
               Email
