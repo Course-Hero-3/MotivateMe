@@ -16,6 +16,10 @@
     border: .5px solid #848484;
 }
 
+.todo-list-title{
+    color: #172b4d;
+}
+
 .todo-list-wrapper {
     height: 800px;
     display: flex;

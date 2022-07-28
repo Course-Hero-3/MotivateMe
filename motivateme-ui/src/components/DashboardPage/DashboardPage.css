@@ -165,6 +165,7 @@
     font-size: 30px;
     font-weight: bold;
     flex: 1;
+    color: #172b4d;
 }
 
 /* Editing formatting and spacing for Todo Bulletin */
@@ -195,6 +196,11 @@
 
 .no-tasks-message {
     font-size: 25px;
+}
+
+.todo-date {
+    color: #172b4d;
+
 }
 
 .todo-bulletin-area {
@@ -285,4 +291,7 @@
 }
 .mini-card-content.yellow:hover {
     background: var(--essay-task-hover);
+}
+.todo-title{
+   color: #172b4d;
 }
