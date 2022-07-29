@@ -89,8 +89,8 @@ class ApiClient {
     async recommended() {
         return await this.request({ endpoint: `social/recommended`, method: `GET` })
     }
-    async editPassword(password) {
-        return await this.request({ endpoint:`auth/editpassword`, method:`PUT`, data: { password } })
+    async editPassword(twoPasswords) {
+        return await this.request({ endpoint:`auth/editpassword`, method:`PUT`, data: twoPasswords })
     }
     async editUsername(username) {
         return await this.request({ endpoint:`auth/editusername`, method:`PUT`, data: { username } })
