@@ -112,7 +112,7 @@ class User {
       throw new BadRequestError("No user in order to update");
     }
 
-    const maybeUserExists = await User.fetchUserByUsername(user.username);
+    const maybeUserExists = await User.fetchUserByEmail(user.email);
     if (maybeUserExists) {
       const isValid = await bcrypt.compare(
         passwordObject.oldPassword,
