@@ -77,6 +77,7 @@
 }
 .label {
     font-weight: bold;
+    padding-bottom: 5px;
 }
 
 .input-field {
@@ -130,6 +131,7 @@
 
 .login-link, .login-account {
     font-size: 18px;
+    margin-top: 50px;
 }
 .login-link {
     color: var(--primary-blue);
