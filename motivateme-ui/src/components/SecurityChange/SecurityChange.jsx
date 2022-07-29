@@ -32,22 +32,15 @@ export default function SecurityChange({
 
     if (event.target.name === "newPassword") {
       if (passwordObject.confirmNewPassword !== event.target.value) {
-        console.log("entered don't match");
         setPasswordError("The new passwords do not match");
       } else {
-        console.log("entered OKAY");
-
         setPasswordError(null);
       }
     }
     if (event.target.name === "confirmNewPassword") {
       if (passwordObject.newPassword !== event.target.value) {
-        console.log("entered don't match");
-
         setPasswordError("The new passwords do not match");
       } else {
-        console.log("entered OKAY");
-
         setPasswordError(null);
       }
     }
