@@ -74,6 +74,7 @@ export default function Navbar({
                 </Link>
               </div>
               <div className="account-links">
+                <Link to="/profile">
                 <img
                   id="pfp"
                   src={user.image}
@@ -84,6 +85,7 @@ export default function Navbar({
                     event.onerror = null;
                   }}
                 />
+                </Link>
                 {loggedInWithGoogle ? (
                   <Link to="/" className="google-logout">
                     <GoogleLogout

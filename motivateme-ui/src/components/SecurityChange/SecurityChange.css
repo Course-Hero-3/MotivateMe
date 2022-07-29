@@ -1,0 +1,41 @@
+.security-change-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.security-change-title {
+    font-size: 30px;
+    color: black;
+    margin-bottom: 30px;
+}
+
+.password-btn {
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    height: 39px;
+    width: 80px;
+    background-color: #34b3f1;
+    color: white;
+}
+
+.form-input-password {
+    width: 430px;
+    padding: 10px 5px;
+    border-radius: 5px;
+    background: var(--input-background);
+    border: none;
+    height: 54px;
+    margin-bottom: 10px;
+}
+
+.sucess-message-display {
+    margin-top: 20px;
+    color: green;
+    font-size: 20px;
+}

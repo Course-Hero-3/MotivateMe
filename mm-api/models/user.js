@@ -91,19 +91,45 @@ class User {
   }
 
   static async editPassword(user, passwordObject) {
-    if (!passwordObject?.password) {
-      throw new BadRequestError("No password passed through to edit");
+    if (!passwordObject) {
+      throw new BadRequestError("The two passwords object was not passed through to change password");
     }
-    if (passwordObject.password.length === 0) {
-      throw new BadRequestError("Password cannot be empty");
+    if (!passwordObject?.oldPassword) {
+      throw new BadRequestError("The old password was not passed through to change the password");
     }
+    if (!passwordObject?.newPassword) {
+      throw new BadRequestError("The new password was not passed through to change the password");
+    }
+
+    if (passwordObject.oldPassword.trim() === "") {
+      throw new BadRequestError("The old password can't be empty");
+    }
+    if (passwordObject.newPassword.trim() === "") {
+      throw new BadRequestError("The new password must have characters other than spaces provided");
+    }
+
     if (!user) {
       throw new BadRequestError("No user in order to update");
     }
 
+    const maybeUserExists = await User.fetchUserByUsername(user.username);
+    if (maybeUserExists) {
+      const isValid = await bcrypt.compare(
+        passwordObject.oldPassword,
+        maybeUserExists.password
+      );
+      if (!isValid) {
+        throw new UnauthorizedError("Existing password that was passed through did not match");
+      }
+    }
+    else {
+      throw new UnauthorizedError("Can't update a password for a user that doesn't exist");
+    }
+  
+
 
     const hashedPassword = await bcrypt.hash(
-      passwordObject.password,
+      passwordObject.newPassword,
       BCRYPT_WORK_FACTOR
     );
 

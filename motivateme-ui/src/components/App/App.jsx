@@ -14,6 +14,7 @@ import NotFound from "../NotFound/NotFound";
 import AccessForbidden from "../AccessForbidden/AccessForbidden";
 import SocialPage from "../SocialPage/SocialPage";
 import ProfilePage from "../ProfilePage/ProfilePage";
+import SecurityChange from "../SecurityChange/SecurityChange";
 
 function App() {
   const [loggedInWithGoogle, setLoggedInWithGoogle] = useState(false);
@@ -27,7 +28,7 @@ function App() {
       if (data) {
         setUser(data.user);
         if (data.user.loggedInWithGoogle) {
-          setLoggedInWithGoogle(true)
+          setLoggedInWithGoogle(true);
         }
       }
       if (error) {
@@ -102,9 +103,21 @@ function App() {
               path="*"
               element={<NotFound user={user} setCurrPage={setCurrPage} />}
             />
-            <Route 
-              path = "profile"
-              element={<ProfilePage user={user} setCurrPage={setCurrPage}/>}
+            <Route
+              path="/profile"
+              element={
+                <ProfilePage
+                  user={user}
+                  setUser={setUser}
+                  setCurrPage={setCurrPage}
+                  loggedInWithGoogle={loggedInWithGoogle}
+                />
+              }
+            />
+            <Route
+              path="/securepasswordchange"
+              element={<SecurityChange user={user} setCurrPage={setCurrPage} 
+              loggedInWithGoogle={loggedInWithGoogle} />}
             />
           </Routes>
         </div>

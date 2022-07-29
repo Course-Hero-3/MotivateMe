@@ -1,65 +1,119 @@
 .profile-card{
-display: flex;
-flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .profile-banner{
-display: flex;
-flex-direction: row;
-justify-content: space-evenly;
-    background-color:#34b3f1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     width: 100vw;
     height: 250px;
-    color: white;
+    color: black;
+    border-bottom: 1px solid grey;
+}
+
+#banner-pfp {
+    border-radius: 50%;
+    width: 12rem;
+    height: 12rem;
+}
+
+.profile-banner-information {
+    display: flex;
+    flex-direction: row;
+    width: 35rem;
+    justify-content: space-evenly;
 }
 
 .profile-info{
     display: flex;
     flex-direction: column;
-    /* color: white; */
-    align-items: flex-end;
-    height: 950px;
-   
+    align-items: flex-start; 
+    justify-content: center;  
 }
 
 .edit-section{
-display: flex;
-flex-direction: column;
-align-items: center;
-padding-top: 40px;
-}
-/* .form-input{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: transparent;
-    color: white;
-} */
-
-/* .edit-button{
-    display: flex;
-    flex-direction: column;
-    width: 130px;
-    height:40px;
-    color: white;
-    background-color: white;
-} */
-.label{
- display: flex;
- flex-direction: column;
- padding-bottom: 40px;
+    padding-top: 40px;
 }
 
-/* .update-button{
-    background-color:#34B3F1;
-    width: 450px;
-    border-radius: 5px;
+.label-edit {
+    padding-bottom: 5px;
+}
+
+.edit-error-display {
+    margin-top: 20px;
+    color: red;
     font-size: 20px;
-    height: 54px;
+}
+
+.profile-customization {
+    font-size: 30px;
+    width: 450px;
+    margin-bottom: 40px;
+}
+
+.input-field-edit {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 450px;
+}
+
+.change-password-region {
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+
+.enter-password-btn {
+    border-radius: 5px;
+    font-size: 16px;
     border: none;
-    align-self: flex-start;
-    padding: 14px 20px;
-    color: white;
     cursor: pointer;
-    margin-top: 15px;
-} */
+    padding: 8px 12px;
+    height: 40px;
+    width: 240px;
+    background-color: #9b9b9b;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.lock-icon-password {
+    height: 30px;
+    width: 20px;
+}
+
+
+
+
+.edit-and-send-field {
+    width: 410px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-btn {
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    height: 39px;
+    width: 80px;
+    background-color: #34b3f1;
+    color: white;
+}
+
+
