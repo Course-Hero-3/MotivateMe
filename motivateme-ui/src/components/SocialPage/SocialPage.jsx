@@ -107,22 +107,25 @@ export default function SocialPage({ user, setCurrPage }) {
               <div className="activity-feed">
                 <h2 className="activity-title">Activity Feed</h2>
                 <h4 className="social-date">
-                Last time refreshed: {moment(new Date()).format("llll")}
-              </h4>
+                  Last time refreshed: {moment(new Date()).format("llll")}
+                </h4>
                 <div className="main-feed">
                   {activity?.length === 0 ? (
                     <h3 className="no-feed">
-                      Nothing in your feed. Follow more friends to see how others are doing!
+                      Nothing in your feed. Follow more friends to see how
+                      others are doing!
                     </h3>
                   ) : (
                     <>
                       {activity?.map((singleActivity, idx) => (
                         <div className="activity-card" key={idx}>
                           <div className="activity-user-info">
-                            <h3 className="activity-card-username">{`@${singleActivity?.username} - `}</h3>
                             <h3 className="activity-card-name">
                               {singleActivity?.firstName}{" "}
-                              {singleActivity?.lastName}
+                              {`${singleActivity?.lastName } - `}
+                            </h3>
+                            <h3 className="activity-card-username">
+                             {` @${singleActivity?.username}`}
                             </h3>
                           </div>
 
@@ -386,7 +389,9 @@ export default function SocialPage({ user, setCurrPage }) {
                         </>
                       ) : (
                         <>
-                          <p className="no-users empty-recommended-box">No recommended users.</p>
+                          <p className="no-users empty-recommended-box">
+                            No recommended users.
+                          </p>
                         </>
                       )}
                     </div>

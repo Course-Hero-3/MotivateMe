@@ -131,13 +131,14 @@
 }
 
 .user-card {
-  background-color: #8acaea;
+  background-color: white;
   width: 425px;
   border-radius: 4px;
   height: 100px;
   margin-top: 15px;
   display: flex;
   justify-content: space-between;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 }
 
 .user-info {
@@ -183,19 +184,21 @@
 }
 
 .follow-btn {
-  background-color: lightgreen;
+  background-color: #34b3f1;
   margin-bottom: 5px;
   width: 75px;
   cursor: pointer;
   border-radius: 5px;
+  color: white;
 }
 
 .unfollow-btn {
-  background-color: rgb(255, 121, 121);
+  background-color: #34b3f1;
   margin-bottom: 5px;
   width: 90px;
   cursor: pointer;
   border-radius: 5px;
+  color: white;
 }
 
 .main-feed {
