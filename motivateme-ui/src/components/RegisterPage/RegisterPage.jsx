@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-do
 import sideNavPic from "../../assets/transparent-RegisterPage-image.png"
 import apiClient from '../../../services/apiclient';
 export default function RegisterPage({setUser, user, setCurrPage}) {
-  const [registerForm, setRegisterForm] = useState({firstName:"", email:"", password:"",lastName:"", image:"", username:"", confirm:""})
+  const [registerForm, setRegisterForm] = useState({firstName:"", email:"", password:"",lastName:"", image:"", username:"", confirm:"", phone:""})
   const [registerError, setRegisterError] = useState(null)
   const navigate = useNavigate()
 
@@ -45,6 +45,12 @@ export default function RegisterPage({setUser, user, setCurrPage}) {
       event.target.value.length > 0) {
         setRegisterError(null)
     }
+
+    if (registerError === "Phone field was left blank" &&
+      event.target.name === "phone" &&
+      event.target.value.length > 0) {
+        setRegisterError(null)
+    }
     
 
     if (registerForm.firstName.length !== 0 &&
@@ -53,6 +59,7 @@ export default function RegisterPage({setUser, user, setCurrPage}) {
       registerForm.password.length !== 0 &&
       registerForm.confirm.length !== 0 &&
       registerForm.image.length !== 0 &&
+      registerForm.phone.length===10  &&
       registerForm.email.length !== 0) {
         setRegisterError(null)
       }
@@ -70,6 +77,12 @@ export default function RegisterPage({setUser, user, setCurrPage}) {
         setRegisterError(null)
       }
     }
+    if (event.target.name === "phone") {
+      if (event.target.value.length != 10) {
+        setRegisterError("Invalid phone number provided")
+      }
+    }
+
     if (event.target.name === "email") {
       const regex = /^[a-zA-Z0-9\.]+@[a-zA-Z0-9]+\.[A-Za-z]+$/  // implement this in login, and backend when logging in/registering
       if (regex.test(event.target.value) === false) {
@@ -141,6 +154,11 @@ export default function RegisterPage({setUser, user, setCurrPage}) {
       setRegisterError("Confirm password field was left blank")
       return
     }
+
+    if (registerForm.phone.length === 0) {
+      setRegisterError("Phone field was left blank")
+      return
+    }
     
     if (registerError) {
       return
@@ -152,7 +170,7 @@ export default function RegisterPage({setUser, user, setCurrPage}) {
     if (data?.token) {
       apiClient.setToken(data.token)
       setUser(data.user)
-      setRegisterForm({firstName:"", email:"", password:"", lastName:"", image:"", username:"", confirm:""})
+      setRegisterForm({firstName:"", email:"", password:"", lastName:"", image:"", username:"", confirm:"", phone:""})
     } else {setRegisterError(error)}
   }
 
@@ -207,6 +225,11 @@ export default function RegisterPage({setUser, user, setCurrPage}) {
                       <span className='label'>Image URL</span>
 
                       <input type = "text" name = "image" className='form-input alone' placeholder='Enter an Image URL' value = {registerForm.image} onChange = {handleOnRegisterFormChange}></input>
+                  </div>
+                  <div className='input-field'>
+                      <span className='label'>Phone Number</span>
+
+                      <input type="tel" id="phone" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" className='form-input alone' value = {registerForm.phone} onChange = {handleOnRegisterFormChange}></input>
                   </div>
             <div className='register-footer'>
               {registerError?<div className='error'>{registerError}</div>:null}

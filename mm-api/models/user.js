@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 const { generateFromEmail } = require("unique-username-generator");
 
+
 const BCRYPT_WORK_FACTOR = process.env.BCRYPT_WORK_FACTOR
   ? Number(process.env.BCRYPT_WORK_FACTOR)
   : 13;
@@ -316,6 +317,7 @@ class User {
       "firstName",
       "lastName",
       "image",
+      "phone"
     ];
     requiredFields.forEach((field) => {
       if (!information.hasOwnProperty(field) || !information[field]) {
@@ -358,8 +360,9 @@ class User {
             username,
             first_name,
             last_name,
-            image)
-        VALUES ($1, $2, $3, $4, $5, $6)
+            image,
+            phone)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING user_id, email, password, username, first_name, last_name, image, made_from`;
     const values = [
       information.email.toLowerCase(),
@@ -368,6 +371,7 @@ class User {
       information.firstName,
       information.lastName,
       information.image,
+      information.phone
     ];
     const result = await db.query(text, values);
 

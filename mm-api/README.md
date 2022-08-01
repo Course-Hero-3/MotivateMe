@@ -5,6 +5,7 @@ Things to do if you want to work on this by yourself..
 3) npm install --save jsonwebtoken
 4) npm install regex              
 5) npm install unique-username-generator --save  (NECESSARY 7-27-2022)
+6) npm install nodemailer --save
 
 6) psql -f motivateme.sql (NECESSARY SINCE DATABASE CHANGED 7-27-2022)
     a) then click enter (to clear the database and start over if you want)

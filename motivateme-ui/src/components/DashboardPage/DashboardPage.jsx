@@ -188,7 +188,7 @@ export function TodoViewer({ currentTasks, setShowDetail }) {
               if (idx < 3) {
                 return (
                   <MiniTodoCard
-                    name={task.name}
+                    name={task.name} 
                     category={task.category}
                     dueDate={task.dueDate}
                     dueTime={task.dueTime}
