@@ -129,6 +129,10 @@ export default function RegisterPage({setUser, user, setCurrPage}) {
       setRegisterError("Image field was left blank")
       return
     }
+    if (registerForm.image.length >= 250) {
+      setRegisterError("Image must be less than 250 characters long")
+      return
+    }
     if (registerForm.username.length === 0) {
       setRegisterError("Username field was left blank")
       return

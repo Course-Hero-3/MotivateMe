@@ -59,6 +59,11 @@ export default function ProfilePage({
     if (editError) { // if there is an error and it isn't null
       return
     }
+    if (image.length >= 250) {
+      setEditError("Image URL's must be below 250 characters")
+      return
+    }
+
     let { data, error } = await apiClient.editImage(image);
     handleAfterSubmit(data, error);
   };
