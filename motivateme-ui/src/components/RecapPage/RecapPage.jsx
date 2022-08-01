@@ -57,13 +57,17 @@ export default function RecapPage({ user, setCurrPage }) {
                       </div>
                     ))}
                   </div>
-                  <button
-                    className="load-more"
-                    type="button"
-                    onClick={() => setLimitItems(limitItems + 3)}
-                  >
-                    Load More
-                  </button>
+                  {limitItems >= facts?.length ? (
+                    <></>
+                  ) : (
+                    <button
+                      className="load-more"
+                      type="button"
+                      onClick={() => setLimitItems(limitItems + 3)}
+                    >
+                      Load More
+                    </button>
+                  )}
                 </>
               )}
             </div>
