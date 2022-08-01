@@ -83,6 +83,16 @@ export default function RegisterPage({setUser, user, setCurrPage}) {
       }
     }
 
+    if (event.target.name === "image") {
+      if (event.target.value.length > 250) {
+        setRegisterError("Image URL's must be below 250 characters")
+      }
+      else {
+        setRegisterError(null)
+      }
+    }
+
+
     if (!registerError) {
       if (registerForm.password !== registerForm.confirm) {
         setRegisterError("Passwords do not match")
@@ -117,6 +127,10 @@ export default function RegisterPage({setUser, user, setCurrPage}) {
     }
     if (registerForm.image.length === 0) {
       setRegisterError("Image field was left blank")
+      return
+    }
+    if (registerForm.image.length >= 250) {
+      setRegisterError("Image must be less than 250 characters long")
       return
     }
     if (registerForm.username.length === 0) {

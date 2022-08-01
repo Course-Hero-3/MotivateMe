@@ -32,6 +32,14 @@ export default function ProfilePage({
   const handleOnUpdateObjectChange = (event) => {
     setSuccessMessage(null);
     setEditError(null);
+    if (event.target.name === "image") {
+      if (event.target.value.length > 250) {
+        setEditError("Image URL's must be below 250 characters")
+      }
+      else {
+        setEditError(null)
+      }
+    }
     setUpdateObject({
       ...updateObject,
       [event.target.name]: event.target.value,
@@ -39,21 +47,39 @@ export default function ProfilePage({
   };
 
   const usernameEditSubmit = async (username) => {
+    if (editError) { // if there is an error and it isn't null
+      return
+    }
+
     let { data, error } = await apiClient.editUsername(username);
     handleAfterSubmit(data, error);
   };
 
   const imageEditSubmit = async (image) => {
+    if (editError) { // if there is an error and it isn't null
+      return
+    }
+    if (image.length >= 250) {
+      setEditError("Image URL's must be below 250 characters")
+      return
+    }
+
     let { data, error } = await apiClient.editImage(image);
     handleAfterSubmit(data, error);
   };
 
   const firstNameEditSubmit = async (firstName) => {
+    if (editError) { // if there is an error and it isn't null
+      return
+    }
     let { data, error } = await apiClient.editFirstName(firstName);
     handleAfterSubmit(data, error);
   };
 
   const lastNameEditSubmit = async (lastName) => {
+    if (editError) { // if there is an error and it isn't null
+      return
+    }
     let { data, error } = await apiClient.editLastName(lastName);
     handleAfterSubmit(data, error);
   };
