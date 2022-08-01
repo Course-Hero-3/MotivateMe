@@ -270,7 +270,7 @@ export default function SocialPage({ user, setCurrPage }) {
                           ) : (
                             <>
                               <p className="no-users">
-                                Add friends from the explore section!
+                                No friends found.
                               </p>
                             </>
                           )}
@@ -354,7 +354,7 @@ export default function SocialPage({ user, setCurrPage }) {
                           ) : (
                             <>
                               <p className="no-users">
-                                You follow every user on MotivateMe already!
+                                No other users found.
                               </p>
                             </>
                           )}

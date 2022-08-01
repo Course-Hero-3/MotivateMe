@@ -303,7 +303,6 @@
 
 .no-users {
   align-self: flex-start;
-  height: 550px;
   color: #172b4d;
 }
 
@@ -325,5 +324,5 @@
 }
 
 .empty-recommended-box {
-  height: 185px;
+  height: 0px;
 }
