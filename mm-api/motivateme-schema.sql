@@ -13,7 +13,7 @@ CREATE TABLE users (
     image TEXT NOT NULL DEFAULT '',
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     made_from TEXT DEFAULT 'APP', --two options: APP or GOOGLE and if from google, can only log in using google sign in
-    phone CHAR(10) NOT NULL,
+    phone CHAR(10) NOT NULL DEFAULT '',
     PRIMARY KEY (user_id)
 );
 

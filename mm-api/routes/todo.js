@@ -10,34 +10,27 @@ const accountSid = process.env.SID;
 const client = require("twilio")(accountSid, authToken);
 
 async function notifyLate() {
-  let message = await Todo.checkIfLate();
+  let notifyLate = await Todo.checkIfLate();
   if (notifyLate != null && notifyLate.size != 0) {
     notifyLate.forEach((value) => {
+        if (value.phone.length != 0) {
         client.messages
-      .create({
-        to: value.phone,
-        from: process.env.TWILIO_PHONE_NUM,
-        body: value.message,
-      })
-      .then((message) => {
-        console.log("message is:", message);
-      });
-    })
+        .create({
+          to: "+1"+value.phone,
+          from: process.env.TWILIO_PHONE_NUM,
+          body: value.message,
+        })
+        .then((message) => {
+        });
+        }
+    });
+    
   }
 }
 
-setInterval(notifyLate, 6000);
+setInterval(notifyLate, 60000);
 
 //handles sms notications notifications
-router.post("/notifylate", async (req, res, next) => {
-  try {
-    let message = await Todo.checkIfLate();
-    res.status(200).json({ message: message });
-    console.log("message is: ", message);
-  } catch (error) {
-    next(error);
-  }
-});
 
 // example of a "protected endpoint" since it is using security middleware
 router.post(

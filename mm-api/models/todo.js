@@ -289,11 +289,10 @@ class Todo {
     let currentDate = `${date.getFullYear()}-${
       date.getMonth() + 1
     }-${date.getDate()}`;
-    console.log(new Date(date.toLocaleString("en-US")));
 
     let tasks = await db.query(
       `
-                     SELECT t.name, t.due_date, t.due_date, u.user_id, u.phone 
+                     SELECT t.name, t.due_date, t.due_time, u.user_id, u.phone 
                      FROM tasks as t
                         INNER JOIN users as u on u.user_id=t.user_id
                      WHERE due_date=$1`,
@@ -314,10 +313,10 @@ class Todo {
       if (Math.round(timeDifference === 60)) {
         let userId = tasks.rows[index].user_id
         if (notifyUsers.has(userId)){
-            notifyUsers.set(...notifyUsers.get(userId), notifyUsers.get(userId).message+`Task ${tasks.rows[index].name} is due in approximately 60 minutes! \n`)
+            notifyUsers.set(...notifyUsers.get(userId), notifyUsers.get(userId).message+`${tasks.rows[index].name} is due in approximately 60 minutes! \n`)
         }
         else {
-            notifyUsers.set(userId, {phone:tasks.rows[index].phone, message:`Task ${tasks.rows[index].name} is due in approximately 60 minutes! \n`})
+            notifyUsers.set(userId, {phone:tasks.rows[index].phone, message:`${tasks.rows[index].name} is due in approximately 60 minutes! \n`})
         }
       }
     }
