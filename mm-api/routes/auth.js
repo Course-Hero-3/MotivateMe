@@ -2,7 +2,10 @@ const express = require("express")
 const User = require("../models/user")
 const { createUserJwt } = require("../utils/tokens")
 const security = require("../middleware/security")
+const {EMAIL, PASS}  = require("../config")
 const router = express.Router()
+
+
 
 router.post("/googlelogin", async (req, res, next) => {
     try {
@@ -127,5 +130,9 @@ router.get("/me", security.requireAuthenticatedUser, async (req, res, next) => {
         next(error)
     }
 })
+
+
+
+
 
 module.exports = router

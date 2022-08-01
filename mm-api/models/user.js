@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 const { generateFromEmail } = require("unique-username-generator");
 
+
 const BCRYPT_WORK_FACTOR = process.env.BCRYPT_WORK_FACTOR
   ? Number(process.env.BCRYPT_WORK_FACTOR)
   : 13;
