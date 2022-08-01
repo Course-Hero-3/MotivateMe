@@ -37,10 +37,6 @@ export default function SocialPage({ user, setCurrPage }) {
     };
 
     getInfo();
-    //if user logged in, set the curr page to "social"
-    if (user !== undefined && user !== null) {
-      setCurrPage("social");
-    }
   }, [refresh]);
 
   const handleOnFriendQueryChange = (event) => {
@@ -101,6 +97,8 @@ export default function SocialPage({ user, setCurrPage }) {
     <>
       {user !== null && user !== undefined ? (
         <>
+          {/* If the user is logged in, then set the page to "social" */}
+          {setCurrPage("social")}
           <div className="social-page">
             <h1 className="main-title">Social Page</h1>
             <div className="social-content">
@@ -122,10 +120,10 @@ export default function SocialPage({ user, setCurrPage }) {
                           <div className="activity-user-info">
                             <h3 className="activity-card-name">
                               {singleActivity?.firstName}{" "}
-                              {`${singleActivity?.lastName } - `}
+                              {`${singleActivity?.lastName} - `}
                             </h3>
                             <h3 className="activity-card-username">
-                             {` @${singleActivity?.username}`}
+                              {` @${singleActivity?.username}`}
                             </h3>
                           </div>
 
@@ -153,7 +151,7 @@ export default function SocialPage({ user, setCurrPage }) {
                     <button
                       type="button"
                       className={`button-right-tab ${
-                        rightTabState === "explore" ? "active" : ""
+                        rightTabState === "explore" ? "active-tab" : ""
                       }`}
                       onClick={() => {
                         setRightTabState("explore");
@@ -164,7 +162,7 @@ export default function SocialPage({ user, setCurrPage }) {
                     <button
                       type="button"
                       className={`button-right-tab ${
-                        rightTabState === "friends" ? "active" : ""
+                        rightTabState === "friends" ? "active-tab" : ""
                       }`}
                       onClick={() => {
                         setRightTabState("friends");
@@ -178,17 +176,6 @@ export default function SocialPage({ user, setCurrPage }) {
                       <>
                         <h2 className="friend-text">Friends List</h2>
                         <form className="social-query-form">
-                          <input
-                            type="search"
-                            value={friendQuery}
-                            onChange={handleOnFriendQueryChange}
-                            id="query"
-                            name="q"
-                            className="social-form-search"
-                            placeholder="Search for other users"
-                            role="search"
-                            aria-label="Search through site content"
-                          />
                           <button className="task-form-btn">
                             {" "}
                             <svg viewBox="0 0 1024 1024">
@@ -198,6 +185,17 @@ export default function SocialPage({ user, setCurrPage }) {
                               ></path>
                             </svg>
                           </button>
+                          <input
+                            type="search"
+                            value={friendQuery}
+                            onChange={handleOnFriendQueryChange}
+                            id="query"
+                            name="q"
+                            className="social-form-search"
+                            placeholder="Search for your friends..."
+                            role="search"
+                            aria-label="Search through site content"
+                          />
                         </form>
                         <div className="show-users-list">
                           {friendFilter?.length > 0 ? (
@@ -256,17 +254,6 @@ export default function SocialPage({ user, setCurrPage }) {
                       <>
                         <h2 className="friend-text">Other Users</h2>
                         <form className="social-query-form">
-                          <input
-                            type="search"
-                            value={exploreQuery}
-                            onChange={handleOnExploreQueryChange}
-                            id="query"
-                            name="q"
-                            className="social-form-search"
-                            placeholder="Search for your friends"
-                            role="search"
-                            aria-label="Search through site content"
-                          />
                           <button className="task-form-btn">
                             {" "}
                             <svg viewBox="0 0 1024 1024">
@@ -276,6 +263,17 @@ export default function SocialPage({ user, setCurrPage }) {
                               ></path>
                             </svg>
                           </button>
+                          <input
+                            type="search"
+                            value={exploreQuery}
+                            onChange={handleOnExploreQueryChange}
+                            id="query"
+                            name="q"
+                            className="social-form-search"
+                            placeholder="Search for other users..."
+                            role="search"
+                            aria-label="Search through site content"
+                          />
                         </form>
                         <div className="show-users-list">
                           {exploreFilter?.length > 0 ? (

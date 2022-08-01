@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./TodoList.css";
-import onTime from "../../assets/greenstatus-icon.png"
+import onTime from "../../assets/greenstatus-icon.png";
 import dueDateIcon from "../../assets/due-icon3.png";
 import updateIcon from "../../assets/update-icon.png";
 import completeIcon from "../../assets/complete-icon.png";
@@ -30,7 +30,9 @@ export default function TodoList({ showModal, modalSelected }) {
   const [sortByDate, setSortByDate] = useState("");
   const [taskError, setTaskError] = useState(null);
   const [refreshTasks, setRefreshTasks] = useState(false);
-  const [taskMessage, setTaskMessage] = useState("You currently don't have any tasks to complete!")
+  const [taskMessage, setTaskMessage] = useState(
+    "You currently don't have any tasks to complete!"
+  );
 
   const fixRegexSpecialCharacters = (str) => {
     for (let i = 0; i < str.length; i++) {
@@ -104,7 +106,6 @@ export default function TodoList({ showModal, modalSelected }) {
         null &&
       categoryQuery === task.category
     ) {
-
       return true;
     } else {
       return false;
@@ -336,6 +337,15 @@ export default function TodoList({ showModal, modalSelected }) {
       <div className="todo-list-header">
         <h3 className="todo-list-title">Task Overview</h3>
         <form className="task-form">
+          <button className="task-form-btn">
+            {" "}
+            <svg viewBox="0 0 1024 1024">
+              <path
+                className="path1"
+                d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"
+              ></path>
+            </svg>
+          </button>
           <input
             type="search"
             value={searchBarQuery}
@@ -349,15 +359,6 @@ export default function TodoList({ showModal, modalSelected }) {
             role="search"
             aria-label="Search through site content"
           />
-          <button className="task-form-btn">
-            {" "}
-            <svg viewBox="0 0 1024 1024">
-              <path
-                className="path1"
-                d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"
-              ></path>
-            </svg>
-          </button>
         </form>
         <form className="sort-tasks">
           <label htmlFor="categories">By Category </label>
@@ -426,14 +427,26 @@ export default function TodoList({ showModal, modalSelected }) {
           </>
         )}
       </div>
-      <svg onClick={() => {
+      <svg
+        onClick={() => {
           showModal("create");
-        }} xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-circle-plus todo-btn create" width="89" height="89" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#00abfb" fill="none" strokeLinecap="round" strokeLinejoin="round">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        }}
+        xmlns="http://www.w3.org/2000/svg"
+        className="icon icon-tabler icon-tabler-circle-plus todo-btn create"
+        width="89"
+        height="89"
+        viewBox="0 0 24 24"
+        strokeWidth="1.5"
+        stroke="#00abfb"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         <circle cx="12" cy="12" r="9" />
         <line x1="9" y1="12" x2="15" y2="12" />
         <line x1="12" y1="9" x2="12" y2="15" />
-        </svg>
+      </svg>
     </div>
   );
 }
@@ -524,7 +537,11 @@ export function TodoCard({
             {moment(dueDate).format("MMMM Do YYYY")}
           </span>
         </div>
-        {taskIsLate() ? <span className="late-task">Late</span> : <span className="ontime-task">In Progress</span>}
+        {taskIsLate() ? (
+          <span className="late-task">Late</span>
+        ) : (
+          <span className="ontime-task">In Progress</span>
+        )}
 
         <div className="form-icons">
           <img
@@ -565,8 +582,7 @@ export function TodoCard({
             <line x1="12" y1="8" x2="12.01" y2="8" />
             <polyline points="11 12 12 12 12 16 13 16" />
           </svg>
-          </div>
-
+        </div>
       </div>
       {updateOrComplete === "update" ? (
         <TodoForm
