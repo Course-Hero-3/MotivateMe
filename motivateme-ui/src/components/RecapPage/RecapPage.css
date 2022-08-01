@@ -36,3 +36,8 @@
     height: 40px;
     margin-top: 30px;
 }
+
+.no-graphs {
+    font-size: 25px;
+    font-family: 'Nunito', sans-serif;;
+}

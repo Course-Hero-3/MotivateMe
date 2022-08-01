@@ -15,8 +15,21 @@ export default function SocialPage({ user, setCurrPage }) {
   const [friendQuery, setFriendQuery] = useState("");
   const [exploreQuery, setExploreQuery] = useState("");
   const [refresh, setRefresh] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   React.useEffect(() => {
+    // function that will check if user clicked inside of the search bar
+    // if not, then close the search bar
+    const collapseSearchBar = (event) => {
+      // "q" stands for search bar QUERY
+      // this is the only type of query on social page
+      if (event.target.name !== "q") {
+        setIsExpanded(false);
+      }
+    };
+    // add a listener for all clicks on this page
+    document.body.addEventListener("click", collapseSearchBar);
+
     const getInfo = async () => {
       let tempActivity = await apiClient.getActivity();
       if (tempActivity?.data) {
@@ -37,7 +50,15 @@ export default function SocialPage({ user, setCurrPage }) {
     };
 
     getInfo();
+
+    // make sure to remove the event listener since we 
+    // don't want it firing on other pages besides this one
+    return () => document.body.removeEventListener("click", collapseSearchBar);
   }, [refresh]);
+
+  const openSearchBar = () => {
+    setIsExpanded(true);
+  };
 
   const handleOnFriendQueryChange = (event) => {
     setFriendQuery(event.target.value);
@@ -175,7 +196,12 @@ export default function SocialPage({ user, setCurrPage }) {
                     {rightTabState === "friends" ? (
                       <>
                         <h2 className="friend-text">Friends List</h2>
-                        <form className="social-query-form">
+                        <form
+                          className={`social-query-form${
+                            isExpanded ? " expanded-search" : ""
+                          }`}
+                          onClick={openSearchBar}
+                        >
                           <button className="task-form-btn">
                             {" "}
                             <svg viewBox="0 0 1024 1024">
@@ -253,7 +279,12 @@ export default function SocialPage({ user, setCurrPage }) {
                     ) : (
                       <>
                         <h2 className="friend-text">Other Users</h2>
-                        <form className="social-query-form">
+                        <form
+                          className={`social-query-form${
+                            isExpanded ? " expanded-search" : ""
+                          }`}
+                          onClick={openSearchBar}
+                        >
                           <button className="task-form-btn">
                             {" "}
                             <svg viewBox="0 0 1024 1024">
