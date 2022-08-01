@@ -41,7 +41,7 @@ export default function Navbar({
                 <Link to="/dashboard">
                   <button
                     className={`nav-btn ${
-                      currPage === "dashboard" ? "active" : ""
+                      currPage === "dashboard" ? "active-tab" : ""
                     }`}
                   >
                     Dashboard
@@ -49,7 +49,7 @@ export default function Navbar({
                 </Link>
                 <Link to="/todo">
                   <button
-                    className={`nav-btn ${currPage === "todo" ? "active" : ""}`}
+                    className={`nav-btn ${currPage === "todo" ? "active-tab" : ""}`}
                   >
                     To-Do
                   </button>
@@ -57,7 +57,7 @@ export default function Navbar({
                 <Link to="/recap">
                   <button
                     className={`nav-btn ${
-                      currPage === "recap" ? "active" : ""
+                      currPage === "recap" ? "active-tab" : ""
                     }`}
                   >
                     Recap
@@ -66,7 +66,7 @@ export default function Navbar({
                 <Link to="/social">
                   <button
                     className={`nav-btn ${
-                      currPage === "social" ? "active" : ""
+                      currPage === "social" ? "active-tab" : ""
                     }`}
                   >
                     Social

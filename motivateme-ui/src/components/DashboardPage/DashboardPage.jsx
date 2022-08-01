@@ -40,10 +40,6 @@ export default function DashboardPage({ user, setCurrPage }) {
     };
 
     getInformation();
-
-    if (user !== null && user !== undefined) {
-      setCurrPage("dashboard");
-    }
   }, []);
 
   const returnRandomItemInArray = (arr) => {
@@ -55,6 +51,8 @@ export default function DashboardPage({ user, setCurrPage }) {
     <>
       {user !== null && user !== undefined ? (
         <>
+          {/* If user is logged in, set the page equal to "dashboard" */}
+          {setCurrPage("dashboard")}
           <div className="dashboard-page">
             <div className="dashboard-columns d-flex flex-row">
               <div className="dashboard-column intro">
@@ -140,8 +138,8 @@ export default function DashboardPage({ user, setCurrPage }) {
               <div className="d-flex flex-column">
                 <div className="dashboard-stats">
                   {/* If there are graphs, then show them (if it is empty, intentionally don't show any message) */}
-                  {graphs?.map((fact) => (
-                    <Link to="/recap" className="dashboard-links">
+                  {graphs?.map((fact, idx) => (
+                    <Link to="/recap" className="dashboard-links" key={idx}>
                       <GraphCard chartInformation={fact} dashboardOn={true} />
                     </Link>
                   ))}

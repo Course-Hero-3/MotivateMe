@@ -26,17 +26,14 @@ export default function RecapPage({ user, setCurrPage }) {
     };
 
     getFacts();
-
-    // if user is logged in, then set it to recap
-    if (user !== null && user !== undefined) {
-      setCurrPage("recap");
-    }
   }, []);
 
   return (
     <>
       {user !== undefined && user !== null ? (
         <>
+          {/* If the user is logged in, set the page to "recap" */}
+          {setCurrPage("recap")}
           <div className="recap-page">
             <h2 className="recap-title">Recap</h2>
             <div className="chart-area">
