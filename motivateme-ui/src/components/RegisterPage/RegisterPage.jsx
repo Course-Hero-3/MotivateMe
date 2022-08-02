@@ -176,7 +176,7 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
     } else {
       if (registerForm.phone.length === 10) {
         const regex = /^\d{10}$/;
-        if (regex.test(registerForm.phone.value) === false) {
+        if (regex.test(registerForm.phone) === false) {
           setRegisterError("Invalid characters passed through");
           return;
         }
