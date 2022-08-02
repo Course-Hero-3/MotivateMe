@@ -46,6 +46,7 @@
 
 .dashboard-welcome {
         margin-left: 0px;
+        font-family: 'Nunito', sans-serif;
 }
 
 /* editing the welcome card */
@@ -135,7 +136,9 @@
 
 .friends-column-header {
     font-size: 35px;
+    font-family: 'Nunito', sans-serif;
 }
+
 .friends {
     width: 100%;
 }
@@ -163,6 +166,7 @@
     font-weight: bold;
     flex: 1;
     color: #172b4d;
+    font-family: 'Nunito', sans-serif;
 }
 
 /* Editing formatting and spacing for Todo Bulletin */
@@ -259,12 +263,14 @@
 .mini-card-name {
     width: 160px;
     font-size: 20px;
+    font-family: 'Nunito', sans-serif;
 }
 
 .mini-card-date {
     width: 160px;
     margin-top: 9px;
     font-size: 20px;
+    font-family: 'Nunito', sans-serif;
 }
 
 
@@ -317,6 +323,7 @@
 
 .no-friends-dash {
     font-size: 25px;
+    font-family: 'Nunito', sans-serif;
 }
 
 .late-text-dash {
@@ -329,4 +336,5 @@
     font-size: 20px;
     color: black;
     margin-top: 9px;
+    font-family: 'Nunito', sans-serif;
 }

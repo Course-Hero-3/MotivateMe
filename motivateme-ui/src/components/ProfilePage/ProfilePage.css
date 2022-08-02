@@ -44,6 +44,7 @@
 
 .label-edit {
     padding-bottom: 5px;
+    font-family: 'Nunito', sans-serif;
 }
 
 .edit-error-display {
@@ -56,6 +57,7 @@
     font-size: 30px;
     width: 450px;
     margin-bottom: 40px;
+    font-family: 'Nunito', sans-serif;
 }
 
 .input-field-edit {
@@ -115,6 +117,7 @@
     width: 80px;
     background-color: #34b3f1;
     color: white;
+    font-family: 'Nunito', sans-serif;
 }
 
 
