@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import "./TodoList.css";
-import onTime from "../../assets/greenstatus-icon.png";
 import dueDateIcon from "../../assets/due-icon3.png";
 import updateIcon from "../../assets/update-icon.png";
 import completeIcon from "../../assets/complete-icon.png";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import TodoForm from "../TodoForm/TodoForm";
 import { useState } from "react";
-import lateIcon from "../../assets/late-icon.png";
 import moment from "moment";
 
 import apiClient from "../../../services/apiclient";

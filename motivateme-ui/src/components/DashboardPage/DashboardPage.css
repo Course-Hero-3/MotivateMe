@@ -258,11 +258,13 @@
 
 .mini-card-name {
     width: 160px;
+    font-size: 20px;
 }
 
 .mini-card-date {
-    width: 220px;
+    width: 160px;
     margin-top: 9px;
+    font-size: 20px;
 }
 
 
@@ -312,7 +314,6 @@
 .dashboard-links:hover {
     color: black;
 }
-
 
 .no-friends-dash {
     font-size: 25px;

@@ -104,6 +104,9 @@ class ApiClient {
     async editImage(image) {
         return await this.request({ endpoint:`auth/editimage`, method:`PUT`, data: { image } })
     }
+    async editPhone(phone) {
+        return await this.request({ endpoint:`auth/editphone`, method:`PUT`, data: { phone } })
+    }
 }
 
 // when deploying to heroku may have to change!!!
