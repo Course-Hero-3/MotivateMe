@@ -19,6 +19,7 @@
 .todo-list-title{
     color: #172b4d;
     font-size: 26px;
+    font-family: 'Nunito', sans-serif;
 }
 
 .todo-list-wrapper {
@@ -215,19 +216,23 @@ color: var(--primary-red);
     align-items: center;
     margin-left: 15px;
     width: 250px;
+    font-family: 'Nunito', sans-serif;
 }
 
 .due-date {
     font-size: 20px;
+    font-family: 'Nunito', sans-serif;
 }
 
 .name-wrapper {
     margin-left: 20px;
     width: 200px;
+    font-family: 'Nunito', sans-serif;
 }
 
 .name {
     font-size: 20px;
+    font-family: 'Nunito', sans-serif;
 }
 
 .form-icons {
