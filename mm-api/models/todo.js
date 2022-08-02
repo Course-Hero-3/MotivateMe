@@ -2,7 +2,6 @@ const db = require("../db");
 const { BadRequestError } = require("../utils/errors");
 require("dotenv").config();
 const moment = require("moment");
-const { notify } = require("../app");
 
 class Todo {
   static returnPublicTask(givenTask) {
@@ -233,7 +232,6 @@ class Todo {
     }
 
     // at this point, user is authorized AND user is allowed to update the task (see permissions file)
-
     const checkText = `SELECT * FROM tasks WHERE task_id=$1;`;
     const checkValues = [givenTaskWithId.taskId];
     const checkResult = await db.query(checkText, checkValues);
@@ -266,7 +264,7 @@ class Todo {
                 description=$2,
                 category=$3,
                 due_date=$4,
-                due_time=$5,
+                due_time=$5
             WHERE task_id=$6
             RETURNING task_id, user_id, name, description, category, due_date, due_time
             `,
@@ -311,12 +309,19 @@ class Todo {
         (taskDue.getTime() - date.getTime()) / 60000
       );
       if (Math.round(timeDifference === 60)) {
-        let userId = tasks.rows[index].user_id
-        if (notifyUsers.has(userId)){
-            notifyUsers.set(...notifyUsers.get(userId), notifyUsers.get(userId).message+`${tasks.rows[index].name} is due in approximately 60 minutes! \n`)
-        }
-        else {
-            notifyUsers.set(userId, {phone:tasks.rows[index].phone, message:`${tasks.rows[index].name} is due in approximately 60 minutes! \n`})
+        let userId = tasks.rows[index].user_id;
+        if (notifyUsers.has(userId)) {
+          notifyUsers.set(userId, {
+            ...notifyUsers.get(userId),
+            message:
+              notifyUsers.get(userId).message +
+              `${tasks.rows[index].name} is due in approximately 60 minutes! \n`,
+          });
+        } else {
+          notifyUsers.set(userId, {
+            phone: tasks.rows[index].phone,
+            message: `${tasks.rows[index].name} is due in approximately 60 minutes! \n`,
+          });
         }
       }
     }

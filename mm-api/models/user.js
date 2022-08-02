@@ -29,6 +29,7 @@ class User {
       firstName: userWithAllAttributes.first_name,
       lastName: userWithAllAttributes.last_name,
       image: userWithAllAttributes.image,
+      phone: userWithAllAttributes.phone,
       loggedInWithGoogle: loggedInWithGoogle,
     };
   }
@@ -51,7 +52,7 @@ class User {
       UPDATE users
       SET first_name=$1
       WHERE user_id=$2
-      RETURNING user_id, email, username, first_name, last_name, image, made_from
+      RETURNING user_id, email, username, first_name, last_name, image, made_from, phone
       `,
       [
         firstNameObject.firstName,
@@ -80,7 +81,7 @@ class User {
       UPDATE users
       SET last_name=$1
       WHERE user_id=$2
-      RETURNING user_id, email, username, first_name, last_name, image, made_from
+      RETURNING user_id, email, username, first_name, last_name, image, made_from, phone
       `,
       [
         lastNameObject.lastName,
@@ -139,7 +140,7 @@ class User {
       UPDATE users
       SET password=$1
       WHERE user_id=$2
-      RETURNING user_id, email, username, first_name, last_name, image, made_from
+      RETURNING user_id, email, username, first_name, last_name, image, made_from, phone
       `,
       [
         hashedPassword,
@@ -151,11 +152,11 @@ class User {
   }
 
   static async editImage(user, imageObject) {
-    if (!imageObject?.image) {
-      throw new BadRequestError("No image passed through to change");
+    if (!imageObject.hasOwnProperty("image")) {
+      throw new BadRequestError("No image property passed through to change");
     }
-    if (imageObject.image.length === 0) {
-      throw new BadRequestError("Image cannot be empty");
+    if (imageObject.image.length > 250) {
+      throw new BadRequestError("Image URL cannot include 250+ characters!");
     }
     if (!user) {
       throw new BadRequestError("No user in order to update");
@@ -166,10 +167,37 @@ class User {
       UPDATE users
       SET image=$1
       WHERE user_id=$2
-      RETURNING user_id, email, username, first_name, last_name, image, made_from
+      RETURNING user_id, email, username, first_name, last_name, image, made_from, phone
       `,
       [
         imageObject.image,
+        user.userId
+      ]
+    );
+
+    return await User.returnPublicUser(updateQuery.rows[0])
+  }
+
+  static async editPhone(user, phoneObject) {
+    if (!phoneObject.hasOwnProperty("phone")) {
+      throw new BadRequestError("No phone passed through to change");
+    }
+    if (phoneObject.phone.length !== 0 && phoneObject.phone.length !== 10) {
+      throw new BadRequestError("Phone number must be deleted or given a proper 10 digit number");
+    }
+    if (!user) {
+      throw new BadRequestError("No user in order to update");
+    }
+
+    let updateQuery = await db.query(
+      `
+      UPDATE users
+      SET phone=$1
+      WHERE user_id=$2
+      RETURNING user_id, email, username, first_name, last_name, image, made_from, phone
+      `,
+      [
+        phoneObject.phone,
         user.userId
       ]
     );
@@ -197,7 +225,7 @@ class User {
       UPDATE users
       SET username=$1
       WHERE user_id=$2
-      RETURNING user_id, email, username, first_name, last_name, image, made_from
+      RETURNING user_id, email, username, first_name, last_name, image, made_from, phone
       `,
       [
         usernameObject.username,
@@ -248,7 +276,7 @@ class User {
         image,
         made_from)
         VALUES ($1, $2, $3, $4, $5, $6, $7)
-        RETURNING user_id, email, password, username, first_name, last_name, image, made_from`;
+        RETURNING user_id, email, password, username, first_name, last_name, image, made_from, phone`;
       const values = [
         information.email.toLowerCase(),
         "googlepassword",
@@ -315,15 +343,27 @@ class User {
       "password",
       "username",
       "firstName",
-      "lastName",
-      "image",
-      "phone"
+      "lastName"
     ];
     requiredFields.forEach((field) => {
       if (!information.hasOwnProperty(field) || !information[field]) {
         throw new BadRequestError(`The field: "${field}" is missing`);
       }
     });
+
+    // Image and Phone can technically be empty
+    if (!information.hasOwnProperty("image")) {
+      throw new BadRequestError(`The image field is completely missing`);
+    }
+
+    if (information.hasOwnProperty("phone")) {
+      if (information.phone.length !== 0 && information.phone.length !== 10) {
+        throw new BadRequestError("Phone Number either must be empty or passed through a valid 10 digit US +1 Number")
+      }
+    }
+    else {
+      throw new BadRequestError("The phone field was not passed through to register")
+    }
 
     // EMAIL regex (not just @ symbol)
     const regex = /^[a-zA-Z0-9\.]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
@@ -363,7 +403,7 @@ class User {
             image,
             phone)
         VALUES ($1, $2, $3, $4, $5, $6, $7)
-        RETURNING user_id, email, password, username, first_name, last_name, image, made_from`;
+        RETURNING user_id, email, password, username, first_name, last_name, image, made_from, phone`;
     const values = [
       information.email.toLowerCase(),
       hashedPassword,

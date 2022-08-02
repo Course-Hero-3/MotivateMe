@@ -95,11 +95,24 @@ router.put("/editpassword", security.requireAuthenticatedUser, async (req, res, 
     }
 })
 
-// edit first name for user
+// edit image for user
 router.put("/editimage", security.requireAuthenticatedUser, async (req, res, next) => {
     try {
         const publicUserFromDecodedToken = res.locals.user  
         const updatedUser = await User.editImage(publicUserFromDecodedToken, req.body)
+        res.status(200)
+        res.json( { updatedUser } )
+    }
+    catch (error) {
+        next(error)
+    }
+})
+
+// edit phone for user
+router.put("/editphone", security.requireAuthenticatedUser, async (req, res, next) => {
+    try {
+        const publicUserFromDecodedToken = res.locals.user  
+        const updatedUser = await User.editPhone(publicUserFromDecodedToken, req.body)
         res.status(200)
         res.json( { updatedUser } )
     }

@@ -19,6 +19,7 @@ export default function ProfilePage({
     firstName: user?.firstName || "",
     lastName: user?.lastName || "",
     image: user?.image || "",
+    phone: user?.phone || "",
   });
 
   // make sure user is logged in
@@ -34,12 +35,29 @@ export default function ProfilePage({
     setEditError(null);
     if (event.target.name === "image") {
       if (event.target.value.length > 250) {
-        setEditError("Image URL's must be below 250 characters")
-      }
-      else {
-        setEditError(null)
+        setEditError("Image URL's must be below 250 characters");
+      } else {
+        setEditError(null);
       }
     }
+    if (event.target.name === "phone") {
+      // we are allowing users to not put in their phone numbers (optional field)
+      if (event.target.value.length !== 10 && event.target.value.length !== 0) {
+        setEditError("Invalid phone number provided");
+      } else {
+        if (event.target.value.length === 10) {
+          const regex = /^\d{10}$/;
+          if (regex.test(event.target.value) === false) {
+            setEditError("Invalid characters passed through");
+          } else {
+            setEditError(null);
+          }
+        } else {
+          setEditError(null);
+        }
+      }
+    }
+
     setUpdateObject({
       ...updateObject,
       [event.target.name]: event.target.value,
@@ -47,8 +65,9 @@ export default function ProfilePage({
   };
 
   const usernameEditSubmit = async (username) => {
-    if (editError) { // if there is an error and it isn't null
-      return
+    if (editError) {
+      // if there is an error and it isn't null
+      return;
     }
 
     let { data, error } = await apiClient.editUsername(username);
@@ -56,12 +75,13 @@ export default function ProfilePage({
   };
 
   const imageEditSubmit = async (image) => {
-    if (editError) { // if there is an error and it isn't null
-      return
+    if (editError) {
+      // if there is an error and it isn't null
+      return;
     }
     if (image.length >= 250) {
-      setEditError("Image URL's must be below 250 characters")
-      return
+      setEditError("Image URL's must be below 250 characters");
+      return;
     }
 
     let { data, error } = await apiClient.editImage(image);
@@ -69,18 +89,41 @@ export default function ProfilePage({
   };
 
   const firstNameEditSubmit = async (firstName) => {
-    if (editError) { // if there is an error and it isn't null
-      return
+    if (editError) {
+      // if there is an error and it isn't null
+      return;
     }
     let { data, error } = await apiClient.editFirstName(firstName);
     handleAfterSubmit(data, error);
   };
 
   const lastNameEditSubmit = async (lastName) => {
-    if (editError) { // if there is an error and it isn't null
-      return
+    if (editError) {
+      // if there is an error and it isn't null
+      return;
     }
     let { data, error } = await apiClient.editLastName(lastName);
+    handleAfterSubmit(data, error);
+  };
+
+  const phoneEditSubmit = async (phone) => {
+    if (editError) {
+      return;
+    }
+    if (updateObject.phone.length !== 10 && updateObject.phone.length !== 0) {
+      setEditError("Invalid phone number provided");
+      return;
+    } else {
+      if (updateObject.phone.length === 10) {
+        const regex = /^\d{10}$/;
+        if (regex.test(updateObject.phone) === false) {
+          setEditError("Invalid characters passed through");
+          return;
+        }
+      }
+    }
+
+    let { data, error } = await apiClient.editPhone(phone);
     handleAfterSubmit(data, error);
   };
 
@@ -141,7 +184,7 @@ export default function ProfilePage({
                     id="existing-username"
                     name="username"
                     className="form-input"
-                    placeholder="@NewUsername123"
+                    placeholder="NewUsername123"
                     value={updateObject.username}
                     onChange={handleOnUpdateObjectChange}
                   ></input>
@@ -166,7 +209,7 @@ export default function ProfilePage({
                     id="existing-image"
                     name="image"
                     className="form-input"
-                    placeholder="imageurl"
+                    placeholder="Image URL"
                     value={updateObject.image}
                     onChange={handleOnUpdateObjectChange}
                   ></input>
@@ -231,6 +274,33 @@ export default function ProfilePage({
                   </button>
                 </div>
               </div>
+
+              <div className="input-field-edit">
+                <label htmlFor="phone" className="label-edit">
+                  Change Phone Number
+                </label>
+                <div className="edit-and-send-field">
+                  <input
+                    type="tel"
+                    id="existing-phone"
+                    name="phone"
+                    placeholder="US Phone Number (+1 implied)"
+                    className="form-input"
+                    value={updateObject.phone}
+                    onChange={handleOnUpdateObjectChange}
+                  ></input>
+                  <button
+                    type="button"
+                    className="edit-btn"
+                    onClick={() => {
+                      phoneEditSubmit(updateObject.phone);
+                    }}
+                  >
+                    Update
+                  </button>
+                </div>
+              </div>
+
               <div className="change-password-region">
                 <button
                   type="button"

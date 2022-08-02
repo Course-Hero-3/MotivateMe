@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./DashboardPage.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import gradeIcon from "../../assets/Exam Grade.svg";
 import AccessForbidden from "../AccessForbidden/AccessForbidden";
@@ -29,11 +29,11 @@ export default function DashboardPage({ user, setCurrPage }) {
         setTasks(tempTasks.data.allTasks);
       }
       let { data, error } = await apiClient.getLatestGrade();
-      if (data) {
+      if (data?.latestGrade?.scoreWithPercentage) {
         setLatestGrade(data.latestGrade.scoreWithPercentage);
       }
       let tempFriends = await apiClient.following();
-      if (tempFriends?.data) {
+      if (tempFriends?.data?.following) {
         setFriends(tempFriends.data.following);
       }
       // if error when fetching user from token (happens if use refreshes)
@@ -188,7 +188,7 @@ export function TodoViewer({ currentTasks, setShowDetail }) {
               if (idx < 3) {
                 return (
                   <MiniTodoCard
-                    name={task.name} 
+                    name={task.name}
                     category={task.category}
                     dueDate={task.dueDate}
                     dueTime={task.dueTime}
