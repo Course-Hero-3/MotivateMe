@@ -116,8 +116,13 @@ function App() {
             />
             <Route
               path="/securepasswordchange"
-              element={<SecurityChange user={user} setCurrPage={setCurrPage} 
-              loggedInWithGoogle={loggedInWithGoogle} />}
+              element={
+                <SecurityChange
+                  user={user}
+                  setCurrPage={setCurrPage}
+                  loggedInWithGoogle={loggedInWithGoogle}
+                />
+              }
             />
           </Routes>
         </div>

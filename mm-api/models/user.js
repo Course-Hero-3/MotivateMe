@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 const { generateFromEmail } = require("unique-username-generator");
 
-
 const BCRYPT_WORK_FACTOR = process.env.BCRYPT_WORK_FACTOR
   ? Number(process.env.BCRYPT_WORK_FACTOR)
   : 13;
@@ -16,11 +15,9 @@ class User {
       if (userWithAllAttributes?.made_from === "GOOGLE") {
         loggedInWithGoogle = true;
       }
+    } catch (error) {
+      loggedInWithGoogle = false;
     }
-    catch (error) {
-      loggedInWithGoogle = false
-    }
-    
 
     return {
       userId: userWithAllAttributes.user_id,
@@ -34,7 +31,6 @@ class User {
     };
   }
 
-
   static async editFirstName(user, firstNameObject) {
     if (!firstNameObject?.firstName) {
       throw new BadRequestError("No first name passed through to edit");
@@ -46,7 +42,6 @@ class User {
       throw new BadRequestError("No user in order to update");
     }
 
-
     let updateQuery = await db.query(
       `
       UPDATE users
@@ -54,15 +49,11 @@ class User {
       WHERE user_id=$2
       RETURNING user_id, email, username, first_name, last_name, image, made_from, phone
       `,
-      [
-        firstNameObject.firstName,
-        user.userId
-      ]
+      [firstNameObject.firstName, user.userId]
     );
 
-    return await User.returnPublicUser(updateQuery.rows[0])
+    return await User.returnPublicUser(updateQuery.rows[0]);
   }
-
 
   static async editLastName(user, lastNameObject) {
     if (!lastNameObject?.lastName) {
@@ -75,7 +66,6 @@ class User {
       throw new BadRequestError("No user in order to update");
     }
 
-
     let updateQuery = await db.query(
       `
       UPDATE users
@@ -83,31 +73,36 @@ class User {
       WHERE user_id=$2
       RETURNING user_id, email, username, first_name, last_name, image, made_from, phone
       `,
-      [
-        lastNameObject.lastName,
-        user.userId
-      ]
+      [lastNameObject.lastName, user.userId]
     );
 
-    return await User.returnPublicUser(updateQuery.rows[0])
+    return await User.returnPublicUser(updateQuery.rows[0]);
   }
 
   static async editPassword(user, passwordObject) {
     if (!passwordObject) {
-      throw new BadRequestError("The two passwords object was not passed through to change password");
+      throw new BadRequestError(
+        "The two passwords object was not passed through to change password"
+      );
     }
     if (!passwordObject?.oldPassword) {
-      throw new BadRequestError("The old password was not passed through to change the password");
+      throw new BadRequestError(
+        "The old password was not passed through to change the password"
+      );
     }
     if (!passwordObject?.newPassword) {
-      throw new BadRequestError("The new password was not passed through to change the password");
+      throw new BadRequestError(
+        "The new password was not passed through to change the password"
+      );
     }
 
     if (passwordObject.oldPassword.trim() === "") {
       throw new BadRequestError("The old password can't be empty");
     }
     if (passwordObject.newPassword.trim() === "") {
-      throw new BadRequestError("The new password must have characters other than spaces provided");
+      throw new BadRequestError(
+        "The new password must have characters other than spaces provided"
+      );
     }
 
     if (!user) {
@@ -121,14 +116,15 @@ class User {
         maybeUserExists.password
       );
       if (!isValid) {
-        throw new UnauthorizedError("Existing password that was passed through did not match");
+        throw new UnauthorizedError(
+          "Existing password that was passed through did not match"
+        );
       }
+    } else {
+      throw new UnauthorizedError(
+        "Can't update a password for a user that doesn't exist"
+      );
     }
-    else {
-      throw new UnauthorizedError("Can't update a password for a user that doesn't exist");
-    }
-  
-
 
     const hashedPassword = await bcrypt.hash(
       passwordObject.newPassword,
@@ -142,13 +138,10 @@ class User {
       WHERE user_id=$2
       RETURNING user_id, email, username, first_name, last_name, image, made_from, phone
       `,
-      [
-        hashedPassword,
-        user.userId
-      ]
+      [hashedPassword, user.userId]
     );
 
-    return await User.returnPublicUser(updateQuery.rows[0])
+    return await User.returnPublicUser(updateQuery.rows[0]);
   }
 
   static async editImage(user, imageObject) {
@@ -169,13 +162,10 @@ class User {
       WHERE user_id=$2
       RETURNING user_id, email, username, first_name, last_name, image, made_from, phone
       `,
-      [
-        imageObject.image,
-        user.userId
-      ]
+      [imageObject.image, user.userId]
     );
 
-    return await User.returnPublicUser(updateQuery.rows[0])
+    return await User.returnPublicUser(updateQuery.rows[0]);
   }
 
   static async editPhone(user, phoneObject) {
@@ -183,7 +173,9 @@ class User {
       throw new BadRequestError("No phone passed through to change");
     }
     if (phoneObject.phone.length !== 0 && phoneObject.phone.length !== 10) {
-      throw new BadRequestError("Phone number must be deleted or given a proper 10 digit number");
+      throw new BadRequestError(
+        "Phone number must be deleted or given a proper 10 digit number"
+      );
     }
     if (!user) {
       throw new BadRequestError("No user in order to update");
@@ -196,13 +188,10 @@ class User {
       WHERE user_id=$2
       RETURNING user_id, email, username, first_name, last_name, image, made_from, phone
       `,
-      [
-        phoneObject.phone,
-        user.userId
-      ]
+      [phoneObject.phone, user.userId]
     );
 
-    return await User.returnPublicUser(updateQuery.rows[0])
+    return await User.returnPublicUser(updateQuery.rows[0]);
   }
 
   static async editUsername(user, usernameObject) {
@@ -227,13 +216,10 @@ class User {
       WHERE user_id=$2
       RETURNING user_id, email, username, first_name, last_name, image, made_from, phone
       `,
-      [
-        usernameObject.username,
-        user.userId
-      ]
+      [usernameObject.username, user.userId]
     );
 
-    return await User.returnPublicUser(updateQuery.rows[0])
+    return await User.returnPublicUser(updateQuery.rows[0]);
   }
 
   static async googleLogin(information) {
@@ -343,7 +329,7 @@ class User {
       "password",
       "username",
       "firstName",
-      "lastName"
+      "lastName",
     ];
     requiredFields.forEach((field) => {
       if (!information.hasOwnProperty(field) || !information[field]) {
@@ -358,11 +344,14 @@ class User {
 
     if (information.hasOwnProperty("phone")) {
       if (information.phone.length !== 0 && information.phone.length !== 10) {
-        throw new BadRequestError("Phone Number either must be empty or passed through a valid 10 digit US +1 Number")
+        throw new BadRequestError(
+          "Phone Number either must be empty or passed through a valid 10 digit US +1 Number"
+        );
       }
-    }
-    else {
-      throw new BadRequestError("The phone field was not passed through to register")
+    } else {
+      throw new BadRequestError(
+        "The phone field was not passed through to register"
+      );
     }
 
     // EMAIL regex (not just @ symbol)
@@ -411,21 +400,26 @@ class User {
       information.firstName,
       information.lastName,
       information.image,
-      information.phone
+      information.phone,
     ];
     const result = await db.query(text, values);
 
     return User.returnPublicUser(result.rows[0]);
   }
 
-  static async fetchUserByEmail(email) {
+  static async fetchUserByEmail(email, reqPublic = false) {
     if (!email) {
       throw new BadRequestError("No email provided");
     }
     const text = `SELECT * FROM users WHERE email=$1`;
     const values = [email.toLowerCase()];
     const result = await db.query(text, values);
-    return result.rows[0]; // this is the user with that email
+
+    if (reqPublic) {
+      return User.returnPublicUser(result.rows[0]);
+    } else {
+      return result.rows[0]; // this is the user with that email
+    }
   }
 
   static async fetchUserByUsername(username) {
