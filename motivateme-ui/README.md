@@ -11,4 +11,8 @@ now for the charts...
 6) npm install chartjs-plugin-datalabels --save
 7) npm install regex
 8) npm install gapi-script react-google-login --legacy-peer-deps
+9) npm install @esbuild-plugins/node-globals-polyfill --legacy-peer-deps
+10) npm install react-s3 --legacy-peer-deps
+
+(npm install)
  

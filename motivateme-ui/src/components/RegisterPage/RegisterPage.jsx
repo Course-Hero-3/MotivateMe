@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
 import "./RegisterPage.css";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiClient from "../../../services/apiclient";
+import S3FileUpload from "react-s3";
+
 export default function RegisterPage({ setUser, user, setCurrPage }) {
   const [registerForm, setRegisterForm] = useState({
     firstName: "",
@@ -16,6 +18,13 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
   const [registerError, setRegisterError] = useState(null);
   const navigate = useNavigate();
 
+  const aws_config = {
+    bucketName: import.meta.env.VITE_BUCKET_NAME,
+    region: import.meta.env.VITE_REGION,
+    accessKeyId: import.meta.env.VITE_ACCESS_KEY_ID,
+    secretAccessKey: import.meta.env.VITE_SECRET_ACCESS_KEY,
+  };
+
   // set current page to register (for navbar to not render its content)
   // also, navigate to "todo" page if they are
   // already logged in (they must  be logged out to access this page)
@@ -27,6 +36,18 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
   }, [user, navigate]);
 
   // handle any register form changes and do some checks
+  const handleOnImageChange = (event) => {
+    S3FileUpload.uploadFile(event.target.files[0], aws_config)
+      .then(async (data) => {
+        setRegisterForm((f) => ({ ...f, [event.target.name]: data.location }));
+        return;
+      })
+      .catch((error) => {
+        alert(error, "... or try uploading a profile picture later.");
+        return;
+      });
+  };
+
   const handleOnRegisterFormChange = (event) => {
     if (
       registerError === "First name field was left blank" &&
@@ -63,7 +84,6 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
       registerForm.username.length !== 0 &&
       registerForm.password.length !== 0 &&
       registerForm.confirm.length !== 0 &&
-      // registerForm.image.length !== 0 && // got rid of this line since image should be optional -- Kian
       (registerForm.phone.length === 10 || registerForm.phone.length === 0) &&
       registerForm.email.length !== 0
     ) {
@@ -113,14 +133,6 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
       }
     }
 
-    if (event.target.name === "image") {
-      if (event.target.value.length > 250) {
-        setRegisterError("Image URL's must be below 250 characters");
-      } else {
-        setRegisterError(null);
-      }
-    }
-
     if (!registerError) {
       if (registerForm.password !== registerForm.confirm) {
         setRegisterError("Passwords do not match");
@@ -149,15 +161,6 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
     }
     if (registerForm.email.length === 0) {
       setRegisterError("Email field was left blank");
-      return;
-    }
-    // Image field is now optional
-    // if (registerForm.image.length === 0) {
-    //   setRegisterError("Image field was left blank");
-    //   return;
-    // }
-    if (registerForm.image.length >= 250) {
-      setRegisterError("Image must be less than 250 characters long");
       return;
     }
     if (registerForm.username.length === 0) {
@@ -205,6 +208,8 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
     } else {
       setRegisterError(error);
     }
+
+    // now call express erver
   };
 
   return (
@@ -303,15 +308,12 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
             ></input>
           </div>
           <div className="input-field">
-            <span className="label">Image URL (optional)</span>
-
+            <span className="label">Profile Picture Upload (optional)</span>
             <input
-              type="text"
+              type="file"
               name="image"
-              className="form-input alone"
-              placeholder="Enter an Image URL"
-              value={registerForm.image}
-              onChange={handleOnRegisterFormChange}
+              className="form-input-image"
+              onChange={handleOnImageChange}
             ></input>
           </div>
           <div className="input-field">
