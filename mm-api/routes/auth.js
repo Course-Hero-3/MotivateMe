@@ -164,4 +164,16 @@ router.get("/me", security.requireAuthenticatedUser, async (req, res, next) => {
   }
 });
 
+router.get("/imagecredentials", async (req, res, next) => {
+  try {
+    // this bit of code gets the config information for uploading
+    // to the aws s3 bucket
+    const config = await User.getImageCredentials();
+    res.status(200);
+    res.json({ config: config });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

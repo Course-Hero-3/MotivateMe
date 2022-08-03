@@ -16,19 +16,22 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
     phone: "",
   });
   const [registerError, setRegisterError] = useState(null);
+  const [awsConfig, setAwsConfig] = useState(null);
   const navigate = useNavigate();
-
-  const aws_config = {
-    bucketName: import.meta.env.VITE_BUCKET_NAME,
-    region: import.meta.env.VITE_REGION,
-    accessKeyId: import.meta.env.VITE_ACCESS_KEY_ID,
-    secretAccessKey: import.meta.env.VITE_SECRET_ACCESS_KEY,
-  };
 
   // set current page to register (for navbar to not render its content)
   // also, navigate to "todo" page if they are
   // already logged in (they must  be logged out to access this page)
   useEffect(() => {
+    const getCredentials = async () => {
+      let tempCredentials = await apiClient.getAwsCredentials();
+      if (tempCredentials?.data?.config) {
+        setAwsConfig(tempCredentials.data.config)
+      }
+    };
+
+    getCredentials();
+
     setCurrPage("register");
     if (user?.email) {
       navigate("/dashboard");
@@ -37,7 +40,8 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
 
   // handle any register form changes and do some checks
   const handleOnImageChange = (event) => {
-    S3FileUpload.uploadFile(event.target.files[0], aws_config)
+    if (awsConfig !== undefined && awsConfig !== null) {
+      S3FileUpload.uploadFile(event.target.files[0], awsConfig)
       .then(async (data) => {
         setRegisterForm((f) => ({ ...f, [event.target.name]: data.location }));
         return;
@@ -46,6 +50,11 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
         alert(error, "... or try uploading a profile picture later.");
         return;
       });
+    }
+    else {
+      alert(error, "Please try uploading a profile picture later. The server is having difficulties.")
+      return
+    }
   };
 
   const handleOnRegisterFormChange = (event) => {
@@ -314,6 +323,7 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
               name="image"
               className="form-input-image"
               onChange={handleOnImageChange}
+              accept=".jpg, .jpeg, .png"
             ></input>
           </div>
           <div className="input-field">

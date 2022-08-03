@@ -23,19 +23,22 @@ export default function ProfilePage({
     image: "",
     phone: user?.phone || "",
   });
+  const [awsConfig, setAwsConfig] = React.useState(null);
 
   function openfileDialog() {
     document.getElementById("existing-image").click();
   }
-  const aws_config = {
-    bucketName: import.meta.env.VITE_BUCKET_NAME,
-    region: import.meta.env.VITE_REGION,
-    accessKeyId: import.meta.env.VITE_ACCESS_KEY_ID,
-    secretAccessKey: import.meta.env.VITE_SECRET_ACCESS_KEY,
-  };
 
   // make sure user is logged in
   React.useEffect(() => {
+    const getCredentials = async () => {
+      let tempCredentials = await apiClient.getAwsCredentials();
+      if (tempCredentials?.data?.config) {
+        setAwsConfig(tempCredentials.data.config);
+      }
+    };
+
+    getCredentials();
     // if user is logged in, then set it to recap
     if (user !== null && user !== undefined) {
       setCurrPage("profile");
@@ -43,16 +46,25 @@ export default function ProfilePage({
   }, []);
 
   const handleOnImageChange = (event) => {
-    S3FileUpload.uploadFile(event.target.files[0], aws_config)
-      .then(async (data) => {
-        setUpdateObject((f) => ({ ...f, [event.target.name]: data.location }));
-        imageEditSubmit(data.location);
-        return;
-      })
-      .catch((error) => {
-        alert(error, "... or try uploading a profile picture later.");
-        return;
-      });
+    if (awsConfig !== undefined && awsConfig !== null) {
+      S3FileUpload.uploadFile(event.target.files[0], awsConfig)
+        .then(async (data) => {
+          setUpdateObject((f) => ({
+            ...f,
+            [event.target.name]: data.location,
+          }));
+          imageEditSubmit(data.location);
+          return;
+        })
+        .catch((error) => {
+          alert(error, "... Please try uploading a profile picture later.");
+          return;
+        });
+    }
+    else {
+      alert(error, "Please try uploading a profile picture later. The server is having difficulties.")
+          return;
+    }
   };
 
   const handleOnUpdateObjectChange = (event) => {
@@ -235,6 +247,7 @@ export default function ProfilePage({
                   name="image"
                   className="form-input-image"
                   onChange={handleOnImageChange}
+                  accept=".jpg, .jpeg, .png"
                 ></input>
               </div>
               <div className="input-field-edit">
