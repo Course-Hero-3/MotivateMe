@@ -8,6 +8,11 @@ const BCRYPT_WORK_FACTOR = process.env.BCRYPT_WORK_FACTOR
   ? Number(process.env.BCRYPT_WORK_FACTOR)
   : 13;
 
+const BUCKET_NAME = process.env.BUCKET_NAME;
+const REGION = process.env.REGION;
+const ACCESS_KEY_ID = process.env.ACCESS_KEY_ID;
+const SECRET_ACCESS_KEY = process.env.SECRET_ACCESS_KEY;
+
 class User {
   static returnPublicUser(userWithAllAttributes) {
     let loggedInWithGoogle = false;
@@ -430,6 +435,15 @@ class User {
     const values = [username.toLowerCase()];
     const result = await db.query(text, values);
     return result.rows[0]; // this is the user with that username
+  }
+
+  static async getImageCredentials() {
+    return {
+      bucketName: BUCKET_NAME,
+      region: REGION,
+      accessKeyId: ACCESS_KEY_ID,
+      secretAccessKey: SECRET_ACCESS_KEY,
+    };
   }
 }
 
