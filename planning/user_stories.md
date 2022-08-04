@@ -32,7 +32,6 @@ List the current user stories you will implement.
 
 - [x] As a team captain for my intramural sports soccer team, I want to be able to keep track of our soccer games on a calendar, and also log our soccer games so we can track our progress over time.
 
-- [ ] As a working student, I want to be able to filter different graphs, so that I can see the difference in stats in terms of homeworks, tests, etc.
 
 - [x] As a law student, I need to see data related to my completed tasks and be able to see different visualizations for the same stats, so that I can perceive the information differently if I need to.
 
@@ -40,6 +39,6 @@ List the current user stories you will implement.
 
 - [x] As a foreign student living abroad, I need to make sure I can delete tasks in case I need to drop out of a course, so I don't get incorrect charts in my recap page.
 
-- [ ] As a popular fraternity brother, I want to be able to look at my brothers' and friends' progress statistics, so I can push myself to do better if someone else is doing better than me in for example, testing.
+- [x] As a popular fraternity brother, I want to be able to look at my brothers' and friends' progress statistics, so I can push myself to do better if someone else is doing better than me in for example, testing.
 
-- [ ] As a student who already has too many things to keep track of, I want to have a dashboard page with little snippets of all the information the application has to offer and being able to click on those things so I can be redirected to the correct page which puts less pressure on me for navigating the page.
+- [x] As a student who already has too many things to keep track of, I want to have a dashboard page with little snippets of all the information the application has to offer and being able to click on those things so I can be redirected to the correct page which puts less pressure on me for navigating the page.
