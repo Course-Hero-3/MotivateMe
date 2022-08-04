@@ -4,6 +4,8 @@ import "./ProfilePage.css";
 import apiClient from "../../../services/apiclient";
 import lockImg from "../../assets/lock-password.png";
 import { useNavigate } from "react-router-dom";
+import { Switch, useColorMode, ColorModeScript, Button } from "@chakra-ui/react";
+import theme from "../theme";
 
 export default function ProfilePage({
   user,
@@ -21,6 +23,7 @@ export default function ProfilePage({
     image: user?.image || "",
     phone: user?.phone || "",
   });
+  const { colorMode, toggleColorMode } = useColorMode();
 
   // make sure user is logged in
   React.useEffect(() => {
@@ -149,6 +152,7 @@ export default function ProfilePage({
     <>
       {user !== undefined && user !== null ? (
         <>
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <div className="profile-card">
             <div className="profile-banner">
               <div className="profile-banner-information">
@@ -174,6 +178,17 @@ export default function ProfilePage({
             </div>
             <div className="edit-section">
               <h2 className="profile-customization">Profile Customization</h2>
+              <div className="dark-mode-button">
+                <Button onClick={toggleColorMode}>
+                  Toggle {colorMode === "light" ? "Dark" : "Light"}
+                </Button>
+                {/* <label htmlFor="dark-mode-text" className="dark-mode-text">
+                  Enable Dark Mode
+                </label> */}
+                {/* <Switch className="dark-mode" size="lg" >
+               
+                </Switch> */}
+              </div>
               <div className="input-field-edit">
                 <label htmlFor="username" className="label-edit">
                   Change Username
