@@ -11,4 +11,10 @@ now for the charts...
 6) npm install chartjs-plugin-datalabels --save
 7) npm install regex
 8) npm install gapi-script react-google-login --legacy-peer-deps
- 
+9) do npm config set legacy-peer-deps true 
+then 
+npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion
+10) npm i @chakra-ui/icons
+11) npm install react-icons --save
+
+
