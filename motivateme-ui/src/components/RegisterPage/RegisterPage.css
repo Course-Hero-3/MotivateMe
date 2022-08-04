@@ -3,6 +3,8 @@
     height: 100vh;
     display: flex;
     align-items: center;
+    font-family: 'Nunito', sans-serif;
+
 }
 .register-title {
     font-weight: bold;

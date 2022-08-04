@@ -5,7 +5,10 @@
     display: flex;
     align-items: center;
     overflow: hidden;
+    font-family: 'Nunito', sans-serif;
+}
 
+.h2, .h3 {
 }
 
 .side-nav-bar {
@@ -23,13 +26,13 @@
 }
 
 .side-bar-title {
-    font-size: 25px;
+    font-size: 30px;
     margin-left: 60px;
     margin-right: 60px;
     color: white;
 }
 .side-bar-desc {
-    font-size: 15px;
+    font-size: 18px;
     margin-left: 50px;
     margin-right: 50px;
     color: white;
@@ -58,6 +61,8 @@
     height: 500px;
     width: 500px;
     justify-content: space-evenly;
+    font-family: 'Nunito', sans-serif;
+
     }
     .login-form-intro {
         margin-bottom: 20px;
@@ -86,16 +91,20 @@ display: flex;
 flex-direction: column  ;
 font-weight: bold;
 font-size: 35px;
+font-family: 'Nunito', sans-serif;
+
 
 }
-
+.input-field {
+    width: 450px;
+}
 .form-input{
-    width: 300px;
     padding: 10px 5px;
     border-radius: 5px;
     background: var(--input-background);
     border: none;
     height: 54px;
+
 }
 
 #email {
@@ -138,11 +147,12 @@ margin-top: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 490px;
+    width: 450px;
 }
 
 .footer-text {
     margin-top: 50px;
+    font-size: 22px;
 }
 
 .footer-text a:link{
