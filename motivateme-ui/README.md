@@ -13,6 +13,12 @@ now for the charts...
 8) npm install gapi-script react-google-login --legacy-peer-deps
 9) npm install @esbuild-plugins/node-globals-polyfill --legacy-peer-deps
 10) npm install react-s3 --legacy-peer-deps
+11) do npm config set legacy-peer-deps true 
+then 
+npm i @chakra-ui/react @emotion/react @emotion/styled framer-motion
+12) npm i @chakra-ui/icons
+13) npm install react-icons --save
+
 
 (npm install)
  

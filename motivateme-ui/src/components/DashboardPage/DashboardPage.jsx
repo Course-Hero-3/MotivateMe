@@ -13,7 +13,7 @@ export default function DashboardPage({ user, setCurrPage }) {
   const [friends, setFriends] = useState(null);
   const [graphs, setGraphs] = React.useState(null);
   const [tasks, setTasks] = React.useState(null);
-  const [latestGrade, setLatestGrade] = useState(null);
+  const [latestGrades, setLatestGrades] = useState([]);
   const [showDetail, setShowDetail] = React.useState(null);
 
   // when mounted, update the page state
@@ -29,8 +29,9 @@ export default function DashboardPage({ user, setCurrPage }) {
         setTasks(tempTasks.data.allTasks);
       }
       let { data, error } = await apiClient.getLatestGrade();
-      if (data?.latestGrade?.scoreWithPercentage) {
-        setLatestGrade(data.latestGrade.scoreWithPercentage);
+      if (data?.latestGrades) {
+        console.log(latestGrades)
+        setLatestGrades(data.latestGrades);
       }
       let tempFriends = await apiClient.following();
       if (tempFriends?.data?.following) {
@@ -86,15 +87,7 @@ export default function DashboardPage({ user, setCurrPage }) {
                       />
                       <h3 className="latest-grade-card-title">Latest Grade</h3>
                     </div>
-                    {latestGrade ? (
-                      <>
-                        <span className="latest-grade">{latestGrade}</span>
-                      </>
-                    ) : (
-                      <>
-                        <span className="latest-grade">N/A</span>
-                      </>
-                    )}
+                    <span className="total-tasks"> {latestGrades[0]?.score}%</span>
                   </div>
                 </Link>
                 <Link to="/social" className="dashboard-links">
@@ -144,6 +137,7 @@ export default function DashboardPage({ user, setCurrPage }) {
                     </Link>
                   ))}
                 </div>
+                <div className="dashboard-info">
                 <Link to="/todo" className="dashboard-links">
                   <div className="dash-todo-viewer">
                     <TodoViewer
@@ -152,6 +146,34 @@ export default function DashboardPage({ user, setCurrPage }) {
                     />
                   </div>
                 </Link>
+                <div className="history d-flex flex-column align-items-center">
+                        <h2 className="history-header">History</h2>
+                 {latestGrades?.length === 0?<span className="no-latest">Nothing to show.</span>:
+                 <div className="history-assignment-table d-flex flex-column">
+                        <div className="history-assignment-info d-flex flex-column align-items-center">
+                           <div className="history-assignment-headers d-flex flex-row justify-content-between">
+                              <h2 className="history-assignment-header">Name</h2>
+                              <h2 className="history-assignment-header">Percent</h2>
+                              <h2 className="history-assignment-header">Letter</h2>
+                              <h2 className="history-assignment-header">Date</h2>
+                           </div>
+                           {latestGrades?.map((completed) => (
+                            <>
+                            <div className="assignment-info d-flex flex-row justify-content-between">
+                            <h2 className="history-assignment-name">{completed.name}</h2>
+                              <h2 className="history-assignment-score">{completed.score}%</h2>
+                              <h2 className="history-assignment-letter">{completed.actualLetterGrade}</h2>
+                              <h2 className="history-assignment-date">{moment(completed.completedAt).format("YYYY-MM-DD")}</h2>
+                            </div>
+              
+                              </>
+                            ))}
+                        </div>
+                     </div>
+                 }
+                   
+                </div>
+                </div>
               </div>
             </div>
           </div>
