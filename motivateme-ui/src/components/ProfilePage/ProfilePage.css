@@ -138,15 +138,19 @@
 }
 
 /* css for dark mode button and text */
- .dark-mode-text{
-font-size: 20px;
-justify-content: space-between;
-padding-right: 12px;
+.dark-mode-text{
+    font-size: 20px;
+    justify-content: space-between;
+    padding-right: 12px;
  }
+
 .dark-mode-button{
     transition-duration: 200ms;
-    }
-
+    width: 450px;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
 
 #existing-image {
     display: none;

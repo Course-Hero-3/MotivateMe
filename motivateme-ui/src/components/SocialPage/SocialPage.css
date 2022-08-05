@@ -129,7 +129,7 @@
 }
 
 .social-form-search::placeholder {
-  color:white;
+  /* color:white; */
 }
 
 .show-users-list {
@@ -226,7 +226,7 @@
   width: 620px;
   height: 725px;
   border-radius: 5px;
-  background-color: white;
+  /* background-color: white; */
   margin-top: 15px;
   margin-right: 46px;
   display: flex;
@@ -253,6 +253,8 @@
 
 .activity-card-name {
   margin-left: 4px;
+  margin-bottom: 7px;
+  font-size: 25px;
 }
 
 .social-date {
