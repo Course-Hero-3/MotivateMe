@@ -30,7 +30,6 @@ export default function DashboardPage({ user, setCurrPage }) {
       }
       let { data, error } = await apiClient.getLatestGrade();
       if (data?.latestGrades) {
-        console.log(latestGrades)
         setLatestGrades(data.latestGrades);
       }
       let tempFriends = await apiClient.following();
