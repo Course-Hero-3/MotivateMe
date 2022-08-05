@@ -17,7 +17,7 @@
 }
 
 .todo-list-title{
-    color: #172b4d;
+
     font-size: 26px;
     font-family: 'Nunito', sans-serif;
 }
@@ -60,7 +60,7 @@
 /*all:unsert resets the search box*/
 
 .task-form {
-  background-color: var(--pure-white);
+  background-color: transparent;
   /* So the search bar changes as the width of the page changes */
   width: 40%;
   border:1px solid var(--border-color);
@@ -78,17 +78,19 @@
 .task-form-search {
     all: unset;
     font: 16px system-ui;
-    color: #333;
+    /* color: #333; */
     height: 100%;
     width: 100%;
     padding: 6px 10px;
+    background-color: transparent;
 }
 
 .task-form-search::placeholder {
-    color:#333;
+    /* color:#333; */
+    background-color: transparent;
 }
 .categories {
-    background: var(--pure-white);
+    /* background: var(--pure-white); */
     border: 1px solid var(--border-color);
     border-radius:5px;
     width: 100px;
@@ -105,7 +107,7 @@
 }
 
 .task-form-btn svg {
-    color: #333;
+    /* color: #333; */
     fill: currentColor;
     width: 44px;
     height: 44px;
@@ -359,4 +361,8 @@ color: var(--primary-red);
     font-size: 25px;
     margin-top: 40px;
     font-family: 'Nunito', sans-serif;
+}
+
+label{
+    padding-right: 10px;
 }

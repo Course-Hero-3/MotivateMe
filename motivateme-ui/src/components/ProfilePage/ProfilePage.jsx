@@ -24,6 +24,7 @@ export default function ProfilePage({
     phone: user?.phone || "",
   });
   const { colorMode, toggleColorMode } = useColorMode();
+   
 
   // make sure user is logged in
   React.useEffect(() => {
@@ -179,8 +180,8 @@ export default function ProfilePage({
             <div className="edit-section">
               <h2 className="profile-customization">Profile Customization</h2>
               <div className="dark-mode-button">
-                <Button onClick={toggleColorMode}>
-                  Toggle {colorMode === "light" ? "Dark" : "Light"}
+                <Button onClick={toggleColorMode} transitionDuration="200ms">
+                  Toggle {colorMode === "light" ? "Dark" : "Light"} 
                 </Button>
                 {/* <label htmlFor="dark-mode-text" className="dark-mode-text">
                   Enable Dark Mode

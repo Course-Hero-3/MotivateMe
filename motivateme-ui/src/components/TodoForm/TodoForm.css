@@ -108,7 +108,7 @@
     height: 100%;
     overflow: auto;
     background-color: rgb(255, 255, 255); /* Fallback color */
-    background-color: rgba(255, 255, 255, 0.4); /* Black w/ opacity */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
 .form-title {

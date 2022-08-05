@@ -17,7 +17,7 @@
     width: 600px;
     height: 515px;
     padding: 20px;
-    background: var(--pure-white);
+    /* background: var(--pure-white); */
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);}
 
@@ -26,8 +26,7 @@
 }
 
 .chart-title {
-    font-size: 25px;
+    font-size: 24px;
     text-align: center;
-    color: #172b4d;
     font-family: 'Nunito', sans-serif;
 }
