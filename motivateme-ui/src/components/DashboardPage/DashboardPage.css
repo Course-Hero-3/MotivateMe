@@ -343,7 +343,6 @@
 .history {
     width: 600px;
     height: 400px;
-    background-color: white;
     border-style: solid;
     border: 1px solid var(--border-color);
     border-radius: 10px;
@@ -378,7 +377,6 @@
     margin-top: 5px;
     align-items: center;
     height: 100px;
-    background-color: white;
     border-style: solid;
     border: 1px solid var(--border-color);
     border-radius: 10px;
