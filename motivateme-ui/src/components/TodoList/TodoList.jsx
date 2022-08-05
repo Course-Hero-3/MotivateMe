@@ -358,7 +358,7 @@ export default function TodoList({ showModal, modalSelected }) {
           />
         </form>
         <form className="sort-tasks">
-          <label htmlFor="categories">By Category </label>
+          <label htmlFor="categories" className="label-for-category">By Category </label>
           <select
             name="categories"
             className="categories"
