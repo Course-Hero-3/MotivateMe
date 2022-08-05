@@ -101,7 +101,6 @@ font-family: 'Nunito', sans-serif;
 .form-input{
     padding: 10px 5px;
     border-radius: 5px;
-    background: var(--input-background);
     border: none;
     height: 54px;
 
@@ -167,7 +166,7 @@ margin-top: 15px;
 /* Adding css for google sign in  */
 .ride-line {
     margin-top: 20px;
-    color: #747487;
+    /* color: #747487; */
     margin-right: 35px;
 }
 

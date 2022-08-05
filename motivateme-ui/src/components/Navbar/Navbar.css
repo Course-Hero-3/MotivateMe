@@ -93,8 +93,7 @@
     padding: 4px 10px;
     cursor: pointer;
     margin: 5px;
-    color: black;
-    background-color: white;
+    background-color: transparent;
     border-style: none;
     font-size: 20px;
 }
@@ -137,6 +136,7 @@
 .google-icon-nav {
     height: 33px;
     width: 33px;
+
 }
 .google-signin-text-nav{
     font-size: 14px;
@@ -144,6 +144,7 @@
 }
 .google-logout {
  text-decoration: none;
+
 }
 
 

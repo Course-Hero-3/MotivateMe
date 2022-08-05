@@ -95,7 +95,7 @@
     width: 300px;
     padding: 10px 5px;
     border-radius: 5px;
-    background: var(--input-background);
+    /* background: var(--input-background); */
     border: none;
     height: 54px;
 }

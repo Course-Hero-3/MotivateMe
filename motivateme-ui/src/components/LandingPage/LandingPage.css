@@ -104,8 +104,10 @@ margin-top: 22px;
 
     padding-top: 7rem;
     padding-bottom: 7rem;
+    justify-content: center;
+    align-items: center;
+    /* background: #f0f6f9; */
 
-    background: #f0f6f9;
 }
 .landing-header{
     font-weight: 2000;

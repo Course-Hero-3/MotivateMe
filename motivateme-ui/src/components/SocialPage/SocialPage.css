@@ -29,7 +29,7 @@
 }
 
 .activity-title {
-  color: #172b4d;
+  /* color: #172b4d; */
   font-weight: bolder;
   font-size: 26px;
   font-family: 'Nunito', sans-serif;
@@ -38,21 +38,21 @@
 .buttons {
   display: flex;
   justify-content: space-evenly;
-  background-color: white;
+  /* background-color: white; */
   width: 500px;
   border-radius: 5px;
   font-size: 20px;
   height: 54px;
   border: none;
   padding: 5px 23px;
-  color: #34b3f1;
+  /* color: #34b3f1; */
   margin-bottom: 25px;
   box-shadow:  0 6px 4px -4px rgba(0,0,0,0.3); 
 }
 
 .button-right-tab {
   font-size: 16px;
-  color: black;
+  /* color: black; */
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -90,14 +90,14 @@
 }
 
 .friend-text {
-  color: #172b4d;
+  /* color: #172b4d; */
   font-weight: bolder;
   font-size: 26px;
 }
 
 
 .social-query-form {
-  background-color: var(--pure-white);
+  background-color: transparent;
   width: 300px;
   border:1px solid var(--border-color);
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -120,14 +120,16 @@
   .social-form-search {
   all: unset;
   font: 16px system-ui;
-  color: #333;
+  color: rgb(226, 226, 226);
   height: 100%;
   width: 100%;
   padding: 6px 10px;
+  background-color: transparent;
+
 }
 
 .social-form-search::placeholder {
-  color:#333;
+  color:white;
 }
 
 .show-users-list {
@@ -138,7 +140,7 @@
 }
 
 .user-card {
-  background-color: white;
+  /* background-color: white; */
   width: 425px;
   border-radius: 4px;
   height: 100px;
@@ -255,7 +257,7 @@
 
 .social-date {
   font-size: 20px;
-  color: #172b4d;
+  /* color: #172b4d; */
 }
 
 /* messages to show that the user has no friends / follows everyone and/or doesn't have activity to view */
@@ -263,7 +265,7 @@
   font-size: 25px;
   margin-top: 40px;
   font-family: 'Nunito', sans-serif;
-  color: #172b4d;
+  /* color: #172b4d; */
 }
 
 .no-friends {
@@ -292,21 +294,21 @@
 
 /* Div for Title of recommended section */
 .recommended-title {
-  color: #172b4d;
+  /* color: #172b4d; */
   font-weight: bolder;
   font-size: 26px;
   margin-left: 28px;
 }
 
 .recommended-text {
-  color: #172b4d;
+  /* color: #172b4d; */
   font-size: 20px;
   margin-left: 28px;
 }
 
 .no-users {
   align-self: flex-start;
-  color: #172b4d;
+  /* color: #172b4d; */
 }
 
 .recommended-list {

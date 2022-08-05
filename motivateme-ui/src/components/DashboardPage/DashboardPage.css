@@ -160,7 +160,7 @@
     font-size: 30px;
     font-weight: bold;
     flex: 1;
-    color: #172b4d;
+    /* color: #172b4d; */
     font-family: 'Nunito', sans-serif;
 }
 
@@ -177,7 +177,7 @@
 .todo-bulletin {
     display: flex;
     flex-direction: column;
-    background-color: white;
+    /* background-color: white; */
     border-style: solid;
     border: 1px solid var(--border-color);
     border-radius: 10px;
@@ -194,7 +194,7 @@
 }
 
 .todo-date {
-    color: #172b4d;
+    /* color: #172b4d; */
 
 }
 
@@ -301,18 +301,15 @@
 .mini-card-content.yellow:hover {
     background: var(--essay-task-hover);
 }
-.todo-title{
-   color: #172b4d;
-}
 
 .dashboard-links {
     text-decoration: none;
-    color: black;
+    /* color: black; */
     
 }
 
 .dashboard-links:hover {
-    color: black;
+    /* color: black; */
 }
 
 .no-friends-dash {
@@ -328,7 +325,7 @@
 
 .upcoming-text-dash {
     font-size: 20px;
-    color: black;
+    /* color: black; */
     margin-top: 9px;
     font-family: 'Nunito', sans-serif;
 }
