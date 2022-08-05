@@ -76,7 +76,6 @@ class Recap {
       }
     
       }
-      console.log(result.rows)
       return result.rows
 
     }
