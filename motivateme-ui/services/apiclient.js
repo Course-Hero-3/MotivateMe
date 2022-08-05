@@ -107,6 +107,9 @@ class ApiClient {
     async editPhone(phone) {
         return await this.request({ endpoint:`auth/editphone`, method:`PUT`, data: { phone } })
     }
+    async getAwsCredentials() {
+        return await this.request({ endpoint:`auth/imagecredentials`, method:`GET` })
+    }
 }
 
 // when deploying to heroku may have to change!!!

@@ -114,6 +114,8 @@ class Todo {
     return await Todo.returnPublicTask(result.rows[0]);
   }
 
+  
+
   static async completeTask(completedTaskWithId, user) {
     if (!completedTaskWithId) {
       throw new BadRequestError(

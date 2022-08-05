@@ -18,6 +18,23 @@
     border-radius: 50%;
     width: 12rem;
     height: 12rem;
+    position: relative;
+}
+
+
+.img-download {
+    position: relative;
+}
+  
+.img-download .edit-logo {
+    position: absolute;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    bottom: 8px;
+    right: 8px;
 }
 
 .profile-banner-information {
@@ -128,4 +145,14 @@ padding-right: 12px;
  }
 .dark-mode-button{
     transition-duration: 200ms;
+    }
+
+
+#existing-image {
+    display: none;
+}
+
+#empty-button {
+    border: none;
+    background-color: transparent;
 }

@@ -3,9 +3,11 @@ import AccessForbidden from "../AccessForbidden/AccessForbidden";
 import "./ProfilePage.css";
 import apiClient from "../../../services/apiclient";
 import lockImg from "../../assets/lock-password.png";
+import editPfp from "../../assets/pencil-icon.png";
 import { useNavigate } from "react-router-dom";
 import { Switch, useColorMode, ColorModeScript, Button } from "@chakra-ui/react";
 import theme from "../theme";
+import S3FileUpload from "react-s3";
 
 export default function ProfilePage({
   user,
@@ -20,30 +22,59 @@ export default function ProfilePage({
     username: user?.username || "",
     firstName: user?.firstName || "",
     lastName: user?.lastName || "",
-    image: user?.image || "",
+    image: "",
     phone: user?.phone || "",
   });
   const { colorMode, toggleColorMode } = useColorMode();
    
+  const [awsConfig, setAwsConfig] = React.useState(null);
+
+  function openfileDialog() {
+    document.getElementById("existing-image").click();
+  }
 
   // make sure user is logged in
   React.useEffect(() => {
+    const getCredentials = async () => {
+      let tempCredentials = await apiClient.getAwsCredentials();
+      if (tempCredentials?.data?.config) {
+        setAwsConfig(tempCredentials.data.config);
+      }
+    };
+
+    getCredentials();
     // if user is logged in, then set it to recap
     if (user !== null && user !== undefined) {
       setCurrPage("profile");
     }
   }, []);
 
+  const handleOnImageChange = (event) => {
+    if (awsConfig !== undefined && awsConfig !== null) {
+      S3FileUpload.uploadFile(event.target.files[0], awsConfig)
+        .then(async (data) => {
+          setUpdateObject((f) => ({
+            ...f,
+            [event.target.name]: data.location,
+          }));
+          imageEditSubmit(data.location);
+          return;
+        })
+        .catch((error) => {
+          alert(error, "... Please try uploading a profile picture later.");
+          return;
+        });
+    }
+    else {
+      alert(error, "Please try uploading a profile picture later. The server is having difficulties.")
+          return;
+    }
+  };
+
   const handleOnUpdateObjectChange = (event) => {
     setSuccessMessage(null);
     setEditError(null);
-    if (event.target.name === "image") {
-      if (event.target.value.length > 250) {
-        setEditError("Image URL's must be below 250 characters");
-      } else {
-        setEditError(null);
-      }
-    }
+
     if (event.target.name === "phone") {
       // we are allowing users to not put in their phone numbers (optional field)
       if (event.target.value.length !== 10 && event.target.value.length !== 0) {
@@ -69,25 +100,19 @@ export default function ProfilePage({
   };
 
   const usernameEditSubmit = async (username) => {
+    // if there is an error and it isn't null
     if (editError) {
-      // if there is an error and it isn't null
       return;
     }
-
     let { data, error } = await apiClient.editUsername(username);
     handleAfterSubmit(data, error);
   };
 
   const imageEditSubmit = async (image) => {
+    // if there is an error and it isn't null
     if (editError) {
-      // if there is an error and it isn't null
       return;
     }
-    if (image.length >= 250) {
-      setEditError("Image URL's must be below 250 characters");
-      return;
-    }
-
     let { data, error } = await apiClient.editImage(image);
     handleAfterSubmit(data, error);
   };
@@ -140,7 +165,7 @@ export default function ProfilePage({
         username: data.updatedUser?.username || "",
         firstName: data.updatedUser?.firstName || "",
         lastName: data.updatedUser?.lastName || "",
-        image: data.updatedUser?.image || "",
+        image: "",
       });
     }
     if (error) {
@@ -157,16 +182,31 @@ export default function ProfilePage({
           <div className="profile-card">
             <div className="profile-banner">
               <div className="profile-banner-information">
-                <img
-                  id="banner-pfp"
-                  src={user.image}
-                  alt="PFP"
-                  onError={(event) => {
-                    event.target.src =
-                      "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png";
-                    event.onerror = null;
-                  }}
-                />
+                <button
+                  type="button"
+                  id="empty-button"
+                  onClick={() => openfileDialog()}
+                >
+                  <div className="img-download">
+                    <img
+                      id="banner-pfp"
+                      src={user.image}
+                      alt="PFP"
+                      onError={(event) => {
+                        event.target.src =
+                          "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png";
+                        event.onerror = null;
+                      }}
+                    />
+                    <img
+                      className="edit-logo"
+                      id="banner-pfp-edit"
+                      src={editPfp}
+                      alt="edit button"
+                    ></img>
+                  </div>
+                </button>
+
                 <div className="profile-info">
                   <h2 className="profile-title-name">
                     {user?.firstName} {user?.lastName}
@@ -215,30 +255,16 @@ export default function ProfilePage({
                   </button>
                 </div>
               </div>
-              <div className="input-field-edit">
-                <label htmlFor="image" className="label-edit">
-                  Change Profile Picture
-                </label>
-                <div className="edit-and-send-field">
-                  <input
-                    type="text"
-                    id="existing-image"
-                    name="image"
-                    className="form-input"
-                    placeholder="Image URL"
-                    value={updateObject.image}
-                    onChange={handleOnUpdateObjectChange}
-                  ></input>
-                  <button
-                    type="button"
-                    className="edit-btn"
-                    onClick={() => {
-                      imageEditSubmit(updateObject.image);
-                    }}
-                  >
-                    Update
-                  </button>
-                </div>
+
+              <div className="edit-and-send-field">
+                <input
+                  type="file"
+                  id="existing-image"
+                  name="image"
+                  className="form-input-image"
+                  onChange={handleOnImageChange}
+                  accept=".jpg, .jpeg, .png"
+                ></input>
               </div>
               <div className="input-field-edit">
                 <label htmlFor="firstName" className="label-edit">
