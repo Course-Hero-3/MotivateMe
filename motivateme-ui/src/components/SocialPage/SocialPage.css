@@ -78,7 +78,7 @@
   align-items: center;
   margin-right: 75px;
   padding-bottom: 30px;
-  border: 1px solid #172b4d;
+  border: 1px solid;
   border-radius: 6px;
   border-style: solid;
 }
@@ -130,6 +130,7 @@
 
 .social-form-search::placeholder {
   /* color:white; */
+  color: lightgray;
 }
 
 .show-users-list {
@@ -281,7 +282,7 @@
     align-items: center;
     margin-right: 75px;
     padding-bottom: 30px;
-    border: 1px solid #172b4d;
+    border: 1px solid;
     border-radius: 6px;
     justify-content: space-between;
     width: 500px;

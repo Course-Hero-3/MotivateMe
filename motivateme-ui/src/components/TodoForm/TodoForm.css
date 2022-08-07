@@ -114,6 +114,7 @@
 
 .form-title {
     color: #333;
+    font-size: 26px;
 }
 
 
@@ -128,7 +129,7 @@
     border-radius: 10px;
     border: none;
     width: 40%;
-    background: var(--pure-white);
+    background: lightskyblue;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -138,6 +139,7 @@
 }
 ::placeholder {
     font-size: 15px;
+    color: lightgrey;
 }
 
 .update-footer-buttons {
@@ -195,6 +197,7 @@
 .checkbox-right {
     display: flex;
     align-items: flex-start;
+    accent-color: white;
 }
 
 .dropbtn {
@@ -238,4 +241,8 @@
   
   .dropdown:hover .dropdown-content {display: flex;}
   
-  .dropdown:hover .dropbtn {background-color: lightskyblue;}
+  .dropdown:hover .dropbtn {background-color: var(--primary-blue);}
+
+  ::-webkit-calendar-picker-indicator {
+    filter: invert(0.5);
+}
