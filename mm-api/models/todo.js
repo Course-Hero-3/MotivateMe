@@ -92,6 +92,8 @@ class Todo {
       );
     }
 
+    console.log(givenTask.dueDate, givenTask.dueTime)
+
     const text = `INSERT INTO tasks (
                 user_id,
                 name,
@@ -286,9 +288,13 @@ class Todo {
   //returns tasks that are late
   static async checkIfLate() {
     let date = new Date();
+
     let currentDate = `${date.getFullYear()}-${
       date.getMonth() + 1
     }-${date.getDate()}`;
+
+    let currentHour = date.getUTCHours()
+    let currentMinute = date.getUTCMinutes()
 
     let tasks = await db.query(
       `
@@ -302,15 +308,15 @@ class Todo {
     let notifyUsers = new Map();
 
     for (let index = 0; index < tasks.rows.length; index++) {
-      let taskDate = tasks.rows[index].due_date;
-      let taskDueTime = tasks.rows[index].due_time;
-      let taskDue = new Date(
-        moment(taskDate).format(`YYYY-MM-DDT${taskDueTime}`)
-      );
-      let timeDifference = Math.round(
-        (taskDue.getTime() - date.getTime()) / 60000
-      );
-      if (Math.round(timeDifference === 60)) {
+      // let taskDate = tasks.rows[index].due_date;
+      let taskHour = Number(tasks.rows[index].due_time.split(":")[0])
+      let taskMinute = Number(tasks.rows[index].due_time.split(":")[1])
+
+      console.log(currentMinute, taskMinute, currentHour, taskHour)
+
+      if (currentMinute === taskMinute && (taskHour - currentHour) === 1) {
+        console.log("entered")
+        // then it is 1 hour before the due time (and due date that was filterd by sql)
         let userId = tasks.rows[index].user_id;
         if (notifyUsers.has(userId)) {
           notifyUsers.set(userId, {
@@ -326,6 +332,37 @@ class Todo {
           });
         }
       }
+
+      // console.log(currentHour, currentMinute)
+      // console.log(taskHour, taskMinute)
+      // console.log(currentHour-taskHour)
+      
+      // let taskDueTime = tasks.rows[index].due_time;
+      // let taskDate = new Date(
+      //   moment(currentDate).format(`YYYY-MM-DDT${taskDueTime}`)
+      // );
+
+
+      // console.log("Whole task:", taskDue)
+      // let timeDifference = Math.round(
+      //   (taskDue.getTime() - date.getTime()) / 60000
+      // );
+      // if (Math.round(timeDifference === 60)) {
+      //   let userId = tasks.rows[index].user_id;
+      //   if (notifyUsers.has(userId)) {
+      //     notifyUsers.set(userId, {
+      //       ...notifyUsers.get(userId),
+      //       message:
+      //         notifyUsers.get(userId).message +
+      //         `${tasks.rows[index].name} is due in approximately 60 minutes! \n`,
+      //     });
+      //   } else {
+      //     notifyUsers.set(userId, {
+      //       phone: tasks.rows[index].phone,
+      //       message: `${tasks.rows[index].name} is due in approximately 60 minutes! \n`,
+      //     });
+      //   }
+      // }
     }
     return notifyUsers;
   }

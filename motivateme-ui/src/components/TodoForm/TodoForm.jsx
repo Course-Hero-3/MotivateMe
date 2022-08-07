@@ -97,7 +97,16 @@ export default function TodoForm({
       return;
     }
 
-    let { data, error } = await apiClient.addTask(createForm);
+    let convertedUTC = new Date(
+      createForm.dueDate + " " + createForm.dueTime
+    ).toISOString();
+    let split = convertedUTC.split("T");
+    let convertedDate = split[0];
+    let convertedTime = split[1].slice(0, -8);
+    let convertedUpdatedForm = {...createForm, dueDate: convertedDate,
+      dueTime: convertedTime}
+
+    let { data, error } = await apiClient.addTask(convertedUpdatedForm);
 
     if (data?.task) {
       setCreateError(null);
