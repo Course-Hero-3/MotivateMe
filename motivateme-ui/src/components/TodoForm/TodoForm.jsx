@@ -103,8 +103,11 @@ export default function TodoForm({
     let split = convertedUTC.split("T");
     let convertedDate = split[0];
     let convertedTime = split[1].slice(0, -8);
-    let convertedUpdatedForm = {...createForm, dueDate: convertedDate,
-      dueTime: convertedTime}
+    let convertedUpdatedForm = {
+      ...createForm,
+      dueDate: convertedDate,
+      dueTime: convertedTime,
+    };
 
     let { data, error } = await apiClient.addTask(convertedUpdatedForm);
 

@@ -51,7 +51,7 @@ export default function SocialPage({ user, setCurrPage }) {
 
     getInfo();
 
-    // make sure to remove the event listener since we 
+    // make sure to remove the event listener since we
     // don't want it firing on other pages besides this one
     return () => document.body.removeEventListener("click", collapseSearchBar);
   }, [refresh]);
@@ -269,9 +269,7 @@ export default function SocialPage({ user, setCurrPage }) {
                             </>
                           ) : (
                             <>
-                              <p className="no-users">
-                                No friends found.
-                              </p>
+                              <p className="no-users">No friends found.</p>
                             </>
                           )}
                         </div>
@@ -353,9 +351,7 @@ export default function SocialPage({ user, setCurrPage }) {
                             </>
                           ) : (
                             <>
-                              <p className="no-users">
-                                No other users found.
-                              </p>
+                              <p className="no-users">No other users found.</p>
                             </>
                           )}
                         </div>

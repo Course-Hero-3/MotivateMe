@@ -226,21 +226,21 @@ export function TodoViewer({ currentTasks, setShowDetail }) {
           {currentTasks && currentTasks.length > 0 ? (
             currentTasks?.map((task, idx) => {
               if (idx < 3) {
-                let convertedDateAndTime = new Date(task.dueDate.slice(0, 10)+" "+task.dueTime+" UTC")
-                let localizedTime = ""
-                let hour = String(convertedDateAndTime.getHours())
+                let convertedDateAndTime = new Date(
+                  task.dueDate.slice(0, 10) + " " + task.dueTime + " UTC"
+                );
+                let localizedTime = "";
+                let hour = String(convertedDateAndTime.getHours());
                 if (hour.length === 1) {
-                  localizedTime += `0${hour}:`
+                  localizedTime += `0${hour}:`;
+                } else {
+                  localizedTime += `${hour}:`;
                 }
-                else {
-                  localizedTime += `${hour}:`
-                }
-                let minutes = String(convertedDateAndTime.getMinutes())
+                let minutes = String(convertedDateAndTime.getMinutes());
                 if (minutes.length === 1) {
-                  localizedTime += `0${minutes}:00`
-                }
-                else {
-                  localizedTime += `${minutes}:00`
+                  localizedTime += `0${minutes}:00`;
+                } else {
+                  localizedTime += `${minutes}:00`;
                 }
                 return (
                   <MiniTodoCard

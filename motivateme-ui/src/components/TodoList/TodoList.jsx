@@ -219,10 +219,11 @@ export default function TodoList({ showModal, modalSelected }) {
     let split = convertedUTC.split("T");
     let convertedDate = split[0];
     let convertedTime = split[1].slice(0, -8);
-    let convertedUpdatedForm = {...updateForm, dueDate: convertedDate,
-      dueTime: convertedTime}
-
-    console.log(convertedUpdatedForm)
+    let convertedUpdatedForm = {
+      ...updateForm,
+      dueDate: convertedDate,
+      dueTime: convertedTime,
+    };
 
     let { data, error } = await apiClient.updateTask(convertedUpdatedForm);
 
@@ -369,7 +370,9 @@ export default function TodoList({ showModal, modalSelected }) {
           />
         </form>
         <form className="sort-tasks">
-          <label htmlFor="categories" className="label-for-category">By Category </label>
+          <label htmlFor="categories" className="label-for-category">
+            By Category{" "}
+          </label>
           <select
             name="categories"
             className="categories"
@@ -409,21 +412,21 @@ export default function TodoList({ showModal, modalSelected }) {
           <>
             {searchTasks?.map((task) => {
               // Convert all UTC times back to client's local date/time
-              let convertedDateAndTime = new Date(task.dueDate.slice(0, 10)+" "+task.dueTime+" UTC")
-              let localizedTime = ""
-              let hour = String(convertedDateAndTime.getHours())
+              let convertedDateAndTime = new Date(
+                task.dueDate.slice(0, 10) + " " + task.dueTime + " UTC"
+              );
+              let localizedTime = "";
+              let hour = String(convertedDateAndTime.getHours());
               if (hour.length === 1) {
-                localizedTime += `0${hour}:`
+                localizedTime += `0${hour}:`;
+              } else {
+                localizedTime += `${hour}:`;
               }
-              else {
-                localizedTime += `${hour}:`
-              }
-              let minutes = String(convertedDateAndTime.getMinutes())
+              let minutes = String(convertedDateAndTime.getMinutes());
               if (minutes.length === 1) {
-                localizedTime += `0${minutes}:00`
-              }
-              else {
-                localizedTime += `${minutes}:00`
+                localizedTime += `0${minutes}:00`;
+              } else {
+                localizedTime += `${minutes}:00`;
               }
               return (
                 <TodoCard
@@ -697,7 +700,8 @@ export function TaskDetail({
             </div>
             <div className="task-detail-footer">
               <span className="task-detail-due">
-                Due: {moment(dueDate).format("MMMM Do YYYY")} at {moment(dueTime, "HH:mm:ss").format("hh:mm A")}
+                Due: {moment(dueDate).format("MMMM Do YYYY")} at{" "}
+                {moment(dueTime, "HH:mm:ss").format("hh:mm A")}
               </span>
             </div>
           </div>
