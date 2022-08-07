@@ -387,6 +387,10 @@
    margin-left: 15px;
 }
 
+.border-assignment-info {
+    width: 550px;
+}
+
 
 
 .history-assignment-name {
@@ -395,8 +399,8 @@
 }
  .history-assignment-score, .history-assignment-letter,
 .history-assignment-date {
-    font-size: 25px;
-    width: 150px;
+    font-size: 24px;
+    width: 190;
     display: flex;
     justify-content: center;
 }

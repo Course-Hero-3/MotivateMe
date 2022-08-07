@@ -47,8 +47,13 @@
 .profile-info{
     display: flex;
     flex-direction: column;
+    color: white;
     align-items: flex-start; 
     justify-content: center;  
+}
+
+.profile-title-name {
+    font-size: 30px;
 }
 
 .edit-section{
@@ -60,6 +65,7 @@
 
 .label-edit {
     padding-bottom: 5px;
+    font-weight: none;
     font-family: 'Nunito', sans-serif;
 }
 
@@ -100,7 +106,7 @@
     padding: 8px 12px;
     height: 40px;
     width: 240px;
-    background-color: #9b9b9b;
+    background-color: gray;
     color: white;
     display: flex;
     flex-direction: row;

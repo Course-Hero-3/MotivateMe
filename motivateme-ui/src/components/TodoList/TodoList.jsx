@@ -663,9 +663,9 @@ export function TaskDetail({
             </div>
             <div className="task-detail-body">
               <span className="task-detail-category">{category}</span>
-              <textarea readOnly className="detail-description">
+              <div readOnly className="detail-description">
                 {description}
-              </textarea>
+              </div>
             </div>
             <div className="task-detail-footer">
               <span className="task-detail-due">
