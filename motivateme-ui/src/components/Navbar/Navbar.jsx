@@ -8,16 +8,12 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverHeader,
   PopoverBody,
-  PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
-  PopoverAnchor,
-  ChakraProvider,
 } from "@chakra-ui/react";
 import { IconButton } from "@chakra-ui/react";
-import {HamburgerIcon, SearchIcon} from "@chakra-ui/icons"
+import { HamburgerIcon } from "@chakra-ui/icons";
 
 const clientId =
   "505543512767-7eaflkfnc9l791ojove3bgb2hvuh61a3.apps.googleusercontent.com";
@@ -91,127 +87,125 @@ export default function Navbar({
                 </Link>
               </div>
               <div className="wrapper">
-              <div className="account-links-logged-in">
-                <Link to="/profile">
-                  <img
-                    id="pfp"
-                    src={user.image}
-                    alt="PFP"
-                    onError={(event) => {
-                      event.target.src =
-                        "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png";
-                      event.onerror = null;
-                    }}
-                  />
-                </Link>
-                {loggedInWithGoogle ? (
-                  <Link to="/" className="google-logout">
-                    <GoogleLogout
-                      clientId={clientId}
-                      buttontext="Log Out"
-                      onLogoutSuccess={onLogoutSuccess}
-                    ></GoogleLogout>
+                <div className="account-links-logged-in">
+                  <Link to="/profile">
+                    <img
+                      id="pfp"
+                      src={user.image}
+                      alt="PFP"
+                      onError={(event) => {
+                        event.target.src =
+                          "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png";
+                        event.onerror = null;
+                      }}
+                    />
                   </Link>
-                ) : (
-                  <>
+                  {loggedInWithGoogle ? (
                     <Link to="/" className="google-logout">
-                      <button
-                        className="nav-btn"
-                        onClick={() => {
-                          apiClient.logout();
-                          setUser(null);
-                        }}
-                      >
-                        Log Out
-                      </button>
+                      <GoogleLogout
+                        clientId={clientId}
+                        buttontext="Log Out"
+                        onLogoutSuccess={onLogoutSuccess}
+                      ></GoogleLogout>
                     </Link>
-                  </>
-                )}
-              </div>
-              <div className="burger-menu-logged-in">
-                      <Popover>
-                      <PopoverTrigger>
+                  ) : (
+                    <>
+                      <Link to="/" className="google-logout">
+                        <button
+                          className="nav-btn"
+                          onClick={() => {
+                            apiClient.logout();
+                            setUser(null);
+                          }}
+                        >
+                          Log Out
+                        </button>
+                      </Link>
+                    </>
+                  )}
+                </div>
+                <div className="burger-menu-logged-in">
+                  <Popover>
+                    <PopoverTrigger>
                       <IconButton
                         fontSize={"28px"}
-                        size='lg'
-                        aria-label='Search database'
-                        icon={<HamburgerIcon/>}
+                        size="lg"
+                        aria-label="Search database"
+                        icon={<HamburgerIcon />}
                       />
-                      </PopoverTrigger>
-                      <PopoverContent>
-                        <PopoverArrow />
-                        <PopoverCloseButton />
-                        <PopoverBody>
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <PopoverArrow />
+                      <PopoverCloseButton />
+                      <PopoverBody>
                         <div className="burger-links ">
-                    <>
-                <Link to="/dashboard">
-                  <button
-                    className={`nav-btn ${
-                      currPage === "dashboard" ? "active-tab" : ""
-                    }`}
-                  >
-                    Dashboard
-                  </button>
-                </Link>
-                <Link to="/todo">
-                  <button
-                    className={`nav-btn ${
-                      currPage === "todo" ? "active-tab" : ""
-                    }`}
-                  >
-                    Todo
-                  </button>
-                </Link>
-                <Link to="/recap">
-                  <button
-                    className={`nav-btn ${
-                      currPage === "recap" ? "active-tab" : ""
-                    }`}
-                  >
-                    Recap
-                  </button>
-                </Link>
-                <Link to="/social">
-                  <button
-                    className={`nav-btn ${
-                      currPage === "social" ? "active-tab" : ""
-                    }`}
-                  >
-                    Social
-                  </button>
-                </Link>
-                    </>
-                    {loggedInWithGoogle ? (
-                  <Link to="/" className="google-logout-burger">
-                    <GoogleLogout
-                      clientId={clientId}
-                      buttontext="Log Out"
-                      onLogoutSuccess={onLogoutSuccess}
-                    ></GoogleLogout>
-                  </Link>
-                ) : (
-                  <>
-                    <Link to="/" className="google-logout-burger">
-                      <button
-                        className="nav-btn"
-                        onClick={() => {
-                          apiClient.logout();
-                          setUser(null);
-                        }}
-                      >
-                        Log Out
-                      </button>
-                    </Link>
-                  </>
-                )}
-                  </div>                  
+                          <>
+                            <Link to="/dashboard">
+                              <button
+                                className={`nav-btn ${
+                                  currPage === "dashboard" ? "active-tab" : ""
+                                }`}
+                              >
+                                Dashboard
+                              </button>
+                            </Link>
+                            <Link to="/todo">
+                              <button
+                                className={`nav-btn ${
+                                  currPage === "todo" ? "active-tab" : ""
+                                }`}
+                              >
+                                Todo
+                              </button>
+                            </Link>
+                            <Link to="/recap">
+                              <button
+                                className={`nav-btn ${
+                                  currPage === "recap" ? "active-tab" : ""
+                                }`}
+                              >
+                                Recap
+                              </button>
+                            </Link>
+                            <Link to="/social">
+                              <button
+                                className={`nav-btn ${
+                                  currPage === "social" ? "active-tab" : ""
+                                }`}
+                              >
+                                Social
+                              </button>
+                            </Link>
+                          </>
+                          {loggedInWithGoogle ? (
+                            <Link to="/" className="google-logout-burger">
+                              <GoogleLogout
+                                clientId={clientId}
+                                buttontext="Log Out"
+                                onLogoutSuccess={onLogoutSuccess}
+                              ></GoogleLogout>
+                            </Link>
+                          ) : (
+                            <>
+                              <Link to="/" className="google-logout-burger">
+                                <button
+                                  className="nav-btn"
+                                  onClick={() => {
+                                    apiClient.logout();
+                                    setUser(null);
+                                  }}
+                                >
+                                  Log Out
+                                </button>
+                              </Link>
+                            </>
+                          )}
+                        </div>
                       </PopoverBody>
-                      </PopoverContent>
-                    </Popover>
-                  
-                  </div>
+                    </PopoverContent>
+                  </Popover>
+                </div>
               </div>
-              
             </div>
           </div>
         </>
@@ -242,33 +236,32 @@ export default function Navbar({
                     </>
                   </div>
                   <div className="burger-menu">
-                      <Popover>
+                    <Popover>
                       <PopoverTrigger>
-                      <IconButton
-                        fontSize={"28px"}
-                        size='lg'
-                        aria-label='Search database'
-                        icon={<HamburgerIcon/>}
-                      />
+                        <IconButton
+                          fontSize={"28px"}
+                          size="lg"
+                          aria-label="Search database"
+                          icon={<HamburgerIcon />}
+                        />
                       </PopoverTrigger>
                       <PopoverContent>
                         <PopoverArrow />
                         <PopoverCloseButton />
                         <PopoverBody>
-                        <div className="burger-links ">
-                    <>
-                      <Link to="/login">
-                        <button className="nav-btn">Log In</button>
-                      </Link>
-                      <Link to="/register">
-                        <button className="nav-btn">Register</button>
-                      </Link>
-                    </>
-                  </div>                  
-                      </PopoverBody>
+                          <div className="burger-links ">
+                            <>
+                              <Link to="/login">
+                                <button className="nav-btn">Log In</button>
+                              </Link>
+                              <Link to="/register">
+                                <button className="nav-btn">Register</button>
+                              </Link>
+                            </>
+                          </div>
+                        </PopoverBody>
                       </PopoverContent>
                     </Popover>
-                  
                   </div>
                 </div>
               </div>

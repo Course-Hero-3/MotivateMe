@@ -1,13 +1,10 @@
 import React from "react";
-import RegisterPage from "../RegisterPage/RegisterPage";
 import "./LandingPage.css";
 import { Link } from "react-router-dom";
 import mainImg from "../../assets/Main_Img.png";
 import scheduleImg from "../../assets/Schedule-Img.png";
 import progressImg from "../../assets/Progress-Img.png";
 import friendsImg from "../../assets/Friends-Img.png";
-// import Navbar from "../Navbar/Navbar";
-// import Hero from "../Hero/Hero";
 
 export default function LandingPage({ setCurrPage, colorModeState }) {
   React.useEffect(() => {
@@ -97,24 +94,22 @@ export default function LandingPage({ setCurrPage, colorModeState }) {
           <div className="contacts">
             <div className="contact-footer-wrapper">
               <div className="contact-footer-column ">
-                  <h3 className="footer-column-header">Developers</h3>
-                  <p className="dev-name">Gikai Andrews</p>
-                  <p className="dev-name">Stephane Mbenga</p>
-                  <p className="dev-name">Kian Ranjbar</p>
+                <h3 className="footer-column-header">Developers</h3>
+                <p className="dev-name">Gikai Andrews</p>
+                <p className="dev-name">Stephane Mbenga</p>
+                <p className="dev-name">Kian Ranjbar</p>
               </div>
               <div className="contact-footer-column ">
-                  <h3 className="footer-column-header">Contact</h3>
-                  <p className="dev-email">gikai.andrews.site@codepath.org</p>
-                  <p className="dev-email">
-                    stephane.mbenga.site@codepath.org
-                  </p>
-                  <p className="dev-email">kian.ranjbar.site@codepath.org</p>
+                <h3 className="footer-column-header">Contact</h3>
+                <p className="dev-email">gikai.andrews.site@codepath.org</p>
+                <p className="dev-email">stephane.mbenga.site@codepath.org</p>
+                <p className="dev-email">kian.ranjbar.site@codepath.org</p>
               </div>
 
               <div className="contact-footer-column company">
-                  <h3 className="footer-column-header">Company</h3>
-                  <p className="dev-name">Terms</p>
-                  <p className="dev-email">Privacy</p>
+                <h3 className="footer-column-header">Company</h3>
+                <p className="dev-name">Terms</p>
+                <p className="dev-email">Privacy</p>
               </div>
             </div>
           </div>

@@ -1,7 +1,6 @@
 const db = require("../db");
 const { BadRequestError } = require("../utils/errors");
 require("dotenv").config();
-const moment = require("moment");
 
 class Todo {
   static returnPublicTask(givenTask) {
@@ -113,8 +112,6 @@ class Todo {
     const result = await db.query(text, values);
     return await Todo.returnPublicTask(result.rows[0]);
   }
-
-  
 
   static async completeTask(completedTaskWithId, user) {
     if (!completedTaskWithId) {
@@ -286,48 +283,77 @@ class Todo {
   //returns tasks that are late
   static async checkIfLate() {
     let date = new Date();
-    let currentDate = `${date.getFullYear()}-${
-      date.getMonth() + 1
-    }-${date.getDate()}`;
-
-    let tasks = await db.query(
-      `
-                     SELECT t.name, t.due_date, t.due_time, u.user_id, u.phone 
-                     FROM tasks as t
-                        INNER JOIN users as u on u.user_id=t.user_id
-                     WHERE due_date=$1`,
-      [currentDate]
-    );
-
+    let currentDate = `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}`;
+    let tomorrow = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + 1));
+    let tomorrowDate = `${tomorrow.getUTCFullYear()}-${tomorrow.getUTCMonth() + 1}-${tomorrow.getUTCDate()}`;
+    let currentHour = date.getUTCHours();
+    let currentMinute = date.getUTCMinutes();
     let notifyUsers = new Map();
 
-    for (let index = 0; index < tasks.rows.length; index++) {
-      let taskDate = tasks.rows[index].due_date;
-      let taskDueTime = tasks.rows[index].due_time;
-      let taskDue = new Date(
-        moment(taskDate).format(`YYYY-MM-DDT${taskDueTime}`)
+    if (currentHour === 23) {
+      let tasks = await db.query(
+        `
+                       SELECT t.name, t.due_date, t.due_time, u.user_id, u.phone 
+                       FROM tasks as t
+                          INNER JOIN users as u on u.user_id=t.user_id
+                       WHERE due_date=$1`,
+        [tomorrowDate]
       );
-      let timeDifference = Math.round(
-        (taskDue.getTime() - date.getTime()) / 60000
-      );
-      if (Math.round(timeDifference === 60)) {
-        let userId = tasks.rows[index].user_id;
-        if (notifyUsers.has(userId)) {
-          notifyUsers.set(userId, {
-            ...notifyUsers.get(userId),
-            message:
-              notifyUsers.get(userId).message +
-              `${tasks.rows[index].name} is due in approximately 60 minutes! \n`,
-          });
-        } else {
-          notifyUsers.set(userId, {
-            phone: tasks.rows[index].phone,
-            message: `${tasks.rows[index].name} is due in approximately 60 minutes! \n`,
-          });
+      for (let index = 0; index < tasks.rows.length; index++) {
+        let taskHour = Number(tasks.rows[index].due_time.split(":")[0]);
+        let taskMinute = Number(tasks.rows[index].due_time.split(":")[1]);
+        if (currentMinute === taskMinute && taskHour === 0) {
+          // then that means it is due in 1 hour since it may be 11:xx pm and it is due at 12:xx am the next day
+          let userId = tasks.rows[index].user_id;
+          if (notifyUsers.has(userId)) {
+            notifyUsers.set(userId, {
+              ...notifyUsers.get(userId),
+              message:
+                notifyUsers.get(userId).message +
+                `${tasks.rows[index].name} is due in approximately 60 minutes! \n`,
+            });
+          } else {
+            notifyUsers.set(userId, {
+              phone: tasks.rows[index].phone,
+              message: `${tasks.rows[index].name} is due in approximately 60 minutes! \n`,
+            });
+          }
         }
       }
+      return notifyUsers;
+    } else {
+      let tasks = await db.query(
+        `
+                       SELECT t.name, t.due_date, t.due_time, u.user_id, u.phone 
+                       FROM tasks as t
+                          INNER JOIN users as u on u.user_id=t.user_id
+                       WHERE due_date=$1`,
+        [currentDate]
+      );
+
+      for (let index = 0; index < tasks.rows.length; index++) {
+        let taskHour = Number(tasks.rows[index].due_time.split(":")[0]);
+        let taskMinute = Number(tasks.rows[index].due_time.split(":")[1]);
+        if (currentMinute === taskMinute && taskHour - currentHour === 1) {
+          // then it is 1 hour before the due time (and due date that was filterd by sql)
+          let userId = tasks.rows[index].user_id;
+          if (notifyUsers.has(userId)) {
+            notifyUsers.set(userId, {
+              ...notifyUsers.get(userId),
+              message:
+                notifyUsers.get(userId).message +
+                `${tasks.rows[index].name} is due in approximately 60 minutes! \n`,
+            });
+          } else {
+            notifyUsers.set(userId, {
+              phone: tasks.rows[index].phone,
+              message: `${tasks.rows[index].name} is due in approximately 60 minutes! \n`,
+            });
+          }
+        }
+      }
+      return notifyUsers;
     }
-    return notifyUsers;
   }
 }
 

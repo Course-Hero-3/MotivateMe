@@ -15,7 +15,6 @@ export default function LoginPage({
   user,
   setUser,
   setCurrPage,
-  loggedInWithGoogle,
   setLoggedInWithGoogle,
 }) {
   // track the form and error for login
@@ -28,10 +27,10 @@ export default function LoginPage({
     function start() {
       gapi.client.init({
         clientId: clientId,
-        scope: ""
-      })
+        scope: "",
+      });
     }
-    gapi.load('client:auth2', start)
+    gapi.load("client:auth2", start);
   }, []);
 
   // set currPage to login for navbar functionality
@@ -50,15 +49,14 @@ export default function LoginPage({
 
     if (data?.token) {
       setLoginError(null);
-      setLoggedInWithGoogle(true)
+      setLoggedInWithGoogle(true);
       apiClient.setToken(data.token);
       setUser(data.user);
       setLoginForm({ email: "", password: "" });
     }
     if (error) {
-      console.log("error", error);
       setLoginError(error);
-      setLoggedInWithGoogle(false)
+      setLoggedInWithGoogle(false);
     }
   };
 
@@ -135,13 +133,12 @@ export default function LoginPage({
     let { data, error } = await apiClient.login(loginForm);
 
     if (data?.token) {
-      setLoggedInWithGoogle(false)
+      setLoggedInWithGoogle(false);
       apiClient.setToken(data.token);
       setUser(data.user);
       setLoginForm({ email: "", password: "" });
     }
     if (error) {
-      console.log("error", error);
       setLoginError(error);
     }
   };
@@ -165,26 +162,34 @@ export default function LoginPage({
             <h2 className="login-title">Log In</h2>
             <h3 className="login-text">Track your progress with friends!</h3>
             <div className="google-login">
-            <GoogleLogin
-              clientId={clientId}
-              buttonText="Log In with Google"
-              onSuccess={onSuccess}
-              onFailure={onFailure}
-              render = {renderProps => (
-                <div className="button-wrapper" onClick={renderProps.onClick} disabled = {renderProps.disabled}>
-                  <img src={googleIcon} alt = "google-icon" className="google-icon"></img>
-                  <span className="google-signin-text">Sign in with Google</span>
-                </div>
-              )}
-              cookiePolicy={"single_host_origin"}
-              isSignedIn={true}
-            ></GoogleLogin>
-            
+              <GoogleLogin
+                clientId={clientId}
+                buttonText="Log In with Google"
+                onSuccess={onSuccess}
+                onFailure={onFailure}
+                render={(renderProps) => (
+                  <div
+                    className="button-wrapper"
+                    onClick={renderProps.onClick}
+                    disabled={renderProps.disabled}
+                  >
+                    <img
+                      src={googleIcon}
+                      alt="google-icon"
+                      className="google-icon"
+                    ></img>
+                    <span className="google-signin-text">
+                      Sign in with Google
+                    </span>
+                  </div>
+                )}
+                cookiePolicy={"single_host_origin"}
+                isSignedIn={true}
+              ></GoogleLogin>
+            </div>
+            <p className="ride-line">Or sign in with email</p>
           </div>
-          <p className="ride-line">Or sign in with email</p>
 
-          </div>
-      
           <div className="input-field">
             <label htmlFor="email" className="label">
               Email
