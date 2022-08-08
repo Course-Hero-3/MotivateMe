@@ -26,7 +26,8 @@ export default function DoughnutVisual( { labels, label, actualData, colors } ) 
                 animateRotate: true,
                 animateScale: false // cool animations but do we want them both?
             },
-            responsive: false,
+            responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 datalabels: {
                     formatter: (value, ctx) => {

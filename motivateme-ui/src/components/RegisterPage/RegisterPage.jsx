@@ -22,7 +22,6 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
   // also, navigate to "todo" page if they are
   // already logged in (they must  be logged out to access this page)
   useEffect(() => {
-   
     setCurrPage("register");
     if (user?.email) {
       navigate("/dashboard");

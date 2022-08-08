@@ -110,6 +110,10 @@ margin-top: 22px;
 .landing-body.light {
     background: #f0f6f9;
 }
+.landing-body.dark {
+    background: #232c3c;
+}
+
 .landing-header{
     font-weight: 2000;
     font-family: 'Nunito', sans-serif;

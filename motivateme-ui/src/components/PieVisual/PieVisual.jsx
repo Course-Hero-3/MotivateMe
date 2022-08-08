@@ -24,7 +24,8 @@ export default function PieVisual( { labels, label, actualData, colors } ) {
                 animateRotate: false,
                 animateScale: true // cool animations but do we want them both?
             },
-            responsive: false,
+            responsive: true,
+            maintainAspectRatio: false,
             tooltips: {
                 enabled: false
             },
@@ -49,7 +50,7 @@ export default function PieVisual( { labels, label, actualData, colors } ) {
             //     }
             // }
         }}
-        height={450}
+        height={400}
         width={600}
         />
   )

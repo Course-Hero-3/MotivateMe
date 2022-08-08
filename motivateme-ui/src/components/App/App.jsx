@@ -116,7 +116,7 @@ function App() {
                 />
                 <Route
                   path="/recap"
-                  element={<RecapPage user={user} setCurrPage={setCurrPage} />}
+                  element={<RecapPage user={user} setCurrPage={setCurrPage} colorModeState={colorModeState} />}
                 />
                 <Route
                   path="/social"
@@ -135,6 +135,7 @@ function App() {
                       setCurrPage={setCurrPage}
                       setColorState = {setColorState}
                       loggedInWithGoogle={loggedInWithGoogle}
+                      colorModeState={colorModeState}
                     />
                   }
                 />
