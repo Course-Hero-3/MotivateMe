@@ -332,6 +332,9 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
               value={registerForm.phone}
               onChange={handleOnRegisterFormChange}
             ></input>
+            <div className="notification text">
+              <p> You will recieve notifications when you put your phone number in!</p>
+            </div>
             <div className="register-footer">
               {registerError ? (
                 <div className="error">{registerError}</div>
