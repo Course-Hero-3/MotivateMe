@@ -17,7 +17,6 @@ const authedUserOwnsTask = async (req, res, next) => {
         const taskExistsText = `SELECT * FROM tasks WHERE task_id=$1;`;
         const taskExistsValues = [givenTaskId]            
         const taskExistsResult = await db.query(taskExistsText, taskExistsValues);
-        console.log(taskExistsResult.rows[0])
         if (taskExistsResult.rows[0] === undefined || taskExistsResult.rows[0] === null) {
             throw new BadRequestError('That taskId does not exist.')
         }

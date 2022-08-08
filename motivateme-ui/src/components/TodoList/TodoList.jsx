@@ -24,12 +24,9 @@ export default function TodoList({ showModal, modalSelected }) {
   //const [searchTasks, setSearchTasks] = useState(null)
   const [searchBarQuery, setQuery] = useState("");
   const [categoryQuery, setCategoryQuery] = useState("");
-  const [sortByDate, setSortByDate] = useState("");
   const [taskError, setTaskError] = useState(null);
   const [refreshTasks, setRefreshTasks] = useState(false);
-  const [taskMessage, setTaskMessage] = useState(
-    "You currently don't have any tasks to complete!"
-  );
+
 
   const fixRegexSpecialCharacters = (str) => {
     for (let i = 0; i < str.length; i++) {

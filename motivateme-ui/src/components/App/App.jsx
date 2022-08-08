@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import reactLogo from "../../assets/react.svg";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import Navbar from "../Navbar/Navbar";
@@ -11,17 +10,14 @@ import DashboardPage from "../DashboardPage/DashboardPage";
 import apiClient from "../../../services/apiclient";
 import "./App.css";
 import NotFound from "../NotFound/NotFound";
-import AccessForbidden from "../AccessForbidden/AccessForbidden";
 import SocialPage from "../SocialPage/SocialPage";
 import ProfilePage from "../ProfilePage/ProfilePage";
 import SecurityChange from "../SecurityChange/SecurityChange";
 import {
   ChakraProvider,
-  theme,
   ThemeProvider,
   ColorModeProvider,
   CSSReset,
-  useColorMode
 } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
 // import  Toggle  from "../../../toggle";
@@ -29,7 +25,6 @@ import { extendTheme } from "@chakra-ui/react";
 function App() {
   const [loggedInWithGoogle, setLoggedInWithGoogle] = useState(false);
   const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);
   const [currPage, setCurrPage] = useState(null);
   const config = {
     initialColorMode: "light",
@@ -155,7 +150,6 @@ function App() {
         </React.Fragment>
       </ThemeProvider>
     </ChakraProvider>
-
   );
 }
 
