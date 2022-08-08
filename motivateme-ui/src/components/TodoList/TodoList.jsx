@@ -9,7 +9,7 @@ import { useState } from "react";
 import moment, { min } from "moment";
 
 import apiClient from "../../../services/apiclient";
-import { color } from "@chakra-ui/react";
+import { color, Icon } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 
 import {
@@ -23,6 +23,10 @@ import {
   MenuDivider,
   Button,
 } from "@chakra-ui/react";
+import { InfoIcon} from '@chakra-ui/icons'
+import { IconButton } from '@chakra-ui/react'
+
+
 import { ChevronDownIcon } from "@chakra-ui/icons";
 String.prototype.replaceAt = function (index, replacement) {
   if (index >= this.length) {
@@ -596,7 +600,7 @@ export function TodoCard({
 
         <div className="form-icons">
           <img
-            className="form-icon"
+            className="form-icon  mobile"
             src={updateIcon}
             alt="update-icon"
             onClick={() => {
@@ -604,23 +608,25 @@ export function TodoCard({
             }}
           />
           <img
-            className="form-icon"
+            className="form-icon  mobile"
             src={completeIcon}
             alt="complete-icon"
             onClick={() => {
               setUpdateOrComplete("complete");
             }}
           />
+         {/* <IconButton icon={<InfoIcon w={8} h={8} color="black"/>}/> */}
+           
           <svg
-            alt="form-icon"
+            alt="form-icon mobile"
             id="form-icon-info"
             onClick={() => {
               setShowDetail({ name, description, category, dueDate, dueTime });
             }}
             xmlns="http://www.w3.org/2000/svg"
             className="icon icon-tabler icon-tabler-info-circle"
-            width="44"
-            height="44"
+          
+
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="#2c3e50"
@@ -632,7 +638,7 @@ export function TodoCard({
             <circle cx="12" cy="12" r="9" />
             <line x1="12" y1="8" x2="12.01" y2="8" />
             <polyline points="11 12 12 12 12 16 13 16" />
-          </svg>
+          </svg> 
         </div>
       </div>
       {updateOrComplete === "update" ? (
