@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import "./TodoForm.css";
+
 import apiClient from "../../../services/apiclient";
 import moment from "moment";
 export default function TodoForm({
@@ -21,7 +22,11 @@ export default function TodoForm({
   originalForm,
   handleOnDeleteTask,
   name,
+  colorModeState
 }) {
+useEffect(()=> {
+  console.log(colorModeState)
+})
   const [createForm, setCreateForm] = useState({
     name: "",
     description: "",
@@ -123,6 +128,7 @@ export default function TodoForm({
           createForm={createForm}
           setCreateForm={setCreateForm}
           createError={createError}
+          colorModeState = {colorModeState}
         />
       ) : null}
 
@@ -137,6 +143,8 @@ export default function TodoForm({
           handleOnDeleteTask={handleOnDeleteTask}
           taskError={taskError}
           setTaskError={setTaskError}
+          colorModeState = {colorModeState}
+
         />
       ) : null}
 
@@ -152,6 +160,8 @@ export default function TodoForm({
           setUpdateOrComplete={setUpdateOrComplete}
           taskError={taskError}
           setTaskError={setTaskError}
+          colorModeState = {colorModeState}
+
         />
       ) : null}
     </div>
@@ -165,12 +175,14 @@ export function TodoCreate({
   handleOnCreateFormChange,
   handleOnCreateSubmit,
   createError,
+  colorModeState
 }) {
+
   return (
     <div className={`form_modal`}>
-      <form className="form_modal_content">
+      <form className={colorModeState === 'dark'?"form_modal_content dark":"form_modal_content light"}>
         <div className="form-header">
-          <h2 className="form-title">Create </h2>
+          <h2 className={colorModeState === 'dark'?"form-title dark":"form-title"}>Create </h2>
           <svg
             onClick={() => {
               showModal("");
@@ -339,12 +351,13 @@ export function TodoUpdate({
   handleOnDeleteTask,
   taskError,
   setTaskError,
+  colorModeState
 }) {
   return (
     <div className={`form_modal`}>
-      <form className="form_modal_content">
+      <form className={colorModeState === 'dark'?"form_modal_content dark":"form_modal_content light"}>
         <div className="form-header">
-          <h2 className="form-title">Update</h2>
+          <h2 className={colorModeState === 'dark'?"form-title dark":"form-title"}>Update</h2>
           <svg
             onClick={() => {
               setUpdateOrComplete(null);
@@ -536,12 +549,13 @@ export function TodoComplete({
   taskId,
   taskError,
   setTaskError,
+  colorModeState
 }) {
   return (
     <div className={`form_modal`}>
-      <div className="form_modal_content">
+      <div className={colorModeState === 'dark'?"form_modal_content dark":"form_modal_content light"}>
         <div className="form-header">
-          <h2 className="form-title">Complete</h2>
+          <h2 className={colorModeState === 'dark'?"form-title dark":"form-title"}>Complete</h2>
           <svg
             onClick={() => {
               setUpdateOrComplete("");

@@ -30,6 +30,7 @@ function App() {
   const [loggedInWithGoogle, setLoggedInWithGoogle] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+  const [colorModeState, setColorState] = useState("")
   const [currPage, setCurrPage] = useState(null);
   const config = {
     initialColorMode: "light",
@@ -81,7 +82,7 @@ function App() {
                 <Route
                   path="/"
                   element={
-                    <LandingPage user={user} setCurrPage={setCurrPage} />
+                    <LandingPage user={user} setCurrPage={setCurrPage} colorModeState = {colorModeState}/>
                   }
                 />
                 <Route
@@ -114,7 +115,7 @@ function App() {
                 />
                 <Route
                   path="/todo"
-                  element={<TodoPage user={user} setCurrPage={setCurrPage} />}
+                  element={<TodoPage user={user} setCurrPage={setCurrPage} colorModeState = {colorModeState}/>}
                 />
                 <Route
                   path="/recap"
@@ -135,6 +136,7 @@ function App() {
                       user={user}
                       setUser={setUser}
                       setCurrPage={setCurrPage}
+                      setColorState = {setColorState}
                       loggedInWithGoogle={loggedInWithGoogle}
                     />
                   }

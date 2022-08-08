@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import "./DashboardPage.css";
 import { Link } from "react-router-dom";
+import "./DashboardPage.css";
+
 import { useEffect } from "react";
 import gradeIcon from "../../assets/Exam Grade.svg";
 import AccessForbidden from "../AccessForbidden/AccessForbidden";

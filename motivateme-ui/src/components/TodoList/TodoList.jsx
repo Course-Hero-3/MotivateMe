@@ -8,6 +8,7 @@ import { useState } from "react";
 import moment from "moment";
 
 import apiClient from "../../../services/apiclient";
+import { color } from "@chakra-ui/react";
 String.prototype.replaceAt = function (index, replacement) {
   if (index >= this.length) {
     return this.valueOf();
@@ -16,7 +17,7 @@ String.prototype.replaceAt = function (index, replacement) {
   return this.substring(0, index) + replacement + this.substring(index + 1);
 };
 
-export default function TodoList({ showModal, modalSelected }) {
+export default function TodoList({ showModal, modalSelected, colorModeState }) {
   /**useEffect
    * handle
    */
@@ -418,6 +419,7 @@ export default function TodoList({ showModal, modalSelected }) {
                   handleQuery={handleOnQueryChange}
                   query={query}
                   setQuery={setQuery}
+                  colorModeState = {colorModeState}
                 />
               );
             })}
@@ -464,6 +466,7 @@ export function TodoCard({
   taskError,
   setTaskError,
   handleQuery,
+  colorModeState
 }) {
   /**states */
   const [updateForm, setUpdateForm] = useState({
@@ -592,7 +595,9 @@ export function TodoCard({
           setUpdateOrComplete={setUpdateOrComplete}
           handleOnDeleteTask={handleOnDeleteTask}
           taskError={taskError}
-          setTaskError={setTaskError}
+            setTaskError={setTaskError}
+            colorModeState = {colorModeState}
+
         />
       ) : null}
       {updateOrComplete === "complete" ? (
@@ -607,6 +612,8 @@ export function TodoCard({
           taskError={taskError}
           setTaskError={setTaskError}
           name={name}
+          colorModeState = {colorModeState}
+
         />
       ) : null}
       {showDetail ? (
@@ -618,6 +625,8 @@ export function TodoCard({
           dueTime={showDetail.dueTime}
           setShowDetail={setShowDetail}
           showDetail={showDetail}
+          colorModeState = {colorModeState}
+
         />
       ) : null}
     </div>
@@ -632,14 +641,15 @@ export function TaskDetail({
   dueTime,
   showDetail,
   setShowDetail,
+  colorModeState
 }) {
   return (
     <React.Fragment>
       {showDetail !== null ? (
         <div className="task-detail-card task_modal">
-          <div className="task_modal_content">
+          <div className={colorModeState === 'dark'?"task_modal_content dark":"task_modal_content light"}>
             <div className="task-header">
-              <h2 className="task-detail-name">{name}</h2>
+              <h2 className={colorModeState === 'dark'?"task-detail-name dark":'task-detail-name'}>{name}</h2>
 
               <svg
                 onClick={() => {

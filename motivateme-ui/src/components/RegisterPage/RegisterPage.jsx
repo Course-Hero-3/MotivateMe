@@ -244,31 +244,31 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
             </h4>
           </div>
           <div className="split-input-field">
-            <div className="input-field">
+            <div className="input-field-split">
               <span className="label">First Name</span>
 
               <input
                 type="text"
                 name="firstName"
-                className="form-input"
+                className="form-input-split"
                 placeholder="Type your first name"
                 value={registerForm.firstName}
                 onChange={handleOnRegisterFormChange}
               ></input>
             </div>
-            <div className="input-field">
+            <div className="input-field-split">
               <span className="label">Last Name</span>
               <input
                 type="text"
                 name="lastName"
-                className="form-input"
+                className="form-input-split"
                 placeholder="Type your last name"
                 value={registerForm.lastName}
                 onChange={handleOnRegisterFormChange}
               ></input>
             </div>
           </div>
-          <div className="input-field">
+          <div className="input-field register">
             <span className="label">Email</span>
 
             <input
@@ -280,7 +280,7 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
               onChange={handleOnRegisterFormChange}
             ></input>
           </div>
-          <div className="input-field">
+          <div className="input-field register">
             <span className="label">Username</span>
 
             <input
@@ -292,7 +292,7 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
               onChange={handleOnRegisterFormChange}
             ></input>
           </div>
-          <div className="input-field">
+          <div className="input-field register">
             <span className="label">Password</span>
 
             <input
@@ -304,7 +304,7 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
               onChange={handleOnRegisterFormChange}
             ></input>
           </div>
-          <div className="input-field">
+          <div className="input-field register">
             <span className="label">Confirm Password</span>
 
             <input
@@ -316,7 +316,7 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
               onChange={handleOnRegisterFormChange}
             ></input>
           </div>
-          <div className="input-field">
+          <div className="input-field register">
             <span className="label">Profile Picture Upload (optional)</span>
             <input
               type="file"
@@ -326,7 +326,7 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
               accept=".jpg, .jpeg, .png"
             ></input>
           </div>
-          <div className="input-field">
+          <div className="input-field register">
             <span className="label">Phone Number (optional)</span>
 
             <input
