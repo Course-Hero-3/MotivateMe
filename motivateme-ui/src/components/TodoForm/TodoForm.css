@@ -75,6 +75,12 @@
     width: 50%;
 }
 
+.change-measurement {
+    display: flex;
+    justify-content: space-between;
+}
+
+
 .form-input.split {
     width: 100%;
     border: 1px solid rgb(218, 218, 218);
@@ -82,7 +88,15 @@
     /* background: #fff; */
     box-sizing: border-box;
     /* color: #333; */
+}
 
+.split-twice {
+    width: 60%;
+    border: 1px solid rgb(218, 218, 218);
+    border-radius: 10px;
+    /* background: #fff; */
+    box-sizing: border-box;
+    /* color: #333; */
 }
 
 .form-input.description {
