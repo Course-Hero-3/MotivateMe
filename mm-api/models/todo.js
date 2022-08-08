@@ -335,7 +335,6 @@ class Todo {
       for (let index = 0; index < tasks.rows.length; index++) {
         let taskHour = Number(tasks.rows[index].due_time.split(":")[0]);
         let taskMinute = Number(tasks.rows[index].due_time.split(":")[1]);
-        console.log("the other time:", taskHour, taskMinute);
         if (currentMinute === taskMinute && taskHour - currentHour === 1) {
           // then it is 1 hour before the due time (and due date that was filterd by sql)
           let userId = tasks.rows[index].user_id;
