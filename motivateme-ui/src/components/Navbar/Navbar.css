@@ -89,6 +89,11 @@
     
 }
 
+
+.hidden{
+
+   text-decoration: none;
+}
 .nav-btn {
     padding: 4px 10px;
     cursor: pointer;
@@ -96,6 +101,12 @@
     background-color: transparent;
     border-style: none;
     font-size: 20px;
+    text-decoration: none;
+
+}
+
+.nav-btn:hover{
+    color: black;
 }
 
 /* Simply add a color the bottom side of the border
