@@ -22,15 +22,7 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
   // also, navigate to "todo" page if they are
   // already logged in (they must  be logged out to access this page)
   useEffect(() => {
-    const getCredentials = async () => {
-      let tempCredentials = await apiClient.getAwsCredentials();
-      if (tempCredentials?.data?.config) {
-        setAwsConfig(tempCredentials.data.config);
-      }
-    };
-
-    getCredentials();
-
+   
     setCurrPage("register");
     if (user?.email) {
       navigate("/dashboard");
