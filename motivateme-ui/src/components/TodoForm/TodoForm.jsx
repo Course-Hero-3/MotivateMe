@@ -4,6 +4,9 @@ import "./TodoForm.css";
 
 import apiClient from "../../../services/apiclient";
 import moment from "moment";
+import { Checkbox, CheckboxGroup } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react'
+
 export default function TodoForm({
   formType,
   setUpdateOrComplete,
@@ -35,7 +38,7 @@ useEffect(()=> {
     dueTime: "23:59",
   });
   const [createError, setCreateError] = useState(null);
-
+  const toast = useToast()
   const handleOnCreateFormChange = (event) => {
     if (
       createError === "Name field is mandatory" &&
@@ -114,6 +117,13 @@ useEffect(()=> {
         dueTime: "",
       });
       showModal("");
+      toast({
+        title: 'Task succesfully created!',
+        description: "",
+        status: 'success',
+        duration: 6000,
+        isClosable: true,
+      })
     } else {
       setCreateError(error);
     }
@@ -177,6 +187,7 @@ export function TodoCreate({
   createError,
   colorModeState
 }) {
+  const toast = useToast()
 
   return (
     <div className={`form_modal`}>
@@ -331,7 +342,8 @@ export function TodoCreate({
           <button
             className="form-submit-btn"
             type="button"
-            onClick={handleOnCreateSubmit}
+            onClick={(event) => {handleOnCreateSubmit(event);
+    }}
           >
             Submit
           </button>
@@ -353,6 +365,7 @@ export function TodoUpdate({
   setTaskError,
   colorModeState
 }) {
+  const toast = useToast()
   return (
     <div className={`form_modal`}>
       <form className={colorModeState === 'dark'?"form_modal_content dark":"form_modal_content light"}>
@@ -528,6 +541,7 @@ export function TodoUpdate({
               type="button"
               onClick={(event) => {
                 handleOnDeleteTask(event, updateForm.taskId);
+            
               }}
             >
               Delete
@@ -551,6 +565,8 @@ export function TodoComplete({
   setTaskError,
   colorModeState
 }) {
+  const toast = useToast()
+
   return (
     <div className={`form_modal`}>
       <div className={colorModeState === 'dark'?"form_modal_content dark":"form_modal_content light"}>
@@ -657,37 +673,31 @@ export function TodoComplete({
               }}
             ></textarea>
           </div>
-
-          <div className="text-and-checkbox-area">
-            <p>Completed On Time?</p>
-            <input
-              className="checkbox-right"
-              type="checkbox"
-              name="onTime"
-              onChange={(event) => {
-                handleOnCompleteFormChange(
-                  event,
-                  completeForm,
-                  setCompleteForm
-                );
-              }}
-            />
-          </div>
-          <div className="text-and-checkbox-area">
-            <p>Public?</p>
-            <input
-              className="checkbox-right"
-              type="checkbox"
+          <div className="checkbox">
+              <Checkbox size='lg' colorScheme='green'
               name="public"
-              onChange={(event) => {
-                handleOnCompleteFormChange(
-                  event,
-                  completeForm,
-                  setCompleteForm
-                );
-              }}
-            />
+                  onChange={(event) => {
+                    handleOnCompleteFormChange(
+                      event,
+                      completeForm,
+                      setCompleteForm
+                    );
+                  }}>
+                  Public
+            </Checkbox>
+            <Checkbox size='lg' colorScheme='green'
+            name="onTime"
+                  onChange={(event) => {
+                    handleOnCompleteFormChange(
+                      event,
+                      completeForm,
+                      setCompleteForm
+                    );
+                  }}>
+                  On Time
+            </Checkbox>
           </div>
+          
           <div>
             <p className="error-create">{taskError ? taskError : ""}</p>
           </div>

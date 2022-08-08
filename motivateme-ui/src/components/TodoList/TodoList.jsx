@@ -6,9 +6,24 @@ import completeIcon from "../../assets/complete-icon.png";
 import TodoForm from "../TodoForm/TodoForm";
 import { useState } from "react";
 import moment from "moment";
-
 import apiClient from "../../../services/apiclient";
 import { color } from "@chakra-ui/react";
+import { useToast } from '@chakra-ui/react'
+
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+  Button
+} from '@chakra-ui/react'
+import {
+  ChevronDownIcon
+} from "@chakra-ui/icons"
 String.prototype.replaceAt = function (index, replacement) {
   if (index >= this.length) {
     return this.valueOf();
@@ -22,6 +37,7 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
    * handle
    */
   const [tasks, setTasks] = useState(null);
+  const toast = useToast()
   //const [searchTasks, setSearchTasks] = useState(null)
   const [searchBarQuery, setQuery] = useState("");
   const [categoryQuery, setCategoryQuery] = useState("");
@@ -220,6 +236,13 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
       setTaskError(null);
       setRefreshTasks(!refreshTasks);
       setUpdateOrComplete(null);
+      toast({
+        title: 'Task succesfully updated!',
+        description: "",
+        status: 'success',
+        duration: 6000,
+        isClosable: true,
+  })
     } else {
       setTaskError(error);
     }
@@ -306,6 +329,13 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
     if (data?.completedTask) {
       setTaskError("");
       setRefreshTasks(!refreshTasks);
+      toast({
+        title: 'Task succesfully completed!',
+        description: "",
+        status: 'success',
+        duration: 6000,
+        isClosable: true,
+      })
     } else {
       setTaskError(error);
     }
@@ -319,6 +349,13 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
     if (data?.deletedTask) {
       setTaskError("");
       setRefreshTasks(!refreshTasks);
+      toast({
+        title: 'Task succesfully deleted!',
+        description: "",
+        status: 'success',
+        duration: 6000,
+        isClosable: true,
+      })
     } else {
       setTaskError(error);
     }
@@ -333,6 +370,7 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
   return (
     <div className="todo-list">
       <div className="todo-list-header">
+
         <h3 className="todo-list-title">Task Overview</h3>
         <form className="task-form">
           <button className="task-form-btn">
@@ -358,35 +396,20 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
             aria-label="Search through site content"
           />
         </form>
-        <form className="sort-tasks">
-          <label htmlFor="categories" className="label-for-category">By Category </label>
-          <select
-            name="categories"
-            className="categories"
-            onChange={(event) => {
-              setCategoryQuery(event.target.value);
-            }}
-          >
-            <option value="" className="category-option">
-              All
-            </option>
-            <option value="homework" className="category-option">
-              Homework
-            </option>
-            <option value="quiz" className="category-option">
-              Quiz
-            </option>
-            <option value="test" className="category-option">
-              Test
-            </option>
-            <option value="project" className="category-option">
-              Project
-            </option>
-            <option value="essay" className="category-option">
-              Essay
-            </option>
-          </select>
-        </form>
+        <Menu>
+  <MenuButton as = {Button} rightIcon={<ChevronDownIcon />}>
+    {categoryQuery || "Category"}
+  </MenuButton>
+  <MenuList  >
+    <MenuItem onClick={()=> setCategoryQuery("")}>All</MenuItem>
+    <MenuItem onClick={()=> setCategoryQuery("homework")}>Homework</MenuItem>
+    <MenuItem onClick={()=> setCategoryQuery("test")}>Test</MenuItem>
+    <MenuItem onClick={()=> setCategoryQuery("quiz")}>Quiz</MenuItem>
+    <MenuItem onClick={()=> setCategoryQuery("project")}>Project</MenuItem>
+    <MenuItem onClick={()=> setCategoryQuery("essay")}>Essay</MenuItem>
+
+  </MenuList>
+</Menu>
       </div>
       <div className="todo-list-wrapper d-flex flex-column justify-content-flex-start align-items-center">
         {searchTasks?.length === 0 ? (

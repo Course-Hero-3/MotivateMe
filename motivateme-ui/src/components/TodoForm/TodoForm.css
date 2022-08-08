@@ -154,7 +154,7 @@
 }
 
 .form-submit-btn, .form-delete-btn {
-    width: 90px;
+    width: 105px;
     cursor: pointer;
     font-size: 18px;
     font-weight: 500;
@@ -190,7 +190,11 @@
     background-color: #5cb85c;
     color: white;
   }
-
+.checkbox {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
 .error-create {
     color: red;
 }
