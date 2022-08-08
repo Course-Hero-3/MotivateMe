@@ -28,9 +28,7 @@
     .login-page {
         justify-content: center;
     }
-    .login-wrapper {
-        width: 100%;
-    }
+ 
 }
 
 .login-img {
@@ -65,13 +63,13 @@
     height: 100vh;
     width: 60%;
 }
+
 .label {
     margin-bottom: 4px;
 }
 .login-form{
     display: flex;
     flex-direction: column;
-    height: 500px;
     width: 500px;
     justify-content: space-evenly;
     font-family: 'Nunito', sans-serif;
@@ -80,6 +78,34 @@
     .login-form-intro {
         margin-bottom: 20px;
     }
+
+    @media(max-width:1195px){   
+        .login-wrapper.mobile {
+        display: block;
+        width: 80%;
+        margin: 50px auto;
+    }
+    .login-form.mobile {
+        width: 60%;
+        margin: 100px auto;
+    }
+    .login-form-intro {
+        width: 100%;
+    }
+    .login-title, .login-text {
+        width: 100%;
+    }
+}
+@media(max-width:520px){
+}
+
+    @media(max-width:700px){
+        .login-form.mobile{
+            width:100%
+             ;
+        }
+    }
+
 
 .login-text{
     display: flex;
@@ -131,6 +157,18 @@ font-family: 'Nunito', sans-serif;
     width: 450px;
 }
 
+@media(max-width:900px) {
+    #email, #password {
+        width: 100%;
+    }
+    .google-login.mobile, .button-wrapper.mobile {
+        width: 100%;
+    }
+    .google-signin-text.mobile {
+        font-size: 15px;
+    }
+}
+
 .form-input, .error {
     margin-bottom: 10px;
 
@@ -152,6 +190,15 @@ margin-top: 15px;
 .signup-link {
     color: var(--primary-blue)
 }
+@media(max-width:900px){
+    .login-footer {
+        width: 100%;
+    }
+    .login-button {
+        width: 100%;
+    }
+
+}
 
 .label{
 
@@ -164,7 +211,6 @@ margin-top: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 450px;
 }
 
 .footer-text {
@@ -198,7 +244,6 @@ margin-top: 15px;
     display: flex;
     justify-content: center;
     background-color:#fff;
-    width: 450px;
     border-radius: 4px;
     font-size: 20px;
     height: 54px;

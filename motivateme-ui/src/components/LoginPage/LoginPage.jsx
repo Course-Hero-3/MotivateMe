@@ -156,12 +156,12 @@ export default function LoginPage({
           />
         </div>
       </div>
-      <div className="login-wrapper">
-        <form className="login-form">
+      <div className="login-wrapper mobile">
+        <form className="login-form mobile">
           <div className="login-form-intro d-flex flex-column">
             <h2 className="login-title">Log In</h2>
             <h3 className="login-text">Track your progress with friends!</h3>
-            <div className="google-login">
+            <div className="google-login mobile">
               <GoogleLogin
                 clientId={clientId}
                 buttonText="Log In with Google"
@@ -169,7 +169,7 @@ export default function LoginPage({
                 onFailure={onFailure}
                 render={(renderProps) => (
                   <div
-                    className="button-wrapper"
+                    className="button-wrapper mobile"
                     onClick={renderProps.onClick}
                     disabled={renderProps.disabled}
                   >
@@ -178,7 +178,7 @@ export default function LoginPage({
                       alt="google-icon"
                       className="google-icon"
                     ></img>
-                    <span className="google-signin-text">
+                    <span className="google-signin-text mobile">
                       Sign in with Google
                     </span>
                   </div>
