@@ -27,9 +27,7 @@ export default function TodoForm({
   name,
   colorModeState
 }) {
-useEffect(()=> {
-  console.log(colorModeState)
-})
+
   const [createForm, setCreateForm] = useState({
     name: "",
     description: "",
