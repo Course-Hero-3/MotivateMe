@@ -5,7 +5,8 @@ import apiClient from "../../../services/apiclient";
 import lockImg from "../../assets/lock-password.png";
 import editPfp from "../../assets/pencil-icon.png";
 import { useNavigate } from "react-router-dom";
-import { useColorMode, ColorModeScript, Button } from "@chakra-ui/react";
+import { Switch, useColorMode, ColorModeScript, Button, color } from "@chakra-ui/react";
+
 import theme from "../theme";
 
 export default function ProfilePage({
@@ -13,6 +14,7 @@ export default function ProfilePage({
   setUser,
   setCurrPage,
   loggedInWithGoogle,
+  setColorState
 }) {
   const [editError, setEditError] = React.useState(null);
   const [successMessage, setSuccessMessage] = React.useState(null);
@@ -37,6 +39,13 @@ export default function ProfilePage({
       setCurrPage("profile");
     }
   }, []);
+
+  React.useEffect (() => {
+    if (colorMode === "light"){
+      setColorState('light')
+    }
+    else {setColorState("dark")}
+  }, [colorMode])
 
   const handleOnImageChange = (event) => {
     setSuccessMessage(null);
@@ -231,8 +240,9 @@ export default function ProfilePage({
             <div className="edit-section">
               <h2 className="profile-customization">Profile Customization</h2>
               <div className="dark-mode-button">
-                <Button onClick={toggleColorMode} transitionDuration="200ms">
-                  Toggle {colorMode === "light" ? "Dark" : "Light"}
+                <Button onClick={ toggleColorMode} transitionDuration="200ms">
+                  Toggle {colorMode === "light" ? "Dark" : "Light"} 
+
                 </Button>
                 {/* <label htmlFor="dark-mode-text" className="dark-mode-text">
                   Enable Dark Mode

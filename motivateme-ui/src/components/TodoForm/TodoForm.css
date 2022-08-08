@@ -66,13 +66,13 @@
     border: 1px solid rgb(218, 218, 218);
     border-radius: 10px;
     background: #fff;
-
     box-sizing: border-box;
+    color: #333;
 
 }
 
 .form-split {
-    width: 100%;
+    width: 50%;
 }
 
 .form-input.split {
@@ -80,8 +80,9 @@
     border: 1px solid rgb(218, 218, 218);
     border-radius: 10px;
     background: #fff;
-
     box-sizing: border-box;
+    color: #333;
+
 }
 
 .form-input.description {
@@ -92,8 +93,10 @@
     border: 1px solid rgb(218, 218, 218);
     border-radius: 10px;
     resize: none;
+    color: #333;
     font-family: Arial, Helvetica, sans-serif;
 }
+
 
 .hidden {
     display: none;
@@ -129,7 +132,7 @@
     border-radius: 10px;
     border: none;
     width: 40%;
-    background: lightskyblue;
+    background: var(--pure-white);
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -137,10 +140,12 @@
     animation-duration: 0.4s;
     color: #333;
 }
-::placeholder {
-    font-size: 15px;
-    color: lightgrey;
+
+.form_modal_content.dark, .form-title.dark {
+    color:var(--primary-blue);
+    background: rgb(78, 78, 78);
 }
+
 
 .update-footer-buttons {
     display: flex;
@@ -149,10 +154,12 @@
 }
 
 .form-submit-btn, .form-delete-btn {
-    width: 80px;
+    width: 105px;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 18px;
+    font-weight: 500;
     height: 44px;
+    padding: 5px;
     border-radius: 10px;
     border: none;
     color: var(--pure-white);
@@ -183,7 +190,11 @@
     background-color: #5cb85c;
     color: white;
   }
-
+.checkbox {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
 .error-create {
     color: red;
 }

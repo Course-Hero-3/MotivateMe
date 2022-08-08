@@ -6,7 +6,7 @@ import scheduleImg from "../../assets/Schedule-Img.png";
 import progressImg from "../../assets/Progress-Img.png";
 import friendsImg from "../../assets/Friends-Img.png";
 
-export default function LandingPage({ setCurrPage }) {
+export default function LandingPage({ setCurrPage, colorModeState }) {
   React.useEffect(() => {
     setCurrPage("landing");
   }, []);
@@ -39,7 +39,7 @@ export default function LandingPage({ setCurrPage }) {
         </div>
       </div>
 
-      <div className="landing-body d-flex flex-column justify-content-center align-items-center">
+      <div className={colorModeState === 'light'?"landing-body d-flex flex-column justify-content-center align-items-center light":"landing-body d-flex flex-column justify-content-center align-items-center"}>
         <div className="landing-body-header">
           <h2 className="landing-header">Here are the Awesome Benefits</h2>
         </div>

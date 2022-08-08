@@ -8,16 +8,29 @@
     font-family: 'Nunito', sans-serif;
 }
 
-.h2, .h3 {
-}
+
 
 .side-nav-bar {
     width: 800px;
     margin-left: 0;
-    height: 100vh;
+    height: 100%;
     background: var(--primary-blue);
     display: flex;
     justify-content: center;
+}
+
+/*at 1995 pixel screen width, dont show the side nav*/
+@media(max-width:1195px) {
+    .side-nav-bar {
+        display: none;
+        width: 0px;
+    }
+    .login-page {
+        justify-content: center;
+    }
+    .login-wrapper {
+        width: 100%;
+    }
 }
 
 .login-img {
@@ -99,15 +112,17 @@ font-family: 'Nunito', sans-serif;
     width: 450px;
 }
 .form-input{
-    padding: 10px 5px;
+    padding: 10px 8px;
     border-radius: 5px;
     border: none;
     height: 54px;
+    background: rgb(235, 233, 233);
 }
 
 .form-input::placeholder {
-    color: gray;
+    color: rgb(32, 32, 32);
 }
+
 
 #email {
     width:450px;
@@ -153,8 +168,8 @@ margin-top: 15px;
 }
 
 .footer-text {
-    margin-top: 50px;
-    font-size: 22px;
+    margin-top: 20px;
+    font-size: 19px;
 }
 
 .footer-text a:link{

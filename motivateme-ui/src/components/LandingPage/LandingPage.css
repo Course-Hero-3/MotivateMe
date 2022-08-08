@@ -106,13 +106,15 @@ margin-top: 22px;
     padding-bottom: 7rem;
     justify-content: center;
     align-items: center;
-    /* background: #f0f6f9; */
-
+}
+.landing-body.light {
+    background: #f0f6f9;
 }
 .landing-header{
     font-weight: 2000;
     font-family: 'Nunito', sans-serif;
     font-size: 30px;
+    margin-bottom: 40px;
 
 }
 

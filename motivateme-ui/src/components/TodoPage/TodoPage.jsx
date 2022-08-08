@@ -5,7 +5,7 @@ import TodoList from "../TodoList/TodoList";
 import { useState } from "react";
 import AccessForbidden from "../AccessForbidden/AccessForbidden";
 
-export default function TodoPage({ user, setCurrPage }) {
+export default function TodoPage({ user, setCurrPage, colorModeState }) {
   const [modalSelected, setModalSelected] = useState("");
 
   // if the create btn was clicked pop up the create form
@@ -23,10 +23,10 @@ export default function TodoPage({ user, setCurrPage }) {
             <h2 className="todo-title">To-Do</h2>
             <div className="todo-btns"></div>
             {modalSelected === "create" ? (
-              <TodoForm formType={"create"} showModal={showModal} />
+              <TodoForm formType={"create"} showModal={showModal} colorModeState = {colorModeState} />
             ) : null}
             <div className="todo-wrapper">
-              <TodoList showModal={showModal} modalSelected={modalSelected} />
+              <TodoList showModal={showModal} modalSelected={modalSelected} colorModeState = {colorModeState}/>
             </div>
           </div>
         </>
