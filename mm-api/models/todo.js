@@ -1,7 +1,6 @@
 const db = require("../db");
 const { BadRequestError } = require("../utils/errors");
 require("dotenv").config();
-const moment = require("moment");
 
 class Todo {
   static returnPublicTask(givenTask) {

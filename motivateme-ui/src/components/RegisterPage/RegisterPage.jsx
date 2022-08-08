@@ -16,7 +16,6 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
     phone: "",
   });
   const [registerError, setRegisterError] = useState(null);
-  const [awsConfig, setAwsConfig] = useState(null);
   const navigate = useNavigate();
 
   // set current page to register (for navbar to not render its content)
