@@ -2,7 +2,7 @@ import "./RegisterPage.css";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiClient from "../../../services/apiclient";
-import S3FileUpload from "react-s3";
+// import S3FileUpload from "react-s3";
 
 export default function RegisterPage({ setUser, user, setCurrPage }) {
   const [registerForm, setRegisterForm] = useState({
@@ -26,7 +26,7 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
     const getCredentials = async () => {
       let tempCredentials = await apiClient.getAwsCredentials();
       if (tempCredentials?.data?.config) {
-        setAwsConfig(tempCredentials.data.config)
+        setAwsConfig(tempCredentials.data.config);
       }
     };
 
@@ -40,21 +40,22 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
 
   // handle any register form changes and do some checks
   const handleOnImageChange = (event) => {
-    if (awsConfig !== undefined && awsConfig !== null) {
-      S3FileUpload.uploadFile(event.target.files[0], awsConfig)
-      .then(async (data) => {
-        setRegisterForm((f) => ({ ...f, [event.target.name]: data.location }));
-        return;
-      })
-      .catch((error) => {
-        alert(error, "... or try uploading a profile picture later.");
-        return;
-      });
+    if (event.target.files[0].size > 70000) {
+      setRegisterError("Please upload images around 70 kb or below.");
+      return;
+    } else if (
+      registerError === "Please upload images around 70 kb or below." ||
+      registerError === "Please upload a smaller sized image than before."
+    ) {
+      setEditError(null);
     }
-    else {
-      alert(error, "Please try uploading a profile picture later. The server is having difficulties.")
-      return
-    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setRegisterForm((f) => ({ ...f, [event.target.name]: reader.result }));
+      // Logs data:<type>;base64,wL2dvYWwgbW9yZ...
+    };
+    reader.readAsDataURL(event.target.files[0]);
   };
 
   const handleOnRegisterFormChange = (event) => {
@@ -215,6 +216,9 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
         phone: "",
       });
     } else {
+      if (error === "Please upload a smaller sized image than before.") {
+        setRegisterError();
+      }
       setRegisterError(error);
     }
 

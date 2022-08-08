@@ -153,9 +153,9 @@ class User {
     if (!imageObject.hasOwnProperty("image")) {
       throw new BadRequestError("No image property passed through to change");
     }
-    if (imageObject.image.length > 250) {
-      throw new BadRequestError("Image URL cannot include 250+ characters!");
-    }
+    // if (imageObject.image.length > 250) {
+    //   throw new BadRequestError("Image URL cannot include 250+ characters!");
+    // }
     if (!user) {
       throw new BadRequestError("No user in order to update");
     }
