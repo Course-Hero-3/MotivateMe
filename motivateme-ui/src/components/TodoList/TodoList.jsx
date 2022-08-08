@@ -302,7 +302,7 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
   };
 
   /** handles submitting a task*/
-  const handleOnCompleteSubmit = async (event, completeForm) => {
+  const handleOnCompleteSubmit = async (event, completeForm, timeMeasurement) => {
     event.preventDefault();
 
     if (
@@ -331,12 +331,17 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
       return;
     }
 
-    /**sorts most recent tasks by category */
-    const handleCategory = (categoryName) => {
-      setCategoryQuery(categoryName);
-    };
+    if (timeMeasurement === undefined || timeMeasurement === null || timeMeasurement === "" || timeMeasurement === "min") {
+      pass
+    }
+    else if (timeMeasurement === "hour") {
+      updatedCompleteForm = {...completeForm, "timeSpent": completeForm.timeSpent * 60}
+    }
+    else if (timeMeasurement === "day") {
+      updatedCompleteForm = {...completeForm, "timeSpent": completeForm * 1440}
+    }
 
-    let { data, error } = await apiClient.completeTask(completeForm);
+    let { data, error } = await apiClient.completeTask(updatedCompleteForm);
 
     if (data?.completedTask) {
       setTaskError("");

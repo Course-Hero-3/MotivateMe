@@ -44,7 +44,7 @@ export default function LandingPage({ setCurrPage, colorModeState }) {
           <h2 className="landing-header">Here are the Awesome Benefits</h2>
         </div>
         <div className="landing-middle-section d-flex flex-row justify-content-center">
-          <div className="textbox d-sm-flex flex-sm-column justify-content-center">
+          <div className={`textbox d-sm-flex flex-sm-column justify-content-center ${colorModeState === "light"?"white-textbox":"dark-textbox"}`}>
             <img src={progressImg} className="middle-section-img" />
             <div className="middle-section-text">
               <h3 className="textbox-header">Track Your Progress</h3>
@@ -54,7 +54,7 @@ export default function LandingPage({ setCurrPage, colorModeState }) {
               </p>
             </div>
           </div>
-          <div className="textbox">
+          <div className={`textbox d-sm-flex flex-sm-column justify-content-center ${colorModeState === "light"?"white-textbox":"dark-textbox"}`}>
             <img src={scheduleImg} className="middle-section-img" />
             <div className="middle-section-text">
               <h3 className="textbox-header">Organize Yourself</h3>
@@ -64,7 +64,7 @@ export default function LandingPage({ setCurrPage, colorModeState }) {
               </p>
             </div>
           </div>
-          <div className="textbox">
+          <div className={`textbox d-sm-flex flex-sm-column justify-content-center ${colorModeState === "light"?"white-textbox":"dark-textbox"}`}>
             <img src={friendsImg} className="middle-section-img" />
             <div className="middle-section-text">
               <h3 className="textbox-header">Stay Connected</h3>

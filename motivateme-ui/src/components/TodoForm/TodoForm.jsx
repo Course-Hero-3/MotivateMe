@@ -3,9 +3,21 @@ import { useState } from "react";
 import "./TodoForm.css";
 
 import apiClient from "../../../services/apiclient";
-import moment from "moment";
-import { Checkbox, CheckboxGroup } from '@chakra-ui/react'
-import { useToast } from '@chakra-ui/react'
+import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+  Button,
+} from "@chakra-ui/react";
 
 export default function TodoForm({
   formType,
@@ -25,9 +37,8 @@ export default function TodoForm({
   originalForm,
   handleOnDeleteTask,
   name,
-  colorModeState
+  colorModeState,
 }) {
-
   const [createForm, setCreateForm] = useState({
     name: "",
     description: "",
@@ -36,7 +47,7 @@ export default function TodoForm({
     dueTime: "23:59",
   });
   const [createError, setCreateError] = useState(null);
-  const toast = useToast()
+  const toast = useToast();
   const handleOnCreateFormChange = (event) => {
     if (
       createError === "Name field is mandatory" &&
@@ -128,12 +139,12 @@ export default function TodoForm({
       });
       showModal("");
       toast({
-        title: 'Task succesfully created!',
+        title: "Task succesfully created!",
         description: "",
-        status: 'success',
+        status: "success",
         duration: 6000,
         isClosable: true,
-      })
+      });
     } else {
       setCreateError(error);
     }
@@ -148,7 +159,7 @@ export default function TodoForm({
           createForm={createForm}
           setCreateForm={setCreateForm}
           createError={createError}
-          colorModeState = {colorModeState}
+          colorModeState={colorModeState}
         />
       ) : null}
 
@@ -163,8 +174,7 @@ export default function TodoForm({
           handleOnDeleteTask={handleOnDeleteTask}
           taskError={taskError}
           setTaskError={setTaskError}
-          colorModeState = {colorModeState}
-
+          colorModeState={colorModeState}
         />
       ) : null}
 
@@ -180,8 +190,7 @@ export default function TodoForm({
           setUpdateOrComplete={setUpdateOrComplete}
           taskError={taskError}
           setTaskError={setTaskError}
-          colorModeState = {colorModeState}
-
+          colorModeState={colorModeState}
         />
       ) : null}
     </div>
@@ -195,15 +204,27 @@ export function TodoCreate({
   handleOnCreateFormChange,
   handleOnCreateSubmit,
   createError,
-  colorModeState
+  colorModeState,
 }) {
-  const toast = useToast()
+  const toast = useToast();
 
   return (
     <div className={`form_modal`}>
-      <form className={colorModeState === 'dark'?"form_modal_content dark":"form_modal_content light"}>
+      <form
+        className={
+          colorModeState === "dark"
+            ? "form_modal_content dark"
+            : "form_modal_content light"
+        }
+      >
         <div className="form-header">
-          <h2 className={colorModeState === 'dark'?"form-title dark":"form-title"}>Create </h2>
+          <h2
+            className={
+              colorModeState === "dark" ? "form-title dark" : "form-title"
+            }
+          >
+            Create{" "}
+          </h2>
           <svg
             onClick={() => {
               showModal("");
@@ -246,70 +267,61 @@ export function TodoCreate({
           <div className="input-field form">
             <span className="task-name">Category</span>
             <div className="dropdown">
-              <button type="button" className="dropbtn">
-                {createForm.category.length === 0
-                  ? "(Hover to Select)"
-                  : createForm.category}
-              </button>
-              <div className="dropdown-content">
-                <button
-                  type="button"
-                  className="option-btn"
-                  onClick={() => {
-                    handleOnCreateFormChange({
-                      target: { name: "category", value: "test" },
-                    });
-                  }}
-                >
-                  test
-                </button>
-                <button
-                  type="button"
-                  className="option-btn"
-                  onClick={() => {
-                    handleOnCreateFormChange({
-                      target: { name: "category", value: "project" },
-                    });
-                  }}
-                >
-                  project
-                </button>
-                <button
-                  type="button"
-                  className="option-btn"
-                  onClick={() => {
-                    handleOnCreateFormChange({
-                      target: { name: "category", value: "homework" },
-                    });
-                  }}
-                >
-                  homework
-                </button>
-                <button
-                  type="button"
-                  className="option-btn"
-                  onClick={() => {
-                    handleOnCreateFormChange({
-                      target: { name: "category", value: "quiz" },
-                    });
-                  }}
-                >
-                  quiz
-                </button>
-                <button
-                  type="button"
-                  className="option-btn"
-                  onClick={() => {
-                    handleOnCreateFormChange({
-                      target: { name: "category", value: "essay" },
-                    });
-                  }}
-                >
-                  essay
-                </button>
-              </div>
+              <Menu>
+                <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                  {createForm.category.length === 0
+                    ? "Select Category"
+                    : createForm.category}
+                </MenuButton>
+                <MenuList>
+                  <MenuItem
+                    onClick={() => {
+                      handleOnCreateFormChange({
+                        target: { name: "category", value: "test" },
+                      });
+                    }}
+                  >
+                    test
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleOnCreateFormChange({
+                        target: { name: "category", value: "project" },
+                      });
+                    }}
+                  >
+                    project
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleOnCreateFormChange({
+                        target: { name: "category", value: "homework" },
+                      });
+                    }}
+                  >
+                    homework
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleOnCreateFormChange({
+                        target: { name: "category", value: "quiz" },
+                      });
+                    }}
+                  >
+                    quiz
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleOnCreateFormChange({
+                        target: { name: "category", value: "essay" },
+                      });
+                    }}
+                  >
+                    essay
+                  </MenuItem>
+                </MenuList>
+              </Menu>
             </div>
-            {/* <input className='form-input form' type ="text" name='category' placeholder='type category' value  = {createForm.category} onChange = {handleOnCreateFormChange}/> */}
           </div>
           <div className="split-input-field form">
             <div className="input-field form-split">
@@ -352,8 +364,9 @@ export function TodoCreate({
           <button
             className="form-submit-btn"
             type="button"
-            onClick={(event) => {handleOnCreateSubmit(event);
-    }}
+            onClick={(event) => {
+              handleOnCreateSubmit(event);
+            }}
           >
             Submit
           </button>
@@ -373,14 +386,26 @@ export function TodoUpdate({
   handleOnDeleteTask,
   taskError,
   setTaskError,
-  colorModeState
+  colorModeState,
 }) {
-  const toast = useToast()
+  const toast = useToast();
   return (
     <div className={`form_modal`}>
-      <form className={colorModeState === 'dark'?"form_modal_content dark":"form_modal_content light"}>
+      <form
+        className={
+          colorModeState === "dark"
+            ? "form_modal_content dark"
+            : "form_modal_content light"
+        }
+      >
         <div className="form-header">
-          <h2 className={colorModeState === 'dark'?"form-title dark":"form-title"}>Update</h2>
+          <h2
+            className={
+              colorModeState === "dark" ? "form-title dark" : "form-title"
+            }
+          >
+            Update
+          </h2>
           <svg
             onClick={() => {
               setUpdateOrComplete(null);
@@ -419,78 +444,70 @@ export function TodoUpdate({
           <div className="input-field form">
             <span className="task-name">Edit Category</span>
             <div className="dropdown">
-              <button type="button" className="dropbtn">
-                {updateForm.category.length === 0
-                  ? "(Hover to Select)"
-                  : updateForm.category}
-              </button>
-              <div className="dropdown-content">
-                <button
-                  type="button"
-                  className="option-btn"
-                  onClick={() => {
-                    handleOnUpdateFormChange(
-                      { target: { name: "category", value: "test" } },
-                      updateForm,
-                      setUpdateForm
-                    );
-                  }}
-                >
-                  test/exam
-                </button>
-                <button
-                  type="button"
-                  className="option-btn"
-                  onClick={() => {
-                    handleOnUpdateFormChange(
-                      { target: { name: "category", value: "project" } },
-                      updateForm,
-                      setUpdateForm
-                    );
-                  }}
-                >
-                  project
-                </button>
-                <button
-                  type="button"
-                  className="option-btn"
-                  onClick={() => {
-                    handleOnUpdateFormChange(
-                      { target: { name: "category", value: "homework" } },
-                      updateForm,
-                      setUpdateForm
-                    );
-                  }}
-                >
-                  homework
-                </button>
-                <button
-                  type="button"
-                  className="option-btn"
-                  onClick={() => {
-                    handleOnUpdateFormChange(
-                      { target: { name: "category", value: "quiz" } },
-                      updateForm,
-                      setUpdateForm
-                    );
-                  }}
-                >
-                  quiz
-                </button>
-                <button
-                  type="button"
-                  className="option-btn"
-                  onClick={() => {
-                    handleOnUpdateFormChange(
-                      { target: { name: "category", value: "essay" } },
-                      updateForm,
-                      setUpdateForm
-                    );
-                  }}
-                >
-                  essay
-                </button>
-              </div>
+              <Menu>
+                <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                  {updateForm.category.length === 0
+                    ? "Select Category"
+                    : updateForm.category}
+                </MenuButton>
+                <MenuList>
+                  <MenuItem
+                    onClick={() => {
+                      handleOnUpdateFormChange(
+                        { target: { name: "category", value: "test" } },
+                        updateForm,
+                        setUpdateForm
+                      );
+                    }}
+                  >
+                    test
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleOnUpdateFormChange(
+                        { target: { name: "category", value: "project" } },
+                        updateForm,
+                        setUpdateForm
+                      );
+                    }}
+                  >
+                    project
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleOnUpdateFormChange(
+                        { target: { name: "category", value: "homework" } },
+                        updateForm,
+                        setUpdateForm
+                      );
+                    }}
+                  >
+                    homework
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleOnUpdateFormChange(
+                        { target: { name: "category", value: "quiz" } },
+                        updateForm,
+                        setUpdateForm
+                      );
+                    }}
+                  >
+                    quiz
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleOnUpdateFormChange(
+                        { target: { name: "category", value: "essay" } },
+                        updateForm,
+                        setUpdateForm
+                      );
+                    }}
+                  >
+                    essay
+                  </MenuItem>
+                </MenuList>
+              </Menu>
             </div>
           </div>
           <div className="split-input-field form">
@@ -551,7 +568,6 @@ export function TodoUpdate({
               type="button"
               onClick={(event) => {
                 handleOnDeleteTask(event, updateForm.taskId);
-            
               }}
             >
               Delete
@@ -573,15 +589,28 @@ export function TodoComplete({
   taskId,
   taskError,
   setTaskError,
-  colorModeState
+  colorModeState,
 }) {
-  const toast = useToast()
+  const toast = useToast();
+  const [categoryQuery, setCategoryQuery] = useState("min");
 
   return (
     <div className={`form_modal`}>
-      <div className={colorModeState === 'dark'?"form_modal_content dark":"form_modal_content light"}>
+      <div
+        className={
+          colorModeState === "dark"
+            ? "form_modal_content dark"
+            : "form_modal_content light"
+        }
+      >
         <div className="form-header">
-          <h2 className={colorModeState === 'dark'?"form-title dark":"form-title"}>Complete</h2>
+          <h2
+            className={
+              colorModeState === "dark" ? "form-title dark" : "form-title"
+            }
+          >
+            Complete
+          </h2>
           <svg
             onClick={() => {
               setUpdateOrComplete("");
@@ -652,19 +681,37 @@ export function TodoComplete({
             </div>
             <div className="input-field form-split">
               <span className="task-name">Time Spent</span>
-              <input
-                className="form-input split"
-                type="number"
-                name="timeSpent"
-                placeholder="Time in minutes"
-                onChange={(event) => {
-                  handleOnCompleteFormChange(
-                    event,
-                    completeForm,
-                    setCompleteForm
-                  );
-                }}
-              />
+              <div className="change-measurement">
+                <input
+                  className="form-input split-twice"
+                  type="number"
+                  name="timeSpent"
+                  placeholder="Time"
+                  onChange={(event) => {
+                    handleOnCompleteFormChange(
+                      event,
+                      completeForm,
+                      setCompleteForm
+                    );
+                  }}
+                />
+                <Menu>
+                  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                    {categoryQuery || "Min"}
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem onClick={() => setCategoryQuery("min")}>
+                      min
+                    </MenuItem>
+                    <MenuItem onClick={() => setCategoryQuery("hour")}>
+                      hour
+                    </MenuItem>
+                    <MenuItem onClick={() => setCategoryQuery("day")}>
+                      day
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+              </div>
             </div>
           </div>
           <div className="input-field form">
@@ -684,30 +731,36 @@ export function TodoComplete({
             ></textarea>
           </div>
           <div className="checkbox">
-              <Checkbox size='lg' colorScheme='green'
+            <Checkbox
+              size="lg"
+              colorScheme="green"
               name="public"
-                  onChange={(event) => {
-                    handleOnCompleteFormChange(
-                      event,
-                      completeForm,
-                      setCompleteForm
-                    );
-                  }}>
-                  Public
+              onChange={(event) => {
+                handleOnCompleteFormChange(
+                  event,
+                  completeForm,
+                  setCompleteForm
+                );
+              }}
+            >
+              Public
             </Checkbox>
-            <Checkbox size='lg' colorScheme='green'
-            name="onTime"
-                  onChange={(event) => {
-                    handleOnCompleteFormChange(
-                      event,
-                      completeForm,
-                      setCompleteForm
-                    );
-                  }}>
-                  On Time
+            <Checkbox
+              size="lg"
+              colorScheme="green"
+              name="onTime"
+              onChange={(event) => {
+                handleOnCompleteFormChange(
+                  event,
+                  completeForm,
+                  setCompleteForm
+                );
+              }}
+            >
+              On Time
             </Checkbox>
           </div>
-          
+
           <div>
             <p className="error-create">{taskError ? taskError : ""}</p>
           </div>
@@ -715,7 +768,7 @@ export function TodoComplete({
             className="form-submit-btn"
             type="button"
             onClick={(event) => {
-              handleOnCompleteSubmit(event, completeForm);
+              handleOnCompleteSubmit(event, completeForm, categoryQuery);
             }}
           >
             Complete
