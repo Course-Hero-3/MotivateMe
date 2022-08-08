@@ -47,7 +47,7 @@ export default function RegisterPage({ setUser, user, setCurrPage }) {
       registerError === "Please upload images around 70 kb or below." ||
       registerError === "Please upload a smaller sized image than before."
     ) {
-      setEditError(null);
+      setRegisterError(null);
     }
 
     const reader = new FileReader();
