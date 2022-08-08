@@ -105,14 +105,21 @@
 }
 
 #home-logo {
-    height: 40px;
-    width: 40px;
+    height: 55px;
+    width: 55px;
     /* to align the image with MotivateMe title */
     margin-bottom: 6px;
+    margin-left: 7px;
 }
 
 .logo-title {
     margin-left: 80px;
+}
+
+@media(max-width:540px){
+    .logo-title {
+        display: none;
+    }
 }
 
 .logo {
