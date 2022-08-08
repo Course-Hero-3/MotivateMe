@@ -8,19 +8,21 @@ Cohort: **Course Hero**
 
 Team Member Names:**Gikai, Kian, Stephane**
 
-Mentors Names: **Insert Professional Mentor Names**
+Mentors Names: **Kyle Holt, **
 
 Project Code Repository Links
 
-* [Frontend Repo Link]()
-* [Backend Repo Link]()
+* [Repo Link](https://github.com/Course-Hero-3/MotivateMe)
 
 ## Project Overview
 
-Add a quick summary of what your project theme and objectives are. 
+MotivateMe allows college students to organize their school work as well as motivating them through their journey with visuals and social media.
 
-Deployment Website: **Add Link to Deployed Project**
+Deployment Website: **https://motivateme-coursehero.surge.sh/**
 
 ### Open-source libraries used
 
-- Add any links to open-source libraries used in your project.
+- https://www.chartjs.org/
+- https://getbootstrap.com/
+- 
+
