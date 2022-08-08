@@ -5,9 +5,8 @@ import apiClient from "../../../services/apiclient";
 import lockImg from "../../assets/lock-password.png";
 import editPfp from "../../assets/pencil-icon.png";
 import { useNavigate } from "react-router-dom";
-import { Switch, useColorMode, ColorModeScript, Button } from "@chakra-ui/react";
+import { useColorMode, ColorModeScript, Button } from "@chakra-ui/react";
 import theme from "../theme";
-import S3FileUpload from "react-s3";
 
 export default function ProfilePage({
   user,
@@ -26,8 +25,6 @@ export default function ProfilePage({
     phone: user?.phone || "",
   });
   const { colorMode, toggleColorMode } = useColorMode();
-   
-  const [awsConfig, setAwsConfig] = React.useState(null);
 
   function openfileDialog() {
     document.getElementById("existing-image").click();
@@ -35,14 +32,6 @@ export default function ProfilePage({
 
   // make sure user is logged in
   React.useEffect(() => {
-    const getCredentials = async () => {
-      let tempCredentials = await apiClient.getAwsCredentials();
-      if (tempCredentials?.data?.config) {
-        setAwsConfig(tempCredentials.data.config);
-      }
-    };
-
-    getCredentials();
     // if user is logged in, then set it to recap
     if (user !== null && user !== undefined) {
       setCurrPage("profile");
@@ -50,25 +39,43 @@ export default function ProfilePage({
   }, []);
 
   const handleOnImageChange = (event) => {
-    if (awsConfig !== undefined && awsConfig !== null) {
-      S3FileUpload.uploadFile(event.target.files[0], awsConfig)
-        .then(async (data) => {
-          setUpdateObject((f) => ({
-            ...f,
-            [event.target.name]: data.location,
-          }));
-          imageEditSubmit(data.location);
-          return;
-        })
-        .catch((error) => {
-          alert(error, "... Please try uploading a profile picture later.");
-          return;
-        });
+    setSuccessMessage(null);
+    if (event.target.files[0].size > 70000) {
+      setEditError("Please upload images around 70 kb or below.");
+      return;
+    } else if (
+      editError === "Please upload images around 70 kb or below." ||
+      editError === "Please upload a smaller sized image than before."
+    ) {
+      setEditError(null);
     }
-    else {
-      alert(error, "Please try uploading a profile picture later. The server is having difficulties.")
-          return;
-    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      imageEditSubmit(reader.result);
+      // Logs data:<type>;base64,wL2dvYWwgbW9yZ...
+    };
+    reader.readAsDataURL(event.target.files[0]);
+
+    // if (awsConfig !== undefined && awsConfig !== null) {
+    //   S3FileUpload.uploadFile(event.target.files[0], awsConfig)
+    //     .then(async (data) => {
+    //       setUpdateObject((f) => ({
+    //         ...f,
+    //         [event.target.name]: data.location,
+    //       }));
+    //       imageEditSubmit(data.location);
+    //       return;
+    //     })
+    //     .catch((error) => {
+    //       alert(error, "... Please try uploading a profile picture later.");
+    //       return;
+    //     });
+    // }
+    // else {
+    //   alert(error, "Please try uploading a profile picture later. The server is having difficulties.")
+    //       return;
+    // }
   };
 
   const handleOnUpdateObjectChange = (event) => {
@@ -111,7 +118,7 @@ export default function ProfilePage({
   const imageEditSubmit = async (image) => {
     // if there is an error and it isn't null
     if (editError) {
-      return;
+      setEditError(null);
     }
     let { data, error } = await apiClient.editImage(image);
     handleAfterSubmit(data, error);
@@ -170,7 +177,11 @@ export default function ProfilePage({
     }
     if (error) {
       setSuccessMessage(null);
-      setEditError(error);
+      if (error === "request entity too large") {
+        setEditError("Please upload a smaller sized image than before.");
+      } else {
+        setEditError(error);
+      }
     }
   };
 
@@ -221,7 +232,7 @@ export default function ProfilePage({
               <h2 className="profile-customization">Profile Customization</h2>
               <div className="dark-mode-button">
                 <Button onClick={toggleColorMode} transitionDuration="200ms">
-                  Toggle {colorMode === "light" ? "Dark" : "Light"} 
+                  Toggle {colorMode === "light" ? "Dark" : "Light"}
                 </Button>
                 {/* <label htmlFor="dark-mode-text" className="dark-mode-text">
                   Enable Dark Mode
