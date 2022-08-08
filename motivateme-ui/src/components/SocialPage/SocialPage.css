@@ -120,7 +120,6 @@
   .social-form-search {
   all: unset;
   font: 16px system-ui;
-  color: rgb(226, 226, 226);
   height: 100%;
   width: 100%;
   padding: 6px 10px;
@@ -128,10 +127,10 @@
 
 }
 
-.social-form-search::placeholder {
+/* .social-form-search::placeholder {
   /* color:white; */
   color: lightgray;
-}
+} */
 
 .show-users-list {
   display: flex;

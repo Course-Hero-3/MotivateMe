@@ -6,6 +6,8 @@ import lockImg from "../../assets/lock-password.png";
 import editPfp from "../../assets/pencil-icon.png";
 import { useNavigate } from "react-router-dom";
 import { Switch, useColorMode, ColorModeScript, Button, color } from "@chakra-ui/react";
+import { useToast } from '@chakra-ui/react'
+
 
 import theme from "../theme";
 
@@ -14,10 +16,11 @@ export default function ProfilePage({
   setUser,
   setCurrPage,
   loggedInWithGoogle,
-  setColorState
+  setColorState,
+  colorModeState
 }) {
+  const toast = useToast()
   const [editError, setEditError] = React.useState(null);
-  const [successMessage, setSuccessMessage] = React.useState(null);
   const navigate = useNavigate();
   const [updateObject, setUpdateObject] = React.useState({
     username: user?.username || "",
@@ -48,7 +51,6 @@ export default function ProfilePage({
   }, [colorMode])
 
   const handleOnImageChange = (event) => {
-    setSuccessMessage(null);
     if (event.target.files[0].size > 70000) {
       setEditError("Please upload images around 70 kb or below.");
       return;
@@ -65,30 +67,9 @@ export default function ProfilePage({
       // Logs data:<type>;base64,wL2dvYWwgbW9yZ...
     };
     reader.readAsDataURL(event.target.files[0]);
-
-    // if (awsConfig !== undefined && awsConfig !== null) {
-    //   S3FileUpload.uploadFile(event.target.files[0], awsConfig)
-    //     .then(async (data) => {
-    //       setUpdateObject((f) => ({
-    //         ...f,
-    //         [event.target.name]: data.location,
-    //       }));
-    //       imageEditSubmit(data.location);
-    //       return;
-    //     })
-    //     .catch((error) => {
-    //       alert(error, "... Please try uploading a profile picture later.");
-    //       return;
-    //     });
-    // }
-    // else {
-    //   alert(error, "Please try uploading a profile picture later. The server is having difficulties.")
-    //       return;
-    // }
   };
 
   const handleOnUpdateObjectChange = (event) => {
-    setSuccessMessage(null);
     setEditError(null);
 
     if (event.target.name === "phone") {
@@ -174,7 +155,13 @@ export default function ProfilePage({
 
   const handleAfterSubmit = async (data, error) => {
     if (data) {
-      setSuccessMessage("Successfully updated!");
+      toast({
+        title: 'Succesfully updated!',
+        description: "",
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
       setEditError(null);
       setUser(data.updatedUser);
       setUpdateObject({
@@ -185,7 +172,6 @@ export default function ProfilePage({
       });
     }
     if (error) {
-      setSuccessMessage(null);
       if (error === "request entity too large") {
         setEditError("Please upload a smaller sized image than before.");
       } else {
@@ -237,6 +223,7 @@ export default function ProfilePage({
                 </div>
               </div>
             </div>
+            <div className="edit-section-space">
             <div className="edit-section">
               <h2 className="profile-customization">Profile Customization</h2>
               <div className="dark-mode-button">
@@ -260,7 +247,7 @@ export default function ProfilePage({
                     type="text"
                     id="existing-username"
                     name="username"
-                    className="form-input"
+                    className={`form-input profile-input ${colorMode === "light"?"gray-bg":""}`}
                     placeholder="NewUsername123"
                     value={updateObject.username}
                     onChange={handleOnUpdateObjectChange}
@@ -282,7 +269,7 @@ export default function ProfilePage({
                   type="file"
                   id="existing-image"
                   name="image"
-                  className="form-input-image"
+                  className={`form-input profile-input ${colorMode === "light"?"gray-bg":""}`}
                   onChange={handleOnImageChange}
                   accept=".jpg, .jpeg, .png"
                 ></input>
@@ -296,7 +283,7 @@ export default function ProfilePage({
                     type="text"
                     id="existing-first-name"
                     name="firstName"
-                    className="form-input"
+                    className={`form-input profile-input ${colorMode === "light"?"gray-bg":""}`}
                     placeholder="FirstName"
                     value={updateObject.firstName}
                     onChange={handleOnUpdateObjectChange}
@@ -321,7 +308,7 @@ export default function ProfilePage({
                     type="text"
                     id="existing-last-name"
                     name="lastName"
-                    className="form-input"
+                    className={`form-input profile-input ${colorMode === "light"?"gray-bg":""}`}
                     placeholder="LastName"
                     value={updateObject.lastName}
                     onChange={handleOnUpdateObjectChange}
@@ -348,7 +335,7 @@ export default function ProfilePage({
                     id="existing-phone"
                     name="phone"
                     placeholder="US Phone Number (+1 implied)"
-                    className="form-input"
+                    className={`form-input profile-input ${colorMode === "light"?"gray-bg":""}`}
                     value={updateObject.phone}
                     onChange={handleOnUpdateObjectChange}
                   ></input>
@@ -383,13 +370,6 @@ export default function ProfilePage({
                 </button>
               </div>
               <>
-                {successMessage ? (
-                  <>
-                    <p className="sucess-message-display">{successMessage}</p>
-                  </>
-                ) : (
-                  <></>
-                )}
                 {editError ? (
                   <>
                     <p className="edit-error-display">{editError}</p>
@@ -398,6 +378,8 @@ export default function ProfilePage({
                   <></>
                 )}
               </>
+            
+            </div>
             </div>
           </div>
         </>

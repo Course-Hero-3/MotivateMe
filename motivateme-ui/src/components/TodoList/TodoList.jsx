@@ -10,7 +10,7 @@ import moment, { min } from "moment";
 
 import apiClient from "../../../services/apiclient";
 import { color } from "@chakra-ui/react";
-import { useToast } from '@chakra-ui/react'
+import { useToast } from "@chakra-ui/react";
 
 import {
   Menu,
@@ -21,11 +21,9 @@ import {
   MenuGroup,
   MenuOptionGroup,
   MenuDivider,
-  Button
-} from '@chakra-ui/react'
-import {
-  ChevronDownIcon
-} from "@chakra-ui/icons"
+  Button,
+} from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 String.prototype.replaceAt = function (index, replacement) {
   if (index >= this.length) {
     return this.valueOf();
@@ -39,13 +37,12 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
    * handle
    */
   const [tasks, setTasks] = useState(null);
-  const toast = useToast()
+  const toast = useToast();
   //const [searchTasks, setSearchTasks] = useState(null)
   const [searchBarQuery, setQuery] = useState("");
   const [categoryQuery, setCategoryQuery] = useState("");
   const [taskError, setTaskError] = useState(null);
   const [refreshTasks, setRefreshTasks] = useState(false);
-
 
   const fixRegexSpecialCharacters = (str) => {
     for (let i = 0; i < str.length; i++) {
@@ -248,12 +245,12 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
       setRefreshTasks(!refreshTasks);
       setUpdateOrComplete(null);
       toast({
-        title: 'Task succesfully updated!',
+        title: "Task succesfully updated!",
         description: "",
-        status: 'success',
+        status: "success",
         duration: 6000,
         isClosable: true,
-  })
+      });
     } else {
       setTaskError(error);
     }
@@ -341,12 +338,12 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
       setTaskError("");
       setRefreshTasks(!refreshTasks);
       toast({
-        title: 'Task succesfully completed!',
+        title: "Task succesfully completed!",
         description: "",
-        status: 'success',
+        status: "success",
         duration: 6000,
         isClosable: true,
-      })
+      });
     } else {
       setTaskError(error);
     }
@@ -361,12 +358,12 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
       setTaskError("");
       setRefreshTasks(!refreshTasks);
       toast({
-        title: 'Task succesfully deleted!',
+        title: "Task succesfully deleted!",
         description: "",
-        status: 'success',
+        status: "success",
         duration: 6000,
         isClosable: true,
-      })
+      });
     } else {
       setTaskError(error);
     }
@@ -381,8 +378,23 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
   return (
     <div className="todo-list">
       <div className="todo-list-header">
-
-        <h3 className="todo-list-title">Task Overview</h3>
+      <Menu>
+          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            {categoryQuery || "Category"}
+          </MenuButton>
+          <MenuList>
+            <MenuItem onClick={() => setCategoryQuery("")}>All</MenuItem>
+            <MenuItem onClick={() => setCategoryQuery("homework")}>
+              Homework
+            </MenuItem>
+            <MenuItem onClick={() => setCategoryQuery("test")}>Test</MenuItem>
+            <MenuItem onClick={() => setCategoryQuery("quiz")}>Quiz</MenuItem>
+            <MenuItem onClick={() => setCategoryQuery("project")}>
+              Project
+            </MenuItem>
+            <MenuItem onClick={() => setCategoryQuery("essay")}>Essay</MenuItem>
+          </MenuList>
+        </Menu>
         <form className="task-form">
           <button className="task-form-btn">
             {" "}
@@ -407,20 +419,26 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
             aria-label="Search through site content"
           />
         </form>
-        <Menu>
-  <MenuButton as = {Button} rightIcon={<ChevronDownIcon />}>
-    {categoryQuery || "Category"}
-  </MenuButton>
-  <MenuList  >
-    <MenuItem onClick={()=> setCategoryQuery("")}>All</MenuItem>
-    <MenuItem onClick={()=> setCategoryQuery("homework")}>Homework</MenuItem>
-    <MenuItem onClick={()=> setCategoryQuery("test")}>Test</MenuItem>
-    <MenuItem onClick={()=> setCategoryQuery("quiz")}>Quiz</MenuItem>
-    <MenuItem onClick={()=> setCategoryQuery("project")}>Project</MenuItem>
-    <MenuItem onClick={()=> setCategoryQuery("essay")}>Essay</MenuItem>
-
-  </MenuList>
-</Menu>
+        <svg
+        onClick={() => {
+          showModal("create");
+        }}
+        xmlns="http://www.w3.org/2000/svg"
+        className="icon icon-tabler icon-tabler-circle-plus todo-btn create"
+        width="65"
+        height="65"
+        viewBox="0 0 24 24"
+        strokeWidth="1.5"
+        stroke="#00abfb"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <circle cx="12" cy="12" r="9" />
+        <line x1="9" y1="12" x2="15" y2="12" />
+        <line x1="12" y1="9" x2="12" y2="15" />
+      </svg>
 
       </div>
       <div className="todo-list-wrapper d-flex flex-column justify-content-flex-start align-items-center">
@@ -471,33 +489,14 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
                   handleQuery={handleOnQueryChange}
                   query={query}
                   setQuery={setQuery}
-                  colorModeState = {colorModeState}
+                  colorModeState={colorModeState}
                 />
               );
             })}
           </>
         )}
       </div>
-      <svg
-        onClick={() => {
-          showModal("create");
-        }}
-        xmlns="http://www.w3.org/2000/svg"
-        className="icon icon-tabler icon-tabler-circle-plus todo-btn create"
-        width="89"
-        height="89"
-        viewBox="0 0 24 24"
-        strokeWidth="1.5"
-        stroke="#00abfb"
-        fill="none"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <circle cx="12" cy="12" r="9" />
-        <line x1="9" y1="12" x2="15" y2="12" />
-        <line x1="12" y1="9" x2="12" y2="15" />
-      </svg>
+      
     </div>
   );
 }
@@ -518,7 +517,7 @@ export function TodoCard({
   taskError,
   setTaskError,
   handleQuery,
-  colorModeState
+  colorModeState,
 }) {
   /**states */
   const [updateForm, setUpdateForm] = useState({
@@ -647,9 +646,8 @@ export function TodoCard({
           setUpdateOrComplete={setUpdateOrComplete}
           handleOnDeleteTask={handleOnDeleteTask}
           taskError={taskError}
-            setTaskError={setTaskError}
-            colorModeState = {colorModeState}
-
+          setTaskError={setTaskError}
+          colorModeState={colorModeState}
         />
       ) : null}
       {updateOrComplete === "complete" ? (
@@ -664,8 +662,7 @@ export function TodoCard({
           taskError={taskError}
           setTaskError={setTaskError}
           name={name}
-          colorModeState = {colorModeState}
-
+          colorModeState={colorModeState}
         />
       ) : null}
       {showDetail ? (
@@ -677,8 +674,7 @@ export function TodoCard({
           dueTime={showDetail.dueTime}
           setShowDetail={setShowDetail}
           showDetail={showDetail}
-          colorModeState = {colorModeState}
-
+          colorModeState={colorModeState}
         />
       ) : null}
     </div>
@@ -693,15 +689,29 @@ export function TaskDetail({
   dueTime,
   showDetail,
   setShowDetail,
-  colorModeState
+  colorModeState,
 }) {
   return (
     <React.Fragment>
       {showDetail !== null ? (
         <div className="task-detail-card task_modal">
-          <div className={colorModeState === 'dark'?"task_modal_content dark":"task_modal_content light"}>
+          <div
+            className={
+              colorModeState === "dark"
+                ? "task_modal_content dark"
+                : "task_modal_content light"
+            }
+          >
             <div className="task-header">
-              <h2 className={colorModeState === 'dark'?"task-detail-name dark":'task-detail-name'}>{name}</h2>
+              <h2
+                className={
+                  colorModeState === "dark"
+                    ? "task-detail-name dark"
+                    : "task-detail-name"
+                }
+              >
+                {name}
+              </h2>
 
               <svg
                 onClick={() => {

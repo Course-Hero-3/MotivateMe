@@ -39,7 +39,7 @@ export default function LandingPage({ setCurrPage, colorModeState }) {
         </div>
       </div>
 
-      <div className={colorModeState === 'light'?"landing-body d-flex flex-column justify-content-center align-items-center light":"landing-body d-flex flex-column justify-content-center align-items-center"}>
+      <div className={colorModeState === 'light'?"landing-body d-flex flex-column justify-content-center align-items-center light":"landing-body d-flex flex-column justify-content-center align-items-center dark"}>
         <div className="landing-body-header">
           <h2 className="landing-header">Here are the Awesome Benefits</h2>
         </div>

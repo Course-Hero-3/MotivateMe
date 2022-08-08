@@ -127,18 +127,18 @@
 }
 
 
-.form-input-split {
+/* .form-input-split {
     background: rgb(235, 233, 233);
-}
+} */
 .form-input.alone, .form-input-split {
     width: 100%;
     height: 45px;
     border-radius: 5px;
     padding: 10px 5px;
 }
-.form-input-split::placeholder {
+/* .form-input-split::placeholder {
     color: rgb(32, 32, 32);
-}
+} */
 
 .register-btn {
     align-self: flex-start;

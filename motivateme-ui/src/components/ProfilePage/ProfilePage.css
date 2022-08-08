@@ -22,6 +22,8 @@
 }
 
 
+
+
 .img-download {
     position: relative;
 }
@@ -120,7 +122,9 @@
     width: 20px;
 }
 
-
+.gray-bg {
+    background-color: rgb(241, 241, 241);
+}
 
 
 .edit-and-send-field {
@@ -128,6 +132,39 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.profile-input {
+    width: 300px;
+}
+
+@media(max-width:700px) {
+    .edit-and-send-field {
+        width: 360px;
+    }
+    .profile-input {
+        width: 250px;
+    }
+}
+
+
+@media(max-width:500px) {
+    .edit-and-send-field {
+        width: 310px;
+    }
+    .profile-input {
+        width: 200px;
+    }
+    .edit-section-space {
+        display: flex;
+        flex-direction: row;
+        width: 33rem;
+        justify-content: space-evenly;
+    }
+}
+
+.light-bg {
+    background-color: lightgray;
 }
 
 .edit-btn {
@@ -166,3 +203,4 @@
     border: none;
     background-color: transparent;
 }
+

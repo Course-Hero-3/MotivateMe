@@ -14,7 +14,11 @@ import LineVisual from "../LineVisual/LineVisual";
 
 // take in chartInformation
 
-export default function GraphCard({ chartInformation, dashboardOn }) {
+export default function GraphCard({
+  chartInformation,
+  dashboardOn,
+  colorModeState,
+}) {
   // generate random colors for each card
   const generateColorList = (amount) => {
     let fillColor = [];
@@ -24,8 +28,13 @@ export default function GraphCard({ chartInformation, dashboardOn }) {
       colorsGenerated = `${Math.random() * (255 - 0) + 0}, ${
         Math.random() * (255 - 0) + 0
       }, ${Math.random() * (255 - 0) + 0}`;
-      fillColor.push(`rgba(${colorsGenerated}, 0.2)`);
-      borderColor.push(`rgba(${colorsGenerated}, 1.0)`);
+      if (colorModeState === "light") {
+        fillColor.push(`rgba(${colorsGenerated}, 0.2)`);
+        borderColor.push(`rgba(${colorsGenerated}, 1.0)`);
+      } else {
+        fillColor.push(`rgba(${colorsGenerated}, 0.6)`);
+        borderColor.push(`rgba(${colorsGenerated}, 1.0)`);
+      }
     }
     return [fillColor, borderColor];
   };
@@ -97,7 +106,6 @@ export default function GraphCard({ chartInformation, dashboardOn }) {
           actualData={chartData.actualData}
           colors1={generateColorList(1)}
           colors2={generateColorList(1)}
-
         />
       );
     }
@@ -107,12 +115,12 @@ export default function GraphCard({ chartInformation, dashboardOn }) {
   // render the card by itself
   return (
     <>
-
       {chartInformation !== null && chartInformation !== undefined ? (
-        <div className={dashboardOn?"chart-card-mini":"chart-card"}>
-
-<h3 className="chart-title">{chartInformation.label}</h3>
-          {generateSpecificChart(chartInformation)}
+        <div className={dashboardOn ? "chart-card-mini" : "chart-card"}>
+          <h3 className="chart-title">{chartInformation.label}</h3>
+          <div className="boundary-graph">
+            {generateSpecificChart(chartInformation)}
+          </div>
         </div>
       ) : null}
     </>

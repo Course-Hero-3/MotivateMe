@@ -11,7 +11,7 @@ const randomizeArray = (arr, num) => {
   return shuffled;
 };
 
-export default function RecapPage({ user, setCurrPage }) {
+export default function RecapPage({ user, setCurrPage, colorModeState }) {
   const [facts, setFacts] = React.useState(null);
   const [limitItems, setLimitItems] = React.useState(3);
   // get the stats every time the component mounts
@@ -50,7 +50,7 @@ export default function RecapPage({ user, setCurrPage }) {
                   <div className="chart-grid">
                     {facts.slice(0, limitItems).map((fact, idx) => (
                       <div className="graph-area" key={idx}>
-                        <GraphCard chartInformation={fact} />
+                        <GraphCard chartInformation={fact} colorModeState={colorModeState} />
                       </div>
                     ))}
                   </div>

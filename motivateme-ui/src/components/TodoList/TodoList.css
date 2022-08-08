@@ -84,12 +84,12 @@
     padding: 6px 10px;
     background-color: transparent;
 }
-
+/* 
 .task-form-search::placeholder {
     /* color:#333; */
     background-color: transparent;
     color: lightgray;
-}
+} */
 .categories {
     /* background: var(--pure-white); */
     border: 1px solid var(--border-color);
