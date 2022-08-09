@@ -107,7 +107,7 @@ function App() {
                 <Route
                   path="/dashboard"
                   element={
-                    <DashboardPage user={user} setCurrPage={setCurrPage} />
+                    <DashboardPage user={user} setCurrPage={setCurrPage} colorModeState={colorModeState} />
                   }
                 />
                 <Route

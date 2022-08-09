@@ -88,12 +88,8 @@
     padding: 6px 10px;
     background-color: transparent;
 }
-/* 
-.task-form-search::placeholder {
-    /* color:#333; */
-    background-color: transparent;
-    color: lightgray;
-} */
+
+
 .categories {
     /* background: var(--pure-white); */
     border: 1px solid var(--border-color);
@@ -136,7 +132,6 @@
 
 /*todo card styling*/
 .todo-card {
-    color: black;
     margin-bottom: 15px;
     width: 1000px;
     height: 60px;
@@ -158,38 +153,74 @@
     }
 }
 
+/* render BLUE for todo card in light/dark mode */
 .todo-card.blue {
     background:var(--homework-task);
 }
 .todo-card.blue:hover {
     background:var(--homework-task-hover);
 }
+.todo-card.dark-blue {
+    background:var(--homework-task-dark);
+}
+.todo-card.dark-blue:hover {
+    background:var(--homework-task-dark-hover);
+}
+
+/* render GREEN for todo card in light/dark mode */
 .todo-card.green{
     background:var(--project-task);
 }
 .todo-card.green:hover {
     background: var(--project-task-hover);
 }
+.todo-card.dark-green {
+    background:var(--project-task-dark);
+}
+.todo-card.dark-green:hover {
+    background:var(--project-task-dark-hover);
+}
 
+/* render PURPLE for todo card in light/dark mode */
 .todo-card.purple {
     background: var(--quiz-task);
 }
 .todo-card.purple:hover {
     background: var(--quiz-task-hover);
 }
+.todo-card.dark-purple {
+    background:var(--quiz-task-dark);
+}
+.todo-card.dark-purple:hover {
+    background:var(--quiz-task-dark-hover);
+}
 
+/* render ORANGE for todo card in light/dark mode */
 .todo-card.orange {
     background: var(--test-task);
 }
 .todo-card.orange:hover {
     background: var(--test-task-hover);
 }
+.todo-card.dark-orange {
+    background:var(--test-task-dark);
+}
+.todo-card.dark-orange:hover {
+    background:var(--test-task-dark-hover);
+}
 
+/* render YELLOW for todo card in light/dark mode */
 .todo-card.yellow {
     background: var(--essay-task);
 }
 .todo-card.yellow:hover {
     background: var(--essay-task-hover);
+}
+.todo-card.dark-yellow {
+    background:var(--essay-task-dark);
+}
+.todo-card.dark-yellow:hover {
+    background:var(--essay-task-dark-hover);
 }
 
 .card-body {
@@ -214,13 +245,11 @@
     width: 110px;
 }
 .late-task {
-color: var(--primary-red);
+    color: var(--primary-red);
     text-align: center;
+    font-weight: 800;
 }
 
-.ontime-task {
-
-}
 
 .todo-card:hover {
     background: var(--primary-blue);

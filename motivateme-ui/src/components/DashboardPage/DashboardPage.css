@@ -1,40 +1,33 @@
 .dashboard-page {
     display: flex;
     flex-direction: column;
-    width: 100vw;
+    align-items: center;
     height: 1021px;
 }
 
 
 /* editing the content section formatting into 3 columns */
 .dashboard-columns {
-    
+    display: flex;
+    flex-direction: row;
     justify-content: center;
-    gap: 30px;
-    width: 100%;
+    align-items: center;
+    width: 100vw;
     height: 100%;
     margin-top: 60px;
-
+    gap: 1%;
 }
 
-.dashboard-column {
+.dashboard-column-leftpanel {
     display: flex;
     flex-direction: column;
     height: 100%;
-}
-
-.dashboard-column.intro {
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: flex-start;
-    gap: 20px;
-    width: 30%;
+    margin-left: 5%;
 }
 
 
-.dashboard-column.middle {
-    gap: 10px;
-    width: 70%;
-}
 
 .dashboard-welcome {
         margin-left: 0px;
@@ -126,7 +119,17 @@
 }
 
 .friends {
+    width: 50%;
+}
+
+.content-area {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    gap: 1%;
     width: 100%;
+    justify-content: space-evenly;
+    margin-right: 5%;
 }
 
 .friend-img {
@@ -158,10 +161,8 @@
 /* Editing formatting and spacing for Todo Bulletin */
 
 .dash-todo-viewer {
-    width:100%;
-    align-self: flex-end;
-    height:400ppx;
-  
+    width: 515px;
+    align-self: flex-end;  
 }
 
 
@@ -174,7 +175,7 @@
     border-radius: 10px;
     align-items: flex-start;
     padding-left: 15px;
-    width: 600px;
+    width: 100%;
     height: 400px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -184,10 +185,6 @@
     font-size: 25px;
 }
 
-.todo-date {
-    /* color: #172b4d; */
-
-}
 
 .todo-bulletin-area {
     width: 100%;
@@ -230,9 +227,8 @@
 
 
 .mini-card-content {
-    color: black;
     margin-left: 20px;
-    width: 90%;
+    width: 85%;
     padding:10px;
     font-size: 25px;
     height: 80px;
@@ -247,51 +243,86 @@
 }
 
 .mini-card-name {
-    width: 160px;
+    width: 30%;
     font-size: 20px;
     font-family: 'Nunito', sans-serif;
 }
 
 .mini-card-date {
-    width: 160px;
     margin-top: 9px;
     font-size: 20px;
     font-family: 'Nunito', sans-serif;
 }
 
 
+/* render BLUE for todo card in light/dark mode */
 .mini-card-content.blue {
     background:var(--homework-task);
 }
 .mini-card-content.blue:hover {
     background:var(--homework-task-hover);
 }
+.mini-card-content.dark-blue {
+    background:var(--homework-task-dark);
+}
+.mini-card-content.dark-blue:hover {
+    background:var(--homework-task-dark-hover);
+}
+
+/* render GREEN for todo card in light/dark mode */
 .mini-card-content.green{
     background:var(--project-task);
 }
 .mini-card-content.green:hover {
     background: var(--project-task-hover);
 }
+.mini-card-content.dark-green {
+    background:var(--project-task-dark);
+}
+.mini-card-content.dark-green:hover {
+    background:var(--project-task-dark-hover);
+}
 
+/* render PURPLE for todo card in light/dark mode */
 .mini-card-content.purple {
     background: var(--quiz-task);
 }
 .mini-card-content.purple:hover {
     background: var(--quiz-task-hover);
 }
+.mini-card-content.dark-purple {
+    background:var(--quiz-task-dark);
+}
+.mini-card-content.dark-purple:hover {
+    background:var(--quiz-task-dark-hover);
+}
 
+/* render ORANGE for todo card in light/dark mode */
 .mini-card-content.orange {
     background: var(--test-task);
 }
 .mini-card-content.orange:hover {
     background: var(--test-task-hover);
 }
+.mini-card-content.dark-orange {
+    background:var(--test-task-dark);
+}
+.mini-card-content.dark-orange:hover {
+    background:var(--test-task-dark-hover);
+}
 
+/* render YELLOW for todo card in light/dark mode */
 .mini-card-content.yellow {
     background: var(--essay-task);
 }
 .mini-card-content.yellow:hover {
     background: var(--essay-task-hover);
+}
+.mini-card-content.dark-yellow {
+    background:var(--essay-task-dark);
+}
+.mini-card-content.dark-yellow:hover {
+    background:var(--essay-task-dark-hover);
 }
 
 .dashboard-links {
@@ -333,7 +364,7 @@
 }
 
 .history {
-    width: 600px;
+    width: 515px;
     height: 400px;
     border-style: solid;
     border: 1px solid var(--border-color);
@@ -361,31 +392,36 @@
 .history-assignment-header {
     display: flex;
     justify-content: center;
-    width: 150px;
+}
+.longer {
+    width: 35%;
+}
+.medium {
+    width: 25%;
+}
+.shorter {
+    width: 20%;
 }
 
 .assignment-info {
     width: 100%;
     margin-top: 5px;
     align-items: center;
-    height: 100px;
-    border-style: solid;
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
+    height: 80px;
 }
 .history-assignment-name {
-   margin-left: 15px;
+    width: 130px;
+    text-align: center;
 }
 
 .border-assignment-info {
-    width: 550px;
+    width: 100%;
 }
 
 
 
 .history-assignment-name {
     font-size: 25px;
-    width: 150px;
 }
  .history-assignment-score, .history-assignment-letter,
 .history-assignment-date {
