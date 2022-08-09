@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import "./TodoList.css";
-import dueDateIcon from "../../assets/due-icon3.png";
-import updateIcon from "../../assets/update-icon.png";
-import completeIcon from "../../assets/complete-icon.png";
+import {BsClipboardData, BsInfo} from "react-icons/bs";
+import {BsPencil} from "react-icons/bs";
+import {BsCheckCircle} from "react-icons/bs";
 import TodoForm from "../TodoForm/TodoForm";
 import { useState } from "react";
 
@@ -631,7 +631,7 @@ export function TodoCard({
           <span className="name">{name}</span>
         </div>
         <div className="due-date-wrapper">
-          <img src={dueDateIcon} className="due-icon" />
+          <img src={BsClipboardData} className="due-icon" />
           <span className="due-date">
             {moment(dueDate).format("MMMM Do YYYY")}
           </span>
@@ -643,25 +643,36 @@ export function TodoCard({
         )}
 
         <div className="form-icons">
-          <img
+          <BsPencil size={28} className="form-icon"  onClick={() => {
+              setUpdateOrComplete("update");
+            }}/>
+          {/* <img
             className="form-icon  mobile"
-            src={updateIcon}
+            src={BsPencil}
             alt="update-icon"
             onClick={() => {
               setUpdateOrComplete("update");
             }}
-          />
-          <img
+          /> */}
+          <BsCheckCircle className="form-icon" onClick={() => {
+              setUpdateOrComplete("complete");
+            }} />
+          {/* <img
             className="form-icon  mobile"
-            src={completeIcon}
+            src={BsCheckCircle}
             alt="complete-icon"
             onClick={() => {
               setUpdateOrComplete("complete");
             }}
-          />
+          /> */}
           {/* <IconButton icon={<InfoIcon w={8} h={8} color="black"/>}/> */}
 
-          <svg
+          <BsInfo size={28} alt="form-icon mobile"
+            id="form-icon-info"
+            onClick={() => {
+              setShowDetail({ name, description, category, dueDate, dueTime });
+            }}/>
+          {/* <svg
             alt="form-icon mobile"
             id="form-icon-info"
             onClick={() => {
@@ -680,7 +691,7 @@ export function TodoCard({
             <circle cx="12" cy="12" r="9" />
             <line x1="12" y1="8" x2="12.01" y2="8" />
             <polyline points="11 12 12 12 12 16 13 16" />
-          </svg>
+          </svg> */}
         </div>
       </div>
       {updateOrComplete === "update" ? (
