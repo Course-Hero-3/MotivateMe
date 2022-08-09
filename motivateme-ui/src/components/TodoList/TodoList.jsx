@@ -23,9 +23,8 @@ import {
   MenuDivider,
   Button,
 } from "@chakra-ui/react";
-import { InfoIcon} from '@chakra-ui/icons'
-import { IconButton } from '@chakra-ui/react'
-
+import { InfoIcon } from "@chakra-ui/icons";
+import { IconButton } from "@chakra-ui/react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
 String.prototype.replaceAt = function (index, replacement) {
@@ -302,7 +301,11 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
   };
 
   /** handles submitting a task*/
-  const handleOnCompleteSubmit = async (event, completeForm, timeMeasurement) => {
+  const handleOnCompleteSubmit = async (
+    event,
+    completeForm,
+    timeMeasurement
+  ) => {
     event.preventDefault();
 
     if (
@@ -331,14 +334,20 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
       return;
     }
 
-    if (timeMeasurement === undefined || timeMeasurement === null || timeMeasurement === "" || timeMeasurement === "min") {
-      pass
-    }
-    else if (timeMeasurement === "hour") {
-      updatedCompleteForm = {...completeForm, "timeSpent": completeForm.timeSpent * 60}
-    }
-    else if (timeMeasurement === "day") {
-      updatedCompleteForm = {...completeForm, "timeSpent": completeForm * 1440}
+    if (
+      timeMeasurement === undefined ||
+      timeMeasurement === null ||
+      timeMeasurement === "" ||
+      timeMeasurement === "min"
+    ) {
+      pass;
+    } else if (timeMeasurement === "hour") {
+      updatedCompleteForm = {
+        ...completeForm,
+        timeSpent: completeForm.timeSpent * 60,
+      };
+    } else if (timeMeasurement === "day") {
+      updatedCompleteForm = { ...completeForm, timeSpent: completeForm * 1440 };
     }
 
     let { data, error } = await apiClient.completeTask(updatedCompleteForm);
@@ -387,7 +396,7 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
   return (
     <div className="todo-list">
       <div className="todo-list-header">
-      <Menu>
+        <Menu>
           <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
             {categoryQuery || "Category"}
           </MenuButton>
@@ -429,26 +438,25 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
           />
         </form>
         <svg
-        onClick={() => {
-          showModal("create");
-        }}
-        xmlns="http://www.w3.org/2000/svg"
-        className="icon icon-tabler icon-tabler-circle-plus todo-btn create"
-        width="65"
-        height="65"
-        viewBox="0 0 24 24"
-        strokeWidth="1.5"
-        stroke="#00abfb"
-        fill="none"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <circle cx="12" cy="12" r="9" />
-        <line x1="9" y1="12" x2="15" y2="12" />
-        <line x1="12" y1="9" x2="12" y2="15" />
-      </svg>
-
+          onClick={() => {
+            showModal("create");
+          }}
+          xmlns="http://www.w3.org/2000/svg"
+          className="icon icon-tabler icon-tabler-circle-plus todo-btn create"
+          width="65"
+          height="65"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="#00abfb"
+          fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="12" cy="12" r="9" />
+          <line x1="9" y1="12" x2="15" y2="12" />
+          <line x1="12" y1="9" x2="12" y2="15" />
+        </svg>
       </div>
       <div className="todo-list-wrapper d-flex flex-column justify-content-flex-start align-items-center">
         {searchTasks?.length === 0 ? (
@@ -505,7 +513,6 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
           </>
         )}
       </div>
-      
     </div>
   );
 }
@@ -620,8 +627,8 @@ export function TodoCard({
               setUpdateOrComplete("complete");
             }}
           />
-         {/* <IconButton icon={<InfoIcon w={8} h={8} color="black"/>}/> */}
-           
+          {/* <IconButton icon={<InfoIcon w={8} h={8} color="black"/>}/> */}
+
           <svg
             alt="form-icon mobile"
             id="form-icon-info"
@@ -630,8 +637,6 @@ export function TodoCard({
             }}
             xmlns="http://www.w3.org/2000/svg"
             className="icon icon-tabler icon-tabler-info-circle"
-          
-
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="#2c3e50"
@@ -643,7 +648,7 @@ export function TodoCard({
             <circle cx="12" cy="12" r="9" />
             <line x1="12" y1="8" x2="12.01" y2="8" />
             <polyline points="11 12 12 12 12 16 13 16" />
-          </svg> 
+          </svg>
         </div>
       </div>
       {updateOrComplete === "update" ? (
@@ -723,26 +728,47 @@ export function TaskDetail({
               >
                 {name}
               </h2>
-
-              <svg
-                onClick={() => {
-                  setShowDetail(null);
-                }}
-                xmlns="http://www.w3.org/2000/svg"
-                className="icon icon-tabler icon-tabler-x"
-                width="44"
-                height="44"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="#2c3e50"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
+              {colorModeState === "dark" ? (
+                <svg
+                  onClick={() => {
+                    setShowDetail(null);
+                  }}
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon icon-tabler icon-tabler-x"
+                  width="44"
+                  height="44"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="#ffffff"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              ) : (
+                <svg
+                  onClick={() => {
+                    setShowDetail(null);
+                  }}
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="icon icon-tabler icon-tabler-x"
+                  width="44"
+                  height="44"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="#2c3e50"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              )}
             </div>
             <div className="task-detail-body">
               <span className="task-detail-category">{category}</span>

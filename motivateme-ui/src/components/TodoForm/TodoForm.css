@@ -77,7 +77,21 @@
 
 .change-measurement {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 10px
+    ;
+    align-items: center;
+}
+@media(max-width:590px){
+    .split-input-field.form {
+        align-items: center;
+    }
+    .task-name {
+        font-size:  15px; ;
+    }
+    .form-input.split-twice {
+        width: 100%;
+    }
 }
 
 
@@ -97,6 +111,12 @@
     /* background: #fff; */
     box-sizing: border-box;
     /* color: #333; */
+}
+
+.time-spent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .form-input.description {

@@ -434,3 +434,6 @@ color: var(--primary-red);
 label{
     padding-right: 10px;
 }
+.icon {
+    cursor: pointer;
+}

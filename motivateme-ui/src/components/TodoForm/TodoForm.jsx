@@ -225,7 +225,22 @@ export function TodoCreate({
           >
             Create{" "}
           </h2>
-          <svg
+          {colorModeState === 'dark'?
+          <svg 
+           onClick={() => {
+              showModal("");
+              setCreateForm({
+                name: "",
+                description: "",
+                category: "",
+                dueDate: "",
+                dueTime: "",
+              });
+            }}xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+</svg>:  <svg
             onClick={() => {
               showModal("");
               setCreateForm({
@@ -250,7 +265,10 @@ export function TodoCreate({
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          </svg>}
+          
+        
+        
         </div>
         <div className="input-fields form">
           <div className="input-field form">
@@ -406,7 +424,18 @@ export function TodoUpdate({
           >
             Update
           </h2>
-          <svg
+         { colorModeState === 'dark'?
+         <svg 
+         onClick={() => {
+              setUpdateOrComplete(null);
+              setUpdateForm(originalForm);
+              setTaskError(null);
+            }}
+            xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+</svg>:<svg
             onClick={() => {
               setUpdateOrComplete(null);
               setUpdateForm(originalForm);
@@ -426,7 +455,7 @@ export function TodoUpdate({
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          </svg>}
         </div>
         <div className="input-fields form">
           <div className="input-field form">
@@ -611,7 +640,24 @@ export function TodoComplete({
           >
             Complete
           </h2>
-          <svg
+          {colorModeState === 'dark'?<svg
+           onClick={() => {
+              setUpdateOrComplete("");
+              setCompleteForm({
+                score: null,
+                timeSpent: null,
+                peopleWith: 0,
+                comment: "",
+                onTime: false,
+                taskId: taskId,
+                public: false,
+              });
+              setTaskError(null);
+            }} xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+</svg>:<svg
             onClick={() => {
               setUpdateOrComplete("");
               setCompleteForm({
@@ -639,7 +685,7 @@ export function TodoComplete({
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          </svg>}
         </div>
         <div className="input-fields form">
           <div className="input-field">
@@ -680,10 +726,11 @@ export function TodoComplete({
               />
             </div>
             <div className="input-field form-split">
-              <span className="task-name">Time Spent</span>
               <div className="change-measurement">
+                <div className="time-spent">
+                <span className="task-name">Time Spent</span>
                 <input
-                  className="form-input split-twice"
+                  className="form-input split-twice time-spent"
                   type="number"
                   name="timeSpent"
                   placeholder="Time"
@@ -695,6 +742,8 @@ export function TodoComplete({
                     );
                   }}
                 />
+                </div>
+                
                 <Menu>
                   <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                     {categoryQuery || "Min"}
