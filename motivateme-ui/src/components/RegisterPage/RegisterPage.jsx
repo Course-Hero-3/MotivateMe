@@ -337,9 +337,11 @@ export default function RegisterPage({
             ></input>
           </div>
           <div className="input-field register">
-            <span className="label">Profile Picture Upload (optional)</span>
+
+            <span className="label">
+              Profile Picture Upload (optional) - 70KB Max
+            </span>
             <div className="image-and-clear">
-              {console.log(ref)}
               <button
                 type="button"
                 onClick={() => {
@@ -363,9 +365,12 @@ export default function RegisterPage({
                 accept=".jpg, .jpeg, .png"
               ></input>
             </div>
+
           </div>
           <div className="input-field register">
-            <span className="label">Phone Number (optional)</span>
+            <span className="label">
+              Phone Number (optional) - SMS Notifications
+            </span>
 
             <input
               type="tel"
@@ -378,12 +383,7 @@ export default function RegisterPage({
               value={registerForm.phone}
               onChange={handleOnRegisterFormChange}
             ></input>
-            <div className="notification text">
-              <p>
-                {" "}
-                You will recieve notifications 1 hour before due date and time!
-              </p>
-            </div>
+
             <div className="register-footer">
               {registerError ? (
                 <div className="error">{registerError}</div>

@@ -175,8 +175,15 @@
 .form-input-image {
     border-radius: 5px;
     border: none;
-    height: 54px;
+    height: 40px;
 }
+
+.file-size-text{
+
+    font-weight: bold;
+}
+
+
 
 .form-input.alone, .form-input-split {
     width: 100%;

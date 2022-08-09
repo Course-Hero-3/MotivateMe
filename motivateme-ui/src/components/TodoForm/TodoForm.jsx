@@ -225,50 +225,61 @@ export function TodoCreate({
           >
             Create{" "}
           </h2>
-          {colorModeState === 'dark'?
-          <svg 
-           onClick={() => {
-              showModal("");
-              setCreateForm({
-                name: "",
-                description: "",
-                category: "",
-                dueDate: "",
-                dueTime: "",
-              });
-            }}xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <line x1="18" y1="6" x2="6" y2="18" />
-  <line x1="6" y1="6" x2="18" y2="18" />
-</svg>:  <svg
-            onClick={() => {
-              showModal("");
-              setCreateForm({
-                name: "",
-                description: "",
-                category: "",
-                dueDate: "",
-                dueTime: "",
-              });
-            }}
-            xmlns="http://www.w3.org/2000/svg"
-            className="icon icon-tabler icon-tabler-x"
-            width="44"
-            height="44"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="#2c3e50"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>}
-          
-        
-        
+          {colorModeState === "dark" ? (
+            <svg
+              onClick={() => {
+                showModal("");
+                setCreateForm({
+                  name: "",
+                  description: "",
+                  category: "",
+                  dueDate: "",
+                  dueTime: "",
+                });
+              }}
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon icon-tabler icon-tabler-x"
+              width="44"
+              height="44"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="#ffffff"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          ) : (
+            <svg
+              onClick={() => {
+                showModal("");
+                setCreateForm({
+                  name: "",
+                  description: "",
+                  category: "",
+                  dueDate: "",
+                  dueTime: "",
+                });
+              }}
+              xmlns="http://www.w3.org/2000/svg"
+              className="icon icon-tabler icon-tabler-x"
+              width="44"
+              height="44"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="#2c3e50"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          )}
         </div>
         <div className="input-fields form">
           <div className="input-field form">
@@ -365,6 +376,9 @@ export function TodoCreate({
               />
             </div>
           </div>
+          <div className="notification-text">
+            <p>You will receive a text message 1 hour before the due date.</p>
+          </div>
           <div className="input-field form">
             <span className="task-name">Description</span>
             <textarea
@@ -424,38 +438,51 @@ export function TodoUpdate({
           >
             Update
           </h2>
-         { colorModeState === 'dark'?
-         <svg 
-         onClick={() => {
-              setUpdateOrComplete(null);
-              setUpdateForm(originalForm);
-              setTaskError(null);
-            }}
-            xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <line x1="18" y1="6" x2="6" y2="18" />
-  <line x1="6" y1="6" x2="18" y2="18" />
-</svg>:<svg
-            onClick={() => {
-              setUpdateOrComplete(null);
-              setUpdateForm(originalForm);
-              setTaskError(null);
-            }}
-            xmlns="http://www.w3.org/2000/svg"
-            className="icon icon-tabler icon-tabler-x"
-            width="44"
-            height="44"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="#2c3e50"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>}
+          {colorModeState === "dark" ? (
+            <svg
+              onClick={() => {
+                setUpdateOrComplete(null);
+                setUpdateForm(originalForm);
+                setTaskError(null);
+              }}
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon icon-tabler icon-tabler-x"
+              width="44"
+              height="44"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="#ffffff"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          ) : (
+            <svg
+              onClick={() => {
+                setUpdateOrComplete(null);
+                setUpdateForm(originalForm);
+                setTaskError(null);
+              }}
+              xmlns="http://www.w3.org/2000/svg"
+              className="icon icon-tabler icon-tabler-x"
+              width="44"
+              height="44"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="#2c3e50"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          )}
         </div>
         <div className="input-fields form">
           <div className="input-field form">
@@ -640,52 +667,67 @@ export function TodoComplete({
           >
             Complete
           </h2>
-          {colorModeState === 'dark'?<svg
-           onClick={() => {
-              setUpdateOrComplete("");
-              setCompleteForm({
-                score: null,
-                timeSpent: null,
-                peopleWith: 0,
-                comment: "",
-                onTime: false,
-                taskId: taskId,
-                public: false,
-              });
-              setTaskError(null);
-            }} xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <line x1="18" y1="6" x2="6" y2="18" />
-  <line x1="6" y1="6" x2="18" y2="18" />
-</svg>:<svg
-            onClick={() => {
-              setUpdateOrComplete("");
-              setCompleteForm({
-                score: null,
-                timeSpent: null,
-                peopleWith: 0,
-                comment: "",
-                onTime: false,
-                taskId: taskId,
-                public: false,
-              });
-              setTaskError(null);
-            }}
-            xmlns="http://www.w3.org/2000/svg"
-            className="icon icon-tabler icon-tabler-x"
-            width="44"
-            height="44"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="#2c3e50"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>}
+          {colorModeState === "dark" ? (
+            <svg
+              onClick={() => {
+                setUpdateOrComplete("");
+                setCompleteForm({
+                  score: null,
+                  timeSpent: null,
+                  peopleWith: 0,
+                  comment: "",
+                  onTime: false,
+                  taskId: taskId,
+                  public: false,
+                });
+                setTaskError(null);
+              }}
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon icon-tabler icon-tabler-x"
+              width="44"
+              height="44"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="#ffffff"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          ) : (
+            <svg
+              onClick={() => {
+                setUpdateOrComplete("");
+                setCompleteForm({
+                  score: null,
+                  timeSpent: null,
+                  peopleWith: 0,
+                  comment: "",
+                  onTime: false,
+                  taskId: taskId,
+                  public: false,
+                });
+                setTaskError(null);
+              }}
+              xmlns="http://www.w3.org/2000/svg"
+              className="icon icon-tabler icon-tabler-x"
+              width="44"
+              height="44"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="#2c3e50"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          )}
         </div>
         <div className="input-fields form">
           <div className="input-field">
@@ -709,7 +751,7 @@ export function TodoComplete({
           </div>
           <div className="split-input-field form">
             <div className="input-field form-split">
-              <span className="task-name">People worked with</span>
+              <span className="task-name"> # of People worked with</span>
               <input
                 className="form-input split"
                 name="peopleWith"
@@ -728,22 +770,22 @@ export function TodoComplete({
             <div className="input-field form-split">
               <div className="change-measurement">
                 <div className="time-spent">
-                <span className="task-name">Time Spent</span>
-                <input
-                  className="form-input split-twice time-spent"
-                  type="number"
-                  name="timeSpent"
-                  placeholder="Time"
-                  onChange={(event) => {
-                    handleOnCompleteFormChange(
-                      event,
-                      completeForm,
-                      setCompleteForm
-                    );
-                  }}
-                />
+                  <span className="task-name">Time Spent</span>
+                  <input
+                    className="form-input split-twice time-spent"
+                    type="number"
+                    name="timeSpent"
+                    placeholder="Time"
+                    onChange={(event) => {
+                      handleOnCompleteFormChange(
+                        event,
+                        completeForm,
+                        setCompleteForm
+                      );
+                    }}
+                  />
                 </div>
-                
+
                 <Menu>
                   <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                     {categoryQuery || "Min"}
