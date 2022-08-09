@@ -60,6 +60,12 @@
   height: 39px;
 }
 
+.button-right-tab:hover{
+  background-color: var(--primary-blue);
+  color: white;
+  border-radius: 5px;
+}
+
 .active-tab {
   border-bottom: 3px solid #34B3F1;
 }

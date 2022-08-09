@@ -51,8 +51,8 @@ export default function HorizontalBarVisual({
           },
         },
       }}
-      height={400}
-      width={600}
+      height={370}
+      width={410}
     />
   );
 }
