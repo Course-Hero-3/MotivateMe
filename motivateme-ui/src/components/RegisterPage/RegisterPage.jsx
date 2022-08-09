@@ -1,7 +1,8 @@
 import "./RegisterPage.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiClient from "../../../services/apiclient";
+import { BsFillTrashFill } from "react-icons/bs";
 // import S3FileUpload from "react-s3";
 
 export default function RegisterPage({
@@ -10,6 +11,7 @@ export default function RegisterPage({
   setCurrPage,
   colorModeState,
 }) {
+  const [fileIsChosen, setFileIsChosen] = useState(false)
   const [registerForm, setRegisterForm] = useState({
     firstName: "",
     email: "",
@@ -22,6 +24,12 @@ export default function RegisterPage({
   });
   const [registerError, setRegisterError] = useState(null);
   const navigate = useNavigate();
+  const ref = useRef();
+
+  const reset = () => {
+    setFileIsChosen(false)
+    ref.current.value = "";
+  };
 
   // set current page to register (for navbar to not render its content)
   // also, navigate to "todo" page if they are
@@ -35,6 +43,7 @@ export default function RegisterPage({
 
   // handle any register form changes and do some checks
   const handleOnImageChange = (event) => {
+    setFileIsChosen(true)
     if (event.target.files[0].size > 70000) {
       setRegisterError("Please upload images around 70 kb or below.");
       return;
@@ -328,16 +337,35 @@ export default function RegisterPage({
             ></input>
           </div>
           <div className="input-field register">
+
             <span className="label">
               Profile Picture Upload (optional) - 70KB Max
             </span>
-            <input
-              type="file"
-              name="image"
-              className="form-input-image"
-              onChange={handleOnImageChange}
-              accept=".jpg, .jpeg, .png"
-            ></input>
+            <div className="image-and-clear">
+              <button
+                type="button"
+                onClick={() => {
+                  reset();
+                  setRegisterForm({ ...registerForm, image: "" });
+                  if (registerError === "Please upload images around 70 kb or below." ||
+                  registerError === "Please upload a smaller sized image than before.") {
+                    setRegisterError(null)
+                  }
+                }}
+                className={`trash-btn${fileIsChosen?"":" hidden"}`}
+              >
+                <BsFillTrashFill size={24} />
+              </button>
+              <input
+                type="file"
+                name="image"
+                ref={ref}
+                className="form-input-image"
+                onChange={handleOnImageChange}
+                accept=".jpg, .jpeg, .png"
+              ></input>
+            </div>
+
           </div>
           <div className="input-field register">
             <span className="label">
@@ -355,6 +383,7 @@ export default function RegisterPage({
               value={registerForm.phone}
               onChange={handleOnRegisterFormChange}
             ></input>
+
             <div className="register-footer">
               {registerError ? (
                 <div className="error">{registerError}</div>
