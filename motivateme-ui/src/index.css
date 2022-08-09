@@ -13,13 +13,24 @@
   --test-task:hsl(32, 100%, 85%);
   --homework-task:#cdebff;
   --homework-task-hover:#6ac3ff;
+  --homework-task-dark: #2894dc;
+  --homework-task-dark-hover: #2f688f;
   --quiz-task:#ccc4fc;
   --quiz-task-hover:#9f8efc;
+  --quiz-task-dark: #5c3fff;
+  --quiz-task-dark-hover: #4631bc;
   --project-task:#c8f1b7;
   --project-task-hover:#87c86d;
+  --project-task-dark:#54b62b;
+  --project-task-dark-hover:#35791b;
   --essay-task:#ffd0f1;
   --essay-task-hover:#fb90ff;
+  --essay-task-dark:#bd2f92;
+  --essay-task-dark-hover:#842487;
+  --test-task: #fec17a;
   --test-task-hover:#fba542;
+  --test-task-dark: #d88b32;
+  --test-task-dark-hover:#9b5b13;
   --bright-red: #fe3210;
   --muted: #969696;
   --background-color:#f7f7f7;
@@ -61,3 +72,8 @@ font-family: 'Montserrat', sans-serif;
   box-sizing: border-box;
 }
 
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}

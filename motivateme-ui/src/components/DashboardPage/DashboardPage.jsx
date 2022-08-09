@@ -10,7 +10,7 @@ import apiClient from "../../../services/apiclient";
 import moment from "moment";
 import { TaskDetail } from "../TodoList/TodoList";
 
-export default function DashboardPage({ user, setCurrPage }) {
+export default function DashboardPage({ user, setCurrPage, colorModeState }) {
   const [friends, setFriends] = useState(null);
   const [graphs, setGraphs] = React.useState(null);
   const [tasks, setTasks] = React.useState(null);
@@ -55,11 +55,11 @@ export default function DashboardPage({ user, setCurrPage }) {
           {/* If user is logged in, set the page equal to "dashboard" */}
           {setCurrPage("dashboard")}
           <div className="dashboard-page">
-            <div className="dashboard-columns d-flex flex-row">
-              <div className="dashboard-column intro">
+            <div className="dashboard-columns">
+              <div className="dashboard-column-leftpanel">
                 <div className="dashboard-welcome">
                   <h1 className="dashboard-main-welcome">
-                    Hey {user?.firstName}, Welcome to your dashboard!
+                    Hey {user?.firstName}, welcome to your Dashboard!
                   </h1>
                 </div>
                 <Link to="/todo" className="dashboard-links">
@@ -131,67 +131,60 @@ export default function DashboardPage({ user, setCurrPage }) {
                   </div>
                 </Link>
               </div>
-              <div className="d-flex flex-column">
-                <div className="dashboard-stats">
-                  {/* If there are graphs, then show them (if it is empty, intentionally don't show any message) */}
-                  {graphs?.map((fact, idx) => (
-                    <Link to="/recap" className="dashboard-links" key={idx}>
-                      <GraphCard chartInformation={fact} dashboardOn={true} />
-                    </Link>
-                  ))}
-                </div>
-                <div className="dashboard-info">
-                  <Link to="/todo" className="dashboard-links">
-                    <div className="dash-todo-viewer">
-                      <TodoViewer
-                        currentTasks={tasks}
-                        setShowDetail={setShowDetail}
-                      />
-                    </div>
+              <div className="content-area">
+                {/* If there are graphs, then show them (if it is empty, intentionally don't show any message) */}
+                {graphs?.map((fact, idx) => (
+                  <Link to="/recap" className="dashboard-links" key={idx}>
+                    <GraphCard chartInformation={fact} dashboardOn={true} />
                   </Link>
-                  <div className="history d-flex flex-column align-items-center">
-                    <h2 className="history-header">History</h2>
-                    {latestGrades?.length === 0 ? (
-                      <span className="no-latest">Nothing to show.</span>
-                    ) : (
-                      <div className="history-assignment-table d-flex flex-column">
-                        <div className="history-assignment-info d-flex flex-column align-items-center">
-                          <div className="history-assignment-headers d-flex flex-row justify-content-between">
-                            <h2 className="history-assignment-header">Name</h2>
-                            <h2 className="history-assignment-header">
-                              Percent
-                            </h2>
-                            <h2 className="history-assignment-header">
-                              Letter
-                            </h2>
-                            <h2 className="history-assignment-header">Date</h2>
-                          </div>
-                          {latestGrades?.map((completed) => (
-                            <>
-                              <div className="border-assignment-info">
-                                <div className="assignment-info d-flex flex-row justify-content-between">
-                                  <h2 className="history-assignment-name">
-                                    {completed.name}
-                                  </h2>
-                                  <h2 className="history-assignment-score">
-                                    {completed.score}%
-                                  </h2>
-                                  <h2 className="history-assignment-letter">
-                                    {completed.actualLetterGrade}
-                                  </h2>
-                                  <h2 className="history-assignment-date">
-                                    {moment(completed.completedAt).format(
-                                      "YYYY-MM-DD"
-                                    )}
-                                  </h2>
-                                </div>
-                              </div>
-                            </>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                ))}
+                <Link to="/todo" className="dashboard-links">
+                  <div className="dash-todo-viewer">
+                    <TodoViewer
+                      currentTasks={tasks}
+                      setShowDetail={setShowDetail}
+                      colorModeState={colorModeState}
+                    />
                   </div>
+                </Link>
+                <div className="history d-flex flex-column align-items-center">
+                  <h2 className="history-header">History</h2>
+                  {latestGrades?.length === 0 ? (
+                    <span className="no-latest">Nothing to show.</span>
+                  ) : (
+                    <div className="history-assignment-table d-flex flex-column">
+                      <div className="history-assignment-info d-flex flex-column align-items-center">
+                        <div className="history-assignment-headers d-flex flex-row justify-content-evenly">
+                          <h2 className="history-assignment-header medium">Name</h2>
+                          <h2 className="history-assignment-header shorter">Percent</h2>
+                          <h2 className="history-assignment-header shorter">Letter</h2>
+                          <h2 className="history-assignment-header longer">Date</h2>
+                        </div>
+                        {latestGrades?.map((completed) => (
+                          <>
+                            <div className="border-assignment-info">
+                              <div className="assignment-info d-flex flex-row justify-content-between">
+                                <h2 className="history-assignment-name medium">
+                                  {completed.name}
+                                </h2>
+                                <h2 className="history-assignment-score shorter">
+                                  {completed.score}%
+                                </h2>
+                                <h2 className="history-assignment-letter shorter">
+                                  {completed.actualLetterGrade}
+                                </h2>
+                                <h2 className="history-assignment-date longer">
+                                  {moment(completed.completedAt).format(
+                                    "YYYY-MM-DD"
+                                  )}
+                                </h2>
+                              </div>
+                            </div>
+                          </>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -217,7 +210,7 @@ export default function DashboardPage({ user, setCurrPage }) {
   );
 }
 
-export function TodoViewer({ currentTasks, setShowDetail }) {
+export function TodoViewer({ currentTasks, setShowDetail, colorModeState }) {
   return (
     <div className="todo-bulletin">
       <p className="todo-date">Today is: {moment(new Date()).format("llll")}</p>
@@ -251,6 +244,7 @@ export function TodoViewer({ currentTasks, setShowDetail }) {
                     dueTime={localizedTime}
                     description={task.description}
                     setShowDetail={setShowDetail}
+                    colorModeState={colorModeState}
                   />
                 );
               }
@@ -272,19 +266,36 @@ export function MiniTodoCard({
   description,
   setShowDetail,
   showDetail,
+  colorModeState,
 }) {
   const [colorState, setColorState] = useState(null);
   useEffect(() => {
-    if (category.toLowerCase() === "homework") {
-      setColorState("blue");
-    } else if (category.toLowerCase() === "test") {
-      setColorState("orange");
-    } else if (category.toLowerCase() === "quiz") {
-      setColorState("purple");
-    } else if (category.toLowerCase() === "project") {
-      setColorState("green");
-    } else if (category.toLowerCase() === "essay") {
-      setColorState("yellow");
+    console.log(colorModeState);
+
+    if (colorModeState === "light") {
+      if (category.toLowerCase() === "homework") {
+        setColorState("blue");
+      } else if (category.toLowerCase() === "test") {
+        setColorState("orange");
+      } else if (category.toLowerCase() === "quiz") {
+        setColorState("purple");
+      } else if (category.toLowerCase() === "project") {
+        setColorState("green");
+      } else if (category.toLowerCase() === "essay") {
+        setColorState("yellow");
+      }
+    } else {
+      if (category.toLowerCase() === "homework") {
+        setColorState("dark-blue");
+      } else if (category.toLowerCase() === "test") {
+        setColorState("dark-orange");
+      } else if (category.toLowerCase() === "quiz") {
+        setColorState("dark-purple");
+      } else if (category.toLowerCase() === "project") {
+        setColorState("dark-green");
+      } else if (category.toLowerCase() === "essay") {
+        setColorState("dark-yellow");
+      }
     }
   }, []);
 
@@ -342,7 +353,7 @@ export function MiniTodoCard({
         ) : (
           <p className="upcoming-text-dash">In Progress</p>
         )}
-        <p className="mini-card-date">Due {moment(dueDate).format("ll")}</p>
+        <p className="mini-card-date">{moment(dueDate).format("ll")}</p>
       </div>
     </div>
   );

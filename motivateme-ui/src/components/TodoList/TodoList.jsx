@@ -568,16 +568,31 @@ export function TodoCard({
 
   //changes the card colors based on the category of the task given
   useEffect(() => {
-    if (category.toLowerCase() === "homework") {
-      setColorState("blue");
-    } else if (category.toLowerCase() === "test") {
-      setColorState("orange");
-    } else if (category.toLowerCase() === "quiz") {
-      setColorState("purple");
-    } else if (category.toLowerCase() === "project") {
-      setColorState("green");
-    } else if (category.toLowerCase() === "essay") {
-      setColorState("yellow");
+    if (colorModeState === "light") {
+      if (category.toLowerCase() === "homework") {
+        setColorState("blue");
+      } else if (category.toLowerCase() === "test") {
+        setColorState("orange");
+      } else if (category.toLowerCase() === "quiz") {
+        setColorState("purple");
+      } else if (category.toLowerCase() === "project") {
+        setColorState("green");
+      } else if (category.toLowerCase() === "essay") {
+        setColorState("yellow");
+      }
+    }
+    else {
+      if (category.toLowerCase() === "homework") {
+        setColorState("dark-blue");
+      } else if (category.toLowerCase() === "test") {
+        setColorState("dark-orange");
+      } else if (category.toLowerCase() === "quiz") {
+        setColorState("dark-purple");
+      } else if (category.toLowerCase() === "project") {
+        setColorState("dark-green");
+      } else if (category.toLowerCase() === "essay") {
+        setColorState("dark-yellow");
+      }
     }
   }, [updateForm, handleOnUpdateSubmit]);
 
