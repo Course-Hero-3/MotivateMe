@@ -153,8 +153,14 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
     if (event.target.name === "dueDate" && event.target.value.length === 0) {
       setTaskError("Due Date field cannot be left empty");
     }
+    else if (event.target.name === "dueDate" && taskError === "Date and/or Time missing") {
+      setTaskError(null)
+    }
     if (event.target.name === "dueTime" && event.target.value.length === 0) {
       setTaskError("Due Time field cannot be left empty");
+    }
+    else if (event.target.name === "dueTime" && taskError === "Date and/or Time missing") {
+      setTaskError(null)
     }
 
     // check if prior submits had anything set equal to zero
@@ -229,34 +235,46 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
       return;
     }
 
-    let convertedUTC = new Date(
-      updateForm.dueDate + " " + updateForm.dueTime
-    ).toISOString();
-    let split = convertedUTC.split("T");
-    let convertedDate = split[0];
-    let convertedTime = split[1].slice(0, -8);
-    let convertedUpdatedForm = {
-      ...updateForm,
-      dueDate: convertedDate,
-      dueTime: convertedTime,
-    };
-
-    let { data, error } = await apiClient.updateTask(convertedUpdatedForm);
-
-    if (data?.task) {
-      setTaskError(null);
-      setRefreshTasks(!refreshTasks);
-      setUpdateOrComplete(null);
-      toast({
-        title: "Task succesfully updated!",
-        description: "",
-        status: "success",
-        duration: 6000,
-        isClosable: true,
-      });
-    } else {
-      setTaskError(error);
+    try {
+      let ymd = updateForm.dueDate.split("-");
+      let hm = updateForm.dueTime.split(":");
+      let convertedUTC = new Date(
+        Number(ymd[0]),
+        Number(ymd[1]) - 1,
+        Number(ymd[2]),
+        Number(hm[0]),
+        Number(hm[1])
+      ).toISOString();
+      let split = convertedUTC.split("T");
+      let convertedDate = split[0];
+      let convertedTime = split[1].slice(0, -8);
+      let convertedUpdatedForm = {
+        ...updateForm,
+        dueDate: convertedDate,
+        dueTime: convertedTime,
+      };
+  
+      let { data, error } = await apiClient.updateTask(convertedUpdatedForm);
+  
+      if (data?.task) {
+        setTaskError(null);
+        setRefreshTasks(!refreshTasks);
+        setUpdateOrComplete(null);
+        toast({
+          title: "Task succesfully updated!",
+          description: "",
+          status: "success",
+          duration: 6000,
+          isClosable: true,
+        });
+      } else {
+        setTaskError(error);
+      }
     }
+    catch (error) {
+      setTaskError("Date and/or Time missing")
+    }
+    
   };
   /**handles updating the task forms */
   const handleOnCompleteFormChange = (event, completeForm, setCompleteForm) => {
@@ -264,14 +282,21 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
       setTaskError("Score field cannot be left empty");
     }
     if (event.target.name === "score" && event.target.value > 200) {
-      setTaskError("Score field cannot surpass 200%")
+      setTaskError("Score field cannot surpass 200%");
     }
     if (event.target.name === "score" && event.target.value < 0) {
-      setTaskError("Negative percentages are not possible.")
+      setTaskError("Negative percentages are not possible.");
     }
-    if (event.target.name === "score" && event.target.value >= 0 && event.target.value <= 200) {
-      if (taskError === "Negative percentages are not possible." || "Score field cannot surpass 200%") {
-        setTaskError(null)
+    if (
+      event.target.name === "score" &&
+      event.target.value >= 0 &&
+      event.target.value <= 200
+    ) {
+      if (
+        taskError === "Negative percentages are not possible." ||
+        "Score field cannot surpass 200%"
+      ) {
+        setTaskError(null);
       }
     }
     if (event.target.name === "timeSpent" && event.target.value.length === 0) {
@@ -584,7 +609,7 @@ export function TodoCard({
         setColorState("yellow");
       }
     } else {
-      setColorState("dark-color")
+      setColorState("dark-color");
     }
   }, [updateForm, handleOnUpdateSubmit]);
 
