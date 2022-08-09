@@ -2,7 +2,8 @@
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 
-
+  --dark-color-card:#3f506d;
+  --dark-color-card-hover:#283347;
   --side-padding: 40px;
   --content-width: 1100px;
   --dark-blue: #2c4047;

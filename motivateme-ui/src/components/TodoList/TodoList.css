@@ -6,6 +6,7 @@
     align-items: center;
     width: 100%;
     margin-left: 10px;
+
 }
 
 .todo-list-line {
@@ -153,6 +154,13 @@
     }
 }
 
+.todo-card.dark-color{
+    background-color:var(--dark-color-card) ;
+}
+
+.todo-card.dark-color:hover{
+    background-color: var(--dark-color-card-hover);
+}
 /* render BLUE for todo card in light/dark mode */
 .todo-card.blue {
     background:var(--homework-task);
@@ -160,12 +168,7 @@
 .todo-card.blue:hover {
     background:var(--homework-task-hover);
 }
-.todo-card.dark-blue {
-    background:var(--homework-task-dark);
-}
-.todo-card.dark-blue:hover {
-    background:var(--homework-task-dark-hover);
-}
+
 
 /* render GREEN for todo card in light/dark mode */
 .todo-card.green{
@@ -173,12 +176,6 @@
 }
 .todo-card.green:hover {
     background: var(--project-task-hover);
-}
-.todo-card.dark-green {
-    background:var(--project-task-dark);
-}
-.todo-card.dark-green:hover {
-    background:var(--project-task-dark-hover);
 }
 
 /* render PURPLE for todo card in light/dark mode */
@@ -188,12 +185,8 @@
 .todo-card.purple:hover {
     background: var(--quiz-task-hover);
 }
-.todo-card.dark-purple {
-    background:var(--quiz-task-dark);
-}
-.todo-card.dark-purple:hover {
-    background:var(--quiz-task-dark-hover);
-}
+
+
 
 /* render ORANGE for todo card in light/dark mode */
 .todo-card.orange {
@@ -201,12 +194,6 @@
 }
 .todo-card.orange:hover {
     background: var(--test-task-hover);
-}
-.todo-card.dark-orange {
-    background:var(--test-task-dark);
-}
-.todo-card.dark-orange:hover {
-    background:var(--test-task-dark-hover);
 }
 
 /* render YELLOW for todo card in light/dark mode */
@@ -216,12 +203,7 @@
 .todo-card.yellow:hover {
     background: var(--essay-task-hover);
 }
-.todo-card.dark-yellow {
-    background:var(--essay-task-dark);
-}
-.todo-card.dark-yellow:hover {
-    background:var(--essay-task-dark-hover);
-}
+
 
 .card-body {
     height: 60px;

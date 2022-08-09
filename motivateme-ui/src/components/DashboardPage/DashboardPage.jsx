@@ -291,17 +291,7 @@ export function MiniTodoCard({
         setColorState("yellow");
       }
     } else {
-      if (category.toLowerCase() === "homework") {
-        setColorState("dark-blue");
-      } else if (category.toLowerCase() === "test") {
-        setColorState("dark-orange");
-      } else if (category.toLowerCase() === "quiz") {
-        setColorState("dark-purple");
-      } else if (category.toLowerCase() === "project") {
-        setColorState("dark-green");
-      } else if (category.toLowerCase() === "essay") {
-        setColorState("dark-yellow");
-      }
+      setColorState("dark-color")
     }
   }, []);
 

@@ -254,6 +254,12 @@
     font-family: 'Nunito', sans-serif;
 }
 
+.mini-card-content.dark-color{
+    background-color: var(--dark-color-card);
+}
+.mini-card-content.dark-color:hover{
+    background-color: var(--dark-color-card-hover);
+}
 
 /* render BLUE for todo card in light/dark mode */
 .mini-card-content.blue {
@@ -262,12 +268,7 @@
 .mini-card-content.blue:hover {
     background:var(--homework-task-hover);
 }
-.mini-card-content.dark-blue {
-    background:var(--homework-task-dark);
-}
-.mini-card-content.dark-blue:hover {
-    background:var(--homework-task-dark-hover);
-}
+
 
 /* render GREEN for todo card in light/dark mode */
 .mini-card-content.green{
@@ -276,12 +277,7 @@
 .mini-card-content.green:hover {
     background: var(--project-task-hover);
 }
-.mini-card-content.dark-green {
-    background:var(--project-task-dark);
-}
-.mini-card-content.dark-green:hover {
-    background:var(--project-task-dark-hover);
-}
+
 
 /* render PURPLE for todo card in light/dark mode */
 .mini-card-content.purple {
@@ -290,12 +286,7 @@
 .mini-card-content.purple:hover {
     background: var(--quiz-task-hover);
 }
-.mini-card-content.dark-purple {
-    background:var(--quiz-task-dark);
-}
-.mini-card-content.dark-purple:hover {
-    background:var(--quiz-task-dark-hover);
-}
+
 
 /* render ORANGE for todo card in light/dark mode */
 .mini-card-content.orange {
@@ -304,12 +295,7 @@
 .mini-card-content.orange:hover {
     background: var(--test-task-hover);
 }
-.mini-card-content.dark-orange {
-    background:var(--test-task-dark);
-}
-.mini-card-content.dark-orange:hover {
-    background:var(--test-task-dark-hover);
-}
+
 
 /* render YELLOW for todo card in light/dark mode */
 .mini-card-content.yellow {
@@ -318,12 +304,7 @@
 .mini-card-content.yellow:hover {
     background: var(--essay-task-hover);
 }
-.mini-card-content.dark-yellow {
-    background:var(--essay-task-dark);
-}
-.mini-card-content.dark-yellow:hover {
-    background:var(--essay-task-dark-hover);
-}
+
 
 .dashboard-links {
     text-decoration: none;
