@@ -263,6 +263,17 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
     if (event.target.name === "score" && event.target.value.length === 0) {
       setTaskError("Score field cannot be left empty");
     }
+    if (event.target.name === "score" && event.target.value > 200) {
+      setTaskError("Score field cannot surpass 200%")
+    }
+    if (event.target.name === "score" && event.target.value < 0) {
+      setTaskError("Negative percentages are not possible.")
+    }
+    if (event.target.name === "score" && event.target.value >= 0 && event.target.value <= 200) {
+      if (taskError === "Negative percentages are not possible." || "Score field cannot surpass 200%") {
+        setTaskError(null)
+      }
+    }
     if (event.target.name === "timeSpent" && event.target.value.length === 0) {
       setTaskError("Time Spent field cannot be left empty");
     }
