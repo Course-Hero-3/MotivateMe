@@ -403,6 +403,16 @@ color: var(--primary-red);
     color: #333;
 
 }
+@media(max-width:1100px){
+    .task_modal_content {
+        width: 50%;
+    }
+}
+@media(max-width:700px){
+    .task_modal_content {
+        width: 80%;
+    }
+}
 
 .task_modal_content.dark {
     color: var(--primary-blue);
@@ -423,4 +433,7 @@ color: var(--primary-red);
 
 label{
     padding-right: 10px;
+}
+.icon {
+    cursor: pointer;
 }
