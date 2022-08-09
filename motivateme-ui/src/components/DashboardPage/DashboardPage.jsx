@@ -345,7 +345,10 @@ export function MiniTodoCard({
         <h3 className="mini-card-name">{name}</h3>
         {/* Check whether to mark it as late or upcoming */}
         {taskIsLate() ? (
-          <p className="late-text-dash">Late</p>
+          <>
+                    <p className={`late-text-dash${colorModeState==="dark"?" lighter":""}`}>Late</p>
+
+          </>
         ) : (
           <p className="upcoming-text-dash">In Progress</p>
         )}
