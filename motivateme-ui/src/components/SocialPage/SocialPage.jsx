@@ -6,7 +6,7 @@ import AccessForbidden from "../AccessForbidden/AccessForbidden";
 import GraphCard from "../GraphCard/GraphCard";
 import moment from "moment";
 
-export default function SocialPage({ user, setCurrPage }) {
+export default function SocialPage({ user, setCurrPage, colorModeState }) {
   const [rightTabState, setRightTabState] = useState("friends");
   const [friends, setFriends] = useState(null);
   const [followers, setFollowers] = useState(null);
@@ -151,17 +151,17 @@ export default function SocialPage({ user, setCurrPage }) {
           {setCurrPage("social")}
           <div className="social-page">
             <h1 className="main-title">Social Page</h1>
-            <div className="social-content">
-              <div className="activity-feed">
-                <h2 className="activity-title">Activity Feed</h2>
+            <h2 className="activity-title">Activity Feed</h2>
                 <h4 className="social-date">
                   Last time refreshed: {moment(new Date()).format("llll")}
                 </h4>
+            <div className="social-content">
+              <div className="activity-feed">
+               
                 <div className="main-feed">
                   {activity?.length === 0 ? (
                     <h3 className="no-feed">
-                      Nothing in your feed. Follow more friends to see how
-                      others are doing!
+                      Nothing in your feed. 
                     </h3>
                   ) : (
                     <>
@@ -170,7 +170,7 @@ export default function SocialPage({ user, setCurrPage }) {
                           <div className="activity-user-info">
                             <h3 className="activity-card-name">
                               {singleActivity?.firstName}{" "}
-                              {`${singleActivity?.lastName} - `}
+                              {`${singleActivity?.lastName}`}
                             </h3>
                             <h3 className="activity-card-username">
                               {` @${singleActivity?.username}`}
@@ -182,6 +182,7 @@ export default function SocialPage({ user, setCurrPage }) {
                             <div className="activity-user-graph">
                               <GraphCard
                                 chartInformation={singleActivity?.publicGraph}
+                                colorModeState={colorModeState}
                               />
                             </div>
                           ) : (
@@ -283,10 +284,10 @@ export default function SocialPage({ user, setCurrPage }) {
                                         />
                                         <div className="user-text-info">
                                           <h4 className="user-username">
-                                            @{friend.username}
+                                            {friend.firstName} {friend.lastName}
                                           </h4>
                                           <h4 className="user-name">
-                                            {friend.firstName} {friend.lastName}
+                                          @{friend.username}
                                           </h4>
                                         </div>
                                       </div>
@@ -367,11 +368,12 @@ export default function SocialPage({ user, setCurrPage }) {
                                         />
                                         <div className="user-text-info">
                                           <h4 className="user-username">
-                                            @{stranger?.username}
+                                          {stranger?.firstName}{" "}
+                                            {stranger?.lastName}
                                           </h4>
                                           <h4 className="user-name">
-                                            {stranger?.firstName}{" "}
-                                            {stranger?.lastName}
+                                           
+                                            @{stranger?.username}
                                           </h4>
                                         </div>
                                       </div>
@@ -449,11 +451,12 @@ export default function SocialPage({ user, setCurrPage }) {
                                         />
                                         <div className="user-text-info">
                                           <h4 className="user-username">
-                                            @{follower?.username}
-                                          </h4>
-                                          <h4 className="user-name">
                                             {follower?.firstName}{" "}
                                             {follower?.lastName}
+                                          </h4>
+                                          <h4 className="user-name">
+                                            @{follower?.username}
+
                                           </h4>
                                         </div>
                                       </div>

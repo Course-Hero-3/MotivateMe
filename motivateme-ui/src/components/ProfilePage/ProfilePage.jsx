@@ -6,7 +6,7 @@ import lockImg from "../../assets/lock-password.png";
 import editPfp from "../../assets/pencil-icon.png";
 import { useNavigate } from "react-router-dom";
 import { ColorModeScript, Button } from "@chakra-ui/react";
-import { Switch, useToast } from "@chakra-ui/react";
+import { Switch, useToast, FormControl, FormLabel } from "@chakra-ui/react";
 
 import theme from "../theme";
 
@@ -218,23 +218,28 @@ export default function ProfilePage({
               <div className="edit-section">
                 <h2 className="profile-customization">Profile Customization</h2>
                 <div className="dark-mode-button">
+                <FormControl display='flex' alignItems='center'
+                   onChange={toggleColorMode}
+>
                   <Switch
                     size="lg"
                     colorScheme="blue"
-                    sx={{
-                      "span.chakra-switch__track:not([data-checked])": {
-                        backgroundColor: "lightgray",
-                      },
-                    }}
                     isChecked={colorMode === "dark"}
-                    onChange={toggleColorMode}
-                  >{colorMode === "light" ? "Enable" : "Disable"} Dark Mode</Switch>
+                  /> 
+                  <FormLabel htmlFor='email-alerts' mb='0'>
+                    {colorMode === 'dark'?'Go Light':'Go Dark'}
+                  </FormLabel>
+                  </FormControl>
+
+                  
                   {/* <label htmlFor="dark-mode-text" className="dark-mode-text">
                   Enable Dark Mode
                 </label> */}
                   {/* <Switch className="dark-mode" size="lg" >
                
                 </Switch> */}
+ 
+  
                 </div>
                 <div className="input-field-edit">
                   <label htmlFor="username" className="label-edit">

@@ -140,16 +140,16 @@ export default function Navbar({
                       <PopoverBody>
                         <div className="burger-links ">
                           <>
-                            <Link to="/dashboard" className="nav-btn">
+                            <Link to="/dashboard" className="nav-btn-burger">
                               <button
-                                className={`nav-btn hidden ${
+                                className={`nav-btn ${
                                   currPage === "dashboard" ? "active-tab" : ""
                                 }`}
                               >
                                 Dashboard
                               </button>
                             </Link>
-                            <Link to="/todo" className="nav-btn">
+                            <Link to="/todo" className="nav-btn-burger">
                               <button
                                 className={`nav-btn ${
                                   currPage === "todo" ? "active-tab" : ""
@@ -158,7 +158,7 @@ export default function Navbar({
                                 Todo
                               </button>
                             </Link>
-                            <Link to="/recap" className="nav-btn">
+                            <Link to="/recap" className="nav-btn-burger">
                               <button
                                 className={`nav-btn ${
                                   currPage === "recap" ? "active-tab" : ""
@@ -167,7 +167,7 @@ export default function Navbar({
                                 Recap
                               </button>
                             </Link>
-                            <Link to="/social" className="nav-btn">
+                            <Link to="/social" className="nav-btn-burger">
                               <button
                                 className={`nav-btn ${
                                   currPage === "social" ? "active-tab" : ""

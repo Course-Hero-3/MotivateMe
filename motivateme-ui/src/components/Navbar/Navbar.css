@@ -101,13 +101,26 @@
     border-style: none;
     font-size: 20px;
     text-decoration: none;
+    /* background: linear-gradient(to left, transparent 50%, var(--primary-blue) 50%) right;
+    background-size: 200% 100%;*/
+    transition: .2s ease-out; 
 
 }
 
 .nav-btn:hover{
     background-color: var(--primary-blue);
     color: white;
-    border-radius: 5px;
+    border-radius: 5px; 
+    background-position: left;
+}
+
+.nav-btn-burger {
+    cursor: pointer;
+    margin: 5px;
+    background-color: transparent;
+    border-style: none;
+    font-size: 20px;
+    text-decoration: none;
 }
 
 /* Simply add a color the bottom side of the border

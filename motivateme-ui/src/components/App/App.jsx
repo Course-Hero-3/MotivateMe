@@ -124,7 +124,7 @@ function App() {
                 />
                 <Route
                   path="/social"
-                  element={<SocialPage user={user} setCurrPage={setCurrPage} />}
+                  element={<SocialPage user={user} setCurrPage={setCurrPage} colorModeState = {colorMode} />}
                 />
                 <Route
                   path="*"
