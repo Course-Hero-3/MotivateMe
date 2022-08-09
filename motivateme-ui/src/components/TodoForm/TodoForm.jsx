@@ -114,8 +114,14 @@ export default function TodoForm({
       return;
     }
 
+    let ymd = createForm.dueDate.split("-");
+    let hm = createForm.dueTime.split(":");
     let convertedUTC = new Date(
-      createForm.dueDate + " " + createForm.dueTime
+      Number(ymd[0]),
+      Number(ymd[1]) - 1,
+      Number(ymd[2]),
+      Number(hm[0]),
+      Number(hm[1])
     ).toISOString();
     let split = convertedUTC.split("T");
     let convertedDate = split[0];
