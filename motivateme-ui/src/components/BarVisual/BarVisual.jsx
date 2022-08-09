@@ -30,8 +30,8 @@ export default function BarVisual({ labels, label, actualData, colors }) {
           },
         },
       }}
-      height={400}
-      width={600}
+      height={370}
+      width={410}
     />
   );
 }
