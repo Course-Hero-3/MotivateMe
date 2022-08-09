@@ -191,6 +191,7 @@
 
 .friend-username {
     font-size: 22px;
+    width: 100%;
 }
 
 .total-task-card-title, .latest-grade-card-title {
