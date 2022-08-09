@@ -88,8 +88,7 @@ export default function DashboardPage({ user, setCurrPage, colorModeState }) {
                       <h3 className="latest-grade-card-title">Latest Grade</h3>
                     </div>
                     <span className="total-tasks">
-                      {" "}
-                      {latestGrades[0]?.score}%
+                      {latestGrades[0] ? `${latestGrades[0]?.score}%` : "N/A"}
                     </span>
                   </div>
                 </Link>
@@ -138,15 +137,16 @@ export default function DashboardPage({ user, setCurrPage, colorModeState }) {
                     <GraphCard chartInformation={fact} dashboardOn={true} />
                   </Link>
                 ))}
-                <Link to="/todo" className="dashboard-links">
-                  <div className="dash-todo-viewer">
+
+                <div className="dash-todo-viewer">
+                  <Link to="/todo" className="dashboard-links">
                     <TodoViewer
                       currentTasks={tasks}
                       setShowDetail={setShowDetail}
                       colorModeState={colorModeState}
                     />
-                  </div>
-                </Link>
+                  </Link>
+                </div>
                 <div className="history d-flex flex-column align-items-center">
                   <h2 className="history-header">History</h2>
                   {latestGrades?.length === 0 ? (
@@ -155,10 +155,18 @@ export default function DashboardPage({ user, setCurrPage, colorModeState }) {
                     <div className="history-assignment-table d-flex flex-column">
                       <div className="history-assignment-info d-flex flex-column align-items-center">
                         <div className="history-assignment-headers d-flex flex-row justify-content-evenly">
-                          <h2 className="history-assignment-header medium">Name</h2>
-                          <h2 className="history-assignment-header shorter">Percent</h2>
-                          <h2 className="history-assignment-header shorter">Letter</h2>
-                          <h2 className="history-assignment-header longer">Date</h2>
+                          <h2 className="history-assignment-header medium">
+                            Name
+                          </h2>
+                          <h2 className="history-assignment-header shorter">
+                            Percent
+                          </h2>
+                          <h2 className="history-assignment-header shorter">
+                            Letter
+                          </h2>
+                          <h2 className="history-assignment-header longer">
+                            Date
+                          </h2>
                         </div>
                         {latestGrades?.map((completed) => (
                           <>
@@ -270,8 +278,6 @@ export function MiniTodoCard({
 }) {
   const [colorState, setColorState] = useState(null);
   useEffect(() => {
-    console.log(colorModeState);
-
     if (colorModeState === "light") {
       if (category.toLowerCase() === "homework") {
         setColorState("blue");

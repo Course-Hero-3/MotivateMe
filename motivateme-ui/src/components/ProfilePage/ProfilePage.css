@@ -22,7 +22,17 @@
 }
 
 
+.toggle-dark-lbl {
+    color: black;
+    border-radius: 5px;
+    padding: 8px 12px;
+}
 
+.toggle-light-lbl {
+    color: white;
+    border-radius: 5px;
+    padding: 8px 12px;
+}
 
 .img-download {
     position: relative;

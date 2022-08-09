@@ -127,11 +127,6 @@
 
 }
 
-/* .social-form-search::placeholder {
-  /* color:white; */
-  color: lightgray;
-} */
-
 .show-users-list {
   display: flex;
   flex-direction: column;
