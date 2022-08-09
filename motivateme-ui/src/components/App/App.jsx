@@ -14,19 +14,21 @@ import SocialPage from "../SocialPage/SocialPage";
 import ProfilePage from "../ProfilePage/ProfilePage";
 import SecurityChange from "../SecurityChange/SecurityChange";
 import {
+  useColorMode,
   ChakraProvider,
   ThemeProvider,
   ColorModeProvider,
   CSSReset,
 } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
-// import  Toggle  from "../../../toggle";
 
 function App() {
+  const { colorMode, toggleColorMode } = useColorMode();
+
+
   const [loggedInWithGoogle, setLoggedInWithGoogle] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-  const [colorModeState, setColorState] = useState("")
 
   const [currPage, setCurrPage] = useState(null);
   const config = {
@@ -79,7 +81,7 @@ function App() {
                 <Route
                   path="/"
                   element={
-                    <LandingPage user={user} setCurrPage={setCurrPage} colorModeState = {colorModeState}/>
+                    <LandingPage user={user} setCurrPage={setCurrPage} colorModeState = {colorMode}/>
                   }
                 />
                 <Route
@@ -91,6 +93,7 @@ function App() {
                       setCurrPage={setCurrPage}
                       loggedInWithGoogle={loggedInWithGoogle}
                       setLoggedInWithGoogle={setLoggedInWithGoogle}
+                      colorModeState={colorMode}
                     />
                   }
                 />
@@ -101,22 +104,23 @@ function App() {
                       user={user}
                       setUser={setUser}
                       setCurrPage={setCurrPage}
+                      colorModeState={colorMode}
                     />
                   }
                 />
                 <Route
                   path="/dashboard"
                   element={
-                    <DashboardPage user={user} setCurrPage={setCurrPage} colorModeState={colorModeState} />
+                    <DashboardPage user={user} setCurrPage={setCurrPage} colorModeState={colorMode} />
                   }
                 />
                 <Route
                   path="/todo"
-                  element={<TodoPage user={user} setCurrPage={setCurrPage} colorModeState = {colorModeState}/>}
+                  element={<TodoPage user={user} setCurrPage={setCurrPage} colorModeState = {colorMode}/>}
                 />
                 <Route
                   path="/recap"
-                  element={<RecapPage user={user} setCurrPage={setCurrPage} colorModeState={colorModeState} />}
+                  element={<RecapPage user={user} setCurrPage={setCurrPage} colorModeState={colorMode} />}
                 />
                 <Route
                   path="/social"
@@ -133,9 +137,9 @@ function App() {
                       user={user}
                       setUser={setUser}
                       setCurrPage={setCurrPage}
-                      setColorState = {setColorState}
                       loggedInWithGoogle={loggedInWithGoogle}
-                      colorModeState={colorModeState}
+                      colorMode={colorMode}
+                      toggleColorMode={toggleColorMode}
                     />
                   }
                 />

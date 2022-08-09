@@ -334,20 +334,12 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
       return;
     }
 
-    if (
-      timeMeasurement === undefined ||
-      timeMeasurement === null ||
-      timeMeasurement === "" ||
-      timeMeasurement === "min"
-    ) {
-      pass;
-    } else if (timeMeasurement === "hour") {
-      updatedCompleteForm = {
-        ...completeForm,
-        timeSpent: completeForm.timeSpent * 60,
-      };
+    let updatedCompleteForm = { ...completeForm };
+
+    if (timeMeasurement === "hour") {
+      updatedCompleteForm.timeSpent = completeForm.timeSpent * 60;
     } else if (timeMeasurement === "day") {
-      updatedCompleteForm = { ...completeForm, timeSpent: completeForm * 1440 };
+      updatedCompleteForm.timeSpent = completeForm.timeSpent * 1440;
     }
 
     let { data, error } = await apiClient.completeTask(updatedCompleteForm);
@@ -580,8 +572,7 @@ export function TodoCard({
       } else if (category.toLowerCase() === "essay") {
         setColorState("yellow");
       }
-    }
-    else {
+    } else {
       if (category.toLowerCase() === "homework") {
         setColorState("dark-blue");
       } else if (category.toLowerCase() === "test") {

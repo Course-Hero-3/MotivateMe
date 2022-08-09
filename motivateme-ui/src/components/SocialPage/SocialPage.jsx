@@ -9,11 +9,13 @@ import moment from "moment";
 export default function SocialPage({ user, setCurrPage }) {
   const [rightTabState, setRightTabState] = useState("friends");
   const [friends, setFriends] = useState(null);
+  const [followers, setFollowers] = useState(null);
   const [allPeople, setAllPeople] = useState(null); // need endpoint for this (also add to apiClient)
   const [recommended, setRecommended] = useState(null); // endpoint for recommended users (friends of friends)
   const [activity, setActivity] = useState(null);
   const [friendQuery, setFriendQuery] = useState("");
   const [exploreQuery, setExploreQuery] = useState("");
+  const [followersQuery, setFollowersQuery] = useState("")
   const [refresh, setRefresh] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -35,6 +37,11 @@ export default function SocialPage({ user, setCurrPage }) {
       if (tempActivity?.data) {
         setActivity(tempActivity.data.activity);
       }
+      let tempFollowers = await apiClient.followers();
+      if (tempFollowers?.data) {
+        setFollowers(tempFollowers.data.followers);
+      }
+
       let tempFriends = await apiClient.following();
       if (tempFriends?.data) {
         setFriends(tempFriends.data.following);
@@ -66,6 +73,11 @@ export default function SocialPage({ user, setCurrPage }) {
   const handleOnExploreQueryChange = (event) => {
     setExploreQuery(event.target.value);
   };
+  const handleOnFollowersQueryChange = (event) => {
+    setFollowersQuery(event.target.value);
+  };
+
+  
 
   const handleOnFollow = async (username) => {
     const { error } = await apiClient.follow({ username: username });
@@ -105,6 +117,23 @@ export default function SocialPage({ user, setCurrPage }) {
         `${stranger.firstName} ${stranger.lastName}`
           .toLowerCase()
           .match(exploreQuery.toLowerCase()) !== null
+      ) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      return false;
+    }
+  });
+
+  const followersFilter = followers?.filter((follower) => {
+    try {
+      if (
+        follower.username.toLowerCase().match(followersQuery.toLowerCase()) !==
+          null ||
+        `${follower.firstName} ${follower.lastName}`
+          .toLowerCase()
+          .match(followersQuery.toLowerCase()) !== null
       ) {
         return true;
       }
@@ -189,13 +218,24 @@ export default function SocialPage({ user, setCurrPage }) {
                         setRightTabState("friends");
                       }}
                     >
-                      Friends
+                      Following
+                    </button>
+                    <button
+                      type="button"
+                      className={`button-right-tab ${
+                        rightTabState === "followers" ? "active-tab" : ""
+                      }`}
+                      onClick={() => {
+                        setRightTabState("followers");
+                      }}
+                    >
+                      Followers
                     </button>
                   </div>
                   <div className="friend-section">
                     {rightTabState === "friends" ? (
                       <>
-                        <h2 className="friend-text">Friends List</h2>
+                        <h2 className="friend-text">Following</h2>
                         <form
                           className={`social-query-form${
                             isExpanded ? " expanded-search" : ""
@@ -218,7 +258,7 @@ export default function SocialPage({ user, setCurrPage }) {
                             id="query"
                             name="q"
                             className="social-form-search"
-                            placeholder="Search for your friends..."
+                            placeholder="Search for people you follow..."
                             role="search"
                             aria-label="Search through site content"
                           />
@@ -276,7 +316,10 @@ export default function SocialPage({ user, setCurrPage }) {
                       </>
                     ) : (
                       <>
-                        <h2 className="friend-text">Other Users</h2>
+                      {rightTabState === "explore" 
+                      ? 
+                      <>
+                      <h2 className="friend-text">Other Users</h2>
                         <form
                           className={`social-query-form${
                             isExpanded ? " expanded-search" : ""
@@ -355,6 +398,107 @@ export default function SocialPage({ user, setCurrPage }) {
                             </>
                           )}
                         </div>
+                      </>
+                      :
+                      <>
+                      <h2 className="friend-text">Followers</h2>
+                        <form
+                          className={`social-query-form${
+                            isExpanded ? " expanded-search" : ""
+                          }`}
+                          onClick={openSearchBar}
+                        >
+                          <button className="task-form-btn">
+                            {" "}
+                            <svg viewBox="0 0 1024 1024">
+                              <path
+                                className="path1"
+                                d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"
+                              ></path>
+                            </svg>
+                          </button>
+                          <input
+                            type="search"
+                            value={followersQuery}
+                            onChange={handleOnFollowersQueryChange}
+                            id="query"
+                            name="q"
+                            className="social-form-search"
+                            placeholder="Search for people that follow you..."
+                            role="search"
+                            aria-label="Search through site content"
+                          />
+                        </form>
+                        <div className="show-users-list">
+                          {followersFilter?.length > 0 ? (
+                            <>
+                              <div className="scrollable-container-parent">
+                                <div className="scrollable-container-child">
+                                  {followersFilter?.map((follower, idx) => (
+                                    <div className="user-card" key={idx}>
+                                      <div className="user-info">
+                                        <img
+                                          className="user-pfp"
+                                          src={follower?.profilePicture}
+                                          alt="PFP"
+                                          onError={(event) => {
+                                            event.target.src =
+                                              "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png";
+                                            event.onerror = null;
+                                          }}
+                                        />
+                                        <div className="user-text-info">
+                                          <h4 className="user-username">
+                                            @{follower?.username}
+                                          </h4>
+                                          <h4 className="user-name">
+                                            {follower?.firstName}{" "}
+                                            {follower?.lastName}
+                                          </h4>
+                                        </div>
+                                      </div>
+
+                                      <div className="unfollow-and-follow">
+                                        {follower.mutuals ? 
+                                        <>
+                                        <button
+                                          type="button"
+                                          className="unfollow-btn"
+                                          onClick={() => {
+                                            handleOnUnfollow(follower.username);
+                                          }}
+                                        >
+                                          Unfollow
+                                        </button>
+                                        </>
+                                        :
+                                        <>
+                                        <button
+                                          type="button"
+                                          className="follow-btn"
+                                          onClick={() => {
+                                            handleOnFollow(follower.username);
+                                          }}
+                                        >
+                                          Follow
+                                        </button>
+                                        </>
+                                        }
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <p className="no-users">No other users found.</p>
+                            </>
+                          )}
+                        </div>
+                      </>
+                      }
+              
                       </>
                     )}
                   </div>

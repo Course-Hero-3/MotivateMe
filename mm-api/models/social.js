@@ -24,13 +24,27 @@ class Social {
     const values = [user.userId];
     const result = await db.query(text, values);
 
-    return result.rows; // array of objects { followeeId, username }
+    return result.rows; // array of objects { followeeId, username, profilePicture, firstName, lastName }
   }
   static async followers(user) {
     if (!user?.userId) {
       throw new BadRequestError(`userId is missing from the user information in order 
                                         to get the people the user follows`);
     }
+
+    // get all the users the user is currently following (mutuals check) 
+    let textFollowing = `
+        SELECT followee_id AS "followeeId", 
+                u.username AS "username", 
+                u.image AS "profilePicture", 
+                u.first_name AS "firstName", 
+                u.last_name AS "lastName"
+        FROM follow AS f
+            INNER JOIN users AS u ON f.followee_id=u.user_id
+        WHERE follower_id=$1
+        `;
+    let valuesFollowing = [user.userId];
+    let resultFollowing = await db.query(textFollowing, valuesFollowing);
 
     // Get all the user is being FOLLOWED BY
     const text = `
@@ -46,7 +60,23 @@ class Social {
     const values = [user.userId];
     const result = await db.query(text, values);
 
-    return result.rows; // array of objects { followeeId, username }
+    let newArray = []
+
+    result.rows.forEach((follower) => {
+      let found = false
+      for (let i = 0; i < resultFollowing.rows.length; i++) {
+        if (follower.followerId === resultFollowing.rows[i].followeeId) {
+          newArray.push({...follower, "mutuals": true})
+          found = true
+          break
+        }
+      }
+      if (!found) {
+        newArray.push({...follower, "mutuals": false})
+      }
+    })
+
+    return newArray // array of objects { followerId, username, profilePicture, firstName, lastName, mutuals:bool }
   }
 
   static async notFollowingUsers(user) {

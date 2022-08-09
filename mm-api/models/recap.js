@@ -26,62 +26,43 @@ class Recap {
 
     const values = [user.userId];
     const result = await db.query(text, values);
-    
 
     // find the letter score
     for (let i = 0; i < result.rows.length; i++) {
-
       if (result.rows[i] === undefined || result.rows[i] === null) {
-        result.rows[i] = "empty"
-        continue
+        result.rows[i] = "empty";
+        continue;
       }
-      if (result.rows[i].score >=97.00) {
-        result.rows[i]["actualLetterGrade"] = "A+"
+      if (result.rows[i].score >= 97.0) {
+        result.rows[i]["actualLetterGrade"] = "A+";
+      } else if (result.rows[i].score >= 93.0) {
+        result.rows[i]["actualLetterGrade"] = "A";
+      } else if (result.rows[i].score >= 90.0) {
+        result.rows[i]["actualLetterGrade"] = "A-";
+      } else if (result.rows[i].score >= 87.0) {
+        result.rows[i]["actualLetterGrade"] = "B+";
+      } else if (result.rows[i].score >= 83.0) {
+        result.rows[i]["actualLetterGrade"] = "B";
+      } else if (result.rows[i].score >= 80.0) {
+        result.rows[i]["actualLetterGrade"] = "B-";
+      } else if (result.rows[i].score >= 77.0) {
+        result.rows[i]["actualLetterGrade"] = "C+";
+      } else if (result.rows[i].score >= 73.0) {
+        result.rows[i]["actualLetterGrade"] = "C";
+      } else if (result.rows[i].score >= 70.0) {
+        result.rows[i]["actualLetterGrade"] = "C-";
+      } else if (result.rows[i].score >= 67.0) {
+        result.rows[0]["actualLetterGrade"] = "D+";
+      } else if (result.rows[0].score >= 63.0) {
+        result.rows[i]["actualLetterGrade"] = "D";
+      } else if (result.rows[i].score >= 60.0) {
+        result.rows[i]["actualLetterGrade"] = "D-";
+      } else if (result.rows[i].score < 60.0) {
+        result.rows[i]["actualLetterGrade"] = "F";
       }
-      else if (result.rows[i].score >=93.00) {
-        result.rows[i]["actualLetterGrade"] = "A"
-      }
-      else if (result.rows[i].score >=90.00) {
-        result.rows[i]["actualLetterGrade"] = "A-"
-      }
-      else if (result.rows[i].score >=87.00) {
-        result.rows[i]["actualLetterGrade"] = "B+"
-      }
-      else if (result.rows[i].score >=83.00) {
-        result.rows[i]["actualLetterGrade"] = "B"
-      }
-      else if (result.rows[i].score >=80.00) {
-        result.rows[i]["actualLetterGrade"] = "B-"
-      }
-      else if (result.rows[i].score >=77.00) {
-        result.rows[i]["actualLetterGrade"] = "C+"
-      }
-      else if (result.rows[i].score >=73.00) {
-        result.rows[i]["actualLetterGrade"] = "C"
-      }
-      else if (result.rows[i].score >=70.00) {
-        result.rows[i]["actualLetterGrade"] = "C-"
-      }
-      else if (result.rows[i].score >=67.00) {
-        result.rows[0]["actualLetterGrade"] = "D+"
-      }
-      else if (result.rows[0].score >=63.00) {
-        result.rows[i]["actualLetterGrade"] = "D"
-      }
-      else if (result.rows[i].score >=60.00) {
-        result.rows[i]["actualLetterGrade"] = "D-"
-      }
-      else if (result.rows[i].score < 60.00) {
-        result.rows[i]["actualLetterGrade"] = "F"
-      }
-    
-      }
-      return result.rows
-
     }
-    
-
-
+    return result.rows;
+  }
 
   // amount of people they work with on some category
   static async peopleWorkedWithPerCategory(
@@ -320,12 +301,21 @@ class Recap {
     if (actualData.length === 0) {
       return null;
     }
-    return {
-      type: "pie",
-      label: `Distribution of Letter Grades for ${category}s`,
-      labels: labels,
-      actualData: actualData,
-    };
+    if (category === "Quiz") {
+      return {
+        type: "pie",
+        label: `Distribution of Letter Grades for Quizzes`,
+        labels: labels,
+        actualData: actualData,
+      };
+    } else {
+      return {
+        type: "pie",
+        label: `Distribution of Letter Grades for ${category}s`,
+        labels: labels,
+        actualData: actualData,
+      };
+    }
   }
 
   static async averagePerCategory(userId, mustBePublic = false) {
@@ -412,49 +402,50 @@ class Recap {
   static async getFactsByUserId(userId) {
     let listOfFacts = [];
     let statisticRetrieved = null;
-
-    // Averages per Categories Bar Chart
-    statisticRetrieved = await Recap.averagePerCategory(userId);
-    if (statisticRetrieved !== null) {
-      listOfFacts.push(statisticRetrieved);
-    }
-    // Test Pie Chart
-    statisticRetrieved = await Recap.letterGradesPerCategory(userId, "Test");
-    if (statisticRetrieved !== null) {
-      listOfFacts.push(statisticRetrieved);
-    }
-    // Project Pie Chart
-    statisticRetrieved = await Recap.letterGradesPerCategory(userId, "Project");
-    if (statisticRetrieved !== null) {
-      listOfFacts.push(statisticRetrieved);
-    }
-    // Quiz Pie Chart
-    statisticRetrieved = await Recap.letterGradesPerCategory(userId, "Quiz");
-    if (statisticRetrieved !== null) {
-      listOfFacts.push(statisticRetrieved);
-    }
-    // Max and min for each category the user has completed
-    statisticRetrieved = await Recap.maxMinPerCategory(userId);
-    if (statisticRetrieved !== null) {
-      listOfFacts.push(statisticRetrieved);
-    }
-    // Total # of Assignments per Month
+    // 1. Total # of Assignments per Month (Line)
     statisticRetrieved = await Recap.assignmentsPerMonth(userId);
     if (statisticRetrieved !== null) {
       listOfFacts.push(statisticRetrieved);
     }
-    // See where students spends most of their time on
-    statisticRetrieved = await Recap.timeSpentPerCategory(userId);
+    // 2. Averages per Categories Bar Chart
+    statisticRetrieved = await Recap.averagePerCategory(userId);
     if (statisticRetrieved !== null) {
       listOfFacts.push(statisticRetrieved);
     }
-    // See if user is being responsible and not turning
+    // 3. Test Pie Chart
+    statisticRetrieved = await Recap.letterGradesPerCategory(userId, "Test");
+    if (statisticRetrieved !== null) {
+      listOfFacts.push(statisticRetrieved);
+    }
+    // 4. Project Pie Chart
+    statisticRetrieved = await Recap.letterGradesPerCategory(userId, "Project");
+    if (statisticRetrieved !== null) {
+      listOfFacts.push(statisticRetrieved);
+    }
+    // 5. Max and min for each category the user has completed
+    statisticRetrieved = await Recap.maxMinPerCategory(userId);
+    if (statisticRetrieved !== null) {
+      listOfFacts.push(statisticRetrieved);
+    }
+    // 6. See if user is being responsible and not turning
     // in majority of assignments late
     statisticRetrieved = await Recap.assignmentsLate(userId);
     if (statisticRetrieved !== null) {
       listOfFacts.push(statisticRetrieved);
     }
-    // # of tasks per category in which they have worked with x amount
+    // 7. Quiz Pie Chart
+    statisticRetrieved = await Recap.letterGradesPerCategory(userId, "Quiz");
+    if (statisticRetrieved !== null) {
+      listOfFacts.push(statisticRetrieved);
+    }
+    
+    // 8. See where students spends most of their time on
+    statisticRetrieved = await Recap.timeSpentPerCategory(userId);
+    if (statisticRetrieved !== null) {
+      listOfFacts.push(statisticRetrieved);
+    }
+
+    // 9. # of tasks per category in which they have worked with x amount
     // of other people
     statisticRetrieved = await Recap.peopleWorkedWithPerCategory(
       userId,
@@ -515,11 +506,11 @@ class Recap {
         // multiple function calls to letter grades per category so special case
         if (functionToCall === Recap.letterGradesPerCategory) {
           let categoriesShuffled = [
-            "test",
-            "homework",
-            "quiz",
-            "project",
-            "essay",
+            "Test",
+            "Homework",
+            "Quiz",
+            "Project",
+            "Essay",
           ].sort(() => 0.5 - Math.random());
           while (categoriesShuffled.length > 0) {
             categoriesShuffled = [...categoriesShuffled].sort(

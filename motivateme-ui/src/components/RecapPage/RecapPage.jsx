@@ -6,10 +6,6 @@ import apiClient from "../../../services/apiclient";
 import AccessForbidden from "../AccessForbidden/AccessForbidden";
 
 // for different graph ordering every time
-const randomizeArray = (arr, num) => {
-  const shuffled = [...arr].sort(() => 0.5 - Math.random());
-  return shuffled;
-};
 
 export default function RecapPage({ user, setCurrPage, colorModeState }) {
   const [facts, setFacts] = React.useState(null);
@@ -19,9 +15,7 @@ export default function RecapPage({ user, setCurrPage, colorModeState }) {
     const getFacts = async () => {
       let tempFacts = await apiClient.getSummary();
       if (tempFacts?.data) {
-        setFacts(
-          randomizeArray(tempFacts.data.summary, tempFacts.data.summary.length)
-        );
+        setFacts(tempFacts.data.summary);
       }
     };
 
@@ -50,7 +44,10 @@ export default function RecapPage({ user, setCurrPage, colorModeState }) {
                   <div className="chart-grid">
                     {facts.slice(0, limitItems).map((fact, idx) => (
                       <div className="graph-area" key={idx}>
-                        <GraphCard chartInformation={fact} colorModeState={colorModeState} />
+                        <GraphCard
+                          chartInformation={fact}
+                          colorModeState={colorModeState}
+                        />
                       </div>
                     ))}
                   </div>

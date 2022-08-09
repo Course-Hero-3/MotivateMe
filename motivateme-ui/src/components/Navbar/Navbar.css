@@ -105,7 +105,9 @@
 }
 
 .nav-btn:hover{
-    color: black;
+    background-color: var(--primary-blue);
+    color: white;
+    border-radius: 5px;
 }
 
 /* Simply add a color the bottom side of the border

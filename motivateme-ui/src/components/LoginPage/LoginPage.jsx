@@ -16,6 +16,7 @@ export default function LoginPage({
   setUser,
   setCurrPage,
   setLoggedInWithGoogle,
+  colorModeState
 }) {
   // track the form and error for login
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
@@ -198,7 +199,7 @@ export default function LoginPage({
               type="text"
               id="email"
               name="email"
-              className="form-input"
+              className={`form-input${colorModeState === "light"?" gray-bg":""}`}
               placeholder="Type your email"
               value={loginForm.email}
               onChange={handleOnLoginFormChange}
@@ -213,7 +214,7 @@ export default function LoginPage({
               type="password"
               id="password"
               name="password"
-              className="form-input"
+              className={`form-input${colorModeState === "light"?" gray-bg":""}`}
               placeholder="Type your password"
               value={loginForm.password}
               onChange={handleOnLoginFormChange}
