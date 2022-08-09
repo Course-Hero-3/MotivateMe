@@ -218,28 +218,22 @@ export default function ProfilePage({
               <div className="edit-section">
                 <h2 className="profile-customization">Profile Customization</h2>
                 <div className="dark-mode-button">
-                <FormControl display='flex' alignItems='center'
-                   onChange={toggleColorMode}
->
-                  <Switch
-                    size="lg"
-                    colorScheme="blue"
-                    isChecked={colorMode === "dark"}
-                  /> 
-                  <FormLabel htmlFor='email-alerts' mb='0'>
-                    {colorMode === 'dark'?'Go Light':'Go Dark'}
-                  </FormLabel>
+                  <FormControl display="flex" alignItems="center">
+                    <Switch
+                      size="lg"
+                      colorScheme="blue"
+                      sx={{
+                        "span.chakra-switch__track:not([data-checked])": {
+                          backgroundColor: "lightgray",
+                        },
+                      }}
+                      isChecked={colorMode === "dark"}
+                      onChange={toggleColorMode}
+                    />
+                    <FormLabel htmlFor="email-alerts" mb="0">
+                      {colorMode === "dark" ? "Go Light" : "Go Dark"}
+                    </FormLabel>
                   </FormControl>
-
-                  
-                  {/* <label htmlFor="dark-mode-text" className="dark-mode-text">
-                  Enable Dark Mode
-                </label> */}
-                  {/* <Switch className="dark-mode" size="lg" >
-               
-                </Switch> */}
- 
-  
                 </div>
                 <div className="input-field-edit">
                   <label htmlFor="username" className="label-edit">
