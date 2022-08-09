@@ -4,7 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import apiClient from "../../../services/apiclient";
 // import S3FileUpload from "react-s3";
 
-export default function RegisterPage({ setUser, user, setCurrPage, colorModeState }) {
+export default function RegisterPage({
+  setUser,
+  user,
+  setCurrPage,
+  colorModeState,
+}) {
   const [registerForm, setRegisterForm] = useState({
     firstName: "",
     email: "",
@@ -244,7 +249,9 @@ export default function RegisterPage({ setUser, user, setCurrPage, colorModeStat
               <input
                 type="text"
                 name="firstName"
-                className={`form-input-split${colorModeState === "light"?" gray-bg":""}`}
+                className={`form-input-split${
+                  colorModeState === "light" ? " gray-bg" : ""
+                }`}
                 placeholder="Type your first name"
                 value={registerForm.firstName}
                 onChange={handleOnRegisterFormChange}
@@ -255,7 +262,9 @@ export default function RegisterPage({ setUser, user, setCurrPage, colorModeStat
               <input
                 type="text"
                 name="lastName"
-                className={`form-input-split${colorModeState === "light"?" gray-bg":""}`}
+                className={`form-input-split${
+                  colorModeState === "light" ? " gray-bg" : ""
+                }`}
                 placeholder="Type your last name"
                 value={registerForm.lastName}
                 onChange={handleOnRegisterFormChange}
@@ -268,7 +277,9 @@ export default function RegisterPage({ setUser, user, setCurrPage, colorModeStat
             <input
               type="text"
               name="email"
-              className={`form-input alone${colorModeState === "light"?" gray-bg":""}`}
+              className={`form-input alone${
+                colorModeState === "light" ? " gray-bg" : ""
+              }`}
               placeholder="Type your email"
               value={registerForm.email}
               onChange={handleOnRegisterFormChange}
@@ -280,7 +291,9 @@ export default function RegisterPage({ setUser, user, setCurrPage, colorModeStat
             <input
               type="text"
               name="username"
-              className={`form-input alone${colorModeState === "light"?" gray-bg":""}`}
+              className={`form-input alone${
+                colorModeState === "light" ? " gray-bg" : ""
+              }`}
               placeholder="Type a username"
               value={registerForm.username}
               onChange={handleOnRegisterFormChange}
@@ -292,7 +305,9 @@ export default function RegisterPage({ setUser, user, setCurrPage, colorModeStat
             <input
               type="password"
               name="password"
-              className={`form-input alone${colorModeState === "light"?" gray-bg":""}`}
+              className={`form-input alone${
+                colorModeState === "light" ? " gray-bg" : ""
+              }`}
               placeholder="Enter a password"
               value={registerForm.password}
               onChange={handleOnRegisterFormChange}
@@ -304,14 +319,18 @@ export default function RegisterPage({ setUser, user, setCurrPage, colorModeStat
             <input
               type="password"
               name="confirm"
-              className={`form-input alone${colorModeState === "light"?" gray-bg":""}`}
+              className={`form-input alone${
+                colorModeState === "light" ? " gray-bg" : ""
+              }`}
               placeholder="Confirm your password"
               value={registerForm.confirm}
               onChange={handleOnRegisterFormChange}
             ></input>
           </div>
           <div className="input-field register">
-            <span className="label">Profile Picture Upload (optional)</span>
+            <span className="label">
+              Profile Picture Upload (optional) - 70KB Max
+            </span>
             <input
               type="file"
               name="image"
@@ -321,20 +340,21 @@ export default function RegisterPage({ setUser, user, setCurrPage, colorModeStat
             ></input>
           </div>
           <div className="input-field register">
-            <span className="label">Phone Number (optional)</span>
+            <span className="label">
+              Phone Number (optional) - SMS Notifications
+            </span>
 
             <input
               type="tel"
               id="phone"
               name="phone"
               placeholder="10 Digit US Phone Number (+1 assumed)"
-              className={`form-input alone${colorModeState === "light"?" gray-bg":""}`}
+              className={`form-input alone${
+                colorModeState === "light" ? " gray-bg" : ""
+              }`}
               value={registerForm.phone}
               onChange={handleOnRegisterFormChange}
             ></input>
-            <div className="notification text">
-              <p> You will recieve notifications 1 hour before due date and time!</p>
-            </div>
             <div className="register-footer">
               {registerError ? (
                 <div className="error">{registerError}</div>
