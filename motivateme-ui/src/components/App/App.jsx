@@ -76,6 +76,7 @@ function App() {
                 currPage={currPage}
                 loggedInWithGoogle={loggedInWithGoogle}
                 setLoggedInWithGoogle={setLoggedInWithGoogle}
+                colorMode = {colorMode}
               />
               <Routes>
                 <Route

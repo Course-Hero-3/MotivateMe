@@ -121,6 +121,8 @@
     border-style: none;
     font-size: 20px;
     text-decoration: none;
+    transition: .2s ease-out; 
+
 }
 
 /* Simply add a color the bottom side of the border
