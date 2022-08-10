@@ -63,14 +63,14 @@ export default function DashboardPage({ user, setCurrPage, colorModeState }) {
                   </h1>
                 </div>
                 <Link to="/todo" className="dashboard-links">
-                  <div className="total-task-card">
+                  <div className={`total-task-card${colorModeState === "dark"? " darker-task-card": ""}`}>
                     <div className="task-card-header">
                       <img
                         id="total-task-card-img"
                         src="https://freeiconshop.com/wp-content/uploads/edd/task-done-flat.png"
                         alt="Total Tasks Icon"
                       />
-                      <h3 className="total-task-card-title">
+                      <h3 className={`total-task-card-title${colorModeState === "dark"? " darker-task-card": ""}`}>
                         Total Tasks Pending
                       </h3>
                     </div>
@@ -78,14 +78,14 @@ export default function DashboardPage({ user, setCurrPage, colorModeState }) {
                   </div>
                 </Link>
                 <Link to="/recap" className="dashboard-links">
-                  <div className="latest-grade-card">
+                  <div className={`latest-grade-card ${colorModeState === "dark"? " darker-task-card": ""} `}>
                     <div className="grade-card-header">
                       <img
                         id="total-task-card-img"
                         src={gradeIcon}
                         alt="lates grade icon"
                       />
-                      <h3 className="latest-grade-card-title">Latest Grade</h3>
+                      <h3 className={`latest-grade-card-title ${colorModeState === "dark"? " darker-task-card": ""}`}>Latest Grade</h3>
                     </div>
                     <span className="total-tasks">
                       {latestGrades[0] ? `${latestGrades[0]?.score}%` : "N/A"}
@@ -93,8 +93,8 @@ export default function DashboardPage({ user, setCurrPage, colorModeState }) {
                   </div>
                 </Link>
                 <Link to="/social" className="dashboard-links">
-                  <div className="friends-column">
-                    <span className="friends-column-header">Friends</span>
+                  <div className={`friends-column ${colorModeState === "dark"? " darker-task-card": ""}`}>
+                    <span className={`friends-column-header ${colorModeState === "dark"? " darker-task-card": ""}`}>Friends</span>
                     <div className="friends d-flex flex-column">
                       {friends && friends.length > 0 ? (
                         friends.slice(0, 4).map((friend, idx) => {
