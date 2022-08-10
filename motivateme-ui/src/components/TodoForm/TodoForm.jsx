@@ -147,7 +147,7 @@ export default function TodoForm({
       toast({
         title: "Task succesfully created!",
         description: "",
-        status: "success",
+        status: "info",
         duration: 6000,
         isClosable: true,
       });

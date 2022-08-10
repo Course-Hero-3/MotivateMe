@@ -3,14 +3,8 @@
 /*landing page intro section styling*/
 .landing-page {
     width: 100vw;
-    height: 2400px; 
 }
 
-@media(max-width:1030px) {
-    .landing-page {
-        height: 100%;
-    }
-}
 .landing-intro {
     width: 100%;
     padding-top: 4rem;
@@ -32,36 +26,6 @@ height: 400px;
 }
 
 /*dont show hero image on small width screen*/
-@media(max-width:900px){
-    .landing-intro-hero {
-        display: none;
-    }
-
-    .landing-intro-main {
-        width: 600px;
-        align-items: center;
-    }
-    .landing-intro-main-text {text-align: center;
-    }
-    .landing-intro {
-        height: 400px;
-    }
-    .header-text {
-        width: 100%;
-    }
-    .logo-title {
-        margin-left: 5px;
-    }
-    .landing-header {
-        text-align: center;
-    }
-}
-
-@media (min-width:1200px){
-    .header-text {
-        width: 600px;
-    }
-}
 
 .heading-text{
 font-weight: bolder;
@@ -161,13 +125,10 @@ margin-top: 22px;
 .textbox-desc {
     font-family: 'Assistant', sans-serif;
     font-size: 20px;
+    color: #869197;
 }
 
-@media(max-width:1300px) {
-    .textbox {
-        width: 300px;
-    }
-}
+
 .landing-page{
     overflow: hidden;
 }
@@ -177,9 +138,7 @@ margin-top: 22px;
     width: 100%;
     margin: 0 auto;
     border-radius: 10px;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-    flex: 1;
+    padding: 5rem;
 }
 
 
@@ -191,11 +150,7 @@ margin-top: 22px;
     font-size: 22px;
     font-weight: 60%;
 }
-@media(max-width:750px) {
-    .about-section-text {
-        width: 100%;
-    }
-}
+
 .about-header {
     font-family: 'Nunito', sans-serif;
     font-size: 30px;
@@ -213,7 +168,7 @@ margin-top: 22px;
     background: var(--primary-blue);
     width: 100%;
     color: var(--pure-white);
-    padding-top: 5rem;
+    padding: 2rem;
 }
 
 .contact-header {
@@ -274,24 +229,6 @@ margin-top: 22px;
     font-weight: 300;
 }
 
-@media(max-width:855px) {
-    .contact-footer-column.company {
-        display: none;
-    }
-    .contact-footer-column {
-        font-size: 22px;
-    }
-}
-@media(max-width:420px) {
-    .contact-footer-column {
-        font-size: 16px;
-    }
-    .footer-column-header {
-        font-size: 20px;
-    }
-}
-
-
 .footer-break {
     width: 100%;
     height: 1px;
@@ -309,3 +246,89 @@ margin-top: 22px;
 .footer-text {
     margin-right: 15px;
 }
+
+@media(max-width:1030px) {
+    .landing-page {
+        height: 100%;
+    }
+}
+@media(max-width:900px){
+    .landing-intro-hero {
+        display: none;
+    }
+
+    .landing-intro-main {
+        width: 600px;
+        align-items: center;
+    }
+    .landing-intro-main-text {text-align: center;
+    }
+    .landing-intro {
+        height: 400px;
+    }
+    .header-text {
+        width: 100%;
+    }
+    .logo-title {
+        margin-left: 5px;
+    }
+    .landing-header {
+        text-align: center;
+    }
+}
+
+@media (min-width:1200px){
+    .header-text {
+        width: 600px;
+    }
+}
+
+@media(max-width:1300px) {
+    .textbox {
+        width: 300px;
+    }
+}
+@media(max-width:750px) {
+    .about-section-text {
+        width: 100%;
+    }
+}
+@media(max-width:855px) {
+    .contact-footer-column.company {
+        display: none;
+    }
+    .contact-footer-column {
+        font-size: 21px;
+    }
+}
+@media(max-width: 600px) {
+    .contact-footer-column {
+        font-size: 16px;
+    }
+    .footer-column-header {
+        font-size: 21px;
+    }
+    .footer-company-text {
+        align-self: flex-end;
+        margin-left: 62px;
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+    }
+}
+@media(max-width:420px) {
+    .contact-footer-column {
+        font-size: 14px;
+    }
+    .footer-column-header {
+        font-size: 20px;
+    }
+    .footer-company-text {
+        align-self: flex-end;
+        margin-left: 62px;
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+    }
+}
+

@@ -149,7 +149,7 @@ export default function ProfilePage({
       toast({
         title: "Succesfully updated!",
         description: "",
-        status: "success",
+        status: "info",
         duration: 3000,
         isClosable: true,
       });
