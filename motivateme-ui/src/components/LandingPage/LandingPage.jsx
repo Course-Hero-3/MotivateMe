@@ -47,7 +47,7 @@ export default function LandingPage({ setCurrPage, colorModeState }) {
           <div className={`textbox d-sm-flex flex-sm-column justify-content-center ${colorModeState === "light"?"white-textbox":"dark-textbox"}`}>
             <img src={progressImg} className="middle-section-img" />
             <div className="middle-section-text">
-              <h3 className="textbox-header">Track Your Progress</h3>
+              <h3 className={`textbox-header ${colorModeState === "light"?"black-text":"white-text"}`}>Track Your Progress</h3>
               <p className="textbox-desc">
                 Track your exam efficiency, homework due dates, project scores,
                 and more through our attractive and informative visualizations.
@@ -57,7 +57,7 @@ export default function LandingPage({ setCurrPage, colorModeState }) {
           <div className={`textbox d-sm-flex flex-sm-column justify-content-center ${colorModeState === "light"?"white-textbox":"dark-textbox"}`}>
             <img src={scheduleImg} className="middle-section-img" />
             <div className="middle-section-text">
-              <h3 className="textbox-header">Organize Yourself</h3>
+              <h3 className={`textbox-header ${colorModeState === "light"?"black-text":"white-text"}`}>Organize Yourself</h3>
               <p className="textbox-desc">
                 Track your daily activities with an easily accessible schedule
                 viewer.
@@ -67,7 +67,7 @@ export default function LandingPage({ setCurrPage, colorModeState }) {
           <div className={`textbox d-sm-flex flex-sm-column justify-content-center ${colorModeState === "light"?"white-textbox":"dark-textbox"}`}>
             <img src={friendsImg} className="middle-section-img" />
             <div className="middle-section-text">
-              <h3 className="textbox-header">Stay Connected</h3>
+              <h3 className={`textbox-header ${colorModeState === "light"?"black-text":"white-text"}`}>Stay Connected</h3>
               <p className="textbox-desc">
                 Share your progress with your peers and motivate each other!
               </p>
@@ -106,12 +106,6 @@ export default function LandingPage({ setCurrPage, colorModeState }) {
                 <p className="dev-email">gikai.andrews.site@codepath.org</p>
                 <p className="dev-email">kian.ranjbar.site@codepath.org</p>
                 <p className="dev-email">stephane.mbenga.site@codepath.org</p>
-              </div>
-
-              <div className="contact-footer-column company">
-                <h3 className="footer-column-header">Company</h3>
-                <p className="dev-name">Terms</p>
-                <p className="dev-email">Privacy</p>
               </div>
             </div>
           </div>

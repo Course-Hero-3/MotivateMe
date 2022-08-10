@@ -168,6 +168,13 @@ export default function ProfilePage({
       } else {
         setEditError(error);
       }
+      toast({
+        title: {error},
+        description: "",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -357,6 +364,13 @@ export default function ProfilePage({
                     </button>
                   </div>
                 </div>
+                {editError ? (
+                    <>
+                      <p className="edit-error-display">{editError}</p>
+                    </>
+                  ) : (
+                    <></>
+                  )}
 
                 <div className="change-password-region">
                   <button
@@ -376,15 +390,7 @@ export default function ProfilePage({
                     <img className="lock-icon-password" src={lockImg}></img>
                   </button>
                 </div>
-                <>
-                  {editError ? (
-                    <>
-                      <p className="edit-error-display">{editError}</p>
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                </>
+
               </div>
             </div>
           </div>
