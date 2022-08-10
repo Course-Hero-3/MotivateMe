@@ -163,11 +163,13 @@
     height: 60px;
     width: 60px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .google-icon-nav {
     height: 33px;
     width: 33px;
+
 
 }
 .google-signin-text-nav{

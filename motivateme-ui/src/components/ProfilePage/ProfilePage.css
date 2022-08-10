@@ -19,6 +19,7 @@
     width: 12rem;
     height: 12rem;
     position: relative;
+    object-fit: cover;
 }
 
 
