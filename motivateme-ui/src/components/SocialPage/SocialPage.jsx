@@ -526,9 +526,6 @@ export default function SocialPage({ user, setCurrPage, colorModeState }) {
                 <div className="recommended-section">
                   <div className="recommended-content">
                     <h2 className="recommended-title">Recommended</h2>
-                    <h4 className="recommended-text">
-                      People your friends are following!
-                    </h4>
                     <div className="recommended-list">
                       {recommended?.length > 0 ? (
                         <>
