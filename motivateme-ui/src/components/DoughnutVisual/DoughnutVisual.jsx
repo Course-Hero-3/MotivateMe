@@ -6,7 +6,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
     
     
 
-export default function DoughnutVisual( { labels, label, actualData, colors } ) {
+export default function DoughnutVisual( { labels, label, actualData, colors, colorModeState } ) {
     // take in these 3 props when we render all visuals
   return (
         <Doughnut 
@@ -29,7 +29,13 @@ export default function DoughnutVisual( { labels, label, actualData, colors } ) 
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
+                legend: {
+                    labels: {
+                      color: `${colorModeState === "dark" ? "white" : "black"}`,
+                    },
+                  },
                 datalabels: {
+                    color: `${colorModeState === "dark" ? "white" : "black"}`,
                     formatter: (value, ctx) => {
                         return value;
                     }

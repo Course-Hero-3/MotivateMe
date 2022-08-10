@@ -114,8 +114,14 @@ export default function TodoForm({
       return;
     }
 
+    let ymd = createForm.dueDate.split("-");
+    let hm = createForm.dueTime.split(":");
     let convertedUTC = new Date(
-      createForm.dueDate + " " + createForm.dueTime
+      Number(ymd[0]),
+      Number(ymd[1]) - 1,
+      Number(ymd[2]),
+      Number(hm[0]),
+      Number(hm[1])
     ).toISOString();
     let split = convertedUTC.split("T");
     let convertedDate = split[0];
@@ -141,7 +147,7 @@ export default function TodoForm({
       toast({
         title: "Task succesfully created!",
         description: "",
-        status: "success",
+        status: "info",
         duration: 6000,
         isClosable: true,
       });
@@ -409,7 +415,13 @@ export function TodoCreate({
             ></textarea>
           </div>
           <div>
-            <p className="error-create">{createError ? createError : ""}</p>
+            <p
+              className={`error-create${
+                colorModeState === "dark" ? " lighter" : ""
+              }`}
+            >
+              {createError ? createError : ""}
+            </p>
           </div>
           <button
             className="form-submit-btn"
@@ -643,7 +655,13 @@ export function TodoUpdate({
             ></textarea>
           </div>
           <div>
-            <p className="error-create">{taskError ? taskError : ""}</p>
+            <p
+              className={`error-create${
+                colorModeState === "dark" ? " lighter" : ""
+              }`}
+            >
+              {taskError ? taskError : ""}
+            </p>
           </div>
           <div className="update-footer-buttons">
             <button
@@ -904,7 +922,13 @@ export function TodoComplete({
           </div>
 
           <div>
-            <p className="error-create">{taskError ? taskError : ""}</p>
+            <p
+              className={`error-create${
+                colorModeState === "dark" ? " lighter" : ""
+              }`}
+            >
+              {taskError ? taskError : ""}
+            </p>
           </div>
           <button
             className="form-submit-btn"

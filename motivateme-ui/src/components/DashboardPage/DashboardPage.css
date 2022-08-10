@@ -80,8 +80,8 @@
     border: none;
     align-items: flex-start;
     background-color: #63a4ff;
-    color: black;
-    background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
+    /* color: black; */
+    /* background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%); */
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);  
 }
@@ -92,7 +92,6 @@
 .task-card-header, .grade-card-header {
     display: flex;
     width: 100%;
-    justify-content: space-evenly;
     align-items: center;
     margin-left: 10px;
 }
@@ -110,7 +109,7 @@
 }
 .friends-column {
     height: 400px;
-    color: #333;
+    /* color: #333; */
     border: none;
     width: 470px;
     display: flex;
@@ -209,7 +208,6 @@
     margin-left: 20px;
     font-size: 30px;
     font-weight: bold;
-    flex: 1;
     /* color: #172b4d; */
     font-family: 'Nunito', sans-serif;
 }
@@ -375,9 +373,20 @@
     /* color: black; */
     
 }
-
+.dashboard-links:focus {
+    color: inherit
+}
 .dashboard-links:hover {
-    color: inherit;
+    color: inherit
+}
+.dashboard-links:visited {
+    color: inherit
+}
+.dashboard-links:link {
+    color: inherit
+}
+.dashboard-links:active {
+    color: inherit
 }
 
 .no-friends-dash {
@@ -389,6 +398,9 @@
     font-size: 20px;
     color: var(--primary-red);
     margin-top: 9px;
+}
+.late-text-dash.lighter {
+    color: white;
 }
 
 .upcoming-text-dash {
@@ -497,6 +509,7 @@
     } 
     .total-task-card-title, .latest-grade-title, .friends-column-header {
         font-size: 25px;
+
     }
     .total-tasks {
         font-size: 35px;
@@ -613,4 +626,7 @@
     .mini-card-name, .late-text-dash, .mini-card-date, .upcoming-text-dash {
         font-size: 12px;
     }
+}
+.darker-task-card{
+   background-color:#3f506d;
 }

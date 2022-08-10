@@ -201,9 +201,8 @@
   .user-card {
     justify-content: flex-start;
     width: 100%;
-    margin-top: 0px;
-    height: 160px
-    ;
+    margin-top: 5px;
+    height: 155px;
     align-items: center;
   }
 }
@@ -245,34 +244,38 @@
 }
 
 .follow-btn {
-    margin-top: 10px;
+    margin-top: 5px;
     border-radius: 5px;
     font-size: 16px;
     border: none;
     cursor: pointer;
     height: 39px;
-    width: 80px;
-    background-color: var(--primary-blue);
-    color: var(--pure-white);
     transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+    width: 90px;
+    background: #34b3f1;
+    color: white;
 }
 
 
 .unfollow-btn {
-    margin-bottom: 5px;
+    margin-top: 5px;
     border-radius: 5px;
     font-size: 16px;
     border: none;
     cursor: pointer;
     height: 39px;
     width: 90px;
-    background-color:  var(--primary-blue);
+    background: rgb(101, 101, 101);
     color: var(--pure-white);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
-.follow-btn:hover, .unfollow-btn:hover {
+.follow-btn:hover {
   background: #109de4;
+}
+
+.unfollow-btn:hover {
+  background: rgb(134, 134, 134);
 }
 
 .main-feed {
@@ -393,7 +396,7 @@
 @media(max-width:565px){
   .recommended-section {
    margin-right: 0px;
-   width: 80%;
+   width: 100%;
   }
  }
  
@@ -461,4 +464,18 @@
 
 .empty-recommended-box {
   height: 0px;
+}
+
+
+@media(max-width:615px){
+  .main-title {
+   font-size: 27px;
+   margin-bottom: 10px;
+  }
+  .social-page {
+      margin-top: 15px;
+  }
+  .social-content {
+    margin-top: 7px;
+  }
 }

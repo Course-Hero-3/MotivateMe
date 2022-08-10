@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import "./TodoList.css";
-import dueDateIcon from "../../assets/due-icon3.png";
-import updateIcon from "../../assets/update-icon.png";
-import completeIcon from "../../assets/complete-icon.png";
+import {
+  BsCalendar,
+  BsInfoCircle,
+  BsPencil,
+  BsCheckCircle,
+} from "react-icons/bs";
 import TodoForm from "../TodoForm/TodoForm";
 import { useState } from "react";
 
@@ -152,9 +155,19 @@ export default function TodoList({ showModal, modalSelected, colorModeState}) {
     }
     if (event.target.name === "dueDate" && event.target.value.length === 0) {
       setTaskError("Due Date field cannot be left empty");
+    } else if (
+      event.target.name === "dueDate" &&
+      taskError === "Date and/or Time missing"
+    ) {
+      setTaskError(null);
     }
     if (event.target.name === "dueTime" && event.target.value.length === 0) {
       setTaskError("Due Time field cannot be left empty");
+    } else if (
+      event.target.name === "dueTime" &&
+      taskError === "Date and/or Time missing"
+    ) {
+      setTaskError(null);
     }
 
     // check if prior submits had anything set equal to zero
@@ -229,33 +242,43 @@ export default function TodoList({ showModal, modalSelected, colorModeState}) {
       return;
     }
 
-    let convertedUTC = new Date(
-      updateForm.dueDate + " " + updateForm.dueTime
-    ).toISOString();
-    let split = convertedUTC.split("T");
-    let convertedDate = split[0];
-    let convertedTime = split[1].slice(0, -8);
-    let convertedUpdatedForm = {
-      ...updateForm,
-      dueDate: convertedDate,
-      dueTime: convertedTime,
-    };
+    try {
+      let ymd = updateForm.dueDate.split("-");
+      let hm = updateForm.dueTime.split(":");
+      let convertedUTC = new Date(
+        Number(ymd[0]),
+        Number(ymd[1]) - 1,
+        Number(ymd[2]),
+        Number(hm[0]),
+        Number(hm[1])
+      ).toISOString();
+      let split = convertedUTC.split("T");
+      let convertedDate = split[0];
+      let convertedTime = split[1].slice(0, -8);
+      let convertedUpdatedForm = {
+        ...updateForm,
+        dueDate: convertedDate,
+        dueTime: convertedTime,
+      };
 
-    let { data, error } = await apiClient.updateTask(convertedUpdatedForm);
+      let { data, error } = await apiClient.updateTask(convertedUpdatedForm);
 
-    if (data?.task) {
-      setTaskError(null);
-      setRefreshTasks(!refreshTasks);
-      setUpdateOrComplete(null);
-      toast({
-        title: "Task succesfully updated!",
-        description: "",
-        status: "success",
-        duration: 6000,
-        isClosable: true,
-      });
-    } else {
-      setTaskError(error);
+      if (data?.task) {
+        setTaskError(null);
+        setRefreshTasks(!refreshTasks);
+        setUpdateOrComplete(null);
+        toast({
+          title: "Task succesfully updated!",
+          description: "",
+          status: "info",
+          duration: 6000,
+          isClosable: true,
+        });
+      } else {
+        setTaskError(error);
+      }
+    } catch (error) {
+      setTaskError("Date and/or Time missing");
     }
   };
   /**handles updating the task forms */
@@ -264,14 +287,21 @@ export default function TodoList({ showModal, modalSelected, colorModeState}) {
       setTaskError("Score field cannot be left empty");
     }
     if (event.target.name === "score" && event.target.value > 200) {
-      setTaskError("Score field cannot surpass 200%")
+      setTaskError("Score field cannot surpass 200%");
     }
     if (event.target.name === "score" && event.target.value < 0) {
-      setTaskError("Negative percentages are not possible.")
+      setTaskError("Negative percentages are not possible.");
     }
-    if (event.target.name === "score" && event.target.value >= 0 && event.target.value <= 200) {
-      if (taskError === "Negative percentages are not possible." || "Score field cannot surpass 200%") {
-        setTaskError(null)
+    if (
+      event.target.name === "score" &&
+      event.target.value >= 0 &&
+      event.target.value <= 200
+    ) {
+      if (
+        taskError === "Negative percentages are not possible." ||
+        "Score field cannot surpass 200%"
+      ) {
+        setTaskError(null);
       }
     }
     if (event.target.name === "timeSpent" && event.target.value.length === 0) {
@@ -361,7 +391,7 @@ export default function TodoList({ showModal, modalSelected, colorModeState}) {
       toast({
         title: "Task succesfully completed!",
         description: "",
-        status: "success",
+        status: "info",
         duration: 6000,
         isClosable: true,
       });
@@ -381,7 +411,7 @@ export default function TodoList({ showModal, modalSelected, colorModeState}) {
       toast({
         title: "Task succesfully deleted!",
         description: "",
-        status: "success",
+        status: "info",
         duration: 6000,
         isClosable: true,
       });
@@ -605,7 +635,7 @@ export function TodoCard({
         setColorState("yellow");
       }
     } else {
-      setColorState("dark-color")
+      setColorState("dark-color");
     }
   }, [updateForm, handleOnUpdateSubmit]);
 
@@ -627,37 +657,64 @@ export function TodoCard({
           <span className="name">{name}</span>
         </div>
         <div className="due-date-wrapper">
-          <img src={dueDateIcon} className="due-icon" />
+          <BsCalendar id="date-icon" size={25} />
+          {/* <img src={BsClipboardData} className="due-icon" /> */}
           <span className="due-date">
             {moment(dueDate).format("MMMM Do YYYY")}
           </span>
         </div>
         {taskIsLate() ? (
-          <span className="late-task">Late</span>
+          <span
+            className={`late-task${colorModeState === "dark" ? " lighter" : ""}`}
+          >
+            Late
+          </span>
         ) : (
           <span className="ontime-task">In Progress</span>
         )}
 
         <div className="form-icons">
-          <img
-            className="form-icon  mobile"
-            src={updateIcon}
-            alt="update-icon"
+          <BsPencil
+            size={25}
+            className="form-icon"
             onClick={() => {
               setUpdateOrComplete("update");
             }}
           />
-          <img
+          {/* <img
             className="form-icon  mobile"
-            src={completeIcon}
-            alt="complete-icon"
+            src={BsPencil}
+            alt="update-icon"
+            onClick={() => {
+              setUpdateOrComplete("update");
+            }}
+          /> */}
+          <BsCheckCircle
+            className="form-icon"
+            size={25}
             onClick={() => {
               setUpdateOrComplete("complete");
             }}
           />
+          {/* <img
+            className="form-icon  mobile"
+            src={BsCheckCircle}
+            alt="complete-icon"
+            onClick={() => {
+              setUpdateOrComplete("complete");
+            }}
+          /> */}
           {/* <IconButton icon={<InfoIcon w={8} h={8} color="black"/>}/> */}
 
-          <svg
+          <BsInfoCircle
+            size={25}
+            alt="form-icon mobile"
+            className="form-icon"
+            onClick={() => {
+              setShowDetail({ name, description, category, dueDate, dueTime });
+            }}
+          />
+          {/* <svg
             alt="form-icon mobile"
             id="form-icon-info"
             onClick={() => {
@@ -676,7 +733,7 @@ export function TodoCard({
             <circle cx="12" cy="12" r="9" />
             <line x1="12" y1="8" x2="12.01" y2="8" />
             <polyline points="11 12 12 12 12 16 13 16" />
-          </svg>
+          </svg> */}
         </div>
       </div>
       {updateOrComplete === "update" ? (
@@ -762,7 +819,7 @@ export function TaskDetail({
                     setShowDetail(null);
                   }}
                   xmlns="http://www.w3.org/2000/svg"
-                  class="icon icon-tabler icon-tabler-x"
+                  className="icon icon-tabler icon-tabler-x"
                   width="44"
                   height="44"
                   viewBox="0 0 24 24"

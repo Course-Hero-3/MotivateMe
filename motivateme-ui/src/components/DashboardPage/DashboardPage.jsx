@@ -64,14 +64,15 @@ export default function DashboardPage({ user, setCurrPage, colorModeState }) {
                   </h1>
                 </div>
                 <Link to="/todo" className="dashboard-links">
-                  <div className={"total-task-card " + colorModeState}>
+
+                  <div className={`total-task-card${colorModeState === "dark"? " darker-task-card dark": ""}`}>
                     <div className="task-card-header">
                       <img
                         id="total-task-card-img"
                         src="https://freeiconshop.com/wp-content/uploads/edd/task-done-flat.png"
                         alt="Total Tasks Icon"
                       />
-                      <h3 className="total-task-card-title">
+                      <h3 className={`total-task-card-title${colorModeState === "dark"? " darker-task-card": ""}`}>
                         Total Tasks Pending
                       </h3>
                     </div>
@@ -79,14 +80,15 @@ export default function DashboardPage({ user, setCurrPage, colorModeState }) {
                   </div>
                 </Link>
                 <Link to="/recap" className="dashboard-links">
-                  <div className={"latest-grade-card " + colorModeState }>
+
+                  <div className={`latest-grade-card ${colorModeState === "dark"? " darker-task-card dark": ""} `}>
                     <div className="grade-card-header">
                       <img
                         id="total-task-card-img"
                         src={gradeIcon}
                         alt="lates grade icon"
                       />
-                      <h3 className="latest-grade-card-title">Latest Grade</h3>
+                      <h3 className={`latest-grade-card-title ${colorModeState === "dark"? " darker-task-card": ""}`}>Latest Grade</h3>
                     </div>
                     <span className="total-tasks">
                       {latestGrades[0] ? `${latestGrades[0]?.score}%` : "N/A"}
@@ -94,8 +96,8 @@ export default function DashboardPage({ user, setCurrPage, colorModeState }) {
                   </div>
                 </Link>
                 <Link to="/social" className="dashboard-links">
-                  <div className={"friends-column " + colorModeState}>
-                    <span className="friends-column-header">Friends</span>
+                  <div className={`friends-column ${colorModeState === "dark"? " darker-task-card dark": ""}`}>
+                    <span className={`friends-column-header ${colorModeState === "dark"? " darker-task-card": ""}`}>Friends</span>
                     <div className="friends d-flex flex-column">
                       {friends && friends.length > 0 ? (
                         friends.slice(0, 4).map((friend, idx) => {
@@ -134,8 +136,10 @@ export default function DashboardPage({ user, setCurrPage, colorModeState }) {
               <div className="content-area">
                 {/* If there are graphs, then show them (if it is empty, intentionally don't show any message) */}
                 {graphs?.map((fact, idx) => (
+
                   <Link to="/recap" className={"dashboard-links " + colorModeState} key={idx}>
-                    <GraphCard chartInformation={fact} dashboardOn={true} />
+                    <GraphCard chartInformation={fact} dashboardOn={true} colorModeState={colorModeState} />
+
                   </Link>
                 ))}
 
@@ -292,7 +296,7 @@ export function MiniTodoCard({
         setColorState("yellow");
       }
     } else {
-      setColorState("dark-color")
+      setColorState("dark-color");
     }
   }, []);
 
@@ -346,7 +350,15 @@ export function MiniTodoCard({
         <h3 className="mini-card-name">{name}</h3>
         {/* Check whether to mark it as late or upcoming */}
         {taskIsLate() ? (
-          <p className="late-text-dash">Late</p>
+          <>
+            <p
+              className={`late-text-dash${
+                colorModeState === "dark" ? " lighter" : ""
+              }`}
+            >
+              Late
+            </p>
+          </>
         ) : (
           <p className="upcoming-text-dash">In Progress</p>
         )}

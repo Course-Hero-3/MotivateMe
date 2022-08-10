@@ -188,7 +188,7 @@
 }
 
 .form_modal_content.dark, .form-title.dark {
-    color:var(--primary-blue);
+    color: white;
     background: rgb(78, 78, 78);
 }
 
@@ -251,6 +251,10 @@
 }
 .error-create {
     color: red;
+    margin-bottom: 5px;
+}
+.error-create.lighter {
+    color: white;
 }
 
 .text-and-checkbox-area {

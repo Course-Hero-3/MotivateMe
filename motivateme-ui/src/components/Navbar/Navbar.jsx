@@ -50,7 +50,7 @@ export default function Navbar({
                 <h2 className="logo-title">MotivateMe</h2>
                 <Tooltip hasArrow label='Home'  
                 bg={`${colorMode === "light" ? '#34B3F1' : "#2e2d2d"}`} color='#fff'>
-                <Link to="/">
+                <Link to="/"  className="navigation-link">
                   <img
                     id="home-logo"
                     src="https://cdn-icons-png.flaticon.com/512/2163/2163301.png"
@@ -60,7 +60,7 @@ export default function Navbar({
                 </Tooltip>
               </div>
               <div className="nav-links">
-                <Link to="/dashboard">
+                <Link to="/dashboard" className="navigation-link">
                   <button
                     className={`nav-btn ${
                       currPage === "dashboard" ? "active-tab" : ""
@@ -69,7 +69,7 @@ export default function Navbar({
                     Dashboard
                   </button>
                 </Link>
-                <Link to="/todo">
+                <Link to="/todo" className="navigation-link">
                   <button
                     className={`nav-btn ${
                       currPage === "todo" ? "active-tab" : ""
@@ -78,7 +78,7 @@ export default function Navbar({
                     Todo
                   </button>
                 </Link>
-                <Link to="/recap">
+                <Link to="/recap" className="navigation-link">
                   <button
                     className={`nav-btn ${
                       currPage === "recap" ? "active-tab" : ""
@@ -87,7 +87,7 @@ export default function Navbar({
                     Recap
                   </button>
                 </Link>
-                <Link to="/social">
+                <Link to="/social" className="navigation-link">
                   <button
                     className={`nav-btn ${
                       currPage === "social" ? "active-tab" : ""
@@ -99,11 +99,12 @@ export default function Navbar({
               </div>
               <div className="wrapper">
                 <div className="account-links-logged-in">
-                  <Link to="/profile">
+                  <Link to="/profile" className="navigation-link">
                   <Tooltip hasArrow label='View Profile' 
                    bg={`${colorMode === "light" ? '#34B3F1' : "#2e2d2d"}`} color='#fff'>
 
                   <img
+
                       id="pfp"
                       src={user.image}
                       alt="PFP"
@@ -117,7 +118,7 @@ export default function Navbar({
                     
                   </Link>
                   {loggedInWithGoogle ? (
-                    <Link to="/" className="google-logout">
+                    <Link to="/" className="google-logout navigation-link">
                       <GoogleLogout
                         clientId={clientId}
                         buttontext="Log Out"
@@ -126,7 +127,7 @@ export default function Navbar({
                     </Link>
                   ) : (
                     <>
-                      <Link to="/" className="google-logout">
+                      <Link to="/" className="google-logout navigation-link">
                         <button
                           className="nav-btn"
                           onClick={() => {
@@ -235,7 +236,7 @@ export default function Navbar({
                 <div className="content d-flex flex-row justify-content-between">
                   <div className="logo">
                     <h2 className="logo-title">MotivateMe</h2>
-                    <Link to="/">
+                    <Link to="/" className="navigation-link">
                       <img
                         id="home-logo"
                         src="https://cdn-icons-png.flaticon.com/512/2163/2163301.png"
@@ -245,10 +246,10 @@ export default function Navbar({
                   </div>
                   <div className="account-links ">
                     <>
-                      <Link to="/login">
+                      <Link to="/login" className="navigation-link">
                         <button className="nav-btn">Log In</button>
                       </Link>
-                      <Link to="/register">
+                      <Link to="/register" className="navigation-link">
                         <button className="nav-btn">Register</button>
                       </Link>
                     </>
@@ -272,10 +273,10 @@ export default function Navbar({
                         <PopoverBody>
                           <div className="burger-links ">
                             <>
-                              <Link to="/login">
+                              <Link to="/login" className="navigation-link">
                                 <button className="nav-btn">Log In</button>
                               </Link>
-                              <Link to="/register">
+                              <Link to="/register" className="navigation-link">
                                 <button className="nav-btn">Register</button>
                               </Link>
                             </>
@@ -293,7 +294,7 @@ export default function Navbar({
                 <div className="content">
                   <div className="logo">
                     <h2 className="logo-title">MotivateMe</h2>
-                    <Link to="/">
+                    <Link to="/" className="navigation-link">
                       <img
                         id="home-logo"
                         src="https://cdn-icons-png.flaticon.com/512/2163/2163301.png"

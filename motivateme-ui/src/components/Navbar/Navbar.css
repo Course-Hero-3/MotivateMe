@@ -107,14 +107,20 @@
 
 }
 
+.navigation-link {
+    text-decoration: none;
+}
+.navigation-link:hover {
+    color: inherit;
+}
+
 .nav-btn:hover{
     background-color: var(--primary-blue);
     color: white;
     border-radius: 5px; 
     background-position: left;
 }
-
-.nav-btn-burger {
+.nav-btn-burger, .google-logout-burger {
     cursor: pointer;
     margin: 5px;
     background-color: transparent;
@@ -122,7 +128,22 @@
     font-size: 20px;
     text-decoration: none;
     transition: .2s ease-out; 
-
+    color: inherit;
+}
+.nav-btn-burger:focus, .google-logout-burger:focus {
+    color: inherit
+}
+.nav-btn-burger:hover, .google-logout-burger:hover {
+    color: inherit
+}
+.nav-btn-burger:visited, .google-logout-burger:visited {
+    color: inherit
+}
+.nav-btn-burger:link, .google-logout-burger:link {
+    color: inherit
+}
+.nav-btn-burger:active, .google-logout-burger:active {
+    color: inherit
 }
 
 /* Simply add a color the bottom side of the border
@@ -165,11 +186,13 @@
     height: 60px;
     width: 60px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .google-icon-nav {
     height: 33px;
     width: 33px;
+
 
 }
 .google-signin-text-nav{

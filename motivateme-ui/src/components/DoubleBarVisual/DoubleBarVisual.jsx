@@ -3,7 +3,7 @@ import "./DoubleBarVisual.css"
 import { Bar } from "react-chartjs-2"
 
     
-export default function DoubleBarVisual( { labels, label, actualData, colors1, colors2 } ) {
+export default function DoubleBarVisual( { labels, label, actualData, colors1, colors2, colorModeState } ) {
     // take in these 3 props when we render all visuals
   return (
         <Bar 
@@ -26,12 +26,34 @@ export default function DoubleBarVisual( { labels, label, actualData, colors1, c
         options={{
             scales: {
                 y: {
+                    grid: {
+                        color: `${colorModeState === "dark" ? "#333944" : "lightgray"}`,
+                    },
+                    ticks: {
+                        color: `${colorModeState==="dark"?"white":"black"}`
+                      },
                     beginAtZero: true,
                     title: {
+                        color: `${colorModeState==="dark"?"white":"black"}`,
                         display: true,
                         text: "in Percent (%)"
                     }
+                },
+                x: {
+                    grid: {
+                        color: `${colorModeState === "dark" ? "#333944" : "lightgray"}`,
+                    },
+                    ticks: {
+                        color: `${colorModeState==="dark"?"white":"black"}`
+                      },
                 }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                      color: `${colorModeState === "dark" ? "white" : "black"}`,
+                    },
+                  }
             }
         }}
         height={370}

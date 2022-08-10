@@ -50,6 +50,7 @@ export default function GraphCard({
           labels={chartData.labels}
           actualData={chartData.actualData}
           colors={generateColorList(chartData.labels.length)}
+          colorModeState={colorModeState}
         />
       );
     } else if (chartData.type === "pie") {
@@ -59,6 +60,7 @@ export default function GraphCard({
           labels={chartData.labels}
           actualData={chartData.actualData}
           colors={generateColorList(chartData.labels.length)}
+          colorModeState={colorModeState}
         />
       );
     } else if (chartData.type === "line") {
@@ -70,6 +72,7 @@ export default function GraphCard({
           labels={chartData.labels}
           actualData={chartData.actualData}
           colors={generateColorList(chartData.labels.length)}
+          colorModeState={colorModeState}
         />
       );
     } else if (chartData.type === "doughnut") {
@@ -79,6 +82,7 @@ export default function GraphCard({
           labels={chartData.labels}
           actualData={chartData.actualData}
           colors={generateColorList(chartData.labels.length)}
+          colorModeState={colorModeState}
         />
       );
     } else if (chartData.type === "horizontalBar") {
@@ -90,6 +94,7 @@ export default function GraphCard({
           labels={chartData.labels}
           actualData={chartData.actualData}
           colors={generateColorList(chartData.labels.length)}
+          colorModeState={colorModeState}
         />
       );
     } else if (chartData.type === "doubleBar") {
@@ -106,6 +111,7 @@ export default function GraphCard({
           actualData={chartData.actualData}
           colors1={generateColorList(1)}
           colors2={generateColorList(1)}
+          colorModeState={colorModeState}
         />
       );
     }
