@@ -195,9 +195,8 @@
   .user-card {
     justify-content: flex-start;
     width: 100%;
-    margin-top: 0px;
-    height: 160px
-    ;
+    margin-top: 5px;
+    height: 155px;
     align-items: center;
   }
 }
@@ -383,7 +382,7 @@
 @media(max-width:565px){
   .recommended-section {
    margin-right: 0px;
-   width: 80%;
+   width: 100%;
   }
  }
  
@@ -448,4 +447,18 @@
 
 .empty-recommended-box {
   height: 0px;
+}
+
+
+@media(max-width:615px){
+  .main-title {
+   font-size: 27px;
+   margin-bottom: 10px;
+  }
+  .social-page {
+      margin-top: 15px;
+  }
+  .social-content {
+    margin-top: 7px;
+  }
 }

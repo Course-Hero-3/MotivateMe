@@ -24,3 +24,14 @@
 .todo-btn.create {
     cursor: pointer;
 }
+
+/* do this for all the pages on mobile */
+
+@media(max-width:615px){
+    .todo-title {
+     font-size: 27px;
+    }
+    .todo-page {
+        margin-top: 15px;
+    }
+ }

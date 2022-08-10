@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import "./TodoList.css";
-import {BsClipboardData, BsInfo} from "react-icons/bs";
-import {BsPencil} from "react-icons/bs";
-import {BsCheckCircle} from "react-icons/bs";
+import {
+  BsCalendar,
+  BsInfoCircle,
+  BsPencil,
+  BsCheckCircle,
+} from "react-icons/bs";
 import TodoForm from "../TodoForm/TodoForm";
 import { useState } from "react";
 
@@ -152,15 +155,19 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
     }
     if (event.target.name === "dueDate" && event.target.value.length === 0) {
       setTaskError("Due Date field cannot be left empty");
-    }
-    else if (event.target.name === "dueDate" && taskError === "Date and/or Time missing") {
-      setTaskError(null)
+    } else if (
+      event.target.name === "dueDate" &&
+      taskError === "Date and/or Time missing"
+    ) {
+      setTaskError(null);
     }
     if (event.target.name === "dueTime" && event.target.value.length === 0) {
       setTaskError("Due Time field cannot be left empty");
-    }
-    else if (event.target.name === "dueTime" && taskError === "Date and/or Time missing") {
-      setTaskError(null)
+    } else if (
+      event.target.name === "dueTime" &&
+      taskError === "Date and/or Time missing"
+    ) {
+      setTaskError(null);
     }
 
     // check if prior submits had anything set equal to zero
@@ -253,9 +260,9 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
         dueDate: convertedDate,
         dueTime: convertedTime,
       };
-  
+
       let { data, error } = await apiClient.updateTask(convertedUpdatedForm);
-  
+
       if (data?.task) {
         setTaskError(null);
         setRefreshTasks(!refreshTasks);
@@ -270,11 +277,9 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
       } else {
         setTaskError(error);
       }
+    } catch (error) {
+      setTaskError("Date and/or Time missing");
     }
-    catch (error) {
-      setTaskError("Date and/or Time missing")
-    }
-    
   };
   /**handles updating the task forms */
   const handleOnCompleteFormChange = (event, completeForm, setCompleteForm) => {
@@ -631,21 +636,30 @@ export function TodoCard({
           <span className="name">{name}</span>
         </div>
         <div className="due-date-wrapper">
-          <img src={BsClipboardData} className="due-icon" />
+          <BsCalendar id="date-icon" size={25} />
+          {/* <img src={BsClipboardData} className="due-icon" /> */}
           <span className="due-date">
             {moment(dueDate).format("MMMM Do YYYY")}
           </span>
         </div>
         {taskIsLate() ? (
-          <span className="late-task">Late</span>
+          <span
+            className={`late-task${colorModeState === "dark" ? " lighter" : ""}`}
+          >
+            Late
+          </span>
         ) : (
           <span className="ontime-task">In Progress</span>
         )}
 
         <div className="form-icons">
-          <BsPencil size={28} className="form-icon"  onClick={() => {
+          <BsPencil
+            size={25}
+            className="form-icon"
+            onClick={() => {
               setUpdateOrComplete("update");
-            }}/>
+            }}
+          />
           {/* <img
             className="form-icon  mobile"
             src={BsPencil}
@@ -654,9 +668,13 @@ export function TodoCard({
               setUpdateOrComplete("update");
             }}
           /> */}
-          <BsCheckCircle className="form-icon" onClick={() => {
+          <BsCheckCircle
+            className="form-icon"
+            size={25}
+            onClick={() => {
               setUpdateOrComplete("complete");
-            }} />
+            }}
+          />
           {/* <img
             className="form-icon  mobile"
             src={BsCheckCircle}
@@ -667,11 +685,14 @@ export function TodoCard({
           /> */}
           {/* <IconButton icon={<InfoIcon w={8} h={8} color="black"/>}/> */}
 
-          <BsInfo size={28} alt="form-icon mobile"
-            id="form-icon-info"
+          <BsInfoCircle
+            size={25}
+            alt="form-icon mobile"
+            className="form-icon"
             onClick={() => {
               setShowDetail({ name, description, category, dueDate, dueTime });
-            }}/>
+            }}
+          />
           {/* <svg
             alt="form-icon mobile"
             id="form-icon-info"
@@ -777,7 +798,7 @@ export function TaskDetail({
                     setShowDetail(null);
                   }}
                   xmlns="http://www.w3.org/2000/svg"
-                  class="icon icon-tabler icon-tabler-x"
+                  className="icon icon-tabler icon-tabler-x"
                   width="44"
                   height="44"
                   viewBox="0 0 24 24"

@@ -371,6 +371,9 @@
     color: var(--primary-red);
     margin-top: 9px;
 }
+.late-text-dash.lighter {
+    color: white;
+}
 
 .upcoming-text-dash {
     font-size: 20px;

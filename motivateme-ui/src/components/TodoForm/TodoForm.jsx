@@ -397,7 +397,13 @@ export function TodoCreate({
             ></textarea>
           </div>
           <div>
-            <p className="error-create">{createError ? createError : ""}</p>
+            <p
+              className={`error-create${
+                colorModeState === "dark" ? " lighter" : ""
+              }`}
+            >
+              {createError ? createError : ""}
+            </p>
           </div>
           <button
             className="form-submit-btn"
@@ -613,7 +619,13 @@ export function TodoUpdate({
             ></textarea>
           </div>
           <div>
-            <p className="error-create">{taskError ? taskError : ""}</p>
+            <p
+              className={`error-create${
+                colorModeState === "dark" ? " lighter" : ""
+              }`}
+            >
+              {taskError ? taskError : ""}
+            </p>
           </div>
           <div className="update-footer-buttons">
             <button
@@ -859,7 +871,13 @@ export function TodoComplete({
           </div>
 
           <div>
-            <p className="error-create">{taskError ? taskError : ""}</p>
+            <p
+              className={`error-create${
+                colorModeState === "dark" ? " lighter" : ""
+              }`}
+            >
+              {taskError ? taskError : ""}
+            </p>
           </div>
           <button
             className="form-submit-btn"

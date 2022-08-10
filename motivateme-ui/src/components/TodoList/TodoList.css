@@ -232,6 +232,10 @@
     font-weight: 800;
 }
 
+.late-task.lighter { 
+    color: white;
+}
+
 
 .todo-card:hover {
     background: var(--primary-blue);
@@ -289,17 +293,20 @@
     display: flex;
     align-items: center;
     width: 120px;
-    margin-top: 8px;
+    justify-content: space-evenly;
+    margin-right:7px;
 }
-.form-icons svg {
-    width: 44px;
-    height: 44px;
-}
+
 
 .form-icon {
     cursor: pointer;
     margin-right: 5px;
 }
+
+#date-icon {
+    margin-right: 7px;
+}
+
 @media(max-width:1070px){
     .form-icon.mobile {
         cursor: pointer;
@@ -337,7 +344,7 @@
     color: #333;
 }
 .task-detail-name.dark {
-    color: var(--primary-blue);
+    color: white;
 }
 
 
@@ -422,7 +429,7 @@
 }
 
 .task_modal_content.dark {
-    color: var(--primary-blue);
+    color: white;
     background: rgb(78, 78, 78);
 }
 
@@ -444,3 +451,10 @@ label{
 .icon {
     cursor: pointer;
 }
+
+@media(max-width:615px){
+    .todo-list-header {
+     font-size: 27px;
+     margin: 10px 0px;
+    }
+ }
