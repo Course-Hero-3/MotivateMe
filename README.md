@@ -6,7 +6,7 @@ Cohort: **Course Hero 3**
 
 Team Member Names:**Gikai, Kian, Stephane**
 
-Mentors Names: **Kyle Holt, Bryan Ngo, Andrew**
+Mentors Names: **Kyle Holt, Bryan Ngo, Andrew Lan**
 
 Project Code Repository Links
 
@@ -23,4 +23,7 @@ Deployment Website: **tbd**
 - https://www.chartjs.org/
 - https://getbootstrap.com/
 - https://chakra-ui.com/
+- https://react-icons.github.io/react-icons/
+- https://www.npmjs.com/package/react-google-login
+
 
