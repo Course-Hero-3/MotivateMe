@@ -437,7 +437,7 @@ export default function TodoList({ showModal, modalSelected, colorModeState}) {
             _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}>Essay</MenuItem>
           </MenuList>
         </Menu>
-        <form className="task-form">
+        <form className={`${colorModeState === "light" ? "task-form" : "task-form dark"}`}>
           <button className="task-form-btn">
             {" "}
             <svg viewBox="0 0 1024 1024">
@@ -466,7 +466,7 @@ export default function TodoList({ showModal, modalSelected, colorModeState}) {
             showModal("create");
           }}
           xmlns="http://www.w3.org/2000/svg"
-          className="icon icon-tabler icon-tabler-circle-plus todo-btn create"
+          className="icon icon-tabler icon-tabler-circle-plus todo-btn create-btn"
           width="65"
           height="65"
           viewBox="0 0 24 24"

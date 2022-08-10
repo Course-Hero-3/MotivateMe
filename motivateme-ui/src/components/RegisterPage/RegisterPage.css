@@ -154,6 +154,7 @@
     margin-bottom: 10px;
     margin-right: 10px;
 }
+
 .input-field-split {
     display: flex;
     flex-direction: column;
@@ -205,7 +206,13 @@
     border: none;
     background-color: var(--primary-blue);
     color: var(--pure-white);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
+
+.register-btn:hover {
+    background: #109de4;
+}
+
 .register-break {
     border:none;
     border-top:1px solid rgb(155, 155, 155);

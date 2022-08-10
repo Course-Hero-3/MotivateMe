@@ -139,9 +139,7 @@ font-family: 'Nunito', sans-serif;
 
 
 }
-.input-field {
-    width: 450px;
-}
+
 .form-input{
     padding: 10px 8px;
     border-radius: 5px;
@@ -160,6 +158,14 @@ font-family: 'Nunito', sans-serif;
 #password {
     width: 450px;
 }
+.input-field.login {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    align-items: baseline;
+    width: 450px;
+}
 
 @media(max-width:900px) {
     #email, #password {
@@ -170,6 +176,10 @@ font-family: 'Nunito', sans-serif;
     }
     .google-signin-text.mobile {
         font-size: 15px;
+    }
+
+    .input-field.login {
+        width: 100%;
     }
 }
 
@@ -190,18 +200,14 @@ padding: 15px 20px;
 color: white;
 cursor: pointer;
 margin-top: 15px;
+transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.login-button:hover {
+   background: #109de4;
 }
 .signup-link {
     color: var(--primary-blue)
-}
-@media(max-width:900px){
-    .login-footer {
-        width: 100%;
-    }
-    .login-button {
-        width: 100%;
-    }
-
 }
 
 .label{
@@ -210,11 +216,21 @@ margin-top: 15px;
     padding-bottom: 5px;
 }
 
-
 .login-footer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 450px;
+}
+
+@media(max-width:900px){
+    .login-footer {
+        width: 100%;
+    }
+    .login-button {
+        width: 100%;
+    }
+
 }
 
 .footer-text {

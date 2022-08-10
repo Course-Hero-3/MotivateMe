@@ -11,18 +11,9 @@ import {
   PopoverBody,
   PopoverArrow,
   PopoverCloseButton,
-  useColorModeValue
+  Tooltip
 } from "@chakra-ui/react";
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-} from '@chakra-ui/react'
+
 import { IconButton } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
@@ -57,6 +48,8 @@ export default function Navbar({
             <div className="content d-flex flex-row justify-content-between">
               <div className="logo">
                 <h2 className="logo-title">MotivateMe</h2>
+                <Tooltip hasArrow label='Home'  
+                bg={`${colorMode === "light" ? '#34B3F1' : "#2e2d2d"}`} color='#fff'>
                 <Link to="/">
                   <img
                     id="home-logo"
@@ -64,6 +57,7 @@ export default function Navbar({
                     alt="Home Logo"
                   />
                 </Link>
+                </Tooltip>
               </div>
               <div className="nav-links">
                 <Link to="/dashboard">
@@ -106,7 +100,10 @@ export default function Navbar({
               <div className="wrapper">
                 <div className="account-links-logged-in">
                   <Link to="/profile">
-                    <img
+                  <Tooltip hasArrow label='View Profile' 
+                   bg={`${colorMode === "light" ? '#34B3F1' : "#2e2d2d"}`} color='#fff'>
+
+                  <img
                       id="pfp"
                       src={user.image}
                       alt="PFP"
@@ -116,6 +113,8 @@ export default function Navbar({
                         event.onerror = null;
                       }}
                     />
+                  </Tooltip>
+                    
                   </Link>
                   {loggedInWithGoogle ? (
                     <Link to="/" className="google-logout">
@@ -262,10 +261,11 @@ export default function Navbar({
                           size="lg"
                           aria-label="Search database"
                           icon={<HamburgerIcon />}
-                          background={`${colorMode === "light" ? "#EDF2F7" : "#232c3c"}`}
+                          background={`${colorMode === "light" ? "#EDF2F7" : "whiteAlpha.200"}`}
+                        _hover={{background:`${colorMode === "light" ? '#e4e9ee' : "#3b4963"}`}}
                         />
                       </PopoverTrigger>
-                      <PopoverContent  background={`${colorMode === "light" ? "#fff" : "#232c3c"}`}>
+                      <PopoverContent  w='200px' background={`${colorMode === "light" ? "#fff" : "#232c3c"}`}>
 
                         <PopoverArrow />
                         <PopoverCloseButton />

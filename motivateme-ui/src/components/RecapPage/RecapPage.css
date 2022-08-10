@@ -27,16 +27,22 @@
 }
 
 .load-more {
-    padding: 10px 25px;
+    width: 105px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    height: 44px;
+    padding: 5px;
     border-radius: 10px;
     border: none;
+    color: var(--pure-white);
     background: var(--primary-blue);
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    height: 40px;
-    margin-top: 30px;
-    margin-bottom: 60px;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.load-more:hover {
+    background: #109de4;
 }
 
 .no-graphs {

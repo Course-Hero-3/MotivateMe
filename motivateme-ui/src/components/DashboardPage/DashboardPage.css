@@ -66,7 +66,8 @@
 
 /* editing total task card */
 
-.total-task-card, .latest-grade-card{
+.total-task-card, .latest-grade-card
+{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -82,8 +83,10 @@
     color: black;
     background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-        
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);  
+}
+.total-task-card:hover, .latest-grade-card:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .task-card-header, .grade-card-header {
@@ -118,6 +121,14 @@
     background: rgb(255, 192, 74);
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.friends-column.dark:hover, .total-task-card.dark:hover, .dash-todo-viewer.dark:hover,
+.history.dark:hover, .latest-grade-card.dark:hover,
+.dashboard-links.dark:hover {
+    -webkit-box-shadow:0px 0px 8px 0px rgba(255,255,255,0.8);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(255,255,255,0.8);
+    box-shadow: 0px 0px 8px 0px rgba(255,255,255,0.8);
 }
 
 .friends-column:hover {
@@ -207,6 +218,12 @@
 
 .dash-todo-viewer {
     width: 515px;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+
+}
+
+.dash-todo-viewer:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 
 }
 
@@ -353,6 +370,8 @@
 
 .dashboard-links {
     text-decoration: none;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+
     /* color: black; */
     
 }
@@ -389,7 +408,7 @@
     width: 100%;
 }
 
-.history {
+.history{
     width: 515px;
     height: 400px;
     border-style: solid;
@@ -398,6 +417,10 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     overflow-y: scroll;
+}
+.history:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
 }
 .history-header {
     font-size: 28px;
@@ -469,7 +492,7 @@
         font-family: 'Nunito', sans-serif;
         align-self:center;
     }  
-    .total-task-card, .latest-grade-card {
+    .total-task-card, .latest-grade-card, .latest-grade-card.dark {
         width: 400px;
     } 
     .total-task-card-title, .latest-grade-title, .friends-column-header {
@@ -519,7 +542,7 @@
         font-family: 'Nunito', sans-serif;
         align-self:center;
     }  
-    .total-task-card, .latest-grade-card {
+    .total-task-card, .latest-grade-card, .latest-grade-card.dark  {
         width: 300px;
     } 
     .total-task-card-title, .latest-grade-card-title, .friends-column-header {

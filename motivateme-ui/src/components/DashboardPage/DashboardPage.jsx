@@ -9,6 +9,7 @@ import GraphCard from "../GraphCard/GraphCard";
 import apiClient from "../../../services/apiclient";
 import moment from "moment";
 import { TaskDetail } from "../TodoList/TodoList";
+import { color } from "@chakra-ui/react";
 
 export default function DashboardPage({ user, setCurrPage, colorModeState }) {
   const [friends, setFriends] = useState(null);
@@ -63,7 +64,7 @@ export default function DashboardPage({ user, setCurrPage, colorModeState }) {
                   </h1>
                 </div>
                 <Link to="/todo" className="dashboard-links">
-                  <div className="total-task-card">
+                  <div className={"total-task-card " + colorModeState}>
                     <div className="task-card-header">
                       <img
                         id="total-task-card-img"
@@ -78,7 +79,7 @@ export default function DashboardPage({ user, setCurrPage, colorModeState }) {
                   </div>
                 </Link>
                 <Link to="/recap" className="dashboard-links">
-                  <div className="latest-grade-card">
+                  <div className={"latest-grade-card " + colorModeState }>
                     <div className="grade-card-header">
                       <img
                         id="total-task-card-img"
@@ -93,7 +94,7 @@ export default function DashboardPage({ user, setCurrPage, colorModeState }) {
                   </div>
                 </Link>
                 <Link to="/social" className="dashboard-links">
-                  <div className="friends-column">
+                  <div className={"friends-column " + colorModeState}>
                     <span className="friends-column-header">Friends</span>
                     <div className="friends d-flex flex-column">
                       {friends && friends.length > 0 ? (
@@ -133,12 +134,12 @@ export default function DashboardPage({ user, setCurrPage, colorModeState }) {
               <div className="content-area">
                 {/* If there are graphs, then show them (if it is empty, intentionally don't show any message) */}
                 {graphs?.map((fact, idx) => (
-                  <Link to="/recap" className="dashboard-links" key={idx}>
+                  <Link to="/recap" className={"dashboard-links " + colorModeState} key={idx}>
                     <GraphCard chartInformation={fact} dashboardOn={true} />
                   </Link>
                 ))}
 
-                <div className="dash-todo-viewer">
+                <div className={"dash-todo-viewer " + colorModeState}>
                   <Link to="/todo" className="dashboard-links">
                     <TodoViewer
                       currentTasks={tasks}
@@ -147,7 +148,7 @@ export default function DashboardPage({ user, setCurrPage, colorModeState }) {
                     />
                   </Link>
                 </div>
-                <div className="history d-flex flex-column align-items-center">
+                <div className={"history d-flex flex-column align-items-center " + colorModeState}>
                   <h2 className="history-header">History</h2>
                   {latestGrades?.length === 0 ? (
                     <span className="no-latest">Nothing to show.</span>
