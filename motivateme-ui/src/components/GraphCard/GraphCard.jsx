@@ -122,7 +122,7 @@ export default function GraphCard({
   return (
     <>
       {chartInformation !== null && chartInformation !== undefined ? (
-        <div className={dashboardOn ? "chart-card-mini" : "chart-card"}>
+        <div className={dashboardOn ? "chart-card-mini " + colorModeState : "chart-card"}>
           <h3 className="chart-title">{chartInformation.label}</h3>
           <div className="boundary-graph">
             {generateSpecificChart(chartInformation)}

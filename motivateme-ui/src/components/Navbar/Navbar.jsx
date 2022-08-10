@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import apiClient from "../../../services/apiclient";
@@ -11,7 +11,9 @@ import {
   PopoverBody,
   PopoverArrow,
   PopoverCloseButton,
+  Tooltip
 } from "@chakra-ui/react";
+
 import { IconButton } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
@@ -24,12 +26,18 @@ export default function Navbar({
   currPage,
   loggedInWithGoogle,
   setLoggedInWithGoogle,
+  colorMode
 }) {
+
+
   const onLogoutSuccess = () => {
     setLoggedInWithGoogle(false);
     apiClient.logout();
     setUser(null);
   };
+
+ 
+
   // Function needed in order to conditionally render different navbars
   // to different specific pages (ie 1. landing, 2. login/register 3.else)
   return (
@@ -40,13 +48,16 @@ export default function Navbar({
             <div className="content d-flex flex-row justify-content-between">
               <div className="logo">
                 <h2 className="logo-title">MotivateMe</h2>
-                <Link to="/" className="navigation-link">
+                <Tooltip hasArrow label='Home'  
+                bg={`${colorMode === "light" ? '#34B3F1' : "#2e2d2d"}`} color='#fff'>
+                <Link to="/"  className="navigation-link">
                   <img
                     id="home-logo"
                     src="https://cdn-icons-png.flaticon.com/512/2163/2163301.png"
                     alt="Home Logo"
                   />
                 </Link>
+                </Tooltip>
               </div>
               <div className="nav-links">
                 <Link to="/dashboard" className="navigation-link">
@@ -89,7 +100,11 @@ export default function Navbar({
               <div className="wrapper">
                 <div className="account-links-logged-in">
                   <Link to="/profile" className="navigation-link">
-                    <img
+                  <Tooltip hasArrow label='View Profile' 
+                   bg={`${colorMode === "light" ? '#34B3F1' : "#2e2d2d"}`} color='#fff'>
+
+                  <img
+
                       id="pfp"
                       src={user.image}
                       alt="PFP"
@@ -99,6 +114,8 @@ export default function Navbar({
                         event.onerror = null;
                       }}
                     />
+                  </Tooltip>
+                    
                   </Link>
                   {loggedInWithGoogle ? (
                     <Link to="/" className="google-logout navigation-link">
@@ -126,15 +143,18 @@ export default function Navbar({
                 </div>
                 <div className="burger-menu-logged-in">
                   <Popover>
-                    <PopoverTrigger>
+                    <PopoverTrigger >                  
                       <IconButton
                         fontSize={"28px"}
                         size="lg"
                         aria-label="Search database"
                         icon={<HamburgerIcon />}
+                        background={`${colorMode === "light" ? "#EDF2F7" : "whiteAlpha.200"}`}
+                        _hover={{background:`${colorMode === "light" ? '#e4e9ee' : "#3b4963"}`}}
+
                       />
                     </PopoverTrigger>
-                    <PopoverContent>
+                    <PopoverContent   w='200px' background={`${colorMode === "light" ? "#fff" : "#232c3c"}`}>
                       <PopoverArrow />
                       <PopoverCloseButton />
                       <PopoverBody>
@@ -178,7 +198,7 @@ export default function Navbar({
                             </Link>
                           </>
                           {loggedInWithGoogle ? (
-                            <Link to="/" className="google-logout-burger">
+                            <Link to="/" className="google-logout-burger nav-btn-burger">
                               <GoogleLogout
                                 clientId={clientId}
                                 buttontext="Log Out"
@@ -187,15 +207,14 @@ export default function Navbar({
                             </Link>
                           ) : (
                             <>
-                              <Link to="/" className="google-logout-burger">
+                              <Link to="/" className="nav-btn-burger">
                                 <button
                                   className="nav-btn"
                                   onClick={() => {
                                     apiClient.logout();
                                     setUser(null);
                                   }}
-                                >
-                                  Log Out
+                                >Log Out
                                 </button>
                               </Link>
                             </>
@@ -243,9 +262,12 @@ export default function Navbar({
                           size="lg"
                           aria-label="Search database"
                           icon={<HamburgerIcon />}
+                          background={`${colorMode === "light" ? "#EDF2F7" : "whiteAlpha.200"}`}
+                        _hover={{background:`${colorMode === "light" ? '#e4e9ee' : "#3b4963"}`}}
                         />
                       </PopoverTrigger>
-                      <PopoverContent>
+                      <PopoverContent  w='200px' background={`${colorMode === "light" ? "#fff" : "#232c3c"}`}>
+
                         <PopoverArrow />
                         <PopoverCloseButton />
                         <PopoverBody>

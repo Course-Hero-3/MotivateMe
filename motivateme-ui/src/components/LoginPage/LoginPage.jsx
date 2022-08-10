@@ -191,7 +191,7 @@ export default function LoginPage({
             <p className="ride-line">Or sign in with email</p>
           </div>
 
-          <div className="input-field">
+          <div className="input-field login">
             <label htmlFor="email" className="label">
               Email
             </label>
@@ -206,7 +206,7 @@ export default function LoginPage({
             ></input>
           </div>
 
-          <div className="input-field">
+          <div className="input-field login">
             <label htmlFor="password" className="label">
               Password
             </label>

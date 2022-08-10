@@ -303,13 +303,23 @@ export function TodoCreate({
             <span className="task-name">Category</span>
             <div className="dropdown">
               <Menu>
-                <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                <MenuButton 
+                background={`${colorModeState === "light" ? "#EDF2F7" : "#3b4963"}`}
+                _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+                _active={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
+                as={Button} rightIcon={<ChevronDownIcon />}>
                   {createForm.category.length === 0
                     ? "Select Category"
                     : createForm.category}
                 </MenuButton>
-                <MenuList>
+                <MenuList
+                  background={`${colorModeState === "light" ? "#EDF2F7" : "#3b4963"}`}
+                  _hover={{background:`${colorModeState === "light" ? '#EDF2F7' : "#3b4963"}`}}
+                  _active={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
+                >
                   <MenuItem
+                   _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+                  _focus={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
                     onClick={() => {
                       handleOnCreateFormChange({
                         target: { name: "category", value: "test" },
@@ -319,6 +329,8 @@ export function TodoCreate({
                     test
                   </MenuItem>
                   <MenuItem
+                   _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+                  _focus={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
                     onClick={() => {
                       handleOnCreateFormChange({
                         target: { name: "category", value: "project" },
@@ -328,6 +340,8 @@ export function TodoCreate({
                     project
                   </MenuItem>
                   <MenuItem
+                   _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+                   _focus={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
                     onClick={() => {
                       handleOnCreateFormChange({
                         target: { name: "category", value: "homework" },
@@ -337,6 +351,8 @@ export function TodoCreate({
                     homework
                   </MenuItem>
                   <MenuItem
+                   _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+                  _focus={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
                     onClick={() => {
                       handleOnCreateFormChange({
                         target: { name: "category", value: "quiz" },
@@ -346,6 +362,8 @@ export function TodoCreate({
                     quiz
                   </MenuItem>
                   <MenuItem
+                   _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+                   _focus={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
                     onClick={() => {
                       handleOnCreateFormChange({
                         target: { name: "category", value: "essay" },
@@ -513,13 +531,23 @@ export function TodoUpdate({
             <span className="task-name">Edit Category</span>
             <div className="dropdown">
               <Menu>
-                <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                <MenuButton 
+                background={`${colorModeState === "light" ? "#EDF2F7" : "#3b4963"}`}
+             _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+             _active={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
+                as={Button} rightIcon={<ChevronDownIcon />}>
                   {updateForm.category.length === 0
                     ? "Select Category"
                     : updateForm.category}
                 </MenuButton>
-                <MenuList>
+                <MenuList
+                background={`${colorModeState === "light" ? "#EDF2F7" : "#3b4963"}`}
+                _hover={{background:`${colorModeState === "light" ? '#EDF2F7' : "#3b4963"}`}}
+                _active={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
+                >
                   <MenuItem
+                  _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+                  _focus={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
                     onClick={() => {
                       handleOnUpdateFormChange(
                         { target: { name: "category", value: "test" } },
@@ -531,6 +559,8 @@ export function TodoUpdate({
                     test
                   </MenuItem>
                   <MenuItem
+                  _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+                  _focus={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
                     onClick={() => {
                       handleOnUpdateFormChange(
                         { target: { name: "category", value: "project" } },
@@ -542,6 +572,8 @@ export function TodoUpdate({
                     project
                   </MenuItem>
                   <MenuItem
+                  _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+                  _focus={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
                     onClick={() => {
                       handleOnUpdateFormChange(
                         { target: { name: "category", value: "homework" } },
@@ -553,6 +585,8 @@ export function TodoUpdate({
                     homework
                   </MenuItem>
                   <MenuItem
+                  _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+                  _focus={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
                     onClick={() => {
                       handleOnUpdateFormChange(
                         { target: { name: "category", value: "quiz" } },
@@ -564,6 +598,8 @@ export function TodoUpdate({
                     quiz
                   </MenuItem>
                   <MenuItem
+                  _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+                  _focus={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
                     onClick={() => {
                       handleOnUpdateFormChange(
                         { target: { name: "category", value: "essay" } },
@@ -805,17 +841,32 @@ export function TodoComplete({
                 </div>
 
                 <Menu>
-                  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                  <MenuButton 
+                  background={`${colorModeState === "light" ? "#EDF2F7" : "#3b4963"}`}
+                  _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+                  _active={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
+                  as={Button} rightIcon={<ChevronDownIcon />}>
                     {categoryQuery || "Min"}
                   </MenuButton>
-                  <MenuList>
-                    <MenuItem onClick={() => setCategoryQuery("min")}>
+                  <MenuList
+                   background={`${colorModeState === "light" ? "#EDF2F7" : "#3b4963"}`}
+                  _hover={{background:`${colorModeState === "light" ? '#EDF2F7' : "#3b4963"}`}}
+                  _active={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
+                  >
+                    <MenuItem onClick={() => setCategoryQuery("min")}
+                     _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+                    _focus={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}>
                       min
                     </MenuItem>
-                    <MenuItem onClick={() => setCategoryQuery("hour")}>
+                    <MenuItem onClick={() => setCategoryQuery("hour")}
+                     _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+                     _focus={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
+                    >
                       hour
                     </MenuItem>
-                    <MenuItem onClick={() => setCategoryQuery("day")}>
+                    <MenuItem onClick={() => setCategoryQuery("day")}
+                     _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+                     _focus={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}>
                       day
                     </MenuItem>
                   </MenuList>

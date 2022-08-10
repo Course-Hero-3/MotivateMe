@@ -127,6 +127,7 @@
     border-style: none;
     font-size: 20px;
     text-decoration: none;
+    transition: .2s ease-out; 
     color: inherit;
 }
 .nav-btn-burger:focus, .google-logout-burger:focus {

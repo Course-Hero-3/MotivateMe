@@ -8,8 +8,12 @@
     height: 600px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px  #dbdbdb;
+    transition: transform 0.8s cubic-bezier(.25,.8,.25,1);
+    margin-top: 20px;
 }
-
+.chart-card:hover {
+    transform: scale(1.08);
+}
 .chart-card-mini {
    
     border: 1px solid var(--border-color);
@@ -24,6 +28,8 @@
 .chart-card-mini:hover {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
+
+
 
 .chart-title {
     font-size: 24px;

@@ -38,7 +38,7 @@ String.prototype.replaceAt = function (index, replacement) {
   return this.substring(0, index) + replacement + this.substring(index + 1);
 };
 
-export default function TodoList({ showModal, modalSelected, colorModeState }) {
+export default function TodoList({ showModal, modalSelected, colorModeState}) {
   /**useEffect
    * handle
    */
@@ -430,23 +430,44 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
     <div className="todo-list">
       <div className="todo-list-header">
         <Menu>
-          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+          <MenuButton 
+              background={`${colorModeState === "light" ? "#EDF2F7" : "#3b4963"}`}
+             _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+             _active={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
+          as={Button} rightIcon={<ChevronDownIcon />}>
             {categoryQuery || "Category"}
           </MenuButton>
-          <MenuList>
-            <MenuItem onClick={() => setCategoryQuery("")}>All</MenuItem>
-            <MenuItem onClick={() => setCategoryQuery("homework")}>
+          <MenuList 
+          background={`${colorModeState === "light" ? "#EDF2F7" : "#3b4963"}`}
+          _hover={{background:`${colorModeState === "light" ? '#EDF2F7' : "#3b4963"}`}}
+          _active={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}>
+          
+            <MenuItem onClick={() => setCategoryQuery("")}
+              _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+              _focus={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
+            >All</MenuItem>
+            <MenuItem onClick={() => setCategoryQuery("homework")}
+          _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}
+          _active={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}>
               Homework
             </MenuItem>
-            <MenuItem onClick={() => setCategoryQuery("test")}>Test</MenuItem>
-            <MenuItem onClick={() => setCategoryQuery("quiz")}>Quiz</MenuItem>
-            <MenuItem onClick={() => setCategoryQuery("project")}>
+            <MenuItem onClick={() => setCategoryQuery("test")}
+            _active={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
+            _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}>Test</MenuItem>
+            <MenuItem onClick={() => setCategoryQuery("quiz")}
+            _active={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
+            _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}>Quiz</MenuItem>
+            <MenuItem onClick={() => setCategoryQuery("project")}
+            _active={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
+            _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}>
               Project
             </MenuItem>
-            <MenuItem onClick={() => setCategoryQuery("essay")}>Essay</MenuItem>
+            <MenuItem onClick={() => setCategoryQuery("essay")}
+            _active={{background:`${colorModeState === "dark" ? "#586e96": "#e4e9ee"}`}}
+            _hover={{background:`${colorModeState === "light" ? '#e4e9ee' : "#586e96"}`}}>Essay</MenuItem>
           </MenuList>
         </Menu>
-        <form className="task-form">
+        <form className={`${colorModeState === "light" ? "task-form" : "task-form dark"}`}>
           <button className="task-form-btn">
             {" "}
             <svg viewBox="0 0 1024 1024">
@@ -475,7 +496,7 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
             showModal("create");
           }}
           xmlns="http://www.w3.org/2000/svg"
-          className="icon icon-tabler icon-tabler-circle-plus todo-btn create"
+          className="icon icon-tabler icon-tabler-circle-plus todo-btn create-btn"
           width="65"
           height="65"
           viewBox="0 0 24 24"
