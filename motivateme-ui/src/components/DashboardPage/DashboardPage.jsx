@@ -134,7 +134,7 @@ export default function DashboardPage({ user, setCurrPage, colorModeState }) {
                 {/* If there are graphs, then show them (if it is empty, intentionally don't show any message) */}
                 {graphs?.map((fact, idx) => (
                   <Link to="/recap" className="dashboard-links" key={idx}>
-                    <GraphCard chartInformation={fact} dashboardOn={true} />
+                    <GraphCard chartInformation={fact} dashboardOn={true} colorModeState={colorModeState} />
                   </Link>
                 ))}
 
@@ -291,7 +291,7 @@ export function MiniTodoCard({
         setColorState("yellow");
       }
     } else {
-      setColorState("dark-color")
+      setColorState("dark-color");
     }
   }, []);
 
@@ -346,8 +346,13 @@ export function MiniTodoCard({
         {/* Check whether to mark it as late or upcoming */}
         {taskIsLate() ? (
           <>
-                    <p className={`late-text-dash${colorModeState==="dark"?" lighter":""}`}>Late</p>
-
+            <p
+              className={`late-text-dash${
+                colorModeState === "dark" ? " lighter" : ""
+              }`}
+            >
+              Late
+            </p>
           </>
         ) : (
           <p className="upcoming-text-dash">In Progress</p>

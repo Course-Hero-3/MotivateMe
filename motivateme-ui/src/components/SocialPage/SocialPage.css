@@ -238,19 +238,7 @@
 }
 
 .follow-btn {
-    margin-top: 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    height: 39px;
-    width: 80px;
-    background-color: #34b3f1;
-    color: white;
-}
-
-.unfollow-btn {
-    margin-bottom: 5px;
+    margin-top: 5px;
     border-radius: 5px;
     font-size: 16px;
     border: none;
@@ -258,6 +246,18 @@
     height: 39px;
     width: 90px;
     background-color: #34b3f1;
+    color: white;
+}
+
+.unfollow-btn {
+    margin-top: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    height: 39px;
+    width: 90px;
+    background-color: rgb(101, 101, 101);
     color: white;
 }
 

@@ -9,6 +9,7 @@ export default function HorizontalBarVisual({
   yAxisLabel,
   actualData,
   colors,
+  colorModeState
 }) {
   // take in these 3 props when we render all visuals
   return (
@@ -37,14 +38,28 @@ export default function HorizontalBarVisual({
         },
         scales: {
           y: {
+            grid: {
+              color: `${colorModeState === "dark" ? "#333944" : "lightgray"}`,
+            },
+            ticks: {
+              color: `${colorModeState==="dark"?"white":"black"}`
+            },
             beginAtZero: true,
             title: {
+              color: `${colorModeState==="dark"?"white":"black"}`,
               display: true,
               text: yAxisLabel,
             },
           },
           x: {
+            grid: {
+              color: `${colorModeState === "dark" ? "#333944" : "lightgray"}`,
+            },
+            ticks: {
+              color: `${colorModeState==="dark"?"white":"black"}`
+            },
             title: {
+              color: `${colorModeState==="dark"?"white":"black"}`,
               display: true,
               text: xAxisLabel,
             },

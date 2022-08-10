@@ -96,14 +96,16 @@ export default function LandingPage({ setCurrPage, colorModeState }) {
               <div className="contact-footer-column ">
                 <h3 className="footer-column-header">Developers</h3>
                 <p className="dev-name">Gikai Andrews</p>
-                <p className="dev-name">Stephane Mbenga</p>
                 <p className="dev-name">Kian Ranjbar</p>
+                <p className="dev-name">Stephane Mbenga</p> 
+                {/* Had to move because of mobile view line overflow */}
+
               </div>
               <div className="contact-footer-column ">
                 <h3 className="footer-column-header">Contact</h3>
                 <p className="dev-email">gikai.andrews.site@codepath.org</p>
-                <p className="dev-email">stephane.mbenga.site@codepath.org</p>
                 <p className="dev-email">kian.ranjbar.site@codepath.org</p>
+                <p className="dev-email">stephane.mbenga.site@codepath.org</p>
               </div>
 
               <div className="contact-footer-column company">

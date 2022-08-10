@@ -5,6 +5,8 @@ import { useState } from "react";
 import AccessForbidden from "../AccessForbidden/AccessForbidden";
 import GraphCard from "../GraphCard/GraphCard";
 import moment from "moment";
+import { useToast } from "@chakra-ui/react";
+
 
 export default function SocialPage({ user, setCurrPage, colorModeState }) {
   const [rightTabState, setRightTabState] = useState("friends");
@@ -18,6 +20,7 @@ export default function SocialPage({ user, setCurrPage, colorModeState }) {
   const [followersQuery, setFollowersQuery] = useState("")
   const [refresh, setRefresh] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const toast = useToast()
 
   React.useEffect(() => {
     // function that will check if user clicked inside of the search bar
@@ -82,6 +85,13 @@ export default function SocialPage({ user, setCurrPage, colorModeState }) {
   const handleOnFollow = async (username) => {
     const { error } = await apiClient.follow({ username: username });
     if (!error) {
+      toast({
+        title: `Followed ${username}!`,
+        description: "",
+        status: "info",
+        duration: 1500,
+        isClosable: true,
+      });
       setRefresh(!refresh);
     }
   };
@@ -89,6 +99,13 @@ export default function SocialPage({ user, setCurrPage, colorModeState }) {
   const handleOnUnfollow = async (username) => {
     const { error } = await apiClient.unfollow({ username: username });
     if (!error) {
+      toast({
+        title: `Unfollowed ${username}!`,
+        description: "",
+        status: "info",
+        duration: 1500,
+        isClosable: true,
+      });
       setRefresh(!refresh);
     }
   };

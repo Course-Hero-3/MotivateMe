@@ -270,7 +270,7 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
         toast({
           title: "Task succesfully updated!",
           description: "",
-          status: "success",
+          status: "info",
           duration: 6000,
           isClosable: true,
         });
@@ -391,7 +391,7 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
       toast({
         title: "Task succesfully completed!",
         description: "",
-        status: "success",
+        status: "info",
         duration: 6000,
         isClosable: true,
       });
@@ -411,7 +411,7 @@ export default function TodoList({ showModal, modalSelected, colorModeState }) {
       toast({
         title: "Task succesfully deleted!",
         description: "",
-        status: "success",
+        status: "info",
         duration: 6000,
         isClosable: true,
       });

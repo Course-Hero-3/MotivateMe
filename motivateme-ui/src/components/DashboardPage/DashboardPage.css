@@ -354,9 +354,20 @@
     /* color: black; */
     
 }
-
+.dashboard-links:focus {
+    color: inherit
+}
 .dashboard-links:hover {
-    color: inherit;
+    color: inherit
+}
+.dashboard-links:visited {
+    color: inherit
+}
+.dashboard-links:link {
+    color: inherit
+}
+.dashboard-links:active {
+    color: inherit
 }
 
 .no-friends-dash {
