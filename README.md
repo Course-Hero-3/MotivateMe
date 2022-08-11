@@ -16,7 +16,7 @@ Project Code Repository Links
 
 MotivateMe allows college students to organize their school work as well as motivating them through their journey with visuals and social media.
 
-Deployment Website: **tbd**
+Deployment Website: **https://motivateme-v8.surge.sh**
 
 ### Open-source libraries used
 
