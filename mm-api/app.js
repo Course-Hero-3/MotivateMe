@@ -5,6 +5,17 @@ const { NotFoundError } = require("./utils/errors")
 const security = require("./middleware/security")
 
 const app = express() // express() constructor returns an app object
+const corsOptions = {
+    origin:true,
+    credentials:true
+}
+app.options('*', cors(corsOptions))
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requeseted-With, Content-Type, Accept");
+    next()
+})
 
 app.use(morgan("tiny"))
 app.use(express.json())
@@ -19,13 +30,13 @@ app.use(security.extractUserFromJwt)
 const authRoute = require("./routes/auth")
 const todoRoute = require("./routes/todo")
 const recapRoute = require("./routes/recap")
-const socialRoute = require("./routes/social")
+// social - stretch
 
 // put all extra route paths here such ass
 app.use("/auth", authRoute)
 app.use("/todo", todoRoute)
 app.use("/recap", recapRoute)
-app.use("/social", socialRoute)
+// app.use("/social", socialRoute) - stretch
 
 
 app.get("/", async (req, res, next) => {
