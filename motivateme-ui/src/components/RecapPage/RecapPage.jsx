@@ -9,7 +9,7 @@ import AccessForbidden from "../AccessForbidden/AccessForbidden";
 
 export default function RecapPage({ user, setCurrPage, colorModeState }) {
   const [facts, setFacts] = React.useState(null);
-  const [limitItems, setLimitItems] = React.useState(3);
+  const [limitItems, setLimitItems] = React.useState(2);
   // get the stats every time the component mounts
   React.useEffect(() => {
     const getFacts = async () => {
@@ -57,7 +57,7 @@ export default function RecapPage({ user, setCurrPage, colorModeState }) {
                     <button
                       className="load-more"
                       type="button"
-                      onClick={() => setLimitItems(limitItems + 3)}
+                      onClick={() => setLimitItems(limitItems + 2)}
                     >
                       Load More
                     </button>

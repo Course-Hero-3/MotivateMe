@@ -6,7 +6,7 @@ Cohort: **Course Hero 3**
 
 Team Member Names:**Gikai, Kian, Stephane**
 
-Mentors Names: **Kyle Holt, Bryan Ngo, Andrew**
+Mentors Names: **Kyle Holt, Bryan Ngo, Andrew Lan**
 
 Project Code Repository Links
 
@@ -16,11 +16,14 @@ Project Code Repository Links
 
 MotivateMe allows college students to organize their school work as well as motivating them through their journey with visuals and social media.
 
-Deployment Website: **tbd**
+Deployment Website: **https://motivateme-v8.surge.sh**
 
 ### Open-source libraries used
 
 - https://www.chartjs.org/
 - https://getbootstrap.com/
 - https://chakra-ui.com/
+- https://react-icons.github.io/react-icons/
+- https://www.npmjs.com/package/react-google-login
+
 
