@@ -280,6 +280,18 @@ class Todo {
     return await Todo.returnPublicTask(updateQuery.rows[0]);
   }
 
+  //get completed tasks and return them in a list
+  static async completedTasks(){
+    let result = await db.query(`
+    SELECT * from completed
+    RETURNING task_id, user_id, score, time_spent, people_with, comment, on_time, public
+    `)
+
+    console.log(result.rows)
+
+    return result.rows
+  }
+
   //returns tasks that are late
   static async checkIfLate() {
     let date = new Date();
