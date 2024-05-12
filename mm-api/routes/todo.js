@@ -7,28 +7,28 @@ const router = express.Router();
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const accountSid = process.env.SID;
 
-const client = require("twilio")(accountSid, authToken);
+// const client = require("twilio")(accountSid, authToken);
 
-async function notifyLate() {
-  let notifyLate = await Todo.checkIfLate();
-  if (notifyLate != null && notifyLate.size != 0) {
-    notifyLate.forEach((value) => {
-        if (value.phone.length != 0) {
-        client.messages
-        .create({
-          to: "+1"+value.phone,
-          from: process.env.TWILIO_PHONE_NUM,
-          body: value.message,
-        })
-        .then((message) => {
-        });
-        }
-    });
+// async function notifyLate() {
+//   let notifyLate = await Todo.checkIfLate();
+//   if (notifyLate != null && notifyLate.size != 0) {
+//     notifyLate.forEach((value) => {
+//         if (value.phone.length != 0) {
+//         client.messages
+//         .create({
+//           to: "+1"+value.phone,
+//           from: process.env.TWILIO_PHONE_NUM,
+//           body: value.message,
+//         })
+//         .then((message) => {
+//         });
+//         }
+//     });
     
-  }
-}
+//   }
+// }
 
-setInterval(notifyLate, 60000);
+// setInterval(notifyLate, 60000);
 
 //handles sms notications notifications
 
