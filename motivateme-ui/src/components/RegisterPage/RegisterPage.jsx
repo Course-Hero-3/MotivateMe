@@ -3,6 +3,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiClient from "../../../services/apiclient";
 import { BsFillTrashFill } from "react-icons/bs";
+import mainImg from "../../assets/Main_Img.png";
+
 // import S3FileUpload from "react-s3";
 
 export default function RegisterPage({
@@ -239,7 +241,7 @@ export default function RegisterPage({
         <div className="side-nav-image-wrapper">
           <img
             className="register-img"
-            src="https://cdn.discordapp.com/attachments/990657295526539307/999346161578164306/Multi-device_targeting-rafiki_1.png"
+            src={mainImg}
           ></img>
         </div>
       </div>
