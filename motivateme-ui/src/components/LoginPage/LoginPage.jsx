@@ -5,6 +5,7 @@ import apiClient from "../../../services/apiclient";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
+import mainImg from "../../assets/Main_Img.png";
 import googleIcon from "../../assets/google-icon.webp";
 import { gapi } from "gapi-script";
 
@@ -153,7 +154,7 @@ export default function LoginPage({
         <div className="side-nav-image-wrapper">
           <img
             className="login-img"
-            src="https://cdn.discordapp.com/attachments/990657295526539307/999346486011760750/Working_from_anywhere-rafiki.png"
+            src={mainImg}
           />
         </div>
       </div>
