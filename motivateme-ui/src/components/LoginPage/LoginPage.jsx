@@ -4,7 +4,7 @@ import "./LoginPage.css";
 import apiClient from "../../../services/apiclient";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from "react-google-login";
+// import { GoogleLogin } from "react-google-login";
 import mainImg from "../../assets/Main_Img.png";
 import googleIcon from "../../assets/google-icon.webp";
 import { gapi } from "gapi-script";
@@ -164,7 +164,7 @@ export default function LoginPage({
             <h2 className="login-title">Log In</h2>
             <h3 className="login-text">Track your progress with friends!</h3>
             <div className="google-login mobile">
-              <GoogleLogin
+              {/* <GoogleLogin
                 clientId={clientId}
                 buttonText="Log In with Google"
                 onSuccess={onSuccess}
@@ -187,7 +187,7 @@ export default function LoginPage({
                 )}
                 cookiePolicy={"single_host_origin"}
                 isSignedIn={true}
-              ></GoogleLogin>
+              ></GoogleLogin> */}
             </div>
             <p className="ride-line">Or sign in with email</p>
           </div>

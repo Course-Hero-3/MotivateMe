@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import apiClient from "../../../services/apiclient";
-import { GoogleLogout } from "react-google-login";
+// import { GoogleLogout } from "react-google-login";
 /*for popover */
 import {
   Popover,
@@ -119,11 +119,11 @@ export default function Navbar({
                   </Link>
                   {loggedInWithGoogle ? (
                     <Link to="/" className="google-logout navigation-link">
-                      <GoogleLogout
+                      {/* <GoogleLogout
                         clientId={clientId}
                         buttontext="Log Out"
                         onLogoutSuccess={onLogoutSuccess}
-                      ></GoogleLogout>
+                      ></GoogleLogout> */}
                     </Link>
                   ) : (
                     <>
@@ -199,11 +199,11 @@ export default function Navbar({
                           </>
                           {loggedInWithGoogle ? (
                             <Link to="/" className="google-logout-burger nav-btn-burger">
-                              <GoogleLogout
+                              {/* <GoogleLogout
                                 clientId={clientId}
                                 buttontext="Log Out"
                                 onLogoutSuccess={onLogoutSuccess}
-                              ></GoogleLogout>
+                              ></GoogleLogout> */}
                             </Link>
                           ) : (
                             <>
