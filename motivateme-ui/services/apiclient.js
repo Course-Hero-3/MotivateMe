@@ -115,4 +115,4 @@ class ApiClient {
 // export default new ApiClient("http://localhost:3001")
 // When pushing, keep the heroku link one COMMENTED OUT and keep the local host one
 // Switch when developing / deploying 
-export default new ApiClient("https://motivatemee-b80ed9ad8ed6.herokuapp.com/")
+export default new ApiClient("https://motivatemee-b80ed9ad8ed6.herokuapp.com")
