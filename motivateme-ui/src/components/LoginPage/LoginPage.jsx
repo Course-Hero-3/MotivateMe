@@ -5,12 +5,9 @@ import apiClient from "../../../services/apiclient";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 // import { GoogleLogin } from "react-google-login";
+import { useGoogleLogin } from "@react-oauth/google"
 import mainImg from "../../assets/Main_Img.png";
 import googleIcon from "../../assets/google-icon.webp";
-import { gapi } from "gapi-script";
-
-const clientId =
-  "505543512767-7eaflkfnc9l791ojove3bgb2hvuh61a3.apps.googleusercontent.com";
 
 export default function LoginPage({
   user,
@@ -24,47 +21,39 @@ export default function LoginPage({
   const [loginError, setLoginError] = useState(null);
   const navigate = useNavigate();
 
-  // Google Login UseEffect hook separated
-  useEffect(() => {
-    function start() {
-      gapi.client.init({
-        clientId: clientId,
-        scope: "",
-      });
-    }
-    gapi.load("client:auth2", start);
-  }, []);
-
   // set currPage to login for navbar functionality
   useEffect(() => {
     setCurrPage("login");
   }, []);
+
   useEffect(() => {
     if (user?.email) {
       navigate("/dashboard");
     }
   }, [user, navigate]);
 
-  // google sign in login success and failure handlers
-  const onSuccess = async (googleData) => {
-    let { data, error } = await apiClient.googleLogin(googleData.profileObj);
 
-    if (data?.token) {
-      setLoginError(null);
-      setLoggedInWithGoogle(true);
-      apiClient.setToken(data.token);
-      setUser(data.user);
-      setLoginForm({ email: "", password: "" });
-    }
-    if (error) {
-      setLoginError(error);
-      setLoggedInWithGoogle(false);
-    }
-  };
+  // google login function
+  const googleLogin = useGoogleLogin({
+    onSuccess: async ({ code }) => {
+      const { data, error } = await apiClient.googleLogin(code);
+      console.log(data.tokens);
+      if (data?.tokens) {
+        setLoginError(null);
+        setLoggedInWithGoogle(true);
+        // apiClient.setToken(data.tokens.access_token);
+        // setUser(data.user);
+        setLoginForm({ email: "", password: "" });
+      }
+      if (error) {
+        setLoggedInWithGoogle(false)
+        setLoginError(error);
+      }
+    },
+    onFailure: (result) => { setLoginError("Google sign in failed") },
+    flow: 'auth-code',
+  });
 
-  const onFailure = (result) => {
-    setLoginError("Google sign in failed");
-  };
 
   // change the login form when we change anything
   const handleOnLoginFormChange = (event) => {
@@ -164,6 +153,15 @@ export default function LoginPage({
             <h2 className="login-title">Log In</h2>
             <h3 className="login-text">Track your progress with friends!</h3>
             <div className="google-login mobile">
+              <div
+                className="button-wrapper mobile"
+                onClick={() => googleLogin()}
+              >
+                <img src={googleIcon} alt="google-icon" className="google-icon"></img>
+                <span className="google-signin-text mobile">
+                  Sign in with Google
+                </span>
+              </div>
               {/* <GoogleLogin
                 clientId={clientId}
                 buttonText="Log In with Google"
@@ -200,7 +198,7 @@ export default function LoginPage({
               type="text"
               id="email"
               name="email"
-              className={`form-input${colorModeState === "light"?" gray-bg":""}`}
+              className={`form-input${colorModeState === "light" ? " gray-bg" : ""}`}
               placeholder="Type your email"
               value={loginForm.email}
               onChange={handleOnLoginFormChange}
@@ -215,7 +213,7 @@ export default function LoginPage({
               type="password"
               id="password"
               name="password"
-              className={`form-input${colorModeState === "light"?" gray-bg":""}`}
+              className={`form-input${colorModeState === "light" ? " gray-bg" : ""}`}
               placeholder="Type your password"
               value={loginForm.password}
               onChange={handleOnLoginFormChange}
