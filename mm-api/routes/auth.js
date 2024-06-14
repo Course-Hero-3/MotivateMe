@@ -3,26 +3,30 @@ const User = require("../models/user");
 const { createUserJwt } = require("../utils/tokens");
 const security = require("../middleware/security");
 const router = express.Router();
-// const {
-//   OAuth2Client,
-// } = require('google-auth-library');
+const {
+  OAuth2Client,
+} = require('google-auth-library');
 
-// const oAuth2Client = new OAuth2Client(
-//   process.env.CLIENT_ID,
-//   process.env.CLIENT_SECRET,
-//   'postmessage',
-// );
+const oAuth2Client = new OAuth2Client(
+  process.env.CLIENT_ID,
+  process.env.CLIENT_SECRET,
+  'postmessage',
+);
 
 router.post("/google", async (req, res, next) => {
   try {
-    console.log(req.body.code);
-    // const publicUser = await User.googleLogin(req.body);
+    // get tokens 
     const { tokens } = await oAuth2Client.getToken(req.body.code); // exchange code for tokens
-    console.log(tokens);
-    // const token = createUserJwt(publicUser); // encode the user as a payload
+    // Verify and decode the ID token to retrieve google user information
+    const ticket = await oAuth2Client.verifyIdToken({
+      idToken: tokens.id_token,
+      audience: process.env.CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+    const publicUser = await User.googleLogin(payload);
+    const token = createUserJwt(publicUser); // encode the user as a payload
     res.status(200);
-    res.json({ user: "bob" });
-    // res.json({ user: publicUser, tokens });
+    res.json({ user: publicUser, token });
   } catch (error) {
     next(error);
   }

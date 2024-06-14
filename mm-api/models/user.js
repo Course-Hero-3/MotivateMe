@@ -272,9 +272,9 @@ class User {
         information.email.toLowerCase(),
         "googlepassword",
         generatedUsername,
-        information.givenName,
-        information.familyName,
-        information.imageUrl,
+        information.given_name,
+        information.family_name,
+        information.picture,
         "GOOGLE",
       ];
       const result = await db.query(text, values);
