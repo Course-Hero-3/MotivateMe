@@ -36,13 +36,12 @@ export default function LoginPage({
   // google login function
   const googleLogin = useGoogleLogin({
     onSuccess: async ({ code }) => {
-      const { data, error } = await apiClient.googleLogin(code);
-      console.log(data.tokens);
-      if (data?.tokens) {
+      const { data, error } = await apiClient.googleLogin({code});
+      if (data?.token) {
         setLoginError(null);
         setLoggedInWithGoogle(true);
-        // apiClient.setToken(data.tokens.access_token);
-        // setUser(data.user);
+        apiClient.setToken(data.token);
+        setUser(data.user);
         setLoginForm({ email: "", password: "" });
       }
       if (error) {

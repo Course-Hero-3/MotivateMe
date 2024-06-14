@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import apiClient from "../../../services/apiclient";
-// import { GoogleLogout } from "react-google-login";
+import { googleLogout } from "@react-oauth/google";
 /*for popover */
 import {
   Popover,
@@ -17,9 +17,6 @@ import {
 import { IconButton } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
-const clientId =
-  "505543512767-7eaflkfnc9l791ojove3bgb2hvuh61a3.apps.googleusercontent.com";
-
 export default function Navbar({
   user,
   setUser,
@@ -29,14 +26,6 @@ export default function Navbar({
   colorMode
 }) {
 
-
-  const onLogoutSuccess = () => {
-    setLoggedInWithGoogle(false);
-    apiClient.logout();
-    setUser(null);
-  };
-
- 
 
   // Function needed in order to conditionally render different navbars
   // to different specific pages (ie 1. landing, 2. login/register 3.else)
@@ -117,20 +106,13 @@ export default function Navbar({
                   </Tooltip>
                     
                   </Link>
-                  {loggedInWithGoogle ? (
-                    <Link to="/" className="google-logout navigation-link">
-                      {/* <GoogleLogout
-                        clientId={clientId}
-                        buttontext="Log Out"
-                        onLogoutSuccess={onLogoutSuccess}
-                      ></GoogleLogout> */}
-                    </Link>
-                  ) : (
-                    <>
+                 
                       <Link to="/" className="google-logout navigation-link">
                         <button
                           className="nav-btn"
                           onClick={() => {
+                            if (loggedInWithGoogle)
+                              googleLogout()
                             apiClient.logout();
                             setUser(null);
                           }}
@@ -138,8 +120,8 @@ export default function Navbar({
                           Log Out
                         </button>
                       </Link>
-                    </>
-                  )}
+                   
+                
                 </div>
                 <div className="burger-menu-logged-in">
                   <Popover>
