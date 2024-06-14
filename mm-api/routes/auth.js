@@ -3,13 +3,26 @@ const User = require("../models/user");
 const { createUserJwt } = require("../utils/tokens");
 const security = require("../middleware/security");
 const router = express.Router();
+// const {
+//   OAuth2Client,
+// } = require('google-auth-library');
 
-router.post("/googlelogin", async (req, res, next) => {
+// const oAuth2Client = new OAuth2Client(
+//   process.env.CLIENT_ID,
+//   process.env.CLIENT_SECRET,
+//   'postmessage',
+// );
+
+router.post("/google", async (req, res, next) => {
   try {
-    const publicUser = await User.googleLogin(req.body);
-    const token = createUserJwt(publicUser); // encode the user as a payload
+    console.log(req.body.code);
+    // const publicUser = await User.googleLogin(req.body);
+    const { tokens } = await oAuth2Client.getToken(req.body.code); // exchange code for tokens
+    console.log(tokens);
+    // const token = createUserJwt(publicUser); // encode the user as a payload
     res.status(200);
-    res.json({ user: publicUser, token });
+    res.json({ user: "bob" });
+    // res.json({ user: publicUser, tokens });
   } catch (error) {
     next(error);
   }
