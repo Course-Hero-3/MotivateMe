@@ -4,7 +4,6 @@ import "./LoginPage.css";
 import apiClient from "../../../services/apiclient";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-// import { GoogleLogin } from "react-google-login";
 import { useGoogleLogin } from "@react-oauth/google"
 import mainImg from "../../assets/Main_Img.png";
 import googleIcon from "../../assets/google-icon.webp";
@@ -19,6 +18,7 @@ export default function LoginPage({
   // track the form and error for login
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   const [loginError, setLoginError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   // set currPage to login for navbar functionality
@@ -98,7 +98,6 @@ export default function LoginPage({
   };
   const handleOnLoginFormSubmit = async (event) => {
     event.preventDefault();
-
     if (loginForm.email.length === 0) {
       setLoginError("Email field was left blank");
       return;
@@ -119,9 +118,9 @@ export default function LoginPage({
     if (loginError) {
       return;
     }
-
+    
+    setIsLoading(true);
     let { data, error } = await apiClient.login(loginForm);
-
     if (data?.token) {
       setLoggedInWithGoogle(false);
       apiClient.setToken(data.token);
@@ -131,7 +130,9 @@ export default function LoginPage({
     if (error) {
       setLoginError(error);
     }
+    setIsLoading(false);
   };
+
   return (
     <div className="login-page">
       <div className="side-nav-bar">
@@ -161,34 +162,10 @@ export default function LoginPage({
                   Sign in with Google
                 </span>
               </div>
-              {/* <GoogleLogin
-                clientId={clientId}
-                buttonText="Log In with Google"
-                onSuccess={onSuccess}
-                onFailure={onFailure}
-                render={(renderProps) => (
-                  <div
-                    className="button-wrapper mobile"
-                    onClick={renderProps.onClick}
-                    disabled={renderProps.disabled}
-                  >
-                    <img
-                      src={googleIcon}
-                      alt="google-icon"
-                      className="google-icon"
-                    ></img>
-                    <span className="google-signin-text mobile">
-                      Sign in with Google
-                    </span>
-                  </div>
-                )}
-                cookiePolicy={"single_host_origin"}
-                isSignedIn={true}
-              ></GoogleLogin> */}
+             
             </div>
             <p className="ride-line">Or sign in with email</p>
           </div>
-
           <div className="input-field login">
             <label htmlFor="email" className="label">
               Email
@@ -226,7 +203,7 @@ export default function LoginPage({
               className="login-button"
               onClick={handleOnLoginFormSubmit}
             >
-              Log In
+            {isLoading ? <div className="loading-spinner"></div> : "Log in"}
             </button>
 
             <p className="footer-text">

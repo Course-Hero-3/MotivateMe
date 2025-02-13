@@ -25,6 +25,7 @@ export default function RegisterPage({
     phone: "",
   });
   const [registerError, setRegisterError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const ref = useRef();
 
@@ -205,7 +206,7 @@ export default function RegisterPage({
     if (registerError) {
       return;
     }
-
+    setIsLoading(true);
     let { data, error } = await apiClient.register(registerForm);
 
     if (data?.token) {
@@ -227,7 +228,7 @@ export default function RegisterPage({
       }
       setRegisterError(error);
     }
-
+    setIsLoading(false);
     // now call express erver
   };
 
@@ -395,7 +396,7 @@ export default function RegisterPage({
                 type="button"
                 onClick={handleOnRegisterFormSubmit}
               >
-                Register
+               {isLoading ? <div className="loading-spinner"></div> : "Register"}
               </button>
               <h2 className="login-account">
                 Have an account or continue with Google Account? Login{" "}
