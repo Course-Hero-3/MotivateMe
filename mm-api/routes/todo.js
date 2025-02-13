@@ -93,7 +93,7 @@ router.post(
   permissions.authedUserOwnsTask,
   async (req, res, next) => {
     try {
-      // needs taskId in req.body as well
+  dw    // needs taskId in req.body as well
       const publicUserFromDecodedToken = res.locals.user;
       const completedPublicTask = await Todo.completeTask(
         req.body,
