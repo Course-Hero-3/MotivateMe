@@ -1,11 +1,9 @@
 .register-page {
     width: 100%;
-    height: 100vh;
     display: flex;
-    align-items: center;
-    overflow: hidden;
+    justify-content: center;
     font-family: 'Nunito', sans-serif;
-
+    height: 100vh;
 }
 .register-title {
     font-weight: bold;
@@ -15,9 +13,8 @@
     font-size: 22px;
 }
 .side-nav-bar {
-    width: 800px;
+    width:50%;
     margin-left: 0;
-    height: 100%;
     background: var(--primary-blue);
     display: flex;
     flex-direction: column;
@@ -28,13 +25,6 @@
         display: none;
     }
 
-    .register-page {
-        display: block;
-        margin: 0 auto;
-        align-items: flex-start;
-        height: 100%;
-        width: 100vw;
-    }
     .register-title {
         font-size:25px;
     }
@@ -73,8 +63,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 800px;
-    width: 550px;
+    height: 100%;
+    padding: 20px 0px;
 }
 .main-titles {
     align-self: flex-start;
@@ -82,16 +72,10 @@
 
 .register-form-wrapper {
     width: 50%;
-    height: 100vh;
-    margin-bottom: 40px;
-    margin-right: 110px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-right:auto;
-    margin-left: auto;
-
 }
 
 @media(max-width:1195px){
@@ -140,7 +124,6 @@
     display: flex;
     flex-direction: row;
     gap: 20px;
-    margin-top: 10px;
 }
 .label {
     font-weight: bold;
@@ -251,7 +234,6 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-top: 15px;
 }
 
 .login-link, .login-account {

@@ -248,12 +248,6 @@ export default function RegisterPage({
       </div>
       <div className="register-form-wrapper">
         <form className="register-form">
-          <div className="main-titles">
-            <h2 className="register-title">Create New Account</h2>
-            <h4 className="register-subtitle">
-              Join others in some daily motivation!
-            </h4>
-          </div>
           <div className="split-input-field">
             <div className="input-field-split">
               <span className="label">First Name</span>
@@ -371,7 +365,7 @@ export default function RegisterPage({
 
           </div>
           <div className="input-field register">
-            <span className="label">
+            {/* <span className="label">
               Phone Number (optional) - SMS Notifications
             </span>
 
@@ -385,7 +379,7 @@ export default function RegisterPage({
               }`}
               value={registerForm.phone}
               onChange={handleOnRegisterFormChange}
-            ></input>
+            ></input> */}
 
             <div className="register-footer">
               {registerError ? (
